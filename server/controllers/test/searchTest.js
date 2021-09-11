@@ -1,6 +1,3 @@
-require('dotenv').config();
-const Sequelize = require('sequelize');
-require('sequelize-values')(Sequelize);
 const db = require('../../models');
 
 module.exports = {
