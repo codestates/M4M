@@ -23,24 +23,26 @@ module.exports = {
             title: req.query.query
           }
         });
-        console.log(songInfo[0].title);
 
-        res.status(200).json({
-          data: [{
-            id: songInfo[0].id,
-            title: songInfo[0].title,
-            artist: songInfo[0].artist,
-            genre: songInfo[0].genre,
-            album_art: songInfo[0].album_art,
-            date: songInfo[0].date,
-            lyrics: songInfo[0].lyrics
-          }],
-          message: 'ok'
-        });
-      } else {
-        res.status(400).json({
-          message: 'Song not found'
-        });
+        if (songInfo.length === 0) {
+          res.status(400).json({
+            message: 'Song not found'
+          });
+        } else {
+          // console.log(songInfo);
+          res.status(200).json({
+            data: [{
+              id: songInfo[0].id,
+              title: songInfo[0].title,
+              artist: songInfo[0].artist,
+              genre: songInfo[0].genre,
+              album_art: songInfo[0].album_art,
+              date: songInfo[0].date,
+              lyrics: songInfo[0].lyrics
+            }],
+            message: 'ok'
+          });
+        }
       }
     } catch (error) {
       console.error(error);
