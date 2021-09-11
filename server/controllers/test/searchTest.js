@@ -33,9 +33,13 @@ module.exports = {
               title: songInfo[0].title,
               artist: songInfo[0].artist,
               genre: songInfo[0].genre,
+              album: songInfo[0].album,
               album_art: songInfo[0].album_art,
               date: songInfo[0].date,
-              lyrics: songInfo[0].lyrics
+              lyrics: songInfo[0].lyrics,
+              recommendType1: songInfo[0].recommendType1,
+              recommendType2: songInfo[0].recommendType2,
+              recommendType3: songInfo[0].recommendType3
             }],
             message: 'ok'
           });
