@@ -1,6 +1,6 @@
-# im30project06
+# M4M (Music for Millennials)
 
-# Team
+# Team MGs
 
 |  이름  | Position | Repository |
 | ----- |-------------- | ---------------------------- |
