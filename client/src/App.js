@@ -1,12 +1,16 @@
-import Test from './Test/DistributionTest';
 import './App.css';
+import { BrowserRouter } from "react-router-dom";
+import Header from './basic_component/Header';
+import Footer from './basic_component/Footer';
 
 function App () {
   return (
-    <div className='App'>
-      Client distribution test:
-      <Test />
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Header />
+        <Footer />
+      </div>
+    </BrowserRouter>
   );
 }
 
