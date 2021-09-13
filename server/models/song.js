@@ -11,6 +11,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate (models) {
       // define association here
+      song.hasMany(models.comment, {
+        foreignKey: "songId",
+      });
+      song.hasMany(models.songuserhashtaglike, {
+        foreignKey: "songId",
+      });
     }
   }
   song.init({
