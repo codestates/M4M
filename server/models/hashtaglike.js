@@ -9,18 +9,18 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
+    static associate (models) {
       // define association here
       hashtaglike.hasMany(models.songuserhashtaglike, {
-        foreignKey: "hashtagId",
+        foreignKey: 'hashtagId'
       });
     }
-  };
+  }
   hashtaglike.init({
     name: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'hashtaglike',
+    modelName: 'hashtaglike'
   });
   return hashtaglike;
 };
