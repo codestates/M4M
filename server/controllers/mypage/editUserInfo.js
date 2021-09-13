@@ -58,10 +58,11 @@ module.exports = async (req, res) => {
       });
 
       if (duplicateNickname.length === 0) {
-      // 닉네임을 변경했고 중복 닉네임이 없을 경우
+        // 닉네임을 변경했고 중복 닉네임이 없을 경우
         changedNickname = changedNickname + '1';
       } else {
         // 닉네임을 변경했고 중복 닉네임이 존재하는 경우
+        // 중복되는 닉네임들 중 가장 마지막 닉네임의 번호에 1을 더해 새로운 닉네임 설정
         const lastNickname = duplicateNickname[duplicateNickname.length - 1].nickname;
         const lastNicknameNumber = lastNickname.split('#')[1];
         // console.log('last nickname: ' + lastNickname);
