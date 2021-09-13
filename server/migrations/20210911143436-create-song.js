@@ -26,6 +26,9 @@ module.exports = {
       date: {
         type: Sequelize.STRING
       },
+      year: {
+        type: Sequelize.INTEGER
+      },
       lyrics: {
         type: Sequelize.TEXT
       },
