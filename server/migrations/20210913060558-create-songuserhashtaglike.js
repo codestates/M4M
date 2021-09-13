@@ -13,27 +13,35 @@ module.exports = {
         field: 'userId',
         references: {
           model: 'users',
-          key: 'id',
+          key: 'id'
         },
-        onDelete: 'cascade',
+        onDelete: 'cascade'
       },
       songId: {
         type: Sequelize.INTEGER,
         field: 'songId',
         references: {
           model: 'songs',
-          key: 'id',
+          key: 'id'
         },
-        onDelete: 'cascade',
+        onDelete: 'cascade'
       },
       hashtagId: {
         type: Sequelize.INTEGER,
         field: 'hashtagId',
         references: {
           model: 'hashtaglikes',
-          key: 'id',
+          key: 'id'
         },
-        onDelete: 'cascade',
+        onDelete: 'cascade'
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
       }
     });
   },
