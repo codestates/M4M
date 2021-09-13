@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     album: DataTypes.STRING,
     album_art: DataTypes.STRING,
     date: DataTypes.STRING,
+    year: DataTypes.INTEGER,
     lyrics: DataTypes.TEXT,
     recommendType1: DataTypes.STRING,
     recommendType2: DataTypes.STRING,
