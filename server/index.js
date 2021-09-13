@@ -28,6 +28,11 @@ app.use(cookieParser());
 // });
 app.get('/title', findAllTitle);
 app.get('/artist', findAllArtist);
+app.get('/user-info', controllers.userInfo);
+app.patch('/edit-user-info', controllers.editUserInfo);
+app.delete('/withdrawal', controllers.withdrawal);
+// app.get('/my-like', controllers.myLike);
+// app.delete('/delete-my-like', controllers.deleteMyLike);
 
 const HTTPS_PORT = process.env.HTTPS_PORT || 80;
 
