@@ -34,14 +34,6 @@ module.exports = {
           key: 'id',
         },
         onDelete: 'cascade',
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
       }
     });
   },
