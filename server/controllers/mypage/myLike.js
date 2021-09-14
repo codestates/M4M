@@ -54,7 +54,8 @@ module.exports = async (req, res) => {
 
             getHashtagName = Sequelize.getValues(getHashtagName);
             // console.log(getHashtagName);
-
+            
+            song.title = song.title.replace(/[|]/g, ',');
             song.artist = song.artist.replace(/[|]/g, ',');
 
             const hashtaglikeCount = {};
