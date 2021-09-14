@@ -5,7 +5,10 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const express = require('express');
 const app = express();
-const { findAll } = require('./controllers/test/searchTest');
+
+const controllers = require('./controllers');
+const { findAllTitle } = require('./controllers/search/title');
+const { findAllArtist } = require('./controllers/search/artist');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -19,10 +22,17 @@ app.use(
 
 app.use(cookieParser());
 
-app.get('/', (req, res) => {
-  res.send('hello world');
-});
-app.get('/searchTest', findAll);
+// 배포 테스트용
+// app.get('/', (req, res) => {
+//   res.send('hello world');
+// });
+app.get('/title', findAllTitle);
+app.get('/artist', findAllArtist);
+app.get('/user-info', controllers.userInfo);
+app.patch('/edit-user-info', controllers.editUserInfo);
+app.delete('/withdrawal', controllers.withdrawal);
+app.get('/my-like', controllers.myLike);
+app.delete('/delete-my-like', controllers.deleteMyLike);
 
 const HTTPS_PORT = process.env.HTTPS_PORT || 80;
 
