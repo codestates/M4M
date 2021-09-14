@@ -25,7 +25,7 @@ module.exports = async (req, res) => {
         [Op.and]: [
           { userId: userInfo.id },
           { hashtagId: 1 }
-        ] 
+        ]
       }
     });
 
@@ -51,11 +51,14 @@ module.exports = async (req, res) => {
                 songId: song.id
               }
             });
+
             getHashtagName = Sequelize.getValues(getHashtagName);
             // console.log(getHashtagName);
+
             song.artist = song.artist.replace(/[|]/g, ',');
-            let hashtaglikeCount = {};
-            getHashtagName.map((song)=> {
+
+            const hashtaglikeCount = {};
+            getHashtagName.map((song) => {
               // console.log(song.hashtaglike.name);
               if (hashtaglikeCount[song.hashtaglike.name]) {
                 hashtaglikeCount[song.hashtaglike.name] += 1;
@@ -66,6 +69,7 @@ module.exports = async (req, res) => {
             // console.log(hashtaglikeCount);
 
             return {
+              id: song.id,
               title: song.title,
               artist: song.artist,
               album_art: song.album_art,
@@ -73,12 +77,13 @@ module.exports = async (req, res) => {
               hashtagLike: hashtaglikeCount
             };
           } catch (error) {
-            console.log(error)
+            console.log(error);
           }
         });
-        
+
         const results = await Promise.all(songInfo);
         // console.log(results);
+        
         res.status(200).json({
           data: results,
           message: 'ok'
