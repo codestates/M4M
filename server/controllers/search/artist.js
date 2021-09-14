@@ -63,7 +63,10 @@ module.exports = {
                 getHashtagName = Sequelize.getValues(getHashtagName);
                 // console.log(getHashtagName);
 
-                const hashtaglikeCount = {};
+                const hashtaglikeCount = {
+                  좋아요: 0
+                };
+                
                 getHashtagName.map((song) => {
                   // console.log(song.hashtaglike.name);
                   if (hashtaglikeCount[song.hashtaglike.name]) {
@@ -75,10 +78,6 @@ module.exports = {
 
                 // console.log(hashtaglikeCount);
                 
-                if (!hashtaglikeCount['좋아요']) {
-                  hashtaglikeCount['좋아요'] = 0;
-                }
-
                 return {
                   id: song.id,
                   title: song.title,
