@@ -1,7 +1,10 @@
+// const { isAuthorized } = require('../tokenFunctions');
 const { user, song, hashtaglike, songuserhashtaglike } = require('../../models');
 const Sequelize = require('sequelize');
 require('sequelize-values')(Sequelize);
+const Op = Sequelize.Op;
 
+// GET http://localhost:80/my-like
 module.exports = async (req, res) => {
   // test: without accessToken
   try {
@@ -17,8 +20,12 @@ module.exports = async (req, res) => {
         model: song,
         attributes: ['id', 'title', 'artist', 'album_art', 'date']
       }],
+      // 해당 유저가 등록한 것 중 hashtagId가 1인 것(=좋아요)만 출력
       where: {
-        userId: userInfo.id
+        [Op.and]: [
+          { userId: userInfo.id },
+          { hashtagId: 1 }
+        ] 
       }
     });
 
@@ -29,41 +36,56 @@ module.exports = async (req, res) => {
     } else {
       songList = Sequelize.getValues(songList);
       songList = songList.map((el) => el.song);
-      //   console.log('++++++++++++++++++\n', songList);
+      // console.log('++++++++++++++++++\n', songList);
 
       const fetchSongInfo = async () => {
         const songInfo = songList.map(async (song) => {
           // console.log("++++++++++++++++++\n", song.id);
-          let getHashtagName = await songuserhashtaglike.findAll({
-            include: [{
-              model: hashtaglike,
-              attributes: ['name']
-            }],
-            where: {
-              songId: song.id
-            }
-          });
-          getHashtagName = Sequelize.getValues(getHashtagName);
-          // console.log(getHashtagName);
-          return {
-            title: song.title,
-            artist: song.artist,
-            album_art: song.album_art,
-            date: song.date,
-            hashtagInfo: getHashtagName
-          };
+          try {
+            let getHashtagName = await songuserhashtaglike.findAll({
+              include: [{
+                model: hashtaglike,
+                attributes: ['name']
+              }],
+              where: {
+                songId: song.id
+              }
+            });
+            getHashtagName = Sequelize.getValues(getHashtagName);
+            // console.log(getHashtagName);
+            song.artist = song.artist.replace(/[|]/g, ',');
+            let hashtaglikeCount = {};
+            getHashtagName.map((song)=> {
+              // console.log(song.hashtaglike.name);
+              if (hashtaglikeCount[song.hashtaglike.name]) {
+                hashtaglikeCount[song.hashtaglike.name] += 1;
+              } else {
+                hashtaglikeCount[song.hashtaglike.name] = 1;
+              }
+            });
+            // console.log(hashtaglikeCount);
+
+            return {
+              title: song.title,
+              artist: song.artist,
+              album_art: song.album_art,
+              date: song.date,
+              hashtagLike: hashtaglikeCount
+            };
+          } catch (error) {
+            console.log(error)
+          }
         });
+        
         const results = await Promise.all(songInfo);
-        console.log(results);
-        res.status(200).json(results);
+        // console.log(results);
+        res.status(200).json({
+          data: results,
+          message: 'ok'
+        });
       };
 
       fetchSongInfo();
-
-    //   res.status(200).json({
-    //     data: songList,
-    //     message: 'ok'
-    //   });
     }
   } catch {
     res.status(400).json({

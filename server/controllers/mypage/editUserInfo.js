@@ -1,24 +1,20 @@
-const { user } = require('../../models');
 // const { isAuthorized } = require('../tokenFunctions');
+const { user } = require('../../models');
 const crypto = require('crypto');
 const Sequelize = require('sequelize');
 require('sequelize-values')(Sequelize);
 const Op = Sequelize.Op;
 
+// PATCH http://localhost:80/edit-user-info
 module.exports = async (req, res) => {
   try {
     // const accessTokenData = isAuthorized(req);
 
     // if (!accessTokenData) {
-    //   return res.status(404).send({ message: "로그인이 되어있지 않습니다." });
+    //   return res.status(404).send({ message: 'You\'re not logged in.' });
     // } else {
-    //   let newUserInfo = await user.findOne({
-    //     where: {
-    //       id: accessTokenData.id,
-    //     },
     //   });
     // }
-    // console.log(newUserInfo.dataValues);
 
     let userInfo = await user.findOne({
       where: {
@@ -65,7 +61,7 @@ module.exports = async (req, res) => {
         // 중복되는 닉네임들 중 가장 마지막 닉네임의 번호에 1을 더해 새로운 닉네임 설정
         const lastNickname = duplicateNickname[duplicateNickname.length - 1].nickname;
         const lastNicknameNumber = lastNickname.split('#')[1];
-        // console.log('last nickname: ' + lastNickname);
+        // console.log('last nickname of duplicates: ' + lastNickname);
         changedNickname = changedNickname + (Number(lastNicknameNumber) + 1);
       }
     }

@@ -1,11 +1,13 @@
+// const { isAuthorized } = require('../tokenFunctions');
 const { songuserhashtaglike } = require('../../models');
 
+// DELETE http://localhost:80/delete-my-like
 module.exports = async (req, res) => {
   try {
     // const accessTokenData = isAuthorized(req);
 
     // if (!accessTokenData) {
-    //   return res.status(404).send({ message: "Please recheck user info" });
+    //   return res.status(404).send({ message: 'You\'re not logged in.' });
     // } else {
     // }
 
