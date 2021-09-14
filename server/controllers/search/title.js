@@ -34,6 +34,7 @@ module.exports = {
           songList = Sequelize.getValues(songList);
 
           songList = songList.map((song) => {
+            song.title = song.title.replace(/[|]/g, ',');
             song.artist = song.artist.replace(/[|]/g, ',');
 
             return {
