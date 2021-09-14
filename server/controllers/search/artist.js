@@ -34,7 +34,7 @@ module.exports = {
           songInfo = Sequelize.getValues(songInfo);
           songInfo = songInfo.map((song) => {
             song.artist = song.artist.replace(/[|]/g, ',');
-            
+
             return {
               id: song.id,
               title: song.title,
