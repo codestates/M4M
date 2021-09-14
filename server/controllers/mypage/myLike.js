@@ -66,7 +66,12 @@ module.exports = async (req, res) => {
                 hashtaglikeCount[song.hashtaglike.name] = 1;
               }
             });
+            
             // console.log(hashtaglikeCount);
+
+            if (!hashtaglikeCount['좋아요']) {
+              hashtaglikeCount['좋아요'] = 0;
+            }
 
             return {
               id: song.id,
