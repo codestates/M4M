@@ -17,7 +17,7 @@ const HeaderWrapper = styled.div`
     width: 20vw;
   }
   .header-container-3 {
-    width: 40vw;
+    width: 45vw;
   }
   .header-container-4 {
     width: 20vw;
@@ -29,12 +29,17 @@ const HeaderWrapper = styled.div`
   }
   .btn {
     cursor: pointer;
+    font-size: 18px;
   }
   .searchbar-none {
     display: none;
   }
   .searchbar {
     display: flex;
+    justify-content: center;
+  }
+  .searchbar-text {
+    width: 30vw;
   }
   .login, .logout, .signup, .mypage  {
     margin: 0px 8px;
@@ -52,13 +57,13 @@ function Header () {
   // ! useState는 Redux를 사용하기 전 테스트 용으로 사용
   const [isLogin, setIsLogin] = useState(false);
   const [isRecommend, setIsRecommend] = useState(false);
+  const [keyword, setKeyword] = useState('');
   console.log('🔴isLogin:', isLogin, '🟠isRecommend:', isRecommend);
-  const handleIsLogin = () => {
-    setIsLogin(!isLogin);
-  }
-  const handleIsRecommend = () => {
-    setIsRecommend(!isRecommend);
-  }
+  console.log('🟡', keyword);
+
+  const handleIsLogin = () => setIsLogin(!isLogin);
+  const handleIsRecommend = () => setIsRecommend(!isRecommend);
+  const handleKeywordChange = (e) => setKeyword(e.target.value);
 
   return (
     <HeaderWrapper>
@@ -80,7 +85,7 @@ function Header () {
                 <option value="title">title</option>
                 <option value="artist">artist</option>
               </select>
-              <input className='searchbar-text' type='text'></input>
+              <input className='searchbar-text' type='text' onChange={handleKeywordChange}></input>
               <button className='btn searchbar-button'>search</button>
             </div>
           </div>
