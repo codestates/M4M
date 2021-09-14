@@ -1,4 +1,4 @@
-const db = require('../../models');
+const { song } = require('../../models');
 const Sequelize = require('sequelize');
 require('sequelize-values')(Sequelize);
 const Op = Sequelize.Op;
@@ -9,7 +9,7 @@ module.exports = {
   findAllArtist: async (req, res) => {
     try {
       if (req.query.query !== undefined) {
-        console.log(req.query.query);
+        console.log('query: ' + req.query.query);
 
         // 쿼리가 비어있을 때
         if (req.query.query.length === 0) {
@@ -18,7 +18,7 @@ module.exports = {
           });
         }
 
-        let songInfo = await db.song.findAll({
+        let songInfo = await song.findAll({
           where: {
             artist: {
               [Op.like]: '%' + req.query.query + '%'
@@ -26,15 +26,24 @@ module.exports = {
           }
         });
 
-        songInfo = Sequelize.getValues(songInfo);
-
         if (songInfo.length === 0) {
           res.status(400).json({
             message: 'Artist not found'
           });
         } else {
+          songInfo = Sequelize.getValues(songInfo);
+          songInfo = songInfo.map((song) => {
+            song.artist = song.artist.replace(/[|]/g, ',');
+            
+            return {
+              id: song.id,
+              title: song.title,
+              artist: song.artist,
+              album_art: song.album_art,
+              date: song.date
+            };
+          });
           console.log(songInfo);
-          console.log(songInfo.length);
           res.status(200).json({
             data: songInfo,
             message: 'ok'
