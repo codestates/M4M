@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from "react-router-dom";
 import styled from 'styled-components';
+import HeaderSearchbar from './HeaderSearchbar';
 
 const HeaderWrapper = styled.div`
   .header {
@@ -12,15 +13,19 @@ const HeaderWrapper = styled.div`
   }
   .header-container-1 {
     width: 15vw;
+    min-width: 110px;
   }
   .header-container-2 {
     width: 20vw;
+    min-width: 145px;
   }
   .header-container-3 {
     width: 45vw;
+    min-width: 340px;
   }
   .header-container-4 {
     width: 20vw;
+    min-width: 180px;
   }
   .logo {
     background-color: beige;
@@ -30,16 +35,6 @@ const HeaderWrapper = styled.div`
   .btn {
     cursor: pointer;
     font-size: 18px;
-  }
-  .searchbar-none {
-    display: none;
-  }
-  .searchbar {
-    display: flex;
-    justify-content: center;
-  }
-  .searchbar-text {
-    width: 30vw;
   }
   .login, .logout, .signup, .mypage  {
     margin: 0px 8px;
@@ -57,13 +52,10 @@ function Header () {
   // ! useState는 Redux를 사용하기 전 테스트 용으로 사용
   const [isLogin, setIsLogin] = useState(false);
   const [isRecommend, setIsRecommend] = useState(false);
-  const [keyword, setKeyword] = useState('');
   console.log('🔴isLogin:', isLogin, '🟠isRecommend:', isRecommend);
-  console.log('🟡', keyword);
 
   const handleIsLogin = () => setIsLogin(!isLogin);
   const handleIsRecommend = () => setIsRecommend(!isRecommend);
-  const handleKeywordChange = (e) => setKeyword(e.target.value);
 
   return (
     <HeaderWrapper>
@@ -80,14 +72,7 @@ function Header () {
             </Link>
           </div>
           <div className='header-container-3'>
-            <div className={isRecommend ? 'searchbar-none':'searchbar'}>
-              <select className='searchbar-dropbox'>
-                <option value="title">title</option>
-                <option value="artist">artist</option>
-              </select>
-              <input className='searchbar-text' type='text' onChange={handleKeywordChange}></input>
-              <button className='btn searchbar-button'>search</button>
-            </div>
+            <HeaderSearchbar/>
           </div>
           <div className='header-container-4'>
             {!isLogin ? 
@@ -113,6 +98,7 @@ function Header () {
         <div className='test-container'>
           <button className='btn test' onClick={handleIsLogin}>change login status for test</button>
           <button className='btn test' onClick={handleIsRecommend}>change Recommend status for test</button>
+          <p>현재 HeaderSearchbar 미적용. Redux 사용 시 추가 예정</p>
         </div>
       </>
     </HeaderWrapper>
