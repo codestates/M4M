@@ -41,6 +41,14 @@ export const SignupInputBirthyear = styled.select``;
 
 export const SignupBtn = styled.button``;
 
+export const Alertbox = styled.div``;
+
+export const CheckInfo = styled.div`
+  color: red;
+  font-size: 11px;
+  opacity: 0.8;
+`;
+
 function Signup() {
   const [userInfo, setUserInfo] = useState({
     nickname: "",
@@ -49,13 +57,25 @@ function Signup() {
     birthyear: "",
   });
   console.log(userInfo);
+  // const [checkNickname, setCheckNickname] = useState(true);
   const [checkPassword, setCheckPassword] = useState(true);
   const [checkRetypePassword, setCheckRetypePassword] = useState(true);
   const [checkEmail, setCheckEmail] = useState(true);
+  const [errorMsg, setErrorMsg] = useState("");
 
   const handleInputValue = (key) => (e) => {
     setUserInfo({ ...userInfo, [key]: e.target.value });
   };
+
+  // const isValidNickname = (e) => {
+  //   let regExp = /^[가-힣]{2,15}|[a-zA-Z]{2,15}\s[a-zA-Z]{2,15}$/;
+  //   if (regExp.test(e.target.value)) {
+  //     setCheckNickname(true);
+  //   } else {
+  //     setCheckNickname(false);
+  //   }
+  //   console.log(regExp.test(e.target.value));
+  // };
 
   const isValidEmail = (e) => {
     let regExp =
@@ -65,7 +85,6 @@ function Signup() {
     } else {
       setCheckEmail(false);
     }
-    console.log("email :", regExp.test(e.target.value));
   };
   const isValidPassword = (e) => {
     let regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,10}$/;
@@ -74,7 +93,6 @@ function Signup() {
     } else {
       setCheckPassword(false);
     }
-    console.log("password :", regExp.test(e.target.value));
   };
 
   const handleCheckPassword = (e) => {
@@ -84,7 +102,43 @@ function Signup() {
       setCheckRetypePassword(false);
     }
   };
-  console.log(checkRetypePassword);
+
+  let yearList = [];
+  let today = new Date();
+  let year = today.getFullYear();
+  for (let i = year; i >= 1921; i--) {
+    yearList.push(i);
+  }
+
+  const handleSignupRequest = () => {
+    if (
+      userInfo.nickname === "" ||
+      userInfo.email === "" ||
+      userInfo.password === "" ||
+      userInfo.birthyear === "" ||
+      // checkNickname !== true ||
+      checkEmail !== true ||
+      checkPassword !== true ||
+      checkRetypePassword !== true
+    ) {
+      setErrorMsg("모든 항목을 바르게 작성해주세요");
+    } else {
+      setErrorMsg("");
+    }
+  };
+
+  const inputCheck = (key) => (e) => {
+    handleInputValue(key)(e);
+    // if (key === "nickname") {
+    //   isValidNickname(e);
+    // }
+    if (key === "email") {
+      isValidEmail(e);
+    }
+    if (key === "password") {
+      isValidPassword(e);
+    }
+  };
 
   return (
     <SignupBackdrop>
@@ -93,26 +147,37 @@ function Signup() {
         <SignupInputContainer>
           <SignupInputValue>Nickname</SignupInputValue>
           <SignupInput onChange={handleInputValue("nickname")} />
+          <CheckInfo>
+            {/* {checkNickname ? null : "올바른 이메일 주소를 입력해주세요"} */}
+          </CheckInfo>
           <SignupInputValue>Email</SignupInputValue>
-          <SignupInput
-            onChange={handleInputValue("email")}
-            onBlur={isValidEmail}
-          />
+          <SignupInput onChange={inputCheck("email")} />
+          <CheckInfo>
+            {checkEmail ? null : "올바른 이메일 주소를 입력해주세요"}
+          </CheckInfo>
           <SignupInputValue>Password</SignupInputValue>
-          <SignupInput
-            type="password"
-            onChange={handleInputValue("password")}
-            onBlur={isValidPassword}
-          />
+          <SignupInput type="password" onChange={inputCheck("password")} />
+          <CheckInfo>
+            {checkPassword ? null : "올바른 비밀번호를 입력해주세요"}
+          </CheckInfo>
           <SignupInputValue>Password Check</SignupInputValue>
           <SignupInput type="password" onChange={handleCheckPassword} />
+          <CheckInfo>
+            {checkRetypePassword ? null : "비밀번호가 일치하지 않습니다"}
+          </CheckInfo>
           <SignupInputValue>Birth Year</SignupInputValue>
-          {/* <SignupInputBirthyear /> */}
-          <select>
-            <option value="">-------</option>
+          <select onChange={handleInputValue("birthyear")}>
+            {/* <option value="">-------</option> */}
+            <option value="" selected disabled hidden>
+              선택
+            </option>
+            {yearList.map((el) => {
+              return <option>{el}</option>;
+            })}
           </select>
         </SignupInputContainer>
-        <SignupBtn>Sign up</SignupBtn>
+        <SignupBtn onClick={handleSignupRequest}>Sign up</SignupBtn>
+        <Alertbox>{errorMsg}</Alertbox>
       </SignupView>
     </SignupBackdrop>
   );
