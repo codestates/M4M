@@ -25,6 +25,10 @@ app.get("/", (req, res) => {
 app.post("/signup", controllers.signup);
 app.post("/login", controllers.login);
 app.post("/logout", controllers.logout);
+app.get("/song", controllers.song);
+app.post("/comment", controllers.comment);
+app.patch("/edit-comment", controllers.editComment);
+app.delete("/delete-comment", controllers.deleteComment);
 
 const HTTPS_PORT = process.env.HTTPS_PORT || 80;
 
