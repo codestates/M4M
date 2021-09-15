@@ -1,0 +1,12 @@
+{
+  "signup": {
+    "nickname": "김경호",
+    "email": "test2@gmail.com",
+    "password": "1234qwer",
+    "birthYear": "2002"
+  },
+  "login": {
+    "email": "test2@gmail.com",
+    "password": "1234qwer"
+  }
+}
