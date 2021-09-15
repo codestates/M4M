@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
+
+axios.defaults.withCredentials = true;
 
 const HeaderSearchbarWrapper = styled.div`
   .btn {
@@ -28,14 +31,35 @@ function HeaderSearchbar () {
   const [keyword, setKeyword] = useState('');
   console.log('🟡', type,'🟢', keyword);
 
+  const getSearchResult = (reqType, reqKeyword) => {
+    if (reqKeyword.length !== 0) {
+      axios
+        .get(
+          process.env.REACT_APP_API_URL + `/${reqType}?query=${reqKeyword}`,
+          { headers: { 'Content-Type': 'application/json'} }
+        )
+        .then((searchResult) => {
+          const songIdList = searchResult.data.data;
+          console.log(songIdList);
+          // Mainpage_info에 '검색 결과가 없습니다.' landing
+        })
+        .catch((err) => {
+          // Mainpage_info에 '검색 결과가 없습니다.' landing
+          console.log(err);
+        });
+    } else {
+      // Header 아래 쪽에 '검색어를 입력해주세요.' notification(red) 3000ms landing
+    }
+  }
+
   const handleTypeChange = (e) => setType(e.target.value);
   const handleKeywordChange = (e) => setKeyword(e.target.value)
   const handleClick = () => {
-    // axios.get function
+    getSearchResult(type, keyword);
   }
   const handleKeyboard = (e) => {
     if (e.key === "Enter") {
-      // axois.get funiction
+      getSearchResult(type, keyword);
     }
   }
 
