@@ -1,11 +1,13 @@
-import Test from './Test/DistributionTest';
-import './App.css';
+import Test from "./Test/DistributionTest";
+import "./App.css";
+import Signup from "./pages/Signup";
 
-function App () {
+function App() {
   return (
-    <div className='App'>
+    <div className="App">
       Client distribution test:
-      <Test />
+      {/* <Test /> */}
+      <Signup />
     </div>
   );
 }
