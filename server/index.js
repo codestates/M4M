@@ -32,10 +32,6 @@ app.get("/song", controllers.song);
 app.post("/comment", controllers.comment);
 app.patch("/edit-comment", controllers.editComment);
 app.delete("/delete-comment", controllers.deleteComment);
-// 배포 테스트용
-// app.get('/', (req, res) => {
-//   res.send('hello world');
-// });
 app.get("/title", findAllTitle);
 app.get("/artist", findAllArtist);
 app.get("/user-info", controllers.userInfo);
