@@ -9,25 +9,25 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
+    static associate (models) {
       // define association here
       comment.belongsTo(models.user, {
         onDelete: 'CASCADE',
-        foreignKey: 'userId',
+        foreignKey: 'userId'
       });
       comment.belongsTo(models.song, {
         onDelete: 'CASCADE',
-        foreignKey: 'songId',
+        foreignKey: 'songId'
       });
     }
-  };
+  }
   comment.init({
     userId: DataTypes.INTEGER,
     songId: DataTypes.INTEGER,
     content: DataTypes.TEXT
   }, {
     sequelize,
-    modelName: 'comment',
+    modelName: 'comment'
   });
   return comment;
 };
