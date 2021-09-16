@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
 import axios from "axios";
+import { useHistory } from "react-router";
 require("dotenv").config();
 
 export const SignupBackdrop = styled.div`
@@ -51,7 +52,7 @@ export const CheckInfo = styled.div`
   opacity: 0.8;
 `;
 
-function Signup() {
+function Signup({ handleModal }) {
   const [userInfo, setUserInfo] = useState({
     nickname: "",
     email: "",
@@ -64,6 +65,7 @@ function Signup() {
   const [checkRetypePassword, setCheckRetypePassword] = useState(true);
   const [checkEmail, setCheckEmail] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
+  const history = useHistory();
 
   const handleInputValue = (key) => (e) => {
     setUserInfo({ ...userInfo, [key]: e.target.value });
@@ -128,12 +130,16 @@ function Signup() {
       setErrorMsg("모든 항목을 바르게 작성해주세요");
     } else {
       axios
-        .post(`http://localhost:4000/signup`, userInfo, {
+        .post(`${process.env.REACT_APP_API_URL}/signup`, userInfo, {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
         })
         .then((res) => {
           console.log("response :", res);
+          if (res.status === 201) {
+            handleModal();
+            window.location.replace("/");
+          }
         })
         .catch((err) => {
           console.log("error :", err.response);
@@ -155,6 +161,11 @@ function Signup() {
     if (key === "password") {
       isValidPassword(e);
     }
+  };
+
+  const closeModal = () => {
+    handleModal();
+    history.push("/");
   };
 
   return (
@@ -188,13 +199,14 @@ function Signup() {
             <option value="" selected disabled hidden>
               선택
             </option>
-            {yearList.map((el) => {
-              return <option>{el}</option>;
+            {yearList.map((el, idx) => {
+              return <option key={idx}>{el}</option>;
             })}
           </select>
         </SignupInputContainer>
         <SignupBtn onClick={handleSignupRequest}>Sign up</SignupBtn>
         <Alertbox>{errorMsg}</Alertbox>
+        <button onClick={closeModal}>창닫기</button>
       </SignupView>
     </SignupBackdrop>
   );

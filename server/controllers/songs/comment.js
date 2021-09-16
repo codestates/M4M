@@ -1,6 +1,6 @@
-const { song, comment } = require("../../models");
-const { isAuthorized } = require("../tokenFunctions");
-const Sequelize = require("sequelize");
+const { song, comment } = require('../../models');
+const { isAuthorized } = require('../tokenFunctions');
+const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
 module.exports = async (req, res) => {
@@ -14,8 +14,8 @@ module.exports = async (req, res) => {
     // } else {
     const songId = await song.findOne({
       where: {
-        id: id,
-      },
+        id: id
+      }
     });
 
     // const userContent = await comment.findAll({
@@ -32,25 +32,25 @@ module.exports = async (req, res) => {
     const newContent = await comment.findOne({
       where: {
         songId: songId.dataValues.id,
-        content: content,
-      },
+        content: content
+      }
     });
 
     if (newContent) {
       return res
         .status(400)
-        .json({ message: "you can not write same comment" });
+        .json({ message: 'you can not write same comment' });
     }
 
     await comment.create({
       // userId: accessTokenData.id,
       songId: songId.dataValues.id,
-      content: content,
+      content: content
     });
 
-    return res.status(200).json({ message: "ok" });
+    return res.status(200).json({ message: 'ok' });
     // }
   } catch {
-    res.status(400).json({ message: "error" });
+    res.status(400).json({ message: 'error' });
   }
 };

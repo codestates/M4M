@@ -9,14 +9,13 @@ module.exports = async (req, res) => {
     const encryptedPassword = crypto
       .pbkdf2Sync(password, salt, 9999, 64, "sha512")
       .toString("base64");
-    console.log(req.body);
+
     const accessTokenData = isAuthorized(req);
 
     // 토큰정보가 있어 중복 유저인 경우
     if (accessTokenData) {
       return res.status(403).json({ message: "you are already a user" });
     }
-    // console.log(req.body);
 
     // 회원가입 양식을 다 채우지 않은 경우
     if (!nickname || !email || !password || !birthYear) {
@@ -31,8 +30,6 @@ module.exports = async (req, res) => {
         email: email,
       },
     });
-
-    console.log(dplctEmail.length);
 
     if (dplctEmail.length !== 0) {
       return res.status(409).json({ message: "conflict: email" });
