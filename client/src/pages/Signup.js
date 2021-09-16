@@ -59,7 +59,7 @@ function Signup() {
     birthYear: "",
   });
   console.log(userInfo);
-  // const [checkNickname, setCheckNickname] = useState(true);
+  const [checkNickname, setCheckNickname] = useState(true);
   const [checkPassword, setCheckPassword] = useState(true);
   const [checkRetypePassword, setCheckRetypePassword] = useState(true);
   const [checkEmail, setCheckEmail] = useState(true);
@@ -69,15 +69,17 @@ function Signup() {
     setUserInfo({ ...userInfo, [key]: e.target.value });
   };
 
-  // const isValidNickname = (e) => {
-  //   let regExp = /^[가-힣]{2,15}|[a-zA-Z]{2,15}\s[a-zA-Z]{2,15}$/;
-  //   if (regExp.test(e.target.value)) {
-  //     setCheckNickname(true);
-  //   } else {
-  //     setCheckNickname(false);
-  //   }
-  //   console.log(regExp.test(e.target.value));
-  // };
+  const isValidNickname = (e) => {
+    if (e.target.value.length >= 2 && e.target.value.length <= 15) {
+      if (e.target.value.search(/\s/) !== -1) {
+        setCheckNickname(false);
+      } else {
+        setCheckNickname(true);
+      }
+    } else {
+      setCheckNickname(false);
+    }
+  };
 
   const isValidEmail = (e) => {
     let regExp =
@@ -118,7 +120,7 @@ function Signup() {
       userInfo.email === "" ||
       userInfo.password === "" ||
       userInfo.birthYear === "" ||
-      // checkNickname !== true ||
+      checkNickname !== true ||
       checkEmail !== true ||
       checkPassword !== true ||
       checkRetypePassword !== true
@@ -131,19 +133,22 @@ function Signup() {
           withCredentials: true,
         })
         .then((res) => {
-          console.log(res);
+          console.log("response :", res);
         })
         .catch((err) => {
-          console.log(err.response);
+          console.log("error :", err.response);
+          if (err.response.status === 409) {
+            setErrorMsg("이미 가입된 이메일입니다");
+          }
         });
     }
   };
 
   const inputCheck = (key) => (e) => {
     handleInputValue(key)(e);
-    // if (key === "nickname") {
-    //   isValidNickname(e);
-    // }
+    if (key === "nickname") {
+      isValidNickname(e);
+    }
     if (key === "email") {
       isValidEmail(e);
     }
@@ -158,9 +163,9 @@ function Signup() {
         <SignupHeading>SIGN UP </SignupHeading>
         <SignupInputContainer>
           <SignupInputValue>Nickname</SignupInputValue>
-          <SignupInput onChange={handleInputValue("nickname")} />
+          <SignupInput onChange={inputCheck("nickname")} />
           <CheckInfo>
-            {/* {checkNickname ? null : "올바른 이메일 주소를 입력해주세요"} */}
+            {checkNickname ? null : "닉네임은 공백없이 2~15자 입니다"}
           </CheckInfo>
           <SignupInputValue>Email</SignupInputValue>
           <SignupInput onChange={inputCheck("email")} />
