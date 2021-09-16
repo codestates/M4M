@@ -5,7 +5,7 @@ const colors = {
   $grayColor: '#c7c2bb',
   $beigeColor: '#f7efe5'
 };
-  
+
 const GlobalStyle = createGlobalStyle`
   @font-face {
     font-family: 'DOSMyungjo';
@@ -43,6 +43,5 @@ const GlobalStyle = createGlobalStyle`
     /* padding: 30px 0; */
   }
 `;
-  
+
 export { colors, GlobalStyle };
-  

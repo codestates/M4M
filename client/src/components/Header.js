@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import HeaderSearchbar from './HeaderSearchbar';
 
@@ -46,7 +46,7 @@ const HeaderWrapper = styled.div`
   .test {
     margin: 0px 8px;
   }
-`
+`;
 
 function Header () {
   // ! useState는 Redux를 사용하기 전 테스트 용으로 사용
@@ -68,31 +68,27 @@ function Header () {
           </div>
           <div className='header-container-2'>
             <Link to='/recommendpage'>
-              <button className='btn recommend-page' disabled={isRecommend ? "disabled" : null}>recommend page</button>
+              <button className='btn recommend-page' disabled={isRecommend ? 'disabled' : null}>recommend page</button>
             </Link>
           </div>
           <div className='header-container-3'>
-            <HeaderSearchbar/>
+            <HeaderSearchbar />
           </div>
           <div className='header-container-4'>
-            {!isLogin ? 
-              <Link to="/login">
+            {!isLogin
+              ? <Link to='/login'>
                 <button className='btn login'>login</button>
-              </Link>
-              :
-              <Link to="/logout">
+                </Link>
+              : <Link to='/logout'>
                 <button className='btn logout'>logout</button>
-              </Link>
-            }
-            {!isLogin ? 
-              <Link to="/signup">
+              </Link>}
+            {!isLogin
+              ? <Link to='/signup'>
                 <button className='btn signup'>signup</button>
-              </Link>
-              :
-              <Link to="/mypage">
+                </Link>
+              : <Link to='/mypage'>
                 <button className='btn mypage'>mypage</button>
-              </Link>
-            }
+              </Link>}
           </div>
         </div>
         <div className='test-container'>

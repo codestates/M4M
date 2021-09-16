@@ -20,18 +20,19 @@ const FooterWrapper = styled.div`
   .link, .copyright {
     color: #e9e9e9;
   }
-`
+`;
 
 function Footer () {
   return (
     <FooterWrapper>
       <div className='footer'>
         <div className='group repository-link'>
-          <a 
-            className='link' 
-            href='https://github.com/codestates/M4M' 
-            target='_blank' 
-            rel='noopener noreferrer'>
+          <a
+            className='link'
+            href='https://github.com/codestates/M4M'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
             Project Repository Link
           </a>
         </div>

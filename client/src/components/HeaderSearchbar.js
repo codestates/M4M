@@ -23,20 +23,20 @@ const HeaderSearchbarWrapper = styled.div`
     width: 30vw;
     font-size: 14px;
   }
-`
+`;
 
 function HeaderSearchbar () {
   // ! useState는 Redux를 사용하기 전 테스트 용으로 사용
   const [type, setType] = useState('title');
   const [keyword, setKeyword] = useState('');
-  console.log('🟡', type,'🟢', keyword);
+  console.log('🟡', type, '🟢', keyword);
 
   const getSearchResult = (reqType, reqKeyword) => {
     if (reqKeyword.length !== 0) {
       axios
         .get(
           process.env.REACT_APP_API_URL + `/${reqType}?query=${reqKeyword}`,
-          { headers: { 'Content-Type': 'application/json'} }
+          { headers: { 'Content-Type': 'application/json' } }
         )
         .then((searchResult) => {
           const songIdList = searchResult.data.data;
@@ -50,18 +50,18 @@ function HeaderSearchbar () {
     } else {
       // Header 아래 쪽에 '검색어를 입력해주세요.' notification(red) 3000ms landing
     }
-  }
+  };
 
   const handleTypeChange = (e) => setType(e.target.value);
-  const handleKeywordChange = (e) => setKeyword(e.target.value)
+  const handleKeywordChange = (e) => setKeyword(e.target.value);
   const handleClick = () => {
     getSearchResult(type, keyword);
-  }
+  };
   const handleKeyboard = (e) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       getSearchResult(type, keyword);
     }
-  }
+  };
 
   return (
     <HeaderSearchbarWrapper>
@@ -70,7 +70,7 @@ function HeaderSearchbar () {
           <option value='title'>title</option>
           <option value='artist'>artist</option>
         </select>
-        <input 
+        <input
           className='searchbar-text'
           type='text'
           placeholder='Enter title or artist name'
