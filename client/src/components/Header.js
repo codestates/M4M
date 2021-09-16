@@ -6,6 +6,7 @@ import HeaderSearchbar from './HeaderSearchbar';
 const HeaderWrapper = styled.div`
   .header {
     padding: 8px 12px;
+    width: 100vw;
     display: flex;
     justify-content: space-between;
     align-items: center;
