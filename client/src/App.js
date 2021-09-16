@@ -1,8 +1,9 @@
 import styled from 'styled-components';
-import { BrowserRouter } from "react-router-dom";
-import GlobalFont from "./font/font";
+import { BrowserRouter } from 'react-router-dom';
+import { GlobalStyle } from './components/utils/_var';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import SideNav from './components/Mainpage/MainpageSideNav';
 
 const AppWrapper = styled.div`
   div,
@@ -15,16 +16,17 @@ const AppWrapper = styled.div`
     margin: 0;
     text-align: center;
   }
-`
+`;
 
 function App () {
   return (
     <BrowserRouter>
       <AppWrapper>
-        <GlobalFont />
-        <div className="App">
+        <GlobalStyle />
+        <div className='App'>
           <Header />
           <Footer />
+          <SideNav />
         </div>
       </AppWrapper>
     </BrowserRouter>
