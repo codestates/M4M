@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { BrowserRouter } from "react-router-dom";
-import { GlobalStyle } from './components/utils/_var';
+import GlobalFont from "./font/font";
 import Header from './components/Header';
 import Footer from './components/Footer';
 
@@ -9,7 +9,7 @@ const AppWrapper = styled.div`
   button,
   select,
   input {
-    font-family: 'NeoDunggeunmo';
+    font-family: 'neodgm';
   }
   .App {
     margin: 0;
@@ -21,7 +21,7 @@ function App () {
   return (
     <BrowserRouter>
       <AppWrapper>
-        <GlobalStyle />
+        <GlobalFont />
         <div className="App">
           <Header />
           <Footer />
