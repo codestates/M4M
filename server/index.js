@@ -38,7 +38,8 @@ app.get('/user-info', controllers.userInfo);
 app.patch('/edit-user-info', controllers.editUserInfo);
 app.delete('/withdrawal', controllers.withdrawal);
 app.get('/my-like', controllers.myLike);
-app.delete('/delete-my-like', controllers.deleteMyLike);
+app.delete('/my-like', controllers.deleteMyLike);
+app.post('/recommendation', controllers.recommendation);
 app.get('/mainpage', controllers.mainpage);
 
 const HTTPS_PORT = process.env.HTTPS_PORT || 80;

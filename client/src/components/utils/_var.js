@@ -1,9 +1,10 @@
 import { createGlobalStyle } from 'styled-components';
 
-const colors = {
-  $textColor: '#1c180d',
-  $grayColor: '#c7c2bb',
-  $beigeColor: '#f7efe5'
+const Colors = {
+  black: '#1c180d',
+  gray: '#c7c2bb',
+  beige: '#f7efe5',
+  lightGray: '#c7c0ba'
 };
 
 const GlobalStyle = createGlobalStyle`
@@ -32,16 +33,17 @@ const GlobalStyle = createGlobalStyle`
     font-style: normal;
   }
   body {
-    background: ${colors.$beigeColor};
+    background: ${Colors.beigeColor};
   }
   .app-frame {
-    height: 97vh;
-    max-width: 650px;
-    min-width: 319px;
-    border: solid 1px;
-    margin: 10px auto 10px;
-    /* padding: 30px 0; */
+    background: ${Colors.beige};
+    overflow-y: scroll;
+    height: 80vh;
+    max-width: 525px;
+    min-width: 259px;    
+    box-shadow: 0 0 0 1px ${Colors.black} inset; 
+    margin: 5px auto 10px;
   }
 `;
 
-export { colors, GlobalStyle };
+export { Colors, GlobalStyle };

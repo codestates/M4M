@@ -48,7 +48,7 @@ const SideNavWrapper = styled.div`
     50% { margin-left: 11px; }
     100% { margin-left: 9px; }
   }
-`
+`;
 
 function SideNav () {
   // ! useState는 Redux를 사용하기 전 테스트 용으로 사용
@@ -61,9 +61,9 @@ function SideNav () {
   // console.log('⚪️', genreArr ,hashtagArr ,yearArr);
 
   const handleSelectChange = (e) => setIsSelected(e.target.getAttribute('value'));
-  const handleIsOpen = (e) => { 
+  const handleIsOpen = (e) => {
     const curValue = e.target.getAttribute('value');
-    if(isOpen === curValue) {
+    if (isOpen === curValue) {
       setIsOpen(null);
     } else {
       setIsOpen(curValue);
@@ -73,27 +73,27 @@ function SideNav () {
   return (
     <SideNavWrapper>
       <div className='SideNav'>
-        <div className='item' value='all' onClick={handleSelectChange}><span className='space'></span>ALL</div>
-        <div className='item' value='like' onClick={handleSelectChange}><span className='space'></span>Like</div>
-        <div className='item' value='genre' onClick={handleIsOpen}><span className='arrow'></span>Genre</div>
-        { 
+        <div className='item' value='all' onClick={handleSelectChange}><span className='space' />ALL</div>
+        <div className='item' value='like' onClick={handleSelectChange}><span className='space' />Like</div>
+        <div className='item' value='genre' onClick={handleIsOpen}><span className='arrow' />Genre</div>
+        {
           isOpen === 'genre'
-          ? <div>{genreArr.map((genre, idx) => <div className='sub-item' key={idx+1}>{genre}</div>)}</div>
-          : null
+            ? <div>{genreArr.map((genre, idx) => <div className='sub-item' key={idx + 1}>{genre}</div>)}</div>
+            : null
         }
-        <div className='item' value='hashtag' onClick={handleIsOpen}><span className='arrow'></span>Hashtag</div>
-        { 
+        <div className='item' value='hashtag' onClick={handleIsOpen}><span className='arrow' />Hashtag</div>
+        {
           isOpen === 'hashtag'
-          ? <div>
-            {hashtagArr.map((hashtag, idx) => <div className='sub-item' key={idx+1}>{hashtag}</div>)}
-          </div>
-          : null
+            ? <div>
+              {hashtagArr.map((hashtag, idx) => <div className='sub-item' key={idx + 1}>{hashtag}</div>)}
+              </div>
+            : null
         }
-        <div className='item' value='year' onClick={handleIsOpen}><span className='arrow'></span>Year</div>
-        { 
+        <div className='item' value='year' onClick={handleIsOpen}><span className='arrow' />Year</div>
+        {
           isOpen === 'year'
-          ? <div>{yearArr.map((year, idx) => <div className='sub-item' key={idx+1}>{year}</div>)}</div>
-          : null
+            ? <div>{yearArr.map((year, idx) => <div className='sub-item' key={idx + 1}>{year}</div>)}</div>
+            : null
         }
       </div>
     </SideNavWrapper>

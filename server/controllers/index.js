@@ -15,5 +15,6 @@ module.exports = {
   withdrawal: require('./mypage/withdrawal'),
   myLike: require('./mypage/myLike'),
   deleteMyLike: require('./mypage/deleteMyLike'),
+  recommendation: require('./recommendation/recommendation'),
   mainpage: require('./mainpage/mainpage')
 };
