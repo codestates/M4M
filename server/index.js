@@ -39,8 +39,9 @@ app.patch("/edit-user-info", controllers.editUserInfo);
 app.delete("/withdrawal", controllers.withdrawal);
 app.get("/my-like", controllers.myLike);
 app.delete("/delete-my-like", controllers.deleteMyLike);
+// app.post('/recommendation', controllers.recommendation);
 
-const HTTPS_PORT = process.env.HTTPS_PORT || 80;
+const HTTPS_PORT = process.env.HTTPS_PORT || 4000;
 
 let server;
 
