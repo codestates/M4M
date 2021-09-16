@@ -35,7 +35,6 @@ module.exports = async (req, res) => {
       // 닉네임을 변경하지 않은 경우
       changedNickname = userInfo.nickname;
     } else {
-
       // 아래 코드: 닉네임 중복 문제 해결 되지 않음
       // let getAllUser = await user.findAll();
       // console.log(getAllUser.length);

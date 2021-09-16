@@ -1,8 +1,5 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
-
-axios.defaults.withCredentials = true;
 
 const HeaderSearchbarWrapper = styled.div`
   .btn {

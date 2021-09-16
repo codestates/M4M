@@ -10,7 +10,7 @@ const AppWrapper = styled.div`
   button,
   select,
   input {
-    font-family: 'NeoDunggeunmo';
+    font-family: 'neodgm';
   }
   .App {
     margin: 0;

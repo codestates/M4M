@@ -1,5 +1,5 @@
-const { comment } = require("../../models");
-const { isAuthorized } = require("../tokenFunctions");
+const { comment } = require('../../models');
+const { isAuthorized } = require('../tokenFunctions');
 
 module.exports = async (req, res) => {
   try {
@@ -11,16 +11,16 @@ module.exports = async (req, res) => {
     //   return res.status(403).json({ message: "plz login first" });
     // } else {
     const deleteContent = await comment.destroy({
-      where: { id: id },
+      where: { id: id }
     });
 
     if (!deleteContent) {
-      return res.status(200).json({ message: "already deleted" });
+      return res.status(200).json({ message: 'already deleted' });
     } else {
-      return res.status(200).json({ message: "ok" });
+      return res.status(200).json({ message: 'ok' });
     }
     // }
   } catch {
-    res.status(400).json({ message: "error" });
+    res.status(400).json({ message: 'error' });
   }
 };
