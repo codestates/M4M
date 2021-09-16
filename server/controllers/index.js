@@ -7,6 +7,8 @@ module.exports = {
   comment: require("./songs/comment"),
   editComment: require("./songs/editComment"),
   deleteComment: require("./songs/deleteComment"),
+  hitHashtag: require("./songs/hitHashtag"),
+  deleteHashtag: require("./songs/deleteHashtag"),
   searchTest: require("./test/searchTest"),
   title: require("./search/title"),
   artist: require("./search/artist"),

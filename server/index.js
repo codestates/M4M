@@ -32,6 +32,8 @@ app.get("/song", controllers.song);
 app.post("/comment", controllers.comment);
 app.patch("/edit-comment", controllers.editComment);
 app.delete("/delete-comment", controllers.deleteComment);
+app.post("/hit-hashtag", controllers.hitHashtag);
+app.delete("/delete-hashtag", controllers.deleteHashtag);
 app.get("/title", findAllTitle);
 app.get("/artist", findAllArtist);
 app.get("/user-info", controllers.userInfo);

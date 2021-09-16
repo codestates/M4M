@@ -1,23 +1,24 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 import { BrowserRouter } from "react-router-dom";
 import GlobalFont from "./font/font";
-import Header from './components/Header';
-import Footer from './components/Footer';
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Signup from "./Signup";
 
 const AppWrapper = styled.div`
   div,
   button,
   select,
   input {
-    font-family: 'neodgm';
+    font-family: "neodgm";
   }
   .App {
     margin: 0;
     text-align: center;
   }
-`
+`;
 
-function App () {
+function App() {
   return (
     <BrowserRouter>
       <AppWrapper>
@@ -27,6 +28,7 @@ function App () {
           <Footer />
         </div>
       </AppWrapper>
+      <Signup></Signup>
     </BrowserRouter>
   );
 }
