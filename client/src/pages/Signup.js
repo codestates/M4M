@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
+import axios from "axios";
+require("dotenv").config();
 
 export const SignupBackdrop = styled.div`
   position: fixed;
@@ -54,7 +56,7 @@ function Signup() {
     nickname: "",
     email: "",
     password: "",
-    birthyear: "",
+    birthYear: "",
   });
   console.log(userInfo);
   // const [checkNickname, setCheckNickname] = useState(true);
@@ -115,7 +117,7 @@ function Signup() {
       userInfo.nickname === "" ||
       userInfo.email === "" ||
       userInfo.password === "" ||
-      userInfo.birthyear === "" ||
+      userInfo.birthYear === "" ||
       // checkNickname !== true ||
       checkEmail !== true ||
       checkPassword !== true ||
@@ -123,7 +125,17 @@ function Signup() {
     ) {
       setErrorMsg("모든 항목을 바르게 작성해주세요");
     } else {
-      setErrorMsg("");
+      axios
+        .post(`http://localhost:4000/signup`, userInfo, {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
     }
   };
 
@@ -166,7 +178,7 @@ function Signup() {
             {checkRetypePassword ? null : "비밀번호가 일치하지 않습니다"}
           </CheckInfo>
           <SignupInputValue>Birth Year</SignupInputValue>
-          <select onChange={handleInputValue("birthyear")}>
+          <select onChange={handleInputValue("birthYear")}>
             {/* <option value="">-------</option> */}
             <option value="" selected disabled hidden>
               선택

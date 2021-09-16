@@ -1,57 +1,57 @@
-'use strict';
+"use strict";
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('songs', {
+    await queryInterface.createTable("songs", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       title: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       artist: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       genre: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       album: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       album_art: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       date: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       year: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       lyrics: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
       },
       recommendType1: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       recommendType2: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       recommendType3: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('songs');
-  }
+    await queryInterface.dropTable("songs");
+  },
 };
