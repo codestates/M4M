@@ -59,7 +59,7 @@ function Signup({ handleModal }) {
     password: "",
     birthYear: "",
   });
-  console.log(userInfo);
+
   const [checkNickname, setCheckNickname] = useState(true);
   const [checkPassword, setCheckPassword] = useState(true);
   const [checkRetypePassword, setCheckRetypePassword] = useState(true);
@@ -135,14 +135,12 @@ function Signup({ handleModal }) {
           withCredentials: true,
         })
         .then((res) => {
-          console.log("response :", res);
           if (res.status === 201) {
             handleModal();
             window.location.replace("/");
           }
         })
         .catch((err) => {
-          console.log("error :", err.response);
           if (err.response.status === 409) {
             setErrorMsg("이미 가입된 이메일입니다");
           }
