@@ -6,7 +6,7 @@ const SongListWrapper = styled.div`
     width: 80vw;
     min-height: calc(100vh - 41px - 56px);
   }
-`
+`;
 
 function SongList () {
   return (
