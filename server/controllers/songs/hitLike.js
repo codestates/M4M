@@ -3,7 +3,7 @@ const { isAuthorized } = require("../tokenFunctions");
 
 module.exports = async (req, res) => {
   try {
-    // 곡의 id, hashtag 네임
+    // 곡의 id, hashtag 네임(좋아요)
     const { id, name } = req.body;
     // 로그인 된 유저인지 확인
     const accessTokenData = isAuthorized(req);
@@ -21,20 +21,6 @@ module.exports = async (req, res) => {
       const hashtag = await hashtaglike.findOne({
         where: { name: name },
       });
-
-      // 해당 유저가 해시태그 3개이상 금지
-      const exsHashtag = await songuserhashtaglike.findAll({
-        where: {
-          userId: accessTokenData.id,
-          songId: songId.dataValues.id,
-        },
-      });
-
-      if (exsHashtag.length >= 3) {
-        return res
-          .status(400)
-          .json({ message: "you can not choose over 3 hashtags" });
-      }
 
       // 해시태그를 중복해서 선택하였을 경우
       const userHashtag = await songuserhashtaglike.findOne({

@@ -34,6 +34,8 @@ app.patch("/edit-comment", controllers.editComment);
 app.delete("/delete-comment", controllers.deleteComment);
 app.post("/hit-hashtag", controllers.hitHashtag);
 app.delete("/delete-hashtag", controllers.deleteHashtag);
+app.post("/hit-like", controllers.hitLike);
+app.delete("/delete-like", controllers.deleteLike);
 app.get("/title", findAllTitle);
 app.get("/artist", findAllArtist);
 app.get("/user-info", controllers.userInfo);

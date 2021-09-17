@@ -9,6 +9,8 @@ module.exports = {
   deleteComment: require("./songs/deleteComment"),
   hitHashtag: require("./songs/hitHashtag"),
   deleteHashtag: require("./songs/deleteHashtag"),
+  hitLike: require("./songs/hitLike"),
+  deleteLike: require("./songs/deleteLike"),
   searchTest: require("./test/searchTest"),
   title: require("./search/title"),
   artist: require("./search/artist"),
