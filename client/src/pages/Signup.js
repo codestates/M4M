@@ -1,7 +1,8 @@
-import styled from 'styled-components';
-import { useState } from 'react';
-import axios from 'axios';
-require('dotenv').config();
+import styled from "styled-components";
+import { useState } from "react";
+import axios from "axios";
+import { useHistory } from "react-router";
+require("dotenv").config();
 
 export const SignupBackdrop = styled.div`
   position: fixed;
@@ -51,36 +52,39 @@ export const CheckInfo = styled.div`
   opacity: 0.8;
 `;
 
-function Signup () {
+function Signup({ handleModal }) {
   const [userInfo, setUserInfo] = useState({
-    nickname: '',
-    email: '',
-    password: '',
-    birthYear: ''
+    nickname: "",
+    email: "",
+    password: "",
+    birthYear: "",
   });
-  console.log(userInfo);
-  // const [checkNickname, setCheckNickname] = useState(true);
+
+  const [checkNickname, setCheckNickname] = useState(true);
   const [checkPassword, setCheckPassword] = useState(true);
   const [checkRetypePassword, setCheckRetypePassword] = useState(true);
   const [checkEmail, setCheckEmail] = useState(true);
-  const [errorMsg, setErrorMsg] = useState('');
+  const [errorMsg, setErrorMsg] = useState("");
+  const history = useHistory();
 
   const handleInputValue = (key) => (e) => {
     setUserInfo({ ...userInfo, [key]: e.target.value });
   };
 
-  // const isValidNickname = (e) => {
-  //   let regExp = /^[가-힣]{2,15}|[a-zA-Z]{2,15}\s[a-zA-Z]{2,15}$/;
-  //   if (regExp.test(e.target.value)) {
-  //     setCheckNickname(true);
-  //   } else {
-  //     setCheckNickname(false);
-  //   }
-  //   console.log(regExp.test(e.target.value));
-  // };
+  const isValidNickname = (e) => {
+    if (e.target.value.length >= 2 && e.target.value.length <= 15) {
+      if (e.target.value.search(/\s/) !== -1) {
+        setCheckNickname(false);
+      } else {
+        setCheckNickname(true);
+      }
+    } else {
+      setCheckNickname(false);
+    }
+  };
 
   const isValidEmail = (e) => {
-    const regExp =
+    let regExp =
       /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
     if (regExp.test(e.target.value)) {
       setCheckEmail(true);
@@ -89,7 +93,7 @@ function Signup () {
     }
   };
   const isValidPassword = (e) => {
-    const regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,10}$/;
+    let regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,10}$/;
     if (regExp.test(e.target.value)) {
       setCheckPassword(true);
     } else {
@@ -98,58 +102,68 @@ function Signup () {
   };
 
   const handleCheckPassword = (e) => {
-    if (e.target.value !== '' && e.target.value === userInfo.password) {
+    if (e.target.value !== "" && e.target.value === userInfo.password) {
       setCheckRetypePassword(true);
     } else {
       setCheckRetypePassword(false);
     }
   };
 
-  const yearList = [];
-  const today = new Date();
-  const year = today.getFullYear();
+  let yearList = [];
+  let today = new Date();
+  let year = today.getFullYear();
   for (let i = year; i >= 1921; i--) {
     yearList.push(i);
   }
 
   const handleSignupRequest = () => {
     if (
-      userInfo.nickname === '' ||
-      userInfo.email === '' ||
-      userInfo.password === '' ||
-      userInfo.birthYear === '' ||
-      // checkNickname !== true ||
+      userInfo.nickname === "" ||
+      userInfo.email === "" ||
+      userInfo.password === "" ||
+      userInfo.birthYear === "" ||
+      checkNickname !== true ||
       checkEmail !== true ||
       checkPassword !== true ||
       checkRetypePassword !== true
     ) {
-      setErrorMsg('모든 항목을 바르게 작성해주세요');
+      setErrorMsg("모든 항목을 바르게 작성해주세요");
     } else {
       axios
-        .post('http://localhost:80/signup', userInfo, {
-          headers: { 'Content-Type': 'application/json' },
-          withCredentials: true
+        .post(`${process.env.REACT_APP_API_URL}/signup`, userInfo, {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
         })
         .then((res) => {
-          console.log(res);
+          if (res.status === 201) {
+            handleModal();
+            window.location.replace("/");
+          }
         })
         .catch((err) => {
-          console.log(err.response);
+          if (err.response.status === 409) {
+            setErrorMsg("이미 가입된 이메일입니다");
+          }
         });
     }
   };
 
   const inputCheck = (key) => (e) => {
     handleInputValue(key)(e);
-    // if (key === "nickname") {
-    //   isValidNickname(e);
-    // }
-    if (key === 'email') {
+    if (key === "nickname") {
+      isValidNickname(e);
+    }
+    if (key === "email") {
       isValidEmail(e);
     }
-    if (key === 'password') {
+    if (key === "password") {
       isValidPassword(e);
     }
+  };
+
+  const closeModal = () => {
+    handleModal();
+    history.push("/");
   };
 
   return (
@@ -158,38 +172,39 @@ function Signup () {
         <SignupHeading>SIGN UP </SignupHeading>
         <SignupInputContainer>
           <SignupInputValue>Nickname</SignupInputValue>
-          <SignupInput onChange={handleInputValue('nickname')} />
+          <SignupInput onChange={inputCheck("nickname")} />
           <CheckInfo>
-            {/* {checkNickname ? null : "올바른 이메일 주소를 입력해주세요"} */}
+            {checkNickname ? null : "닉네임은 공백없이 2~15자 입니다"}
           </CheckInfo>
           <SignupInputValue>Email</SignupInputValue>
-          <SignupInput onChange={inputCheck('email')} />
+          <SignupInput onChange={inputCheck("email")} />
           <CheckInfo>
-            {checkEmail ? null : '올바른 이메일 주소를 입력해주세요'}
+            {checkEmail ? null : "올바른 이메일 주소를 입력해주세요"}
           </CheckInfo>
           <SignupInputValue>Password</SignupInputValue>
-          <SignupInput type='password' onChange={inputCheck('password')} />
+          <SignupInput type="password" onChange={inputCheck("password")} />
           <CheckInfo>
-            {checkPassword ? null : '올바른 비밀번호를 입력해주세요'}
+            {checkPassword ? null : "올바른 비밀번호를 입력해주세요"}
           </CheckInfo>
           <SignupInputValue>Password Check</SignupInputValue>
-          <SignupInput type='password' onChange={handleCheckPassword} />
+          <SignupInput type="password" onChange={handleCheckPassword} />
           <CheckInfo>
-            {checkRetypePassword ? null : '비밀번호가 일치하지 않습니다'}
+            {checkRetypePassword ? null : "비밀번호가 일치하지 않습니다"}
           </CheckInfo>
           <SignupInputValue>Birth Year</SignupInputValue>
-          <select onChange={handleInputValue('birthYear')}>
+          <select onChange={handleInputValue("birthYear")}>
             {/* <option value="">-------</option> */}
-            <option value='' selected disabled hidden>
+            <option value="" selected disabled hidden>
               선택
             </option>
-            {yearList.map((el) => {
-              return <option>{el}</option>;
+            {yearList.map((el, idx) => {
+              return <option key={idx}>{el}</option>;
             })}
           </select>
         </SignupInputContainer>
         <SignupBtn onClick={handleSignupRequest}>Sign up</SignupBtn>
         <Alertbox>{errorMsg}</Alertbox>
+        <button onClick={closeModal}>창닫기</button>
       </SignupView>
     </SignupBackdrop>
   );
