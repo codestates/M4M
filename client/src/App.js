@@ -7,6 +7,7 @@ import SideNav from "./components/Mainpage/MainpageSideNav";
 import Recommendation from "./pages/RecommendationPage/Recommendation";
 import Signup from "./pages/Signup";
 import { useState } from "react";
+import Login from "./pages/Login";
 
 const AppWrapper = styled.div`
   div,
@@ -44,9 +45,18 @@ function App() {
               <Recommendation />
             </Route>
           </Switch>
+          <Switch>
+            <Route path="/signup">
+              {openModal ? <Signup handleModal={handleModalClose} /> : null}
+            </Route>
+          </Switch>
+          <Switch>
+            <Route path="/login">
+              {openModal ? <Login handleModal={handleModalClose} /> : null}
+            </Route>
+          </Switch>
         </div>
       </AppWrapper>
-      {openModal ? <Signup handleModal={handleModalClose} /> : null}
     </BrowserRouter>
   );
 }

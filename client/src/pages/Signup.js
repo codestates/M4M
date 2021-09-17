@@ -34,7 +34,7 @@ export const SignupInputContainer = styled.div`
 `;
 
 export const SignupInputValue = styled.div`
-  font-weight: bold;
+  // font-weight: bold;
   margin: 5px 0px 5px 0px;
 `;
 
@@ -169,24 +169,24 @@ function Signup({ handleModal }) {
   return (
     <SignupBackdrop>
       <SignupView>
-        <SignupHeading>SIGN UP </SignupHeading>
+        <SignupHeading>회원가입</SignupHeading>
         <SignupInputContainer>
-          <SignupInputValue>Nickname</SignupInputValue>
+          <SignupInputValue>닉네임</SignupInputValue>
           <SignupInput onChange={inputCheck("nickname")} />
           <CheckInfo>
             {checkNickname ? null : "닉네임은 공백없이 2~15자 입니다"}
           </CheckInfo>
-          <SignupInputValue>Email</SignupInputValue>
+          <SignupInputValue>이메일</SignupInputValue>
           <SignupInput onChange={inputCheck("email")} />
           <CheckInfo>
             {checkEmail ? null : "올바른 이메일 주소를 입력해주세요"}
           </CheckInfo>
-          <SignupInputValue>Password</SignupInputValue>
+          <SignupInputValue>비밀번호</SignupInputValue>
           <SignupInput type="password" onChange={inputCheck("password")} />
           <CheckInfo>
             {checkPassword ? null : "올바른 비밀번호를 입력해주세요"}
           </CheckInfo>
-          <SignupInputValue>Password Check</SignupInputValue>
+          <SignupInputValue>비밀번호확인</SignupInputValue>
           <SignupInput type="password" onChange={handleCheckPassword} />
           <CheckInfo>
             {checkRetypePassword ? null : "비밀번호가 일치하지 않습니다"}
@@ -202,7 +202,7 @@ function Signup({ handleModal }) {
             })}
           </select>
         </SignupInputContainer>
-        <SignupBtn onClick={handleSignupRequest}>Sign up</SignupBtn>
+        <SignupBtn onClick={handleSignupRequest}>회원가입</SignupBtn>
         <Alertbox>{errorMsg}</Alertbox>
         <button onClick={closeModal}>창닫기</button>
       </SignupView>

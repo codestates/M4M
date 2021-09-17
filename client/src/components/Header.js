@@ -85,7 +85,14 @@ function Header({ handleModal }) {
           <div className="header-container-4">
             {!isLogin ? (
               <Link to="/login">
-                <button className="btn login">login</button>
+                <button
+                  className="btn login"
+                  onClick={() => {
+                    handleModal();
+                  }}
+                >
+                  login
+                </button>
               </Link>
             ) : (
               <Link to="/logout">
