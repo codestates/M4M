@@ -33,7 +33,7 @@ function App () {
       <AppWrapper>
         <GlobalStyle />
         <div className='App'>
-          <Header />
+          <Header handleModal={handleModalOpen} />
           <Switch>
             <Route exact path='/' />
             <Route path='/mainpage'>
