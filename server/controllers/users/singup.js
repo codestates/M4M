@@ -63,7 +63,8 @@ module.exports = async (req, res) => {
         return res.status(201).json({ message: 'thank you for signing up!' });
       }
     }
-  } catch {
+  } catch (e) {
+    console.log(e);
     res.status(400).json({ message: 'error' });
   }
 };

@@ -5,6 +5,8 @@ import Header from './components/Header';
 import Main from './components/Mainpage/Main';
 import Footer from './components/Footer';
 import Recommendation from './pages/RecommendationPage/Recommendation';
+import Signup from './pages/Signup';
+import { useState } from 'react';
 
 const AppWrapper = styled.div`
   * {
@@ -17,6 +19,15 @@ const AppWrapper = styled.div`
 `;
 
 function App () {
+  const [openModal, setOpenModal] = useState(false);
+
+  const handleModalOpen = () => {
+    setOpenModal(true);
+  };
+  const handleModalClose = () => {
+    setOpenModal(false);
+  };
+
   return (
     <BrowserRouter>
       <AppWrapper>
@@ -24,11 +35,10 @@ function App () {
         <div className='App'>
           <Header />
           <Switch>
-            <Route exact path="/">
-            </Route>
+            <Route exact path='/' />
             <Route path='/mainpage'>
               <Main />
-            </Route> 
+            </Route>
             <Route path='/recommendpage'>
               <Recommendation />
             </Route>
@@ -36,6 +46,7 @@ function App () {
           <Footer />
         </div>
       </AppWrapper>
+      {openModal ? <Signup handleModal={handleModalClose} /> : null}
     </BrowserRouter>
   );
 }

@@ -9,7 +9,7 @@ const SongListWrapper = styled.div`
     justify-content: center;
     align-items: center;
   }
-`
+`;
 
 function SongList () {
   return (

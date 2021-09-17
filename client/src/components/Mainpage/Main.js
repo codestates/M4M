@@ -6,7 +6,7 @@ const MainWrapper = styled.div`
   .main {
     display: flex;
   }
-`
+`;
 
 function Main () {
   return (

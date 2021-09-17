@@ -42,7 +42,7 @@ app.delete('/my-like', controllers.deleteMyLike);
 app.post('/recommendation', controllers.recommendation);
 app.get('/mainpage', controllers.mainpage);
 
-const HTTPS_PORT = process.env.HTTPS_PORT || 80;
+const HTTPS_PORT = process.env.HTTPS_PORT || 4000;
 
 let server;
 

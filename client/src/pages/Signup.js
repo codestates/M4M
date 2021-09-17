@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router';
 require('dotenv').config();
 
 export const SignupBackdrop = styled.div`
@@ -51,33 +52,36 @@ export const CheckInfo = styled.div`
   opacity: 0.8;
 `;
 
-function Signup () {
+function Signup ({ handleModal }) {
   const [userInfo, setUserInfo] = useState({
     nickname: '',
     email: '',
     password: '',
     birthYear: ''
   });
-  console.log(userInfo);
-  // const [checkNickname, setCheckNickname] = useState(true);
+
+  const [checkNickname, setCheckNickname] = useState(true);
   const [checkPassword, setCheckPassword] = useState(true);
   const [checkRetypePassword, setCheckRetypePassword] = useState(true);
   const [checkEmail, setCheckEmail] = useState(true);
   const [errorMsg, setErrorMsg] = useState('');
+  const history = useHistory();
 
   const handleInputValue = (key) => (e) => {
     setUserInfo({ ...userInfo, [key]: e.target.value });
   };
 
-  // const isValidNickname = (e) => {
-  //   let regExp = /^[가-힣]{2,15}|[a-zA-Z]{2,15}\s[a-zA-Z]{2,15}$/;
-  //   if (regExp.test(e.target.value)) {
-  //     setCheckNickname(true);
-  //   } else {
-  //     setCheckNickname(false);
-  //   }
-  //   console.log(regExp.test(e.target.value));
-  // };
+  const isValidNickname = (e) => {
+    if (e.target.value.length >= 2 && e.target.value.length <= 15) {
+      if (e.target.value.search(/\s/) !== -1) {
+        setCheckNickname(false);
+      } else {
+        setCheckNickname(true);
+      }
+    } else {
+      setCheckNickname(false);
+    }
+  };
 
   const isValidEmail = (e) => {
     const regExp =
@@ -118,7 +122,7 @@ function Signup () {
       userInfo.email === '' ||
       userInfo.password === '' ||
       userInfo.birthYear === '' ||
-      // checkNickname !== true ||
+      checkNickname !== true ||
       checkEmail !== true ||
       checkPassword !== true ||
       checkRetypePassword !== true
@@ -126,24 +130,29 @@ function Signup () {
       setErrorMsg('모든 항목을 바르게 작성해주세요');
     } else {
       axios
-        .post('http://localhost:80/signup', userInfo, {
+        .post(`${process.env.REACT_APP_API_URL}/signup`, userInfo, {
           headers: { 'Content-Type': 'application/json' },
           withCredentials: true
         })
         .then((res) => {
-          console.log(res);
+          if (res.status === 201) {
+            handleModal();
+            window.location.replace('/');
+          }
         })
         .catch((err) => {
-          console.log(err.response);
+          if (err.response.status === 409) {
+            setErrorMsg('이미 가입된 이메일입니다');
+          }
         });
     }
   };
 
   const inputCheck = (key) => (e) => {
     handleInputValue(key)(e);
-    // if (key === "nickname") {
-    //   isValidNickname(e);
-    // }
+    if (key === 'nickname') {
+      isValidNickname(e);
+    }
     if (key === 'email') {
       isValidEmail(e);
     }
@@ -152,15 +161,20 @@ function Signup () {
     }
   };
 
+  const closeModal = () => {
+    handleModal();
+    history.push('/');
+  };
+
   return (
     <SignupBackdrop>
       <SignupView>
         <SignupHeading>SIGN UP </SignupHeading>
         <SignupInputContainer>
           <SignupInputValue>Nickname</SignupInputValue>
-          <SignupInput onChange={handleInputValue('nickname')} />
+          <SignupInput onChange={inputCheck('nickname')} />
           <CheckInfo>
-            {/* {checkNickname ? null : "올바른 이메일 주소를 입력해주세요"} */}
+            {checkNickname ? null : '닉네임은 공백없이 2~15자 입니다'}
           </CheckInfo>
           <SignupInputValue>Email</SignupInputValue>
           <SignupInput onChange={inputCheck('email')} />
@@ -183,13 +197,14 @@ function Signup () {
             <option value='' selected disabled hidden>
               선택
             </option>
-            {yearList.map((el) => {
-              return <option>{el}</option>;
+            {yearList.map((el, idx) => {
+              return <option key={idx}>{el}</option>;
             })}
           </select>
         </SignupInputContainer>
         <SignupBtn onClick={handleSignupRequest}>Sign up</SignupBtn>
         <Alertbox>{errorMsg}</Alertbox>
+        <button onClick={closeModal}>창닫기</button>
       </SignupView>
     </SignupBackdrop>
   );
