@@ -5,6 +5,9 @@ const SongListWrapper = styled.div`
     background-color: #f7efe5;
     width: 80vw;
     min-height: calc(100vh - 41px - 56px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 `
 
