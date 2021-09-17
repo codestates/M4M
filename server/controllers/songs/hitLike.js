@@ -32,7 +32,7 @@ module.exports = async (req, res) => {
       });
 
       if (userHashtag) {
-        return res.status(400).json({ message: "already hit the hashtag" });
+        return res.status(400).json({ message: "already hit like button" });
       }
 
       await songuserhashtaglike.create({
