@@ -47,8 +47,8 @@ function App () {
           </Switch>
           <Footer />
         </div>
+        {openModal ? <Signup handleModal={handleModalClose} /> : null}
       </AppWrapper>
-      {openModal ? <Signup handleModal={handleModalClose} /> : null}
     </BrowserRouter>
   );
 }
