@@ -6,6 +6,7 @@ import HeaderSearchbar from "./HeaderSearchbar";
 const HeaderWrapper = styled.div`
   .header {
     padding: 8px 12px;
+    width: 100vw;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -62,7 +63,6 @@ function Header({ handleModal }) {
 
   return (
     <HeaderWrapper>
-      <>
         <div className="header">
           <div className="header-container-1">
             <Link to="/mainpage">
@@ -110,16 +110,26 @@ function Header({ handleModal }) {
             )}
           </div>
         </div>
-        <div className="test-container">
-          <button className="btn test" onClick={handleIsLogin}>
-            change login status for test
-          </button>
-          <button className="btn test" onClick={handleIsRecommend}>
-            change Recommend status for test
-          </button>
-          <p>현재 HeaderSearchbar 미적용. Redux 사용 시 추가 예정</p>
+        <div className='header-container-3'>
+          <HeaderSearchbar />
         </div>
-      </>
+        <div className='header-container-4'>
+          {!isLogin
+            ? <Link to='/login'>
+              <button className='btn login'>login</button>
+              </Link>
+            : <Link to='/logout'>
+              <button className='btn logout'>logout</button>
+            </Link>}
+          {!isLogin
+            ? <Link to='/signup'>
+              <button className='btn signup'>signup</button>
+              </Link>
+            : <Link to='/mypage'>
+              <button className='btn mypage'>mypage</button>
+            </Link>}
+        </div>
+      </div>
     </HeaderWrapper>
   );
 }
