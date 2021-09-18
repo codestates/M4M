@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 // import SideNav from '../../components/Mainpage/MainSideNav';
@@ -28,7 +29,8 @@ const Wrapper = styled.div`
   }
 `;
 
-function Mypage ({ afterWithdrawal }) {
+// function Mypage ({ afterWithdrawal }) {
+function Mypage () {
   const [checkNickname, setCheckNickname] = useState('ok');
   const [checkPassword, setCheckPassword] = useState('ok');
   const [checkBirthYear, setCheckBirthYear] = useState('ok');
@@ -52,7 +54,7 @@ function Mypage ({ afterWithdrawal }) {
   //
   // TEST PHASE 2:
   // localstrage 조작 후 테스트 진행
-  // 예: localStorage.userinfo = '{"id":2,"nickname":"테스트#2","email":"m4m@gmail.com","birthYear":1990,"kakao":true,"salt":"d014ad7a47379a482b8f2beb455f5f2525d1b755ce8cdabdb4b0766e73b1030329ee487543e99c27a8980de6e878dd8686a6a3c80d51a7299e1c39a2fca34764","password":"UFMySd9D/pKkO/m0KXZZmPh0bV+c3QHQyvNn8Sev0g4fhviKRUyJFAeRsXXfXDlEvjd7K0TuR7OF9TW1gBDNBQ==","mobile":"01000002222","address":"경기 목감동","createdAt":"2021-09-06T11:17:27.000Z","updatedAt":"2021-09-06T11:17:27.000Z"}'
+  // 예: localStorage.userinfo = '{'id':2,'nickname':'테스트#2','email':'m4m@gmail.com','birthYear':1990,'kakao':true,'salt':'d014ad7a47379a482b8f2beb455f5f2525d1b755ce8cdabdb4b0766e73b1030329ee487543e99c27a8980de6e878dd8686a6a3c80d51a7299e1c39a2fca34764','password':'UFMySd9D/pKkO/m0KXZZmPh0bV+c3QHQyvNn8Sev0g4fhviKRUyJFAeRsXXfXDlEvjd7K0TuR7OF9TW1gBDNBQ==','mobile':'01000002222','address':'경기 목감동','createdAt':'2021-09-06T11:17:27.000Z','updatedAt':'2021-09-06T11:17:27.000Z'}'
   //
   // =========================================================================
 
@@ -219,11 +221,14 @@ function Mypage ({ afterWithdrawal }) {
     }
   };
 
+  const history = useHistory();
+
   const handleWithdrawalRequest = () => {
+    console.log(information.id);
     axios
-      .post(
+      .delete (
         process.env.REACT_APP_API_URL + '/withdrawal',
-        { data: null },
+        // { data: null },
         {
           headers: {
             // Authorization: `Bearer ${token}`,
@@ -236,10 +241,15 @@ function Mypage ({ afterWithdrawal }) {
       .then((res) => {
         if (res.status === 200) {
           alert('회원탈퇴가 완료되었습니다');
-          afterWithdrawal();
+          // afterWithdrawal();
+
+          // JUST FOR TEST PURPOSES
+          history.push({
+            pathname: '/mainpage',
+          });
         }
-        // localStorage.removeItem('userinfo');
-        // localStorage.removeItem('accessToken');
+        localStorage.removeItem('userinfo');
+        localStorage.removeItem('accessToken');
       });
   };
 
