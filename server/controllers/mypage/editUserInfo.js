@@ -18,10 +18,10 @@ module.exports = async (req, res) => {
     // ===============================================================
     //                       JUST FOR TEST PURPOSES
     // ================================================================
-
-    console.log(req.headers.authorization);
+    
     // console.log('🥺🥺🥺🥺🥺🥺🥺');
-    console.log(req.body);
+    // console.log(req.headers.authorization);
+    // console.log(req.body);
 
     let userInfo = await user.findOne({
       where: {
@@ -32,15 +32,19 @@ module.exports = async (req, res) => {
     // ================================================================
 
     userInfo = Sequelize.getValues(userInfo);
+    let salt = userInfo.salt;
+    let encryptedPassword = userInfo.password;
 
-    const salt = crypto.randomBytes(64).toString('hex');
-    const encryptedPassword = crypto
+    if (req.body.password !== '') {
+      salt = crypto.randomBytes(64).toString('hex');
+      encryptedPassword = crypto
       .pbkdf2Sync(req.body.password, salt, 9999, 64, 'sha512')
       .toString('base64');
+    }
 
     let changedNickname = userInfo.nickname.split('#')[0];
 
-    if (changedNickname === req.body.nickname &&
+    if (changedNickname === req.body.nickname ||
       req.body.nickname.split('#')[0] === '') {
       // 닉네임을 변경하지 않은 경우
       changedNickname = userInfo.nickname;
@@ -53,11 +57,11 @@ module.exports = async (req, res) => {
     if (userInfo.birthYear !== '') {
       changedBirthYear = req.body.birthYear;
     }
-    
+
     // console.log('🙏🙏🙏🙏🙏🙏🙏');
-    console.log(changedNickname);
-    console.log(changedBirthYear);
-    console.log(encryptedPassword);
+    // console.log(changedNickname);
+    // console.log(changedBirthYear);
+    // console.log(encryptedPassword);
 
     await user.update(
       {

@@ -14,12 +14,20 @@ module.exports = async (req, res) => {
     //   });
     // }
 
-    // test: without accessToken
-    const userInfo = await user.findOne({
+    // ===============================================================
+    //                       JUST FOR TEST PURPOSES
+    // ================================================================
+    
+    console.log('🥺🥺🥺🥺🥺🥺🥺');
+    console.log(req.headers.authorization);
+
+    let userInfo = await user.findOne({
       where: {
-        id: req.body.id
+        id: req.headers.authorization
       }
     });
+
+    // ================================================================
 
     if (userInfo) {
       await user.destroy({
