@@ -35,7 +35,7 @@ app.delete('/delete-comment', controllers.deleteComment);
 app.get('/title', findAllTitle);
 app.get('/artist', findAllArtist);
 app.get('/user-info', controllers.userInfo);
-app.patch('/edit-user-info', controllers.editUserInfo);
+app.patch('/user-info', controllers.editUserInfo);
 app.delete('/withdrawal', controllers.withdrawal);
 app.get('/my-like', controllers.myLike);
 app.delete('/my-like', controllers.deleteMyLike);
