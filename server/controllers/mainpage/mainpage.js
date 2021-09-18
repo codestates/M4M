@@ -76,7 +76,7 @@ module.exports = async (req, res) => {
         // 전체 결과 출력
         // console.log(results);
 
-        // 현재 hashtagLiked의 타입 조회
+        // 현재 hashtagLike의 타입 조회
         // Array.isArray(results[0].hashtagLike) ? console.log('배열') : console.log('객체');
 
         res.status(200).json({
