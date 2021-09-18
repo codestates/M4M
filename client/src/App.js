@@ -7,6 +7,8 @@ import Main from './components/Mainpage/Main';
 import Footer from './components/Footer';
 import Recommendation from './pages/RecommendationPage/Recommendation';
 import Signup from './pages/Signup';
+import GetLikedSong from './pages/MyPage/LikedSongPage';
+import Mypage from './pages/MyPage/UserInfo';
 import { useState } from 'react';
 
 const AppWrapper = styled.div`
@@ -43,6 +45,12 @@ function App () {
             </Route>
             <Route path='/recommendpage'>
               <Recommendation />
+            </Route>
+            <Route path='/mylike'>
+              <GetLikedSong />
+            </Route>
+            <Route path='/myinfo'>
+              <Mypage />
             </Route>
           </Switch>
           <Footer />
