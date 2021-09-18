@@ -27,7 +27,7 @@ module.exports = async (req, res) => {
 
       const fetchSongInfo = async () => {
         const songInfo = songList.map(async (song) => {
-          // console.log("++++++++++++++++++\n", song.id);
+          // console.log('++++++++++++++++++\n', song.id);
           try {
             let getHashtagName = await songuserhashtaglike.findAll({
               include: [{
@@ -42,7 +42,7 @@ module.exports = async (req, res) => {
             getHashtagName = Sequelize.getValues(getHashtagName);
             // console.log(getHashtagName);
 
-            const hashtaglikeCount = {
+            let hashtaglikeCount = {
               좋아요: 0
             };
 
@@ -55,7 +55,9 @@ module.exports = async (req, res) => {
               }
             });
 
-            // console.log(hashtaglikeCount);
+            // 80번째 줄 주석 해제로 hashtagLike 현재 타입 확인
+            // hashtagLike 배열 형태로 출력, 객체로 출력해야할 시 주석 처리 후 실행
+            hashtaglikeCount = Object.entries(hashtaglikeCount);
 
             return {
               id: song.id,
@@ -71,7 +73,11 @@ module.exports = async (req, res) => {
         });
 
         const results = await Promise.all(songInfo);
+        // 전체 결과 출력
         // console.log(results);
+
+        // 현재 hashtagLiked의 타입 조회
+        // Array.isArray(results[0].hashtagLike) ? console.log('배열') : console.log('객체');
 
         res.status(200).json({
           data: results,
