@@ -6,7 +6,8 @@ const SideNavWrapper = styled.div`
     background-color: beige;
     text-align: left;
     width: 20vw;
-    min-height: calc(100vh - 41px - 56px);
+    min-width: 140px;
+    min-height: 100%;
   }
   .item, .sub-item {
     margin: 0px 12px;

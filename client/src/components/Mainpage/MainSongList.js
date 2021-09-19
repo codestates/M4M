@@ -4,18 +4,18 @@ const SongListWrapper = styled.div`
   .songlist {
     background-color: #f7efe5;
     width: 80vw;
-    min-height: calc(100vh - 41px - 56px);
-    display: flex;
+    /* display: flex; */
     justify-content: center;
     align-items: center;
   }
 `;
 
 function SongList () {
+  const test = new Array(100).fill();
   return (
     <SongListWrapper>
       <div className='songlist'>
-        songlist content
+        {test.map((el,idx) => <div key={idx+1}>test{idx+1}</div>)}
       </div>
     </SongListWrapper>
   );
