@@ -25,6 +25,7 @@ app.use(cookieParser());
 app.get("/", (req, res) => {
   res.send("hello world");
 });
+// 테스트
 app.post("/signup", controllers.signup);
 app.post("/login", controllers.login);
 app.post("/logout", controllers.logout);
