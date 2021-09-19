@@ -7,7 +7,10 @@ import Main from './components/Mainpage/Main';
 import Footer from './components/Footer';
 import Recommendation from './pages/RecommendationPage/Recommendation';
 import Signup from './pages/Signup';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+
+axios.defaults.headers.withCredentials = true;
 
 const AppWrapper = styled.div`
   * {
@@ -21,6 +24,7 @@ const AppWrapper = styled.div`
 
 function App () {
   const [openModal, setOpenModal] = useState(false);
+  const [bulkData, setBulkData] =useState([]);
 
   const handleModalOpen = () => {
     setOpenModal(true);
@@ -29,12 +33,21 @@ function App () {
     setOpenModal(false);
   };
 
+  useEffect(() => {
+      axios
+        .get(process.env.REACT_APP_API_URL + '/mainpage', { headers: { 'Content-Type': 'application/json'} })
+        .then((res) => {
+          setBulkData(res.data.data);
+        })
+        .catch(console.log);
+  }, []);
+
   return (
     <BrowserRouter>
       <AppWrapper>
         <GlobalStyle />
         <div className='App'>
-          <Header handleModal={handleModalOpen} />
+          <Header handleModal={handleModalOpen} bulkData={bulkData} />
           <Noti />
           <Switch>
             <Route exact path='/' />

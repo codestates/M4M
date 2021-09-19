@@ -2,6 +2,8 @@ import axios from 'axios';
 import { useState } from 'react';
 import styled from 'styled-components';
 
+axios.defaults.headers.withCredentials = true;
+
 const HeaderSearchbarWrapper = styled.div`
   .btn {
     cursor: pointer;
@@ -23,18 +25,19 @@ const HeaderSearchbarWrapper = styled.div`
   }
 `;
 
-function HeaderSearchbar () {
+function HeaderSearchbar (bulkData) {
   // ! useState는 Redux를 사용하기 전 테스트 용으로 사용
   const [type, setType] = useState('title');
   const [keyword, setKeyword] = useState('');
   console.log('🟡', type, '🟢', keyword);
+  console.log('🔸', bulkData.bulkData);
 
   const getSearchResult = (reqType, reqKeyword) => {
     if (reqKeyword.length !== 0) {
       axios
         .get(
           process.env.REACT_APP_API_URL + `/${reqType}?query=${reqKeyword}`,
-          { headers: { 'Content-Type': 'application/json' } }
+          { headers: { 'Content-Type': 'application/json'} }
         )
         .then((searchResult) => {
           const songIdList = searchResult.data.data;

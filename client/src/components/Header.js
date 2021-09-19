@@ -52,7 +52,7 @@ const HeaderWrapper = styled.div`
   }
 `;
 
-function Header ({ handleModal }) {
+function Header ({ handleModal, bulkData }) {
   // ! useState는 Redux를 사용하기 전 테스트 용으로 사용
   const [isLogin, setIsLogin] = useState(false);
   const [isRecommend, setIsRecommend] = useState(false);
@@ -80,7 +80,7 @@ function Header ({ handleModal }) {
           </Link>
         </div>
         <div className='header-container-3'>
-          <HeaderSearchbar />
+          <HeaderSearchbar bulkData={bulkData} />
         </div>
         <div className='header-container-4'>
           {!isLogin
