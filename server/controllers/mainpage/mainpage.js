@@ -1,46 +1,33 @@
-// const { isAuthorized } = require('../tokenFunctions');
-const { user, song, hashtaglike, songuserhashtaglike } = require('../../models');
+const { song, hashtaglike, songuserhashtaglike } = require('../../models');
 const Sequelize = require('sequelize');
-require('sequelize-values')(Sequelize);
-const Op = Sequelize.Op;
 
-// GET http://localhost:80/my-like
 module.exports = async (req, res) => {
-  // test: without accessToken
   try {
-    const userInfo = await user.findOne({
-      where: {
-        id: req.body.id
-      }
-    });
-    // console.log(userInfo.id);
-
-    let songList = await songuserhashtaglike.findAll({
-      include: [{
-        model: song,
-        attributes: ['id', 'title', 'artist', 'album_art', 'date']
-      }],
-      // 해당 유저가 등록한 것 중 hashtagId가 1인 것(=좋아요)만 출력
-      where: {
-        [Op.and]: [
-          { userId: userInfo.id },
-          { hashtagId: 1 }
-        ]
-      }
-    });
+    let songList = await song.findAll({});
 
     if (songList.length === 0) {
-      res.status(404).json({
-        message: 'No songs are added to the list'
+      res.status(400).json({
+        message: 'No songs are in the list'
       });
     } else {
       songList = Sequelize.getValues(songList);
-      songList = songList.map((el) => el.song);
-      // console.log('++++++++++++++++++\n', songList);
+
+      songList = songList.map((song) => {
+        song.title = song.title.replace(/[|]/g, ',');
+        song.artist = song.artist.replace(/[|]/g, ',');
+
+        return {
+          id: song.id,
+          title: song.title,
+          artist: song.artist,
+          album_art: song.album_art,
+          date: song.date
+        };
+      });
 
       const fetchSongInfo = async () => {
         const songInfo = songList.map(async (song) => {
-          // console.log("++++++++++++++++++\n", song.id);
+          // console.log('++++++++++++++++++\n', song.id);
           try {
             let getHashtagName = await songuserhashtaglike.findAll({
               include: [{
@@ -55,10 +42,7 @@ module.exports = async (req, res) => {
             getHashtagName = Sequelize.getValues(getHashtagName);
             // console.log(getHashtagName);
 
-            song.title = song.title.replace(/[|]/g, ',');
-            song.artist = song.artist.replace(/[|]/g, ',');
-
-            const hashtaglikeCount = {
+            let hashtaglikeCount = {
               좋아요: 0
             };
 
@@ -71,7 +55,9 @@ module.exports = async (req, res) => {
               }
             });
 
-            // console.log(hashtaglikeCount);
+            // 80번째 줄 주석 해제로 hashtagLike 현재 타입 확인
+            // hashtagLike 배열 형태로 출력, 객체로 출력해야할 시 주석 처리 후 실행
+            hashtaglikeCount = Object.entries(hashtaglikeCount);
 
             return {
               id: song.id,
@@ -87,7 +73,11 @@ module.exports = async (req, res) => {
         });
 
         const results = await Promise.all(songInfo);
+        // 전체 결과 출력
         // console.log(results);
+
+        // 현재 hashtagLike의 타입 조회
+        // Array.isArray(results[0].hashtagLike) ? console.log('배열') : console.log('객체');
 
         res.status(200).json({
           data: results,
@@ -97,9 +87,7 @@ module.exports = async (req, res) => {
 
       fetchSongInfo();
     }
-  } catch {
-    res.status(400).json({
-      message: 'Invalid access token'
-    });
+  } catch (error) {
+    console.error(error);
   }
 };

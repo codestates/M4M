@@ -30,19 +30,21 @@ app.post("/login", controllers.login);
 app.post("/logout", controllers.logout);
 app.get("/song", controllers.song);
 app.post("/comment", controllers.comment);
-app.patch("/edit-comment", controllers.editComment);
-app.delete("/delete-comment", controllers.deleteComment);
-app.post("/hit-hashtag", controllers.hitHashtag);
-app.delete("/delete-hashtag", controllers.deleteHashtag);
-app.post("/hit-like", controllers.hitLike);
-app.delete("/delete-like", controllers.deleteLike);
+app.patch("/comment", controllers.editComment);
+app.delete("/comment", controllers.deleteComment);
+app.post("/hashtag", controllers.hitHashtag);
+app.delete("/hashtag", controllers.deleteHashtag);
+app.post("/like", controllers.hitLike);
+app.delete("/like", controllers.deleteLike);
 app.get("/title", findAllTitle);
 app.get("/artist", findAllArtist);
 app.get("/user-info", controllers.userInfo);
 app.patch("/edit-user-info", controllers.editUserInfo);
 app.delete("/withdrawal", controllers.withdrawal);
 app.get("/my-like", controllers.myLike);
-app.delete("/delete-my-like", controllers.deleteMyLike);
+app.delete("/my-like", controllers.deleteMyLike);
+app.post("/recommendation", controllers.recommendation);
+app.get("/mainpage", controllers.mainpage);
 
 const HTTPS_PORT = process.env.HTTPS_PORT || 80;
 

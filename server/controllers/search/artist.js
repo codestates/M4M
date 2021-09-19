@@ -66,7 +66,7 @@ module.exports = {
                 const hashtaglikeCount = {
                   좋아요: 0
                 };
-                
+
                 getHashtagName.map((song) => {
                   // console.log(song.hashtaglike.name);
                   if (hashtaglikeCount[song.hashtaglike.name]) {
@@ -77,7 +77,7 @@ module.exports = {
                 });
 
                 // console.log(hashtaglikeCount);
-                
+
                 return {
                   id: song.id,
                   title: song.title,
