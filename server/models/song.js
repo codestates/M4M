@@ -11,6 +11,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate (models) {
       // define association here
+      song.hasMany(models.comment, {
+        foreignKey: 'songId'
+      });
+      song.hasMany(models.songuserhashtaglike, {
+        foreignKey: 'songId'
+      });
     }
   }
   song.init({
@@ -20,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     album: DataTypes.STRING,
     album_art: DataTypes.STRING,
     date: DataTypes.STRING,
+    year: DataTypes.INTEGER,
     lyrics: DataTypes.TEXT,
     recommendType1: DataTypes.STRING,
     recommendType2: DataTypes.STRING,

@@ -1,0 +1,29 @@
+{
+  "signup": {
+    "nickname": "김경호",
+    "email": "test2@gmail.com",
+    "password": "1234qwer",
+    "birthYear": "2002"
+  },
+  "login": {
+    "email": "test2@gmail.com",
+    "password": "1234qwer"
+  },
+  "comment": {
+    "title": "흔들린 우정",
+    "content": "쓰레기"
+  },
+  "edit-comment": {
+    "id": "8",
+    "title": "흔들린 우정",
+    "content": "쓰레기"
+  },
+  "hit-hashtag": {
+    "id": "6",
+    "name": "#인생곡인"
+  },
+  "delete-hashtag": {
+    "id": "6",
+    "name": "#인생곡인"
+  }
+}
