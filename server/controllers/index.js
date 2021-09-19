@@ -1,5 +1,4 @@
 module.exports = {
-<<<<<<< HEAD
   signup: require("./users/singup"),
   login: require("./users/login"),
   logout: require("./users/logout"),
@@ -18,24 +17,6 @@ module.exports = {
   withdrawal: require("./mypage/withdrawal"),
   myLike: require("./mypage/myLike"),
   deleteMyLike: require("./mypage/deleteMyLike"),
-=======
-  searchTest: require('./test/searchTest'),
-  signup: require('./users/singup'),
-  login: require('./users/login'),
-  logout: require('./users/logout'),
-  song: require('./songs/song'),
-  comment: require('./songs/comment'),
-  editComment: require('./songs/editComment'),
-  deleteComment: require('./songs/deleteComment'),
-  searchTest: require('./test/searchTest'),
-  title: require('./search/title'),
-  artist: require('./search/artist'),
-  userInfo: require('./mypage/userInfo'),
-  editUserInfo: require('./mypage/editUserInfo'),
-  withdrawal: require('./mypage/withdrawal'),
-  myLike: require('./mypage/myLike'),
-  deleteMyLike: require('./mypage/deleteMyLike'),
-  recommendation: require('./recommendation/recommendation'),
-  mainpage: require('./mainpage/mainpage')
->>>>>>> 0b0a3135759076a6778f3adcda79e3b59412cbff
+  recommendation: require("./recommendation/recommendation"),
+  mainpage: require("./mainpage/mainpage"),
 };
