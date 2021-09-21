@@ -65,7 +65,7 @@ module.exports = async (req, res) => {
             // 객체 -> 배열(해시태그, 좋아요)
             hashtaglikeCount = Object.entries(hashtaglikeCount);
 
-            // 커맨트 가져오기
+            // 댓글 가져오기
             let getComment = await song.findAll({
               include: [
                 {
@@ -79,7 +79,6 @@ module.exports = async (req, res) => {
             getComment = Sequelize.getValues(getComment);
 
             const getComments = getComment.map((comments) => comments.comments);
-
             const getContent = getComments.map((comments) => {
               return comments.map((comments) => [comments.content]);
             });
