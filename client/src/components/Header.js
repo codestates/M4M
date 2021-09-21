@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import HeaderSearchbar from './HeaderSearchbar';
+import { useSelector } from 'react-redux';
 
 const HeaderWrapper = styled.div`
   .header {
@@ -43,36 +44,26 @@ const HeaderWrapper = styled.div`
   .mypage {
     margin: 0px 8px;
   }
-  .test-container {
-    padding: 8px 12px;
-    background-color: beige;
-  }
-  .test {
-    margin: 0px 8px;
-  }
 `;
 
-function Header ({ handleModal, bulkData }) {
-  // ! useState는 Redux를 사용하기 전 테스트 용으로 사용
-  const [isLogin, setIsLogin] = useState(false);
+function Header ({ handleModal }) {
+  const isLogin = useSelector(state => state.userReducer.user.login);
   const [isRecommend, setIsRecommend] = useState(false);
-  console.log('🔴isLogin:', isLogin, '🟠isRecommend:', isRecommend);
-
-  const handleIsLogin = () => setIsLogin(!isLogin);
-  const handleIsRecommend = () => setIsRecommend(!isRecommend);
+  const handleIsRecommend = (status) => setIsRecommend(status);
 
   return (
     <HeaderWrapper>
       <div className='header'>
         <div className='header-container-1'>
           <Link to='/mainpage'>
-            <div className='logo'>M4M Logo</div>
+            <div className='logo' onClick={() => handleIsRecommend(false)}>M4M Logo</div>
           </Link>
         </div>
         <div className='header-container-2'>
           <Link to='/recommendpage'>
             <button
               className='btn recommend-page'
+              onClick={() => handleIsRecommend(true)}
               disabled={isRecommend ? 'disabled' : null}
             >
               recommend page
@@ -80,7 +71,7 @@ function Header ({ handleModal, bulkData }) {
           </Link>
         </div>
         <div className='header-container-3'>
-          <HeaderSearchbar bulkData={bulkData} />
+          <HeaderSearchbar isRecommend={isRecommend} />
         </div>
         <div className='header-container-4'>
           {!isLogin

@@ -3,14 +3,11 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { GlobalStyle } from './components/utils/_var';
 import Header from './components/Header';
 import Noti from './components/Notification';
-import Main from './components/Mainpage/Main';
+import Main from './pages/Mainpage/Main';
 import Footer from './components/Footer';
 import Recommendation from './pages/RecommendationPage/Recommendation';
 import Signup from './pages/Signup';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-
-axios.defaults.headers.withCredentials = true;
+import { useState } from 'react';
 
 const AppWrapper = styled.div`
   * {
@@ -24,7 +21,6 @@ const AppWrapper = styled.div`
 
 function App () {
   const [openModal, setOpenModal] = useState(false);
-  const [bulkData, setBulkData] =useState([]);
 
   const handleModalOpen = () => {
     setOpenModal(true);
@@ -33,30 +29,17 @@ function App () {
     setOpenModal(false);
   };
 
-  useEffect(() => {
-      axios
-        .get(process.env.REACT_APP_API_URL + '/mainpage', { headers: { 'Content-Type': 'application/json'} })
-        .then((res) => {
-          setBulkData(res.data.data);
-        })
-        .catch(console.log);
-  }, []);
-
   return (
     <BrowserRouter>
       <AppWrapper>
         <GlobalStyle />
         <div className='App'>
-          <Header handleModal={handleModalOpen} bulkData={bulkData} />
+          <Header handleModal={handleModalOpen} />
           <Noti />
           <Switch>
             <Route exact path='/' />
-            <Route path='/mainpage'>
-              <Main />
-            </Route>
-            <Route path='/recommendpage'>
-              <Recommendation />
-            </Route>
+            <Route path='/mainpage' component={Main} />
+            <Route path='/recommendpage' component={Recommendation} />
           </Switch>
           <Footer />
         </div>
