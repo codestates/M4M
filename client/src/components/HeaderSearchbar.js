@@ -39,14 +39,14 @@ function HeaderSearchbar () {
         .then((searchResult) => {
           const songIdList = searchResult.data.data;
           console.log(songIdList);
-          // Mainpage_info에 '검색 결과가 없습니다.' landing
+          // ! Redux SideNav isSelected null로 변경 => MainSongList에 '검색 결과가 없습니다.' landing
         })
         .catch((err) => {
-          // Mainpage_info에 '검색 결과가 없습니다.' landing
+          // ! Redux SideNav isSelected null로 변경 => MainSongList에 '검색 결과가 없습니다.' landing
           console.log(err);
         });
     } else {
-      // Header 아래 쪽에 '검색어를 입력해주세요.' notification(red) 3000ms landing
+      // ! Redux Action을 사용하여 Noti State 변경
     }
   };
 

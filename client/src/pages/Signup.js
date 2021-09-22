@@ -60,7 +60,7 @@ function Signup({ handleModal }) {
     birthYear: "",
   });
 
-  const [checkNickname, setCheckNickname] = useState(true);
+  const [checkNickname, setCheckNickname] = useState("");
   const [checkPassword, setCheckPassword] = useState(true);
   const [checkRetypePassword, setCheckRetypePassword] = useState(true);
   const [checkEmail, setCheckEmail] = useState(true);
@@ -72,19 +72,23 @@ function Signup({ handleModal }) {
   };
 
   const isValidNickname = (e) => {
-    if (e.target.value.length >= 2 && e.target.value.length <= 15) {
-      if (e.target.value.search(/\s/) !== -1) {
-        setCheckNickname(false);
-      } else {
-        setCheckNickname(true);
-      }
+    const regExpSpec = /[~!@#$%^&*()_+|<>?:{}`=,.]/;
+    const regExpKor = /[ㄱ-ㅎ|ㅏ-ㅣ]/;
+    if (e.target.value.search(/\s/) !== -1) {
+      setCheckNickname("공백을 포함하면 안됩니다");
+    } else if (regExpKor.test(e.target.value)) {
+      setCheckNickname("올바른 한글 형식을 따라주세요");
+    } else if (regExpSpec.test(e.target.value)) {
+      setCheckNickname("특수문자를 포함하면 안됩니다.");
+    } else if (e.target.value.length < 2 || e.target.value.length > 15) {
+      setCheckNickname("닉네임은 2-15자입니다");
     } else {
-      setCheckNickname(false);
+      setCheckNickname("ok");
     }
   };
 
   const isValidEmail = (e) => {
-    let regExp =
+    const regExp =
       /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
     if (regExp.test(e.target.value)) {
       setCheckEmail(true);
@@ -93,7 +97,7 @@ function Signup({ handleModal }) {
     }
   };
   const isValidPassword = (e) => {
-    let regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,10}$/;
+    const regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,10}$/;
     if (regExp.test(e.target.value)) {
       setCheckPassword(true);
     } else {
@@ -109,9 +113,9 @@ function Signup({ handleModal }) {
     }
   };
 
-  let yearList = [];
-  let today = new Date();
-  let year = today.getFullYear();
+  const yearList = [];
+  const today = new Date();
+  const year = today.getFullYear();
   for (let i = year; i >= 1921; i--) {
     yearList.push(i);
   }
@@ -122,7 +126,7 @@ function Signup({ handleModal }) {
       userInfo.email === "" ||
       userInfo.password === "" ||
       userInfo.birthYear === "" ||
-      checkNickname !== true ||
+      checkNickname !== "ok" ||
       checkEmail !== true ||
       checkPassword !== true ||
       checkRetypePassword !== true
@@ -137,7 +141,7 @@ function Signup({ handleModal }) {
         .then((res) => {
           if (res.status === 201) {
             handleModal();
-            window.location.replace("/");
+            window.location.replace("/mainpage");
           }
         })
         .catch((err) => {
@@ -173,9 +177,7 @@ function Signup({ handleModal }) {
         <SignupInputContainer>
           <SignupInputValue>닉네임</SignupInputValue>
           <SignupInput onChange={inputCheck("nickname")} />
-          <CheckInfo>
-            {checkNickname ? null : "닉네임은 공백없이 2~15자 입니다"}
-          </CheckInfo>
+          <CheckInfo>{checkNickname === "ok" ? null : checkNickname}</CheckInfo>
           <SignupInputValue>이메일</SignupInputValue>
           <SignupInput onChange={inputCheck("email")} />
           <CheckInfo>

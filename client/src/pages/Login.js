@@ -66,10 +66,17 @@ function Login({ handleModal }) {
         .then((res) => {
           console.log(res);
           localStorage.setItem("accessToken", res.data.accessToken);
+          window.location.replace("/mainpage");
         })
         .catch((err) => {
           console.log(err.response);
         });
+    }
+  };
+
+  const enter = (e) => {
+    if (e.key === "Enter" && e.target.value !== "") {
+      handleLoginRequest();
     }
   };
 
@@ -88,6 +95,9 @@ function Login({ handleModal }) {
           <LoginInput
             type="password"
             onChange={handleInputValue("password")}
+            onKeyPress={(e) => {
+              enter(e);
+            }}
           ></LoginInput>
         </LoginInputContainer>
         <Alertbox>{errorMsg}</Alertbox>

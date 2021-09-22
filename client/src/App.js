@@ -2,22 +2,20 @@ import styled from "styled-components";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { GlobalStyle } from "./components/utils/_var";
 import Header from "./components/Header";
+import Noti from "./components/Notification";
+import Main from "./components/Mainpage/Main";
 import Footer from "./components/Footer";
-import SideNav from "./components/Mainpage/MainpageSideNav";
 import Recommendation from "./pages/RecommendationPage/Recommendation";
 import Signup from "./pages/Signup";
 import { useState } from "react";
 import Login from "./pages/Login";
 
 const AppWrapper = styled.div`
-  div,
-  button,
-  select,
-  input {
+  * {
     font-family: "NeoDunggeunmo";
+    box-sizing: border-box;
   }
   .App {
-    margin: 0;
     text-align: center;
   }
 `;
@@ -38,9 +36,12 @@ function App() {
         <GlobalStyle />
         <div className="App">
           <Header handleModal={handleModalOpen} />
-          <Footer />
-          <SideNav />
+          <Noti />
           <Switch>
+            <Route exact path="/" />
+            <Route path="/mainpage">
+              <Main />
+            </Route>
             <Route path="/recommendpage">
               <Recommendation />
             </Route>
@@ -55,6 +56,7 @@ function App() {
               {openModal ? <Login handleModal={handleModalClose} /> : null}
             </Route>
           </Switch>
+          <Footer />
         </div>
       </AppWrapper>
     </BrowserRouter>
