@@ -94,6 +94,7 @@ module.exports = async (req, res) => {
               year: songs.year,
               lyrics: songs.lyrics,
               hashtagLike: hashtaglikeCount,
+              // 유저랑 시간 추가
               comments: getContent.flat(),
             };
           } catch {
