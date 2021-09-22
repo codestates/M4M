@@ -1,12 +1,15 @@
 import styled from 'styled-components';
 import { useState } from 'react';
+import { changeType } from '../../redux/action';
+import { useDispatch } from 'react-redux';
 
 const SideNavWrapper = styled.div`
   .SideNav {
     background-color: beige;
     text-align: left;
     width: 20vw;
-    min-height: calc(100vh - 41px - 56px);
+    min-width: 140px;
+    min-height: 100%;
   }
   .item, .sub-item {
     margin: 0px 12px;
@@ -51,18 +54,18 @@ const SideNavWrapper = styled.div`
 `;
 
 function SideNav () {
-  // ! useState는 Redux를 사용하기 전 테스트 용으로 사용
-  const [isSelected, setIsSelected] = useState('All');
+  const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(null);
+  const plainList = ['All', 'Like'];
   const accordionList = ['Genre', 'Hashtag', 'Year'];
   const accordionObj = {
     Genre: ['발라드', '댄스', '랩/힙합', 'R&B/Soul', '인디음악', '록/메탈', '트로트', '포크/블루스'],
     Hashtag: ['#인생곡인', '#가사가재밌는', '#몸이기억하는', '#눈물샘자극', '#노래방금지곡', '#영원한18번', '#추억소환'],
     Year: new Array(18).fill(1993).map((el, idx) => String(el + idx))
   };
-  console.log('🔵', isSelected);
 
-  const handleSelectChange = (e) => setIsSelected(e.target.getAttribute('value'));
+  const handleSelectChange = (e) => dispatch(changeType(e.target.getAttribute('value')));
+
   const handleIsOpen = (e) => {
     const curValue = e.target.getAttribute('value');
     if (isOpen === curValue) {
@@ -75,22 +78,30 @@ function SideNav () {
   return (
     <SideNavWrapper>
       <div className='SideNav'>
-        <div className='item' value='All' onClick={handleSelectChange}><span className='space' />ALL</div>
-        <div className='item' value='Like' onClick={handleSelectChange}><span className='space' />Like</div>
+        {plainList
+          .map((list, idx) => {
+            return (
+              <div className='item' key={idx+1} value={list} onClick={handleSelectChange}><span className='space' />{list}</div>
+            );
+          })
+        }
         {accordionList
           .map((list, idx) => {
             return (
-              <div key={idx + 1}>
-                <div className='item' value={list} onClick={handleIsOpen}><span className='arrow' />{list}</div>
+              <div key={idx+1}>
+                <div className='item' value={list} onClick={(e) => { handleIsOpen(e); handleSelectChange(e); }}>
+                  <span className='arrow' />{list}
+                </div>
                 {isOpen === list
                   ? accordionObj[list]
                     .map((el, idx) =>
-                      <div className='sub-item' key={idx + 1} value={el} onClick={handleSelectChange}>{el}</div>
+                      <div className='sub-item' key={idx+1} value={el} onClick={handleSelectChange}>{el}</div>
                     )
                   : null}
               </div>
             );
-          })}
+          })
+        }
       </div>
     </SideNavWrapper>
   );

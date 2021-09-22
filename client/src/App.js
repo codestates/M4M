@@ -1,13 +1,13 @@
-import styled from "styled-components";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { GlobalStyle } from "./components/utils/_var";
-import Header from "./components/Header";
-import Noti from "./components/Notification";
-import Main from "./components/Mainpage/Main";
-import Footer from "./components/Footer";
-import Recommendation from "./pages/RecommendationPage/Recommendation";
-import Signup from "./pages/Signup";
-import { useState } from "react";
+import styled from 'styled-components';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { GlobalStyle } from './components/utils/_var';
+import Header from './components/Header';
+import Noti from './components/Notification';
+import Main from './pages/Mainpage/Main';
+import Footer from './components/Footer';
+import Recommendation from './pages/RecommendationPage/Recommendation';
+import Signup from './pages/Signup';
+import { useState } from 'react';
 
 const AppWrapper = styled.div`
   * {
@@ -37,13 +37,9 @@ function App() {
           <Header handleModal={handleModalOpen} />
           <Noti />
           <Switch>
-            <Route exact path="/" />
-            <Route path="/mainpage">
-              <Main />
-            </Route>
-            <Route path="/recommendpage">
-              <Recommendation />
-            </Route>
+            <Route exact path='/' />
+            <Route path='/mainpage' component={Main} />
+            <Route path='/recommendpage' component={Recommendation} />
           </Switch>
           <Footer />
         </div>
