@@ -11,7 +11,7 @@ import { useState } from 'react';
 
 const AppWrapper = styled.div`
   * {
-    font-family: 'NeoDunggeunmo';
+    font-family: "NeoDunggeunmo";
     box-sizing: border-box;
   }
   .App {
@@ -19,7 +19,7 @@ const AppWrapper = styled.div`
   }
 `;
 
-function App () {
+function App() {
   const [openModal, setOpenModal] = useState(false);
 
   const handleModalOpen = () => {
@@ -33,7 +33,7 @@ function App () {
     <BrowserRouter>
       <AppWrapper>
         <GlobalStyle />
-        <div className='App'>
+        <div className="App">
           <Header handleModal={handleModalOpen} />
           <Noti />
           <Switch>
@@ -43,8 +43,9 @@ function App () {
           </Switch>
           <Footer />
         </div>
+        {openModal ? <Signup handleModal={handleModalClose} /> : null}
       </AppWrapper>
-      {openModal ? <Signup handleModal={handleModalClose} /> : null}
+      <Signup></Signup>
     </BrowserRouter>
   );
 }
