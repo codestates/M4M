@@ -1,17 +1,17 @@
-import styled from 'styled-components';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { GlobalStyle } from './components/utils/_var';
-import Header from './components/Header';
-import Noti from './components/Notification';
-import Main from './components/Mainpage/Main';
-import Footer from './components/Footer';
-import Recommendation from './pages/RecommendationPage/Recommendation';
-import Signup from './pages/Signup';
-import { useState } from 'react';
+import styled from "styled-components";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { GlobalStyle } from "./components/utils/_var";
+import Header from "./components/Header";
+import Noti from "./components/Notification";
+import Main from "./components/Mainpage/Main";
+import Footer from "./components/Footer";
+import Recommendation from "./pages/RecommendationPage/Recommendation";
+import Signup from "./pages/Signup";
+import { useState } from "react";
 
 const AppWrapper = styled.div`
   * {
-    font-family: 'NeoDunggeunmo';
+    font-family: "NeoDunggeunmo";
     box-sizing: border-box;
   }
   .App {
@@ -19,7 +19,7 @@ const AppWrapper = styled.div`
   }
 `;
 
-function App () {
+function App() {
   const [openModal, setOpenModal] = useState(false);
 
   const handleModalOpen = () => {
@@ -33,15 +33,15 @@ function App () {
     <BrowserRouter>
       <AppWrapper>
         <GlobalStyle />
-        <div className='App'>
+        <div className="App">
           <Header handleModal={handleModalOpen} />
           <Noti />
           <Switch>
-            <Route exact path='/' />
-            <Route path='/mainpage'>
+            <Route exact path="/" />
+            <Route path="/mainpage">
               <Main />
             </Route>
-            <Route path='/recommendpage'>
+            <Route path="/recommendpage">
               <Recommendation />
             </Route>
           </Switch>
@@ -49,6 +49,7 @@ function App () {
         </div>
         {openModal ? <Signup handleModal={handleModalClose} /> : null}
       </AppWrapper>
+      <Signup></Signup>
     </BrowserRouter>
   );
 }
