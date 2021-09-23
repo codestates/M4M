@@ -27,10 +27,11 @@ module.exports = async (req, res) => {
         where: {
           userId: accessTokenData.id,
           songId: songId.dataValues.id,
+          hashtagId: [2, 3, 4, 5, 6, 7, 8],
         },
       });
 
-      if (exsHashtag.length >= 3) {
+      if (name !== "좋아요" && exsHashtag.length >= 3) {
         return res
           .status(400)
           .json({ message: "you can not choose over 3 hashtags" });
