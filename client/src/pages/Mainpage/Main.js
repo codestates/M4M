@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import SideNav from './MainSideNav';
+import SideNav from '../../components/SideNav';
 import SongList from './MainSongList';
 import { getSongsBulk } from '../../redux/action';
 import { useDispatch } from 'react-redux';

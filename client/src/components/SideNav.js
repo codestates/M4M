@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import { useState } from 'react';
-import { changeType } from '../../redux/action';
+import { changeType } from '../redux/action';
 import { useDispatch } from 'react-redux';
 
 const SideNavWrapper = styled.div`
-  .SideNav {
+  .sidenav {
     background-color: beige;
     text-align: left;
     width: 20vw;
@@ -77,7 +77,7 @@ function SideNav () {
 
   return (
     <SideNavWrapper>
-      <div className='SideNav'>
+      <div className='sidenav'>
         {plainList
           .map((list, idx) => {
             return (
