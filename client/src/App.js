@@ -1,17 +1,19 @@
 import styled from 'styled-components';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { GlobalStyle } from './components/utils/_var';
 import Header from './components/Header';
 import Noti from './components/Notification';
 import Main from './pages/Mainpage/Main';
 import Footer from './components/Footer';
 import Recommendation from './pages/RecommendationPage/Recommendation';
+import GetLikedSong from './pages/MyPage/LikedSongPage';
+import Mypage from './pages/MyPage/UserInfoPage';
 import Signup from './pages/Signup';
 import { useState } from 'react';
 
 const AppWrapper = styled.div`
   * {
-    font-family: "NeoDunggeunmo";
+    font-family: 'NeoDunggeunmo';
     box-sizing: border-box;
   }
   .App {
@@ -29,6 +31,9 @@ function App () {
     setOpenModal(false);
   };
 
+  const information = JSON.parse(localStorage.getItem('userinfo'));
+  // console.log(information);
+
   return (
     <BrowserRouter>
       <AppWrapper>
@@ -40,6 +45,12 @@ function App () {
             <Route exact path='/' />
             <Route path='/mainpage' component={Main} />
             <Route path='/recommendpage' component={Recommendation} />
+            <Route path='/mylike'>
+              {information ? <GetLikedSong /> : <Redirect to='/mainpage' />}
+            </Route>
+            <Route path='/myinfo'>
+              {information ? <Mypage /> : <Redirect to='/mainpage' />}
+            </Route>
           </Switch>
           <Footer />
         </div>
