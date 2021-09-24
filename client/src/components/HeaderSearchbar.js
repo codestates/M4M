@@ -36,13 +36,13 @@ function HeaderSearchbar (isRecommend) {
   const searchTypeList = ['title', 'artist'];
   const keyword = document.getElementsByClassName('searchbar-text');
   const [searchType, setSearchType] = useState(searchTypeList[0]);
-  
+
   const getSearchResult = (reqSearchType, reqKeyword) => {
     if (reqKeyword.length !== 0) {
       axios
         .get(
           process.env.REACT_APP_API_URL + `/${reqSearchType}?query=${reqKeyword}`,
-          { headers: { 'Content-Type': 'application/json'} }
+          { headers: { 'Content-Type': 'application/json' } }
         )
         .then((searchResult) => {
           const songIdList = searchResult.data.data;
@@ -73,7 +73,7 @@ function HeaderSearchbar (isRecommend) {
     <HeaderSearchbarWrapper>
       <div className={!isRecommend.isRecommend ? 'searchbar' : 'display-none'}>
         <select className='searchbar-dropbox' onChange={handleSearchTypeChange}>
-          { searchTypeList.map((searchType, idx) => <option value={searchType} key={idx+1}>{searchType}</option>) }
+          {searchTypeList.map((searchType, idx) => <option value={searchType} key={idx + 1}>{searchType}</option>)}
         </select>
         <input
           className='searchbar-text'

@@ -19,7 +19,7 @@ const AppWrapper = styled.div`
   }
 `;
 
-function App() {
+function App () {
   const [openModal, setOpenModal] = useState(false);
 
   const handleModalOpen = () => {
@@ -33,7 +33,7 @@ function App() {
     <BrowserRouter>
       <AppWrapper>
         <GlobalStyle />
-        <div className="App">
+        <div className='App'>
           <Header handleModal={handleModalOpen} />
           <Noti />
           <Switch>
@@ -45,7 +45,7 @@ function App() {
         </div>
         {openModal ? <Signup handleModal={handleModalClose} /> : null}
       </AppWrapper>
-      <Signup></Signup>
+      {/* <Signup></Signup> */}
     </BrowserRouter>
   );
 }

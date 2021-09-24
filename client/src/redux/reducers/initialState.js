@@ -11,4 +11,4 @@ export const initialState = {
   notifications: {
     message: ''
   }
-}
+};

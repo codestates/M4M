@@ -20,7 +20,7 @@ function Main () {
   const dispatch = useDispatch();
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_API_URL + '/mainpage', { headers: { 'Content-Type': 'application/json'} })
+      .get(process.env.REACT_APP_API_URL + '/mainpage', { headers: { 'Content-Type': 'application/json' } })
       .then((res) => {
         console.log('✅ songs update');
         dispatch(getSongsBulk(res.data.data));

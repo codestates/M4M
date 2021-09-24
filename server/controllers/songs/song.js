@@ -2,9 +2,9 @@ const {
   song,
   hashtaglike,
   songuserhashtaglike,
-  comment,
-} = require("../../models");
-const Sequelize = require("sequelize");
+  comment
+} = require('../../models');
+const Sequelize = require('sequelize');
 
 module.exports = async (req, res) => {
   try {
@@ -12,13 +12,13 @@ module.exports = async (req, res) => {
 
     if (songList.length === 0) {
       res.status(400).json({
-        message: "No songs are in the list",
+        message: 'No songs are in the list'
       });
     } else {
       songList = songList.map((songs) => {
-        songs.title = songs.title.replace("|", ",");
-        songs.artist = songs.artist.replace("|", ",");
-        songs.genre = songs.genre.replace("|", ",");
+        songs.title = songs.title.replace('|', ',');
+        songs.artist = songs.artist.replace('|', ',');
+        songs.genre = songs.genre.replace('|', ',');
 
         return {
           id: songs.id,
@@ -29,7 +29,7 @@ module.exports = async (req, res) => {
           album_art: songs.album_art,
           date: songs.date,
           year: songs.year,
-          lyrics: songs.lyrics,
+          lyrics: songs.lyrics
         };
       });
 
@@ -40,18 +40,18 @@ module.exports = async (req, res) => {
               include: [
                 {
                   model: hashtaglike,
-                  attributes: ["name"],
-                },
+                  attributes: ['name']
+                }
               ],
               where: {
-                songId: songs.id,
-              },
+                songId: songs.id
+              }
             });
 
             getHashtagName = Sequelize.getValues(getHashtagName);
 
             let hashtaglikeCount = {
-              좋아요: 0,
+              좋아요: 0
             };
 
             getHashtagName.map((songs) => {
@@ -70,10 +70,10 @@ module.exports = async (req, res) => {
               include: [
                 {
                   model: comment,
-                  attribute: ["content"],
-                },
+                  attribute: ['content']
+                }
               ],
-              where: { id: songs.id },
+              where: { id: songs.id }
             });
 
             getComment = Sequelize.getValues(getComment);
@@ -95,10 +95,10 @@ module.exports = async (req, res) => {
               lyrics: songs.lyrics,
               hashtagLike: hashtaglikeCount,
               // 유저랑 시간 추가
-              comments: getContent.flat(),
+              comments: getContent.flat()
             };
           } catch {
-            res.status(404).json({ message: "error" });
+            res.status(404).json({ message: 'error' });
           }
         });
 
@@ -106,13 +106,13 @@ module.exports = async (req, res) => {
 
         res.status(200).json({
           data: results,
-          message: "ok",
+          message: 'ok'
         });
       };
 
       fetchSongInfo();
     }
   } catch {
-    res.status(400).json({ message: "error" });
+    res.status(400).json({ message: 'error' });
   }
 };

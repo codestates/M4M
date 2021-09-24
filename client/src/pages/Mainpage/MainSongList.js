@@ -14,7 +14,7 @@ function SongList () {
   return (
     <SongListWrapper>
       <div className='songlist'>
-        {test.map((el,idx) => <div key={idx+1}>test{idx+1}</div>)}
+        {test.map((el, idx) => <div key={idx + 1}>test{idx + 1}</div>)}
       </div>
     </SongListWrapper>
   );
