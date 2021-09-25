@@ -76,14 +76,10 @@ module.exports = async (req, res) => {
         ]);
       });
 
-      // console.log(getUserId.flat());
-      // console.log(getContent.flat());
-
       const userNickname = [];
       for (let i = 0; i < getUserId.flat().length; i++) {
         userNickname.push([getUserId.flat()[i][0]]);
       }
-      // console.log(userNickname);
 
       const getUserNicknames = [];
       for (nickname of userNickname) {
@@ -93,8 +89,6 @@ module.exports = async (req, res) => {
 
         getUserNicknames.push(findUserNickname);
       }
-      // console.log(getUserNicknames);
-      // console.log(getUserNicknames[4].dataValues);
 
       // 닉네임만 들어가있는 배열(ex -> 김경호#47)
       const getUserNickname = [];
