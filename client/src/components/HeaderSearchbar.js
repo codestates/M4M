@@ -1,6 +1,10 @@
 import axios from 'axios';
 import { useState } from 'react';
 import styled from 'styled-components';
+import { notify, changeType } from '../redux/action';
+import { useSelector, useDispatch } from 'react-redux';
+
+axios.defaults.headers.withCredentials = true;
 
 const HeaderSearchbarWrapper = styled.div`
   .btn {
@@ -21,58 +25,60 @@ const HeaderSearchbarWrapper = styled.div`
     width: 30vw;
     font-size: 14px;
   }
+  .display-none {
+    display: none;
+  }
 `;
 
-function HeaderSearchbar () {
-  // ! useState는 Redux를 사용하기 전 테스트 용으로 사용
-  const [type, setType] = useState('title');
-  const [keyword, setKeyword] = useState('');
-  console.log('🟡', type, '🟢', keyword);
+function HeaderSearchbar (isRecommend) {
+  const notiState = useSelector(state => state.notiReducer).notifications;
+  const dispatch = useDispatch();
+  const searchTypeList = ['title', 'artist'];
+  const keyword = document.getElementsByClassName('searchbar-text');
+  const [searchType, setSearchType] = useState(searchTypeList[0]);
 
-  const getSearchResult = (reqType, reqKeyword) => {
+  const getSearchResult = (reqSearchType, reqKeyword) => {
     if (reqKeyword.length !== 0) {
       axios
         .get(
-          process.env.REACT_APP_API_URL + `/${reqType}?query=${reqKeyword}`,
+          process.env.REACT_APP_API_URL + `/${reqSearchType}?query=${reqKeyword}`,
           { headers: { 'Content-Type': 'application/json' } }
         )
         .then((searchResult) => {
           const songIdList = searchResult.data.data;
           console.log(songIdList);
-          // ! Redux SideNav isSelected null로 변경 => MainSongList에 '검색 결과가 없습니다.' landing
         })
         .catch((err) => {
-          // ! Redux SideNav isSelected null로 변경 => MainSongList에 '검색 결과가 없습니다.' landing
+          dispatch(changeType('No Result'));
           console.log(err);
         });
     } else {
-      // ! Redux Action을 사용하여 Noti State 변경
+      if (notiState.message === '') {
+        dispatch(notify('검색창이 비었습니다. 추억을 입력해주세요! ᕕ( ᐛ )ᕗ'));
+      }
     }
   };
 
-  const handleTypeChange = (e) => setType(e.target.value);
-  const handleKeywordChange = (e) => setKeyword(e.target.value);
+  const handleSearchTypeChange = (e) => setSearchType(e.target.value);
   const handleClick = () => {
-    getSearchResult(type, keyword);
+    getSearchResult(searchType, keyword[0].value);
   };
   const handleKeyboard = (e) => {
     if (e.key === 'Enter') {
-      getSearchResult(type, keyword);
+      getSearchResult(searchType, keyword[0].value);
     }
   };
 
   return (
     <HeaderSearchbarWrapper>
-      <div className='searchbar'>
-        <select className='searchbar-dropbox' onChange={handleTypeChange}>
-          <option value='title'>title</option>
-          <option value='artist'>artist</option>
+      <div className={!isRecommend.isRecommend ? 'searchbar' : 'display-none'}>
+        <select className='searchbar-dropbox' onChange={handleSearchTypeChange}>
+          {searchTypeList.map((searchType, idx) => <option value={searchType} key={idx + 1}>{searchType}</option>)}
         </select>
         <input
           className='searchbar-text'
           type='text'
           placeholder='Enter title or artist name'
-          onChange={handleKeywordChange}
           onKeyPress={handleKeyboard}
         />
         <button className='btn searchbar-button' onClick={handleClick}>search</button>
