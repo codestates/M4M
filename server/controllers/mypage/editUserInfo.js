@@ -3,91 +3,80 @@ const { user } = require('../../models');
 const crypto = require('crypto');
 const Sequelize = require('sequelize');
 require('sequelize-values')(Sequelize);
-const Op = Sequelize.Op;
 
-// PATCH http://localhost:80/edit-user-info
+// PATCH http://localhost:80/user-info
 module.exports = async (req, res) => {
   try {
     // const accessTokenData = isAuthorized(req);
 
-    // if (!accessTokenData) {
-    //   return res.status(404).send({ message: 'You\'re not logged in.' });
-    // } else {
-    //   });
-    // }
+    // JUST FOR TEST PURPOSES: without a real accessToken
+    const accessTokenData = { id: req.headers.authorization };
+    // console.log(req.headers.authorization);
 
-    let userInfo = await user.findOne({
-      where: {
-        id: req.body.id
-      }
-    });
-
-    userInfo = Sequelize.getValues(userInfo);
-
-    const salt = crypto.randomBytes(64).toString('hex');
-    const encryptedPassword = crypto
-      .pbkdf2Sync(req.body.password, salt, 9999, 64, 'sha512')
-      .toString('base64');
-
-    let changedNickname = req.body.nickname;
-
-    if (changedNickname === userInfo.nickname.split('#')[0]) {
-      // 닉네임을 변경하지 않은 경우
-      changedNickname = userInfo.nickname;
+    if (!accessTokenData) {
+      return res.status(404).send({ message: 'You\'re not logged in.' });
     } else {
-      // 아래 코드: 닉네임 중복 문제 해결 되지 않음
-      // let getAllUser = await user.findAll();
-      // console.log(getAllUser.length);
-      // changedNickname = changedNickname + '#' + (getAllUser.length + 1);
+      // console.log(req.body);
 
-      changedNickname = changedNickname + '#';
+      const { nickname, password, birthYear } = req.body;
+      // console.log(nickname, password, birthYear);
 
-      let checkDuplicate = await user.findAll({
+      let userInfo = await user.findOne({
         where: {
-          nickname: {
-            [Op.like]: changedNickname + '%'
-          }
+          id: accessTokenData.id
         }
       });
 
-      checkDuplicate = Sequelize.getValues(checkDuplicate);
-      // console.log(checkDuplicate);
+      userInfo = Sequelize.getValues(userInfo);
 
-      // sequelize의 Op.like는 case-insensitive하기 때문에 별도의 처리 과정 필요
-      const duplicateNickname = checkDuplicate.filter((el) => {
-        return el.nickname.split('#')[0] === req.body.nickname;
-      });
+      let salt = userInfo.salt;
+      let encryptedPassword = userInfo.password;
 
-      if (duplicateNickname.length === 0) {
-        // 닉네임을 변경했고 중복 닉네임이 없을 경우
-        changedNickname = changedNickname + '1';
-      } else {
-        // 닉네임을 변경했고 중복 닉네임이 존재하는 경우
-        // 중복되는 닉네임들 중 가장 마지막 닉네임의 번호에 1을 더해 새로운 닉네임 설정
-        const lastNickname = duplicateNickname[duplicateNickname.length - 1].nickname;
-        const lastNicknameNumber = lastNickname.split('#')[1];
-        // console.log('last nickname of duplicates: ' + lastNickname);
-        changedNickname = changedNickname + (Number(lastNicknameNumber) + 1);
+      if (password !== '') {
+        salt = crypto.randomBytes(64).toString('hex');
+        encryptedPassword = crypto
+          .pbkdf2Sync(password, salt, 9999, 64, 'sha512')
+          .toString('base64');
       }
+
+      let changedNickname = userInfo.nickname.split('#')[0];
+
+      if (changedNickname === nickname ||
+        nickname.split('#')[0] === '') {
+        // 닉네임을 변경하지 않은 경우
+        changedNickname = userInfo.nickname;
+      } else {
+        changedNickname = nickname + '#' + userInfo.id;
+      }
+
+      let changedBirthYear = userInfo.birthYear;
+
+      if (birthYear !== '') {
+        changedBirthYear = birthYear;
+      }
+
+      // console.log(changedNickname);
+      // console.log(changedBirthYear);
+      // console.log(encryptedPassword);
+
+      await user.update(
+        {
+          nickname: changedNickname,
+          salt: salt,
+          password: encryptedPassword,
+          birthYear: changedBirthYear
+        },
+        { where: { id: accessTokenData.id } }
+      );
+
+      res.status(200).json({
+        data: {
+          nickname: changedNickname
+        },
+        message: 'Information updated'
+      });
     }
-
-    await user.update(
-      {
-        nickname: changedNickname,
-        salt: salt,
-        password: encryptedPassword
-      },
-      //   { where: { id: accessTokenData.id } }
-      { where: { id: userInfo.id } }
-    );
-
-    res.status(200).json({
-      data: {
-        nickname: changedNickname
-      },
-      message: 'Information updated'
-    });
   } catch {
-    res.status(400).json({ message: 'Invalid access token' });
+    res.status(400).json({ message: 'error' });
   }
 };
