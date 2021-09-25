@@ -2,6 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import Type from './Type';
 import styled from 'styled-components';
+import KakaoShareButton from './KakaoShare';
 import CopyButton from './CopyButton';
 import { media } from '../../../components/utils/_media-queries';
 import { Colors, GlobalStyle } from '../../../components/utils/_var';
@@ -118,36 +119,38 @@ const Wrapper = styled.div`
   }
 `;
 
-const Result = (props) => {
+const Result = ({ resultType, songList }) => {
   let songType;
-  console.log(props.resultType);
-  if (props.resultType === 'AFL') {
+  console.log(resultType);
+  if (resultType === 'AFL') {
     songType = Type[0];
-  } else if (props.resultType === 'AFW') {
+  } else if (resultType === 'AFW') {
     songType = Type[1];
-  } else if (props.resultType === 'AHL') {
+  } else if (resultType === 'AHL') {
     songType = Type[2];
-  } else if (props.resultType === 'AHW') {
+  } else if (resultType === 'AHW') {
     songType = Type[3];
-  } else if (props.resultType === 'AEL') {
+  } else if (resultType === 'AEL') {
     songType = Type[4];
-  } else if (props.resultType === 'AEW') {
+  } else if (resultType === 'AEW') {
     songType = Type[5];
-  } else if (props.resultType === 'CFL') {
+  } else if (resultType === 'CFL') {
     songType = Type[6];
-  } else if (props.resultType === 'CFW') {
+  } else if (resultType === 'CFW') {
     songType = Type[7];
-  } else if (props.resultType === 'CHL') {
+  } else if (resultType === 'CHL') {
     songType = Type[8];
-  } else if (props.resultType === 'CHW') {
+  } else if (resultType === 'CHW') {
     songType = Type[9];
-  } else if (props.resultType === 'CEL') {
+  } else if (resultType === 'CEL') {
     songType = Type[10];
-  } else if (props.resultType === 'CEW') {
+  } else if (resultType === 'CEW') {
     songType = Type[11];
   }
 
-  const songList = props.songList;
+  const handleSongClicked = (songId) => {
+    window.open(`/song:id=${songId}`, '_blank').focus();
+  };
 
   return (
     <Wrapper>
@@ -173,6 +176,7 @@ const Result = (props) => {
               );
             })}
         </ul>
+        <KakaoShareButton songType={songType} songList={songList} />
         <CopyButton songType={songType} songList={songList} />
       </div>
     </Wrapper>
