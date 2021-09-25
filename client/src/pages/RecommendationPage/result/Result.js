@@ -2,13 +2,13 @@ import React from 'react';
 import propTypes from 'prop-types';
 import Type from './Type';
 import styled from 'styled-components';
+import CopyButton from './CopyButton';
 import { media } from '../../../components/utils/_media-queries';
 import { Colors, GlobalStyle } from '../../../components/utils/_var';
-
 require('dotenv').config();
 
 const Wrapper = styled.div`
-  /* width */
+  width
   .app-frame::-webkit-scrollbar {
     width: 15px;
   }
@@ -89,13 +89,32 @@ const Wrapper = styled.div`
     width: 80%;
     height: auto;
     margin: 2em auto auto;
-    padding-bottom: 4em;
+    padding-bottom: 1em;
     line-height: 1.7em;
     color: ${Colors.black};
     font-family: 'DOSGothic';
     text-align: left;
     font-size: .9em;
     ${media.tabletMini`font-size: .95em`}
+  }
+  li > span {
+    text-decoration: underline;
+  }
+  li > span:hover {
+    cursor: pointer;
+  }
+  .item:hover, .item:focus {
+    animation: rainbow 2000ms infinite;
+  } 
+  @keyframes rainbow {     
+    0% { color: #ff2a2a; }
+    15% { color: #ff7a2a; }
+    30% { color: #ffc52a; }
+    45% { color: #43ff2a; }
+    60% { color: #2a89ff; }
+    75% { color: #202082; }
+    90% { color: #6b2aff; } 
+    100% { color: #e82aff; }
   }
 `;
 
@@ -143,23 +162,18 @@ const Result = (props) => {
         </div>
         <h1 className='title'><span>추천 노래</span></h1>
         <ul className='songs'>
-          {
-            songList[0] === '당신의 취향에 맞는 노래를 찾지 못했습니다.'
-              ? <li key='1'>{songList[0]} <a href='/recommendpage'>다시 추천 받기</a></li>
-              : songList.map((info, idx) => {
-              // const songId = info.split(',')[0];
-                const songInfo = info.split(',')[1];
-                const title = songInfo.split(' by ')[0];
-                return (
-                  <li key={idx}>{songInfo} <a href={process.env.REACT_APP_API_URL + '/title?query=' + title} target='_blank' rel='noreferrer'>곡 정보 보러가기</a></li>
-                );
-              })
-          }
-          {
-            // 최종적으로는 song.id를 props로 곡 상세페이지로 전달
-          }
+          {songList[0] === '당신의 취향에 맞는 노래를 찾지 못했습니다.'
+            ? <li key='1'>{songList[0]} <a href='/recommendpage'>다시 추천 받기</a></li>
+            : songList.map((info, idx) => {
+              const songId = info.split(',')[0];
+              const songInfo = info.split(',')[1];
+              return (
+                <li key={idx}>{songInfo} <span className='item'>곡 정보 보러가기</span></li>
+                // <li key={idx}>{songInfo} <span className='item' onClick={() => handleSongClicked(songId)}>곡 정보 보러가기</span></li>
+              );
+            })}
         </ul>
-
+        <CopyButton songType={songType} songList={songList} />
       </div>
     </Wrapper>
   );
