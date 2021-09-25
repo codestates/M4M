@@ -2,9 +2,17 @@ import { createGlobalStyle } from 'styled-components';
 
 const Colors = {
   black: '#1c180d',
-  gray: '#c7c2bb',
-  beige: '#f7efe5',
-  lightGray: '#c7c0ba'
+  darkGray: '#575757',
+  gray: '#7a7a7a',
+  mediumGray: '#a7a7a7',
+  lightGray: '#e0e2e3',
+  borderColor: '#ccc',
+  textColor: '#1c180d',
+  beige: '#f7efe5'
+};
+
+const Size = {
+  container: '42rem'
 };
 
 const GlobalStyle = createGlobalStyle`
@@ -46,4 +54,4 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-export { Colors, GlobalStyle };
+export { Colors, Size, GlobalStyle };
