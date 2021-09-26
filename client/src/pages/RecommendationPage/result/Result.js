@@ -2,14 +2,13 @@ import React from 'react';
 import propTypes from 'prop-types';
 import Type from './Type';
 import styled from 'styled-components';
-import KakaoShareButton from './KakaoShare';
+import KakaoShareButton from './KakaoShareButton';
 import CopyButton from './CopyButton';
 import { media } from '../../../components/utils/_media-queries';
 import { Colors, GlobalStyle } from '../../../components/utils/_var';
 require('dotenv').config();
 
 const Wrapper = styled.div`
-  width
   .app-frame::-webkit-scrollbar {
     width: 15px;
   }
