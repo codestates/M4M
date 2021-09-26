@@ -1,49 +1,52 @@
-const { song, comment } = require('../../models');
+const { comment } = require('../../models');
 const { isAuthorized } = require('../tokenFunctions');
 
 module.exports = async (req, res) => {
   try {
-    // 곡의 id
-    const { id, content } = req.body;
+    // 댓글의 id => 적용 불가. 클라이언트에서는 댓글의 id 정보 가지고 있지 않음
+    // const { id, content } = req.body;
+
     // 로그인 된 유저인지 확인
-    const accessTokenData = isAuthorized(req);
+    // const accessTokenData = isAuthorized(req);
+    // JUST FOR TEST PURPOSES: without a real accessToken
+    const accessTokenData = { id: req.headers.authorization };
+    // console.log(accessTokenData.id);
 
     if (!accessTokenData) {
-      return res.status(403).json({ message: 'plz login first' });
+      return res.status(403).json({ message: 'You\'re not logged in' });
     } else {
-      const songId = await song.findOne({
-        where: {
-          id: id
-        }
-      });
+      const { songId, content } = req.body;
 
-      const userContent = await comment.findAll({
+      const userComments = await comment.findAll({
         where: {
           userId: accessTokenData.id,
-          songId: songId.dataValues.id
+          songId: songId
         }
       });
 
-      if (userContent.length >= 50) {
-        return res.status(400).json({ message: 'already reached the limit' });
+      // console.log(userComments.length);
+
+      if (userComments.length >= 50) {
+        return res.status(400).json({ message: 'Already reached the limit' });
       }
 
       const newContent = await comment.findOne({
         where: {
-          songId: songId.dataValues.id,
+          userId: accessTokenData.id,
+          songId: songId,
           content: content
         }
       });
 
       if (newContent) {
         return res
-          .status(400)
-          .json({ message: 'you can not write same comment' });
+          .status(409)
+          .json({ message: 'You cannot write the same comment' });
       }
 
       await comment.create({
         userId: accessTokenData.id,
-        songId: songId.dataValues.id,
+        songId: songId,
         content: content
       });
 
