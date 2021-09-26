@@ -9,18 +9,20 @@ const Wrapper = styled.div`
     cursor: pointer;
   }
   .share-button {
-    margin: 1rem;
-    background-color: #FEE500;
+    width: 10rem;
+    margin: .8rem auto 0;
     padding: .8rem 1rem;
+    background-color: #FEE500;
     border-radius: 7px;
     border: none;
   }
   .share-content {
     display: inline-block;
+    vertical-align: middle;
     margin-left: .3rem;
     font-family: 'Arial';
+    font-size: .8rem;
     color: #000000 85%;
-    vertical-align: middle;
   }
 `;
 

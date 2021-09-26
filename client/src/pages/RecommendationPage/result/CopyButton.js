@@ -1,11 +1,23 @@
 import styled from 'styled-components';
 
-const Wrapper = styled.div`
-  margin: .8rem auto 4rem;
+const Button = styled.div`
+  width: 10rem;
+  margin: .6rem auto 1.7rem;
+  padding: .8rem 1rem;
+  background-color: #553830;
+  border-radius: 7px;
+  border: none;
+  font-family: 'Arial';
+  font-size: .8rem;
+  color: white;
+
+  &:hover {
+    cursor: pointer;
+  }    
 `;
 
 const CopyButton = ({ songType, songList }) => {
-  let copySongType = songType.name;
+  let copySongType = '나의 타입: ' + songType.name;
   let copySongList = [...songList];
 
   copySongList = copySongList.map((el) => el.split(',')[1]);
@@ -14,7 +26,7 @@ const CopyButton = ({ songType, songList }) => {
   copySongList = copySongList.replace(/[""{}/[^\]]+/g, '');
   copySongList = copySongList.replace(/,/g, '\n');
 
-  copySongType += '\n\n' + copySongList;
+  copySongType += '\n\n' + '추천 노래:\n' + copySongList;
 
   // console.log(copySongType);
   // console.log(copySongList);
@@ -28,9 +40,9 @@ const CopyButton = ({ songType, songList }) => {
   };
 
   return (
-    <Wrapper>
-      <button onClick={() => copyResult(copySongType)}>결과 복사하기</button>
-    </Wrapper>
+    <Button onClick={() => copyResult(copySongType)}>
+      📋 추천 결과 복사하기
+    </Button>
   );
 };
 

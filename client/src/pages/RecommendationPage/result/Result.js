@@ -30,7 +30,7 @@ const Wrapper = styled.div`
   }
   /* Handle on hover */
   /* .app-frame::-webkit-scrollbar-thumb:hover {
-    background: #555; 
+    background: #555;
   } */
 
   h1 span {
@@ -41,7 +41,7 @@ const Wrapper = styled.div`
   a {
     font-family: 'NeoDunggeunmo';
     font-size: .9em;
-    ${media.tabletMini`font-size: .95em`};
+    ${media.tabletMini`font-size: .95em;`};
   }
   .title {
     margin-top: 2.5em;
@@ -51,7 +51,7 @@ const Wrapper = styled.div`
     text-align: center;
     color: white;
     font-size: .8em;
-    ${media.tabletMini`font-size: 1em`}
+    ${media.tabletMini`font-size: 1em;`}
     line-height: 1.5rem;
   }
   .typeName {
@@ -60,13 +60,13 @@ const Wrapper = styled.div`
     text-align: center;
     color: ${Colors.black};
     font-size: 1.3em;
-    ${media.tabletMini`font-size: 1.4em`}
-    ${media.tablet`font-size: 1.5em`}
+    ${media.tabletMini`font-size: 1.4em;`}
+    ${media.tablet`font-size: 1.5em;`}
     margin-top: 1em;
     margin-bottom: 2.1em;
-    ${media.tabletMini`color: blue`}
-    ${media.tablet`color: red`}
-    ${media.laptop`color: green`}
+    ${media.tabletMini`color: blue;`}
+    ${media.tablet`color: red;`}
+    ${media.laptop`color: green;`}
   }
   .explanation {
     text-align: center;
@@ -74,7 +74,7 @@ const Wrapper = styled.div`
     font-family: 'DOSGothic';
     font-size: .9em;
     line-height: 1.4em;
-    ${media.tabletMini`font-size: .95em; line-height: 1.5em`}
+    ${media.tabletMini`font-size: .95em; line-height: 1.5em;`}
   }
   .container {
     width: 80%;
@@ -83,7 +83,7 @@ const Wrapper = styled.div`
     box-shadow: 4px 5px ${Colors.gray};
     margin: 2em auto 2.1em;
     padding: .3em .2em .8em .2em;
-    ${media.tabletMini`margin: 2.4em auto 3.8em; padding: .8em .2em 1.1em .2em`}
+    ${media.tabletMini`margin: 2.4em auto 3.8em; padding: .8em .2em 1.1em .2em;`}
   }
   .songs {
     width: 80%;
@@ -95,7 +95,7 @@ const Wrapper = styled.div`
     font-family: 'DOSGothic';
     text-align: left;
     font-size: .9em;
-    ${media.tabletMini`font-size: .95em`}
+    ${media.tabletMini`font-size: .95em;`}
   }
   li > span {
     text-decoration: underline;
@@ -146,6 +146,7 @@ const Result = ({ resultType, songList }) => {
   } else if (resultType === 'CEW') {
     songType = Type[11];
   }
+  // console.log(songList)
 
   const handleSongClicked = (songId) => {
     window.open(`/song:id=${songId}`, '_blank').focus();
@@ -170,8 +171,7 @@ const Result = ({ resultType, songList }) => {
               const songId = info.split(',')[0];
               const songInfo = info.split(',')[1];
               return (
-                <li key={idx}>{songInfo} <span className='item'>곡 정보 보러가기</span></li>
-                // <li key={idx}>{songInfo} <span className='item' onClick={() => handleSongClicked(songId)}>곡 정보 보러가기</span></li>
+                <li key={idx}>{songInfo} <span className='item' onClick={() => handleSongClicked(songId)}>곡 정보 보러가기</span></li>
               );
             })}
         </ul>
