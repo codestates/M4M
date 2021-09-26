@@ -1,5 +1,6 @@
-import styled from 'styled-components';
+import { useState } from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import styled from 'styled-components';
 import { GlobalStyle } from './components/utils/_var';
 import Header from './components/Header';
 import Noti from './components/Notification';
@@ -9,7 +10,7 @@ import Recommendation from './pages/RecommendationPage/Recommendation';
 import GetLikedSong from './pages/MyPage/LikedSongPage';
 import Mypage from './pages/MyPage/UserInfoPage';
 import Signup from './pages/Signup';
-import { useState } from 'react';
+import SongDetail from './pages/SongDetailPage/SongDetailPage';
 
 const AppWrapper = styled.div`
   * {
@@ -51,6 +52,7 @@ function App () {
             <Route path='/myinfo'>
               {information ? <Mypage /> : <Redirect to='/mainpage' />}
             </Route>
+            <Route path='/song:id' component={SongDetail} />
           </Switch>
           <Footer />
         </div>
