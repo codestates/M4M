@@ -7,6 +7,7 @@ import Main from './pages/Mainpage/Main';
 import Footer from './components/Footer';
 import Recommendation from './pages/RecommendationPage/Recommendation';
 import Signup from './pages/Signup';
+import MoveTop from './components/MoveTop';
 import { useState } from 'react';
 
 const AppWrapper = styled.div`
@@ -41,6 +42,7 @@ function App () {
             <Route path='/mainpage' component={Main} />
             <Route path='/recommendpage' component={Recommendation} />
           </Switch>
+          <MoveTop />
           <Footer />
         </div>
       </AppWrapper>

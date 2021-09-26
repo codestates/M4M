@@ -1,12 +1,33 @@
 import styled from 'styled-components';
+import { useState, useEffect } from 'react';
 
 const MoveTopWrapper = styled.div`
+  .init {
+    display: none;
+  }
+  .active {
+    animation: fadein 500ms steps(5);
+  }
+  .deactive {
+    animation: fadeout 500ms steps(5) forwards;
+    pointer-events: none;
+  }
   .move-top {
     position: fixed;
-    right: 20px;
+    left: 95%;
     bottom: calc(54px + 0px);
-    animation: vertical 1000ms ease-in-out infinite, fadein 2000ms steps(10);
+    animation: vertical 1000ms ease-in-out infinite;
     cursor: pointer;
+  }
+  .arrow {
+    width: 24px;
+    height: 24px;
+    border: 12px solid transparent;
+    border-bottom: 18px solid black; 
+  }
+  @keyframes fadeout {
+    from { opacity: 100% }
+    to { opacity: 0% }
   }
   @keyframes vertical {
     0% { margin-bottom: 9px; }
@@ -14,25 +35,40 @@ const MoveTopWrapper = styled.div`
     100% { margin-bottom: 9px; }
   }
   @keyframes fadein {
-    0% { opacity: 0% }
-    100% { opacity: 100% }
+    from { opacity: 0% }
+    to { opacity: 100% }
   }
 `;
 
 function MoveTop () {
+  const [moveTopState, setMoveTopState] = useState('init');
+  const t1 = window.scrollY
 
-  const moveTop = () => {
+  const handleMoveTopState = () => {
+    if (window.scrollY > 300) {
+      setMoveTopState('active');
+    } if (window.scrollY < 300 && moveTopState === 'active') {
+      setMoveTopState('deactive');
+    }
+  };
+  const handleMoveTop = () => {
     window.scrollTo ({
       top: 0, 
-      left: 0,
       behavior: 'smooth'
     })
-  }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleMoveTopState);
+    return () => {
+      window.removeEventListener("scroll", handleMoveTopState);
+    };
+  });
 
   return (
     <MoveTopWrapper>
-      <div className='movetop'>
-        <div className='move-top' onClick={moveTop}>
+      <div className={moveTopState}>
+        <div className='move-top' onClick={handleMoveTop}>
           <div className='arrow'></div>
           <div>TOP</div>
         </div>
