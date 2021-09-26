@@ -1,44 +1,51 @@
+const { isAuthorized } = require('../tokenFunctions');
 const {
   user,
   song,
   hashtaglike,
   songuserhashtaglike,
-  comment,
-} = require("../../models");
-const Sequelize = require("sequelize");
+  comment
+} = require('../../models');
+const Sequelize = require('sequelize');
 
 module.exports = async (req, res) => {
   try {
+    // const accessTokenData = isAuthorized(req);
+    // JUST FOR TEST PURPOSES: without a real accessToken
+    const accessTokenData = { id: req.headers.authorization };
+
     const songs = req.query.query;
 
-    let songList = await song.findOne({
-      where: { id: songs },
+    const songList = await song.findOne({
+      where: { id: songs }
     });
 
     if (songList === null) {
       res.status(400).json({
-        message: "No songs are in the list",
+        message: 'No songs are in the list'
       });
     } else {
-      songList.dataValues.title = songList.dataValues.title.replace("|", ",");
-      songList.dataValues.artist = songList.dataValues.artist.replace("|", ",");
-      songList.dataValues.genre = songList.dataValues.genre.replace("|", ",");
+      // replace('|', ',') => 최초 1개만 변경, replace(/[|]/g, ',') => 모든 occurrence를 변경
+      songList.dataValues.title = songList.dataValues.title.replace(/[|]/g, ',');
+      songList.dataValues.artist = songList.dataValues.artist.replace(/[|]/g, ',');
+      songList.dataValues.genre = songList.dataValues.genre.replace(/[|]/g, ',');
+      songList.dataValues.album = songList.dataValues.album.replace(/[|]/g, ',');
 
       let getHashtagName = await songuserhashtaglike.findAll({
         include: [
           {
             model: hashtaglike,
-            attributes: ["name"],
-          },
+            attributes: ['name']
+          }
         ],
         where: {
-          songId: songs,
-        },
+          songId: songs
+        }
       });
 
       getHashtagName = Sequelize.getValues(getHashtagName);
       let hashtaglikeCount = {
-        좋아요: 0,
+        좋아요: 0
       };
 
       getHashtagName.map((songs) => {
@@ -53,14 +60,18 @@ module.exports = async (req, res) => {
       hashtaglikeCount = Object.entries(hashtaglikeCount);
 
       // 댓글 가져오기
+      // 댓글 최신순 정렬
       let getComment = await song.findAll({
         include: [
           {
             model: comment,
-            attribute: ["content"],
-          },
+            attribute: ['content']
+          }
         ],
         where: { id: songs },
+        order: [
+          [comment, 'createdAt', 'DESC']
+        ],
       });
 
       getComment = Sequelize.getValues(getComment);
@@ -72,7 +83,7 @@ module.exports = async (req, res) => {
       const getContent = getComments.map((comments) => {
         return comments.map((comments) => [
           comments.content,
-          comments.createdAt,
+          comments.createdAt
         ]);
       });
 
@@ -84,7 +95,7 @@ module.exports = async (req, res) => {
       const getUserNicknames = [];
       for (nickname of userNickname) {
         const findUserNickname = await user.findOne({
-          where: { id: nickname },
+          where: { id: nickname }
         });
 
         getUserNicknames.push(findUserNickname);
@@ -104,7 +115,7 @@ module.exports = async (req, res) => {
         }
       }
 
-      console.log(getContent.flat());
+      // console.log(getContent.flat());
 
       const payload = {
         id: songList.dataValues.id,
@@ -117,15 +128,34 @@ module.exports = async (req, res) => {
         year: songList.dataValues.year,
         lyrics: songList.dataValues.lyrics,
         hashtagLike: hashtaglikeCount,
-        comments: getContent.flat(),
+        comments: getContent.flat()
       };
+
+      // 로그인 된 유저에 한해서는 본인이 추가한 좋아요 및 해시태그 정보를 추가적으로 보내주어야 함.
+      if (accessTokenData.id) {
+        let userContent = await songuserhashtaglike.findAll(
+          {
+            where: {
+              userId: accessTokenData.id,
+              songId: req.query.query
+            }
+          }
+        );
+
+        userContent = Sequelize.getValues(userContent);
+
+        if (userContent) {
+          userContent = userContent.map((el) => el.hashtagId);
+          payload.userContent = userContent;
+        }
+      }
 
       res.status(200).json({
         data: payload,
-        message: "ok",
+        message: 'ok'
       });
     }
   } catch {
-    res.status(400).json({ message: "error" });
+    res.status(400).json({ message: 'error' });
   }
 };
