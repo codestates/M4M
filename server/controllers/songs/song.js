@@ -22,7 +22,7 @@ module.exports = async (req, res) => {
 
     if (songList === null) {
       res.status(400).json({
-        message: 'No songs are in the list'
+        message: 'No songs are found'
       });
     } else {
       // replace('|', ',') => 최초 1개만 변경, replace(/[|]/g, ',') => 모든 occurrence를 변경
