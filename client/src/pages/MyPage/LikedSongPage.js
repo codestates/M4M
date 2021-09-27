@@ -220,11 +220,9 @@ const GetLikedSong = () => {
   // console.log('checked song id: ' + CheckList);
 
   // Song Detail 페이지로 연결
-  // [서버] song controller 연결 후 업데이트 예정
   const handleSongClicked = (song) => {
     history.push({
-      // pathname: `/song:id=${song.id}`
-      pathname: 'mainpage'
+      pathname: `/song:id=${song.id}`
     });
   };
 
