@@ -98,23 +98,25 @@ const Hashtags = ({ songInfo, information }) => {
 
   const handleTagLikeCliked = (hashtagLikeName) => {
     // console.log(hashtagLikes[hashtagLikeName]);
-    if (hashtagLikes[hashtagLikeName]) {
-      setHashtagLikes({
-        ...hashtagLikes,
-        [hashtagLikeName]: false
-      });
-    } else {
-      setHashtagLikes({
-        ...hashtagLikes,
-        [hashtagLikeName]: true
-      });
+    if (information) {
+      if (hashtagLikes[hashtagLikeName]) {
+        setHashtagLikes({
+          ...hashtagLikes,
+          [hashtagLikeName]: false
+        });
+      } else {
+        setHashtagLikes({
+          ...hashtagLikes,
+          [hashtagLikeName]: true
+        });
+      }
     }
-
+    
     if (!information) {
       alert('로그인이 필요한 서비스입니다.');
     } else {
       if (hashtagLikes[hashtagLikeName] === true) {
-        console.log('delete', hashtagLikeName);
+        // console.log('delete', hashtagLikeName);
         axios
           .delete(process.env.REACT_APP_API_URL + '/hashtag', {
             headers: {
@@ -142,7 +144,7 @@ const Hashtags = ({ songInfo, information }) => {
             console.log(err.response);
           });
       } else {
-        console.log('add', hashtagLikeName);
+        // console.log('add', hashtagLikeName);
         axios
           .post(process.env.REACT_APP_API_URL + '/hashtag', {
             id: songInfo.id,

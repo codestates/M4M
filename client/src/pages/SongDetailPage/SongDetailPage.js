@@ -126,7 +126,7 @@ const SongDetail = () => {
       try {
         if (!information) {
           const result = await axios.get(process.env.REACT_APP_API_URL + `/song?query=${songId}`);
-          setSongInfo(result.data.data[0]);
+          setSongInfo(result.data.data);
           setIsLoading(false);
         } else {
           const result = await axios.get(process.env.REACT_APP_API_URL + `/song?query=${songId}`, {
