@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import SideNav from '../../components/SideNav';
 import SongList from './MainSongList';
-import { getSongsBulk } from '../../redux/action';
+import { changeType, getSongsBulk } from '../../redux/action';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import axios from 'axios';
@@ -19,6 +19,7 @@ const MainWrapper = styled.div`
 function Main () {
   const dispatch = useDispatch();
   useEffect(() => {
+    dispatch(changeType('All'));
     axios
       .get(process.env.REACT_APP_API_URL + '/mainpage', { headers: { 'Content-Type': 'application/json'} })
       .then((res) => {
