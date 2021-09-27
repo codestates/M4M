@@ -1,4 +1,4 @@
-const {song} = require('../../models');
+const { song } = require('../../models');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
@@ -39,18 +39,18 @@ module.exports = async (req, res) => {
     const songList = await song.findAll({
       where: {
         [Op.and]: [
-          {recommendType1: recommendType[0]},
-          {recommendType2: recommendType[1]},
-          {recommendType3: recommendType[2]},
-        ],
-      },
+          { recommendType1: recommendType[0] },
+          { recommendType2: recommendType[1] },
+          { recommendType3: recommendType[2] }
+        ]
+      }
     });
 
     console.log(songList.length);
 
     if (songList.length === 0) {
       res.status(422).json({
-        message: 'Not enough songs are in the list',
+        message: 'Not enough songs are in the list'
       });
     } else {
       const listLength = songList.length;
@@ -78,12 +78,12 @@ module.exports = async (req, res) => {
 
       res.status(200).json({
         data: selectedSong,
-        message: 'ok',
+        message: 'ok'
       });
     }
   } catch {
     res.status(400).json({
-      message: 'error',
+      message: 'error'
     });
   }
 };

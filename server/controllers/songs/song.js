@@ -71,7 +71,7 @@ module.exports = async (req, res) => {
         where: { id: songs },
         order: [
           [comment, 'createdAt', 'DESC']
-        ],
+        ]
       });
 
       getComment = Sequelize.getValues(getComment);
