@@ -20,13 +20,16 @@ module.exports = async (req, res) => {
         song.title = song.title.replace(/[|]/g, ',');
         song.artist = song.artist.replace(/[|]/g, ',');
         song.album = song.album.replace(/[|]/g, ',');
+        song.genre = song.genre.replace(/[|]/g, ',');
 
         return {
           id: song.id,
           title: song.title,
           artist: song.artist,
+          genre: song.genre,
           album_art: song.album_art,
-          date: song.date
+          date: song.date,
+          year: song.year
         };
       });
 
@@ -67,8 +70,10 @@ module.exports = async (req, res) => {
               id: song.id,
               title: song.title,
               artist: song.artist,
+              genre: song.genre,
               album_art: song.album_art,
               date: song.date,
+              year: song.year,
               hashtagLike: hashtaglikeCount
             };
 
