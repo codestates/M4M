@@ -51,7 +51,14 @@ module.exports = async (req, res) => {
             // console.log(getHashtagName);
 
             let hashtaglikeCount = {
-              좋아요: 0
+              좋아요: 0,
+              '#인생곡인': 0,
+              '#가사가재밌는': 0,
+              '#몸이기억하는': 0,
+              '#눈물샘자극': 0,
+              '#노래방금지곡': 0,
+              '#영원한18번': 0,
+              '#추억소환': 0
             };
 
             getHashtagName.map((song) => {
@@ -65,7 +72,7 @@ module.exports = async (req, res) => {
 
             // hashtagLike 배열 형태로 출력, 객체로 출력해야할 시 주석 처리 후 실행
             hashtaglikeCount = Object.entries(hashtaglikeCount);
-            
+
             const payload = {
               id: song.id,
               title: song.title,
@@ -79,20 +86,22 @@ module.exports = async (req, res) => {
 
             // 로그인 된 유저에 한해서는 본인이 추가한 좋아요 및 해시태그 정보를 추가적으로 보내주어야 함.
             if (accessTokenData.id) {
-              let userHashtagLikes = await songuserhashtaglike.findAll(
+              let userLike = await songuserhashtaglike.findAll(
                 {
                   where: {
                     userId: accessTokenData.id,
-                    songId: song.id
+                    songId: song.id,
+                    hashtagId: 1
                   }
                 }
               );
 
-              userHashtagLikes = Sequelize.getValues(userHashtagLikes);
+              userLike = Sequelize.getValues(userLike);
 
-              if (userHashtagLikes) {
-                userHashtagLikes = userHashtagLikes.map((el) => el.hashtagId);
-                payload.userHashtagLikes = userHashtagLikes;
+              if (userLike.length > 0) {
+                payload.userLike = true;
+              } else {
+                payload.userLike = false;
               }
             }
 
