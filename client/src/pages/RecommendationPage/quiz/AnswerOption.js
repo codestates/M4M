@@ -33,8 +33,8 @@ const Wrapper = styled.div`
     font-size: 1em;
     padding: 1.2rem 1.8rem;
     line-height: 1.6rem;
-    ${media.tabletMini`font-size: 1em; padding: 1.4rem 2rem; line-height: 1.6rem`}
-    ${media.tablet`font-size: 1.1em; padding: 1.75rem 3rem; line-height: 1.7rem`}
+    ${media.tabletMini`font-size: 1em; padding: 1.4rem 2rem; line-height: 1.6rem;`}
+    ${media.tablet`font-size: 1.1em; padding: 1.75rem 3rem; line-height: 1.7rem;`}
     transition-duration: 0.5s;
   }
   .answerOptionLabel:active {

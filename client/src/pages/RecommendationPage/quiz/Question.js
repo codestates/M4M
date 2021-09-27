@@ -8,15 +8,15 @@ const Wrapper = styled.div`
   .row {
     margin-top: 3rem; 
     margin-bottom: -1.5rem;
-    ${media.tabletMini`margin-top: 3.7rem; margin-bottom: 0rem`}
-    ${media.tablet`margin-top: 4.2rem; margin-bottom: 0rem`}
+    ${media.tabletMini`margin-top: 3.7rem; margin-bottom: 0rem;`}
+    ${media.tablet`margin-top: 4.2rem; margin-bottom: 0rem;`}
     .col {
       padding: 0 3rem;
       h1 {
         color: ${Colors.black};
         font-size: 1rem;
-        ${media.tabletMini`font-size: 1.1rem`}
-        ${media.tablet`font-size: 1.2rem`}
+        ${media.tabletMini`font-size: 1.1rem;`}
+        ${media.tablet`font-size: 1.2rem;`}
         font-family: 'NeoDunggeunmo';
         text-align: left;
         line-height: 1.7em;

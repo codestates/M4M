@@ -40,6 +40,19 @@ const GlobalStyle = createGlobalStyle`
     font-weight: normal;
     font-style: normal;
   }
+  @font-face {
+    font-family: 'Chicago';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Chicago'), url('./fonts/Chicago.woff') format('woff');
+  }
+  @font-face {
+    font-family:'Pixolde';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Pixolde'), url('./fonts/Pixolde.ttf') format('woff');
+  }
+  
   body {
     background: ${Colors.beigeColor};
   }

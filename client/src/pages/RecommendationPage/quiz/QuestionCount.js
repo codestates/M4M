@@ -13,12 +13,12 @@ const Wrapper = styled.div`
     border-bottom: solid .17em ${Colors.black};
     font-family: '국립박물관문화재단클래식M';
     font-size: 1.3em;
-    ${media.tabletMini`font-size: 1.5em`}
-    ${media.tablet`font-size: 1.75em`}
+    ${media.tabletMini`font-size: 1.5em;`}
+    ${media.tablet`font-size: 1.75em;`}
     color: ${Colors.black};
-    ${media.tabletMini`color: blue`}
-    ${media.tablet`color: red`}
-    ${media.laptop`color: green`}
+    ${media.tabletMini`color: blue;`}
+    ${media.tablet`color: red;`}
+    ${media.laptop`color: green;`}
   }
   .questionCountRight {
     height: 80%;
@@ -32,7 +32,7 @@ const Wrapper = styled.div`
     color: ${Colors.black};
     background-color: ${Colors.beige};
     font-size: .75em;
-    ${media.tabletMini`font-size: .9em`}
+    ${media.tabletMini`font-size: .9em;`}
   }
 `;
 

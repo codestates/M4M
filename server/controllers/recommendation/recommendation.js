@@ -64,12 +64,16 @@ module.exports = async (req, res) => {
         }
       }
 
-      console.log(randomIndexArray);
+      // console.log(randomIndexArray);
 
       const selectedSong = [];
 
       for (const el of randomIndexArray) {
-        selectedSong.push(`${songList[el].id},${songList[el].title} by ${songList[el].artist}`);
+        selectedSong.push(
+          `${songList[el].id},${songList[el].title} by ${
+            songList[el].artist
+          }(${songList[el].date.slice(0, 4)})`
+        );
       }
 
       res.status(200).json({
