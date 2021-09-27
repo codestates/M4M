@@ -104,8 +104,6 @@ module.exports = async (req, res) => {
         }
       }
 
-      console.log(getContent.flat());
-
       const payload = {
         id: songList.dataValues.id,
         title: songList.dataValues.title,
