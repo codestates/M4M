@@ -72,6 +72,7 @@ function Header({ handleModal }) {
       .then((res) => {
         dispatch(userLogout(res));
         localStorage.removeItem('accessToken');
+        localStorage.removeItem('userinfo');
         history.push('/mainpage');
         // window.location.replace("/mainpage");
       })
