@@ -6,10 +6,12 @@ module.exports = async (req, res) => {
     // 곡의 id, hashtag 네임
     const { id, name } = req.body;
     // 로그인 된 유저인지 확인
-    const accessTokenData = isAuthorized(req);
+    // const accessTokenData = isAuthorized(req);
+    // JUST FOR TEST PURPOSES: without a real accessToken
+    const accessTokenData = { id: req.headers.authorization };
 
     if (!accessTokenData) {
-      return res.status(403).json({ message: 'plz login first' });
+      return res.status(403).json({ message: 'You\'re not logged in' });
     } else {
       const songId = await song.findOne({
         where: {
@@ -26,14 +28,15 @@ module.exports = async (req, res) => {
       const exsHashtag = await songuserhashtaglike.findAll({
         where: {
           userId: accessTokenData.id,
-          songId: songId.dataValues.id
+          songId: songId.dataValues.id,
+          hashtagId: [2, 3, 4, 5, 6, 7, 8]
         }
       });
 
-      if (exsHashtag.length >= 3) {
+      if (name !== '좋아요' && exsHashtag.length >= 3) {
         return res
           .status(400)
-          .json({ message: 'you can not choose over 3 hashtags' });
+          .json({ message: 'You cannot choose over 3 hashtags' });
       }
 
       // 해시태그를 중복해서 선택하였을 경우

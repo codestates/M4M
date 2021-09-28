@@ -1,11 +1,11 @@
-import styled from "styled-components";
-import { useState } from "react";
-import axios from "axios";
-import { useHistory } from "react-router";
-import kakaoImage from "../kakao_login_medium_narrow.png";
-import { useDispatch } from "react-redux";
-import { userLogin } from "../redux/action";
-require("dotenv").config();
+import styled from 'styled-components';
+import { useState } from 'react';
+import axios from 'axios';
+import { useHistory } from 'react-router';
+import kakaoImage from '../kakao_login_medium_narrow.png';
+import { useDispatch } from 'react-redux';
+import { userLogin } from '../redux/action';
+require('dotenv').config();
 const { Kakao } = window;
 
 export const LoginBackdrop = styled.div`
@@ -47,11 +47,10 @@ export const LoginBtn = styled.button``;
 
 function Login({ handleModal }) {
   const [loginInfo, setLoginInfo] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: ''
   });
-  //   console.log(loginInfo);
-  const [errorMsg, setErrorMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState('');
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -60,51 +59,92 @@ function Login({ handleModal }) {
   };
 
   const handleLoginRequest = () => {
-    if (loginInfo.email === "" || loginInfo.password === "") {
-      setErrorMsg("이메일과 비밀번호를 입력해주세요");
+    if (loginInfo.email === '' || loginInfo.password === '') {
+      setErrorMsg('이메일과 비밀번호를 입력해주세요');
     } else {
       axios
         .post(`${process.env.REACT_APP_API_URL}/login`, loginInfo, {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
+          headers: { 'Content-Type': 'application/json' },
+          withCredentials: true
         })
         .then((res) => {
-          console.log("11111111 :", res);
           dispatch(userLogin(res));
-          localStorage.setItem("accessToken", res.data.accessToken);
-          history.push("/mainpage");
+          localStorage.setItem('accessToken', res.data.accessToken);
+          history.push('/mainpage');
           //   window.location.replace("/mainpage");
+          return res.data.accessToken;
+        })
+        .then((token) => {
+          axios
+            .get(process.env.REACT_APP_API_URL + '/user-info', {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+              }
+            })
+            .then((res) => {
+              localStorage.setItem('userinfo', res.data.data);
+            });
         })
         .catch((error) => {
-          console.log("error :", error.response);
+          console.log('error :', error.response);
         });
     }
   };
 
   const enter = (e) => {
-    if (e.key === "Enter" && e.target.value !== "") {
+    if (e.key === 'Enter' && e.target.value !== '') {
       handleLoginRequest();
     }
   };
 
   const closeModal = () => {
     handleModal();
-    history.push("/");
+    history.push('/');
   };
 
   const kakaoLogin = () => {
     Kakao.Auth.login({
-      scope: "profile_nickname",
+      scope: 'profile_nickname, account_email',
       success: (res) => {
-        console.log("res :", res);
-        localStorage.setItem("kakaoToken", res.access_token);
+        localStorage.setItem('kakaoToken', res.access_token);
         Kakao.API.request({
-          url: "/v2/user/me",
+          url: '/v2/user/me',
           success: (res) => {
-            console.log(res.kakao_account);
-          },
+            const data = {
+              nickname: res.kakao_account.profile.nickname,
+              email: res.id.toString(),
+              password: null,
+              birthYear: null,
+              kakao: true
+            };
+            axios
+              .post(process.env.REACT_APP_API_URL + '/signup', data, {
+                headers: { 'Content-Type': 'application/json' },
+                withCredentials: true
+              })
+              .then((res) => {
+                localStorage.setItem('accessToken', res.data.accessToken);
+                dispatch(userLogin(res));
+                history.push('/mainpage');
+                return res.data.accessToken;
+              })
+              .then((token) => {
+                axios
+                  .get(process.env.REACT_APP_API_URL + '/user-info', {
+                    headers: {
+                      Authorization: `Bearer ${token}`,
+                      'Content-Type': 'application/json'
+                    }
+                  })
+                  .then((res) => {
+                    localStorage.setItem('userinfo', res.data.data);
+                  });
+              })
+              .catch((err) => console.log(err.response));
+          }
         });
-      },
+      }
     });
   };
 
@@ -114,15 +154,14 @@ function Login({ handleModal }) {
         <LoginHeading>로그인</LoginHeading>
         <LoginInputContainer>
           <LoginInputValue>이메일</LoginInputValue>
-          <LoginInput onChange={handleInputValue("email")}></LoginInput>
+          <LoginInput onChange={handleInputValue('email')}></LoginInput>
           <LoginInputValue>비밀번호</LoginInputValue>
           <LoginInput
             type="password"
-            onChange={handleInputValue("password")}
+            onChange={handleInputValue('password')}
             onKeyPress={(e) => {
               enter(e);
-            }}
-          ></LoginInput>
+            }}></LoginInput>
         </LoginInputContainer>
         <Alertbox>{errorMsg}</Alertbox>
         <LoginBtn onClick={handleLoginRequest}>로그인</LoginBtn>

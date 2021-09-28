@@ -1,11 +1,11 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import HeaderSearchbar from "./HeaderSearchbar";
-import { useSelector, useDispatch } from "react-redux";
-import { userLogout } from "../redux/action";
-import axios from "axios";
-import { useHistory } from "react-router";
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import HeaderSearchbar from './HeaderSearchbar';
+import { useSelector, useDispatch } from 'react-redux';
+import { userLogout } from '../redux/action';
+import axios from 'axios';
+import { useHistory } from 'react-router';
 
 const HeaderWrapper = styled.div`
   .header {
@@ -55,21 +55,24 @@ function Header({ handleModal }) {
   const handleIsRecommend = (status) => setIsRecommend(status);
   const dispatch = useDispatch();
   const history = useHistory();
-  const token = localStorage.getItem("accessToken");
 
   const handleLogoutRequest = () => {
+    const token = localStorage.getItem('accessToken');
+    const logoutUrl = process.env.REACT_APP_API_URL + '/logout';
+    const logoutConfig = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      withCredentials: true
+    };
+    const logoutData = { data: null };
     axios
-      .post(process.env.REACT_APP_API_URL + "/logout", null, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      })
+      .post(logoutUrl, logoutData, logoutConfig)
       .then((res) => {
         dispatch(userLogout(res));
-        localStorage.removeItem("accessToken");
-        // history.push("/mainpage");
+        localStorage.removeItem('accessToken');
+        history.push('/mainpage');
         // window.location.replace("/mainpage");
       })
       .catch((error) => {
@@ -92,8 +95,7 @@ function Header({ handleModal }) {
             <button
               className="btn recommend-page"
               onClick={() => handleIsRecommend(true)}
-              disabled={isRecommend ? "disabled" : null}
-            >
+              disabled={isRecommend ? 'disabled' : null}>
               recommend page
             </button>
           </Link>
@@ -108,8 +110,7 @@ function Header({ handleModal }) {
                 className="btn login"
                 onClick={() => {
                   handleModal();
-                }}
-              >
+                }}>
                 login
               </button>
             </Link>
@@ -126,8 +127,7 @@ function Header({ handleModal }) {
                 className="btn signup"
                 onClick={() => {
                   handleModal();
-                }}
-              >
+                }}>
                 signup
               </button>
             </Link>

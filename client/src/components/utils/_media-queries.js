@@ -10,7 +10,7 @@ export const media = Object.keys(sizes).reduce((accumulator, label) => {
   const pixSize = sizes[label];
   accumulator[label] = (...args) => css`
     @media (min-width: ${pixSize}px) {
-      ${css(...args)};
+      ${css(...args)}
     }
   `;
   return accumulator;

@@ -1,10 +1,10 @@
-import styled from "styled-components";
-import { useState } from "react";
-import axios from "axios";
-import { useHistory } from "react-router";
-import { notify } from "../redux/action";
-import { useSelector, useDispatch } from "react-redux";
-require("dotenv").config();
+import styled from 'styled-components';
+import { useState } from 'react';
+import axios from 'axios';
+import { useHistory } from 'react-router';
+import { notify } from '../redux/action';
+import { useSelector, useDispatch } from 'react-redux';
+require('dotenv').config();
 
 export const SignupBackdrop = styled.div`
   position: fixed;
@@ -56,17 +56,18 @@ export const CheckInfo = styled.div`
 
 function Signup({ handleModal }) {
   const [userInfo, setUserInfo] = useState({
-    nickname: "",
-    email: "",
-    password: "",
-    birthYear: "",
+    nickname: '',
+    email: '',
+    password: '',
+    birthYear: '',
+    kakao: false
   });
 
-  const [checkNickname, setCheckNickname] = useState("");
+  const [checkNickname, setCheckNickname] = useState('');
   const [checkPassword, setCheckPassword] = useState(true);
   const [checkRetypePassword, setCheckRetypePassword] = useState(true);
   const [checkEmail, setCheckEmail] = useState(true);
-  const [errorMsg, setErrorMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState('');
   const notiState = useSelector((state) => state.notiReducer).notifications;
   const dispatch = useDispatch();
   const history = useHistory();
@@ -79,15 +80,15 @@ function Signup({ handleModal }) {
     const regExpSpec = /[~!@#$%^&*()_+|<>?:{}`=,.]/;
     const regExpKor = /[ㄱ-ㅎ|ㅏ-ㅣ]/;
     if (e.target.value.search(/\s/) !== -1) {
-      setCheckNickname("공백을 포함하면 안됩니다");
+      setCheckNickname('공백을 포함하면 안됩니다');
     } else if (regExpKor.test(e.target.value)) {
-      setCheckNickname("올바른 한글 형식을 따라주세요");
+      setCheckNickname('올바른 한글 형식을 따라주세요');
     } else if (regExpSpec.test(e.target.value)) {
-      setCheckNickname("특수문자를 포함하면 안됩니다.");
+      setCheckNickname('특수문자를 포함하면 안됩니다.');
     } else if (e.target.value.length < 2 || e.target.value.length > 15) {
-      setCheckNickname("닉네임은 2-15자입니다");
+      setCheckNickname('닉네임은 2-15자입니다');
     } else {
-      setCheckNickname("ok");
+      setCheckNickname('ok');
     }
   };
 
@@ -110,7 +111,7 @@ function Signup({ handleModal }) {
   };
 
   const handleCheckPassword = (e) => {
-    if (e.target.value !== "" && e.target.value === userInfo.password) {
+    if (e.target.value !== '' && e.target.value === userInfo.password) {
       setCheckRetypePassword(true);
     } else {
       setCheckRetypePassword(false);
@@ -126,36 +127,36 @@ function Signup({ handleModal }) {
 
   const handleSignupRequest = () => {
     if (
-      userInfo.nickname === "" ||
-      userInfo.email === "" ||
-      userInfo.password === "" ||
-      userInfo.birthYear === "" ||
-      checkNickname !== "ok" ||
+      userInfo.nickname === '' ||
+      userInfo.email === '' ||
+      userInfo.password === '' ||
+      userInfo.birthYear === '' ||
+      checkNickname !== 'ok' ||
       checkEmail !== true ||
       checkPassword !== true ||
       checkRetypePassword !== true
     ) {
-      setErrorMsg("모든 항목을 바르게 작성해주세요");
+      setErrorMsg('모든 항목을 바르게 작성해주세요');
     } else {
       axios
         .post(`${process.env.REACT_APP_API_URL}/signup`, userInfo, {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
+          headers: { 'Content-Type': 'application/json' },
+          withCredentials: true
         })
         .then((res) => {
           if (res.status === 201) {
             handleModal();
-            if (notiState.message === "") {
-              dispatch(notify("회원가입이 완료되었습니다"));
+            if (notiState.message === '') {
+              dispatch(notify('회원가입이 완료되었습니다'));
             }
           }
         })
         .then(() => {
-          window.location.replace("/mainpage");
+          window.location.replace('/mainpage');
         })
         .catch((error) => {
-          if (error.response.message === "conflict: email") {
-            setErrorMsg("이미 가입된 이메일입니다");
+          if (error.response.message === 'conflict: email') {
+            setErrorMsg('이미 가입된 이메일입니다');
           }
         });
     }
@@ -163,20 +164,20 @@ function Signup({ handleModal }) {
 
   const inputCheck = (key) => (e) => {
     handleInputValue(key)(e);
-    if (key === "nickname") {
+    if (key === 'nickname') {
       isValidNickname(e);
     }
-    if (key === "email") {
+    if (key === 'email') {
       isValidEmail(e);
     }
-    if (key === "password") {
+    if (key === 'password') {
       isValidPassword(e);
     }
   };
 
   const closeModal = () => {
     handleModal();
-    history.push("/");
+    history.push('/');
   };
 
   return (
@@ -185,25 +186,25 @@ function Signup({ handleModal }) {
         <SignupHeading>회원가입</SignupHeading>
         <SignupInputContainer>
           <SignupInputValue>닉네임</SignupInputValue>
-          <SignupInput onChange={inputCheck("nickname")} />
-          <CheckInfo>{checkNickname === "ok" ? null : checkNickname}</CheckInfo>
+          <SignupInput onChange={inputCheck('nickname')} />
+          <CheckInfo>{checkNickname === 'ok' ? null : checkNickname}</CheckInfo>
           <SignupInputValue>이메일</SignupInputValue>
-          <SignupInput onChange={inputCheck("email")} />
+          <SignupInput onChange={inputCheck('email')} />
           <CheckInfo>
-            {checkEmail ? null : "올바른 이메일 주소를 입력해주세요"}
+            {checkEmail ? null : '올바른 이메일 주소를 입력해주세요'}
           </CheckInfo>
           <SignupInputValue>비밀번호</SignupInputValue>
-          <SignupInput type="password" onChange={inputCheck("password")} />
+          <SignupInput type="password" onChange={inputCheck('password')} />
           <CheckInfo>
-            {checkPassword ? null : "올바른 비밀번호를 입력해주세요"}
+            {checkPassword ? null : '올바른 비밀번호를 입력해주세요'}
           </CheckInfo>
           <SignupInputValue>비밀번호확인</SignupInputValue>
           <SignupInput type="password" onChange={handleCheckPassword} />
           <CheckInfo>
-            {checkRetypePassword ? null : "비밀번호가 일치하지 않습니다"}
+            {checkRetypePassword ? null : '비밀번호가 일치하지 않습니다'}
           </CheckInfo>
           <SignupInputValue>Birth Year</SignupInputValue>
-          <select onChange={handleInputValue("birthYear")}>
+          <select onChange={handleInputValue('birthYear')}>
             {/* <option value="">-------</option> */}
             <option value="" selected disabled hidden>
               선택
