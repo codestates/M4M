@@ -1,69 +1,110 @@
 const crypto = require('crypto');
 const { user } = require('../../models');
-const { isAuthorized } = require('../tokenFunctions');
+const {
+  isAuthorized,
+  generateAccessToken,
+  generateRefreshToken
+} = require('../tokenFunctions');
 
 module.exports = async (req, res) => {
   try {
-    const { nickname, email, password, birthYear } = req.body;
-    const salt = crypto.randomBytes(64).toString('hex');
-    const encryptedPassword = crypto
-      .pbkdf2Sync(password, salt, 9999, 64, 'sha512')
-      .toString('base64');
+    const { nickname, email, password, birthYear, kakao } = req.body;
+    if (kakao) {
+      const members = await user.findOne({
+        where: { email: email }
+        // order: [['createdAt', 'DESC']]
+      });
+      // console.log(members);
+      const userNickname = `${nickname}#${members.dataValues.id + 1}`;
 
-    const accessTokenData = isAuthorized(req);
-
-    // 토큰정보가 있어 중복 유저인 경우
-    if (accessTokenData) {
-      return res.status(403).json({ message: 'you are already a user' });
-    }
-
-    // 회원가입 양식을 다 채우지 않은 경우
-    if (!nickname || !email || !password || !birthYear) {
-      return res
-        .status(422)
-        .json({ message: 'insufficient parameters supplied' });
-    }
-
-    // 이메일이 중복인 경우
-    const dplctEmail = await user.findAll({
-      where: {
-        email: email
-      }
-    });
-
-    if (dplctEmail.length !== 0) {
-      return res.status(409).json({ message: 'conflict: email' });
-    } else {
-      const firstUserNickname = `${nickname}#1`;
-      const members = await user.findAll({
-        order: [['createdAt', 'DESC']]
+      const dplctEmail = await user.findOne({
+        where: {
+          email: email
+        }
       });
 
-      if (members.length === 0) {
-        await user.create({
-          nickname: firstUserNickname,
-          email: email,
-          salt: salt,
-          password: encryptedPassword,
-          birthYear: birthYear
-        });
+      const accessToken = generateAccessToken(members.dataValues);
+      const refreshToken = generateRefreshToken(members.dataValues);
+      const cookieOptions = {
+        httpOnly: true,
+        sameSite: 'None'
+      };
 
-        return res.status(201).json({ message: 'thank you for signing up!' });
+      if (dplctEmail.length !== 0) {
+        res.cookie('accessToken', accessToken, cookieOptions);
+        res.cookie('refreshToken', refreshToken, cookieOptions);
+        res.status(200).json({ accessToken, refreshToken, message: 'ok' });
       } else {
-        const userNickname = `${nickname}#${members[0].dataValues.id + 1}`;
+        user.create({ nickname: userNickname, email: email, kakao: kakao });
+        res.cookie('accessToken', accessToken, cookieOptions);
+        res.cookie('refreshToken', refreshToken, cookieOptions);
+        res.status(201).json({ accessToken, refreshToken, message: 'ok' });
+      }
 
-        await user.create({
-          nickname: userNickname,
-          email: email,
-          salt: salt,
-          password: encryptedPassword,
-          birthYear: birthYear
+      // console.log(dplctEmail);
+    } else {
+      const salt = crypto.randomBytes(64).toString('hex');
+      const encryptedPassword = crypto
+        .pbkdf2Sync(password, salt, 9999, 64, 'sha512')
+        .toString('base64');
+
+      const accessTokenData = isAuthorized(req);
+
+      // 토큰정보가 있어 중복 유저인 경우
+      if (accessTokenData) {
+        return res.status(403).json({ message: 'you are already a user' });
+      }
+
+      // 회원가입 양식을 다 채우지 않은 경우
+      if (!nickname || !email || !password || !birthYear) {
+        return res
+          .status(422)
+          .json({ message: 'insufficient parameters supplied' });
+      }
+
+      // 이메일이 중복인 경우
+      const dplctEmail = await user.findAll({
+        where: {
+          email: email
+        }
+      });
+
+      if (dplctEmail.length !== 0) {
+        return res.status(409).json({ message: 'conflict: email' });
+      } else {
+        const firstUserNickname = `${nickname}#1`;
+        const members = await user.findAll({
+          order: [['createdAt', 'DESC']]
         });
 
-        return res.status(201).json({ message: 'thank you for signing up!' });
+        if (members.length === 0) {
+          await user.create({
+            nickname: firstUserNickname,
+            email: email,
+            salt: salt,
+            password: encryptedPassword,
+            birthYear: birthYear
+          });
+
+          return res.status(201).json({ message: 'thank you for signing up!' });
+        } else {
+          const userNickname = `${nickname}#${members[0].dataValues.id + 1}`;
+
+          await user.create({
+            nickname: userNickname,
+            email: email,
+            salt: salt,
+            password: encryptedPassword,
+            birthYear: birthYear,
+            kakao: false
+          });
+
+          return res.status(201).json({ message: 'thank you for signing up!' });
+        }
       }
     }
-  } catch {
+  } catch (err) {
+    console.log(err);
     res.status(400).json({ message: 'error' });
   }
 };
