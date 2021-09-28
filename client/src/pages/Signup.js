@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router";
+import { notify } from "../redux/action";
+import { useSelector, useDispatch } from "react-redux";
 require("dotenv").config();
 
 export const SignupBackdrop = styled.div`
@@ -65,6 +67,8 @@ function Signup({ handleModal }) {
   const [checkRetypePassword, setCheckRetypePassword] = useState(true);
   const [checkEmail, setCheckEmail] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
+  const notiState = useSelector((state) => state.notiReducer).notifications;
+  const dispatch = useDispatch();
   const history = useHistory();
 
   const handleInputValue = (key) => (e) => {
@@ -141,11 +145,16 @@ function Signup({ handleModal }) {
         .then((res) => {
           if (res.status === 201) {
             handleModal();
-            window.location.replace("/mainpage");
+            if (notiState.message === "") {
+              dispatch(notify("회원가입이 완료되었습니다"));
+            }
           }
         })
-        .catch((err) => {
-          if (err.response.status === 409) {
+        .then(() => {
+          window.location.replace("/mainpage");
+        })
+        .catch((error) => {
+          if (error.response.message === "conflict: email") {
             setErrorMsg("이미 가입된 이메일입니다");
           }
         });

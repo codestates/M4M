@@ -30,8 +30,12 @@ app.post("/login", controllers.login);
 app.post("/logout", controllers.logout);
 app.get("/song", controllers.song);
 app.post("/comment", controllers.comment);
-app.patch("/edit-comment", controllers.editComment);
-app.delete("/delete-comment", controllers.deleteComment);
+app.patch("/comment", controllers.editComment);
+app.delete("/comment", controllers.deleteComment);
+app.post("/hashtag", controllers.hitHashtag);
+app.delete("/hashtag", controllers.deleteHashtag);
+app.post("/like", controllers.hitLike);
+app.delete("/like", controllers.deleteLike);
 app.get("/title", findAllTitle);
 app.get("/artist", findAllArtist);
 app.get("/user-info", controllers.userInfo);
@@ -42,7 +46,7 @@ app.delete("/my-like", controllers.deleteMyLike);
 app.post("/recommendation", controllers.recommendation);
 app.get("/mainpage", controllers.mainpage);
 
-const HTTPS_PORT = process.env.HTTPS_PORT || 80;
+const HTTPS_PORT = process.env.HTTPS_PORT || 4000;
 
 let server;
 

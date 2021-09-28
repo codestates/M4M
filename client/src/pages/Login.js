@@ -2,7 +2,11 @@ import styled from "styled-components";
 import { useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router";
+import kakaoImage from "../kakao_login_medium_narrow.png";
+import { useDispatch } from "react-redux";
+import { userLogin } from "../redux/action";
 require("dotenv").config();
+const { Kakao } = window;
 
 export const LoginBackdrop = styled.div`
   position: fixed;
@@ -46,9 +50,10 @@ function Login({ handleModal }) {
     email: "",
     password: "",
   });
-  console.log(loginInfo);
+  //   console.log(loginInfo);
   const [errorMsg, setErrorMsg] = useState("");
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const handleInputValue = (key) => (e) => {
     setLoginInfo({ ...loginInfo, [key]: e.target.value });
@@ -64,12 +69,14 @@ function Login({ handleModal }) {
           withCredentials: true,
         })
         .then((res) => {
-          console.log(res);
+          console.log("11111111 :", res);
+          dispatch(userLogin(res));
           localStorage.setItem("accessToken", res.data.accessToken);
-          window.location.replace("/mainpage");
+          history.push("/mainpage");
+          //   window.location.replace("/mainpage");
         })
-        .catch((err) => {
-          console.log(err.response);
+        .catch((error) => {
+          console.log("error :", error.response);
         });
     }
   };
@@ -84,6 +91,23 @@ function Login({ handleModal }) {
     handleModal();
     history.push("/");
   };
+
+  const kakaoLogin = () => {
+    Kakao.Auth.login({
+      scope: "profile_nickname",
+      success: (res) => {
+        console.log("res :", res);
+        localStorage.setItem("kakaoToken", res.access_token);
+        Kakao.API.request({
+          url: "/v2/user/me",
+          success: (res) => {
+            console.log(res.kakao_account);
+          },
+        });
+      },
+    });
+  };
+
   return (
     <LoginBackdrop>
       <LoginView>
@@ -103,6 +127,9 @@ function Login({ handleModal }) {
         <Alertbox>{errorMsg}</Alertbox>
         <LoginBtn onClick={handleLoginRequest}>로그인</LoginBtn>
         <button onClick={closeModal}>창닫기</button>
+        <a onClick={kakaoLogin}>
+          <img src={kakaoImage}></img>
+        </a>
       </LoginView>
     </LoginBackdrop>
   );

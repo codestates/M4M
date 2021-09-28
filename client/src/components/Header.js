@@ -2,6 +2,10 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import HeaderSearchbar from "./HeaderSearchbar";
+import { useSelector, useDispatch } from "react-redux";
+import { userLogout } from "../redux/action";
+import axios from "axios";
+import { useHistory } from "react-router";
 
 const HeaderWrapper = styled.div`
   .header {
@@ -43,36 +47,51 @@ const HeaderWrapper = styled.div`
   .mypage {
     margin: 0px 8px;
   }
-  .test-container {
-    padding: 8px 12px;
-    background-color: beige;
-  }
-  .test {
-    margin: 0px 8px;
-  }
 `;
 
 function Header({ handleModal }) {
-  // ! useState는 Redux를 사용하기 전 테스트 용으로 사용
-  const [isLogin, setIsLogin] = useState(false);
+  const isLogin = useSelector((state) => state.userReducer.user.login);
   const [isRecommend, setIsRecommend] = useState(false);
-  console.log("🔴isLogin:", isLogin, "🟠isRecommend:", isRecommend);
+  const handleIsRecommend = (status) => setIsRecommend(status);
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const token = localStorage.getItem("accessToken");
 
-  const handleIsLogin = () => setIsLogin(!isLogin);
-  const handleIsRecommend = () => setIsRecommend(!isRecommend);
+  const handleLogoutRequest = () => {
+    axios
+      .post(process.env.REACT_APP_API_URL + "/logout", null, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      })
+      .then((res) => {
+        dispatch(userLogout(res));
+        localStorage.removeItem("accessToken");
+        // history.push("/mainpage");
+        // window.location.replace("/mainpage");
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+  };
 
   return (
     <HeaderWrapper>
       <div className="header">
         <div className="header-container-1">
           <Link to="/mainpage">
-            <div className="logo">M4M Logo</div>
+            <div className="logo" onClick={() => handleIsRecommend(false)}>
+              M4M Logo
+            </div>
           </Link>
         </div>
         <div className="header-container-2">
           <Link to="/recommendpage">
             <button
               className="btn recommend-page"
+              onClick={() => handleIsRecommend(true)}
               disabled={isRecommend ? "disabled" : null}
             >
               recommend page
@@ -80,7 +99,7 @@ function Header({ handleModal }) {
           </Link>
         </div>
         <div className="header-container-3">
-          <HeaderSearchbar />
+          <HeaderSearchbar isRecommend={isRecommend} />
         </div>
         <div className="header-container-4">
           {!isLogin ? (
@@ -95,9 +114,11 @@ function Header({ handleModal }) {
               </button>
             </Link>
           ) : (
-            <Link to="/logout">
-              <button className="btn logout">logout</button>
-            </Link>
+            // <Link to="/logout">
+            <button className="btn logout" onClick={handleLogoutRequest}>
+              logout
+            </button>
+            // </Link>
           )}
           {!isLogin ? (
             <Link to="/signup">
