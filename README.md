@@ -29,7 +29,7 @@
 ![](https://img.shields.io/badge/BACK-JWT-000000?style=for-the-badge&logo=json-web-tokens)  
 ![](https://img.shields.io/badge/BACK-OAUTH_2.0-000000?style=for-the-badge&logo=oauth-2.0)  
 
-## Distribution
+## DISTRIBUTION
 ![](https://img.shields.io/badge/BACK-AMAZON_AWS-232F3E?style=for-the-badge&logo=amazon-aws)  
 
 ## Detailed chart
