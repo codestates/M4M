@@ -8,7 +8,7 @@
 | 김무현 | **Front-end** | [<img src="https://img.shields.io/badge/Github-moo9205-181717?style=for-the-badge&logo=GitHub/">](https://github.com/moo9205) |
 | 김용우 | **Front-end** | [<img src="https://img.shields.io/badge/Github-magababo-181717?style=for-the-badge&logo=GitHub/">](https://github.com/magababo) |
 | 김태호 | **Back-end**  | [<img src="https://img.shields.io/badge/Github-TAETAEHO-181717?style=for-the-badge&logo=GitHub/">](https://github.com/TAETAEHO) |
-| 하경주(팀장) | **Front-end**  | [<img src="https://img.shields.io/badge/Github-TTurbo0824-181717?style=for-the-badge&logo=GitHub/">](https://github.com/TTurbo0824) |
+| 하경주(팀장) | **Full-stack**  | [<img src="https://img.shields.io/badge/Github-TTurbo0824-181717?style=for-the-badge&logo=GitHub/">](https://github.com/TTurbo0824) |
 
 # Tech Stack
 ## FRONT
@@ -28,8 +28,11 @@
 ![](https://img.shields.io/badge/BACK-Sequelize-258FFA?style=for-the-badge&logo=sequelize)    
 ![](https://img.shields.io/badge/BACK-JWT-000000?style=for-the-badge&logo=json-web-tokens)  
 ![](https://img.shields.io/badge/BACK-OAUTH_2.0-000000?style=for-the-badge&logo=oauth-2.0)  
+
+## Distribution
 ![](https://img.shields.io/badge/BACK-AMAZON_AWS-232F3E?style=for-the-badge&logo=amazon-aws)  
 
+## Detailed chart
 | Fields                              | Stacks                     |
 | --------------------------------------- | ---------------------------- |
 | **Common**   | Git, GitHub, JavaScript, VS code |
@@ -52,9 +55,8 @@
 <img width="750" alt="Flowchart" src="https://user-images.githubusercontent.com/45756034/133763808-30a55e81-8b2e-4df5-a26c-a32da014b208.png">
 
 # UI Design
+- [Full UI Design Link](https://github.com/codestates/M4M/wiki/UI-Design)
 
-### [Full UI Design Link](https://github.com/codestates/M4M/wiki/UI-Design)
-
-# Wiki
-### [M4M Wiki 페이지](https://github.com/codestates/M4M/wiki)
+# Need More Information?
+- [Check out M4M wiki page!](https://github.com/codestates/M4M/wiki)
 
