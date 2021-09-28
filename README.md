@@ -48,11 +48,11 @@
 # Architecture
 **Client-Side**
 
-<img width="2500" alt="Flowchart" src="https://user-images.githubusercontent.com/29108753/132796846-352d49a8-6616-4b34-8fee-4936cf42cc35.png">
+<img width="2500" alt="flowchart" src="https://user-images.githubusercontent.com/29108753/132796846-352d49a8-6616-4b34-8fee-4936cf42cc35.png">
 
 **Server-Side**
 
-<img width="750" alt="Flowchart" src="https://user-images.githubusercontent.com/45756034/133763808-30a55e81-8b2e-4df5-a26c-a32da014b208.png">
+<img width="750" alt="system-architecture" src="https://user-images.githubusercontent.com/29108753/135020930-681e1801-a7fa-48b7-87e0-82d2733a474b.png">
 
 # UI Design
 - [Full UI Design Link](https://github.com/codestates/M4M/wiki/UI-Design)
