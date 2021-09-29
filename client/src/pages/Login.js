@@ -5,6 +5,7 @@ import { useHistory } from 'react-router';
 import kakaoImage from '../kakao_login_medium_narrow.png';
 import { useDispatch } from 'react-redux';
 import { notify, userLogin } from '../redux/action';
+import { Link } from 'react-router-dom';
 require('dotenv').config();
 const { Kakao } = window;
 
@@ -23,11 +24,13 @@ export const LoginBackdrop = styled.div`
 export const LoginView = styled.div`
   box-sizing: border-box;
   width: 45vh;
-  height: 65vh;
+  height: 45vh;
   background-color: rgb(255, 255, 255);
   position: relative;
   text-align: center;
   //   font-size: 20px;
+  padding-top: 10px;
+  box-shadow: 10px 10px grey;
 `;
 
 export const LoginInputContainer = styled.div``;
@@ -36,21 +39,34 @@ export const LoginHeading = styled.h2``;
 
 export const LoginInputValue = styled.div`
   //   font-weight: bold;
-  margin: 5px 0px 5px 0px;
+  margin: 10px 0px 5px 0px;
 `;
 
 export const LoginInput = styled.input``;
 
-export const Alertbox = styled.div``;
+export const Alertbox = styled.div`
+  color: red;
+  font-family: 'NeoDunggeunmo';
+  font-size: 15px;
+  margin-top: 10px;
+`;
 
-export const LoginBtn = styled.button``;
+export const Button = styled.button`
+  margin: 0rem 0.4rem 0.1rem 0.4rem;
+`;
+
+export const ButtonContainer = styled.div`
+  margin: 10px;
+`;
+
+export const SignupBtn = styled.button``;
 
 function Login({ handleModal }) {
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: ''
   });
-  const [errorMsg, setErrorMsg] = useState('');
+  const [errorMsg, setErrorMsg] = useState(' ');
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -88,7 +104,16 @@ function Login({ handleModal }) {
             });
         })
         .catch((error) => {
-          console.log('error :', error.response);
+          if (
+            error.response.data.message ===
+            'please check your password and try again'
+          ) {
+            setErrorMsg('잘못된 비밀번호입니다');
+          }
+          if (error.response.data.message === 'Invalid user') {
+            setErrorMsg('등록되지 않은 이메일입니다');
+          }
+          console.log('error :', error.response.data.message);
         });
     }
   };
@@ -108,7 +133,7 @@ function Login({ handleModal }) {
     Kakao.Auth.login({
       scope: 'profile_nickname, account_email',
       success: (res) => {
-        localStorage.setItem('kakaoToken', res.access_token);
+        // localStorage.setItem('kakaoToken', res.access_token);
         Kakao.API.request({
           url: '/v2/user/me',
           success: (res) => {
@@ -127,6 +152,7 @@ function Login({ handleModal }) {
               .then((res) => {
                 localStorage.setItem('accessToken', res.data.accessToken);
                 dispatch(userLogin(res));
+                dispatch(notify('로그인 성공!'));
                 history.push('/mainpage');
                 return res.data.accessToken;
               })
@@ -167,12 +193,27 @@ function Login({ handleModal }) {
               enter(e);
             }}></LoginInput>
         </LoginInputContainer>
+        <ButtonContainer>
+          <Button onClick={handleLoginRequest}>로그인</Button>
+          <Button onClick={closeModal}>창닫기</Button>
+        </ButtonContainer>
+        <div>
+          <a onClick={kakaoLogin}>
+            <img src={kakaoImage} style={{ width: '140px' }}></img>
+          </a>
+        </div>
+        <div style={{ marginTop: '5px' }}>
+          <span style={{ fontSize: '13px', marginTop: '10px' }}>
+            아직 회원이 아니신가요?{' '}
+          </span>
+          <Link to="/signup">
+            <span style={{ fontSize: '13px', marginTop: '10px' }}>
+              {' '}
+              회원가입
+            </span>
+          </Link>
+        </div>
         <Alertbox>{errorMsg}</Alertbox>
-        <LoginBtn onClick={handleLoginRequest}>로그인</LoginBtn>
-        <button onClick={closeModal}>창닫기</button>
-        <a onClick={kakaoLogin}>
-          <img src={kakaoImage}></img>
-        </a>
       </LoginView>
     </LoginBackdrop>
   );

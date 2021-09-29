@@ -21,37 +21,54 @@ export const SignupBackdrop = styled.div`
 export const SignupView = styled.div`
   box-sizing: border-box;
   width: 45vh;
-  height: 65vh;
+  height: 55vh;
   background-color: rgb(255, 255, 255);
   position: relative;
   text-align: center;
-  //   font-size: 20px;
+  // font-size: 20px;
+  padding-top: 10px;
+  box-shadow: 10px 10px grey;
 `;
 
 export const SignupHeading = styled.h2``;
 
 export const SignupInputContainer = styled.div`
-  //   border: 1px solid black;
+  // border: 1px solid black;
   //   text-align: left;
 `;
 
 export const SignupInputValue = styled.div`
   // font-weight: bold;
-  margin: 5px 0px 5px 0px;
+  margin: 10px 0px 5px 0px;
 `;
 
 export const SignupInput = styled.input``;
 
-export const SignupInputBirthyear = styled.select``;
+export const Button = styled.button`
+  margin: 0.4rem 0.4rem 0.1rem 0.4rem;
+`;
 
-export const SignupBtn = styled.button``;
-
-export const Alertbox = styled.div``;
+export const Alertbox = styled.div`
+  color: red;
+  font-family: 'NeoDunggeunmo';
+  font-size: 15px;
+  margin-top: 5px;
+`;
 
 export const CheckInfo = styled.div`
   color: red;
   font-size: 11px;
   opacity: 0.8;
+`;
+
+export const ButtonContainer = styled.div`
+  margin: 10px;
+`;
+
+export const Select = styled.select`
+  width: 141px;
+  text-align: center;
+  font-size: 15px;
 `;
 
 function Signup({ handleModal }) {
@@ -146,13 +163,9 @@ function Signup({ handleModal }) {
         .then((res) => {
           if (res.status === 201) {
             handleModal();
-            if (notiState.message === '') {
-              dispatch(notify('회원가입이 완료되었습니다'));
-            }
+            dispatch(notify('회원가입이 완료되었습니다'));
+            history.push('/mainpage');
           }
-        })
-        .then(() => {
-          window.location.replace('/mainpage');
         })
         .catch((error) => {
           if (error.response.message === 'conflict: email') {
@@ -204,7 +217,7 @@ function Signup({ handleModal }) {
             {checkRetypePassword ? null : '비밀번호가 일치하지 않습니다'}
           </CheckInfo>
           <SignupInputValue>Birth Year</SignupInputValue>
-          <select onChange={handleInputValue('birthYear')}>
+          <Select onChange={handleInputValue('birthYear')}>
             {/* <option value="">-------</option> */}
             <option value="" selected disabled hidden>
               선택
@@ -212,11 +225,13 @@ function Signup({ handleModal }) {
             {yearList.map((el, idx) => {
               return <option key={idx}>{el}</option>;
             })}
-          </select>
+          </Select>
         </SignupInputContainer>
-        <SignupBtn onClick={handleSignupRequest}>회원가입</SignupBtn>
+        <ButtonContainer>
+          <Button onClick={handleSignupRequest}>회원가입</Button>
+          <Button onClick={closeModal}>창닫기</Button>
+        </ButtonContainer>
         <Alertbox>{errorMsg}</Alertbox>
-        <button onClick={closeModal}>창닫기</button>
       </SignupView>
     </SignupBackdrop>
   );
