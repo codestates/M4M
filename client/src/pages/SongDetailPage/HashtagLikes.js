@@ -45,7 +45,7 @@ const Like = styled.div`
 `;
 
 const Hashtags = ({ songInfo, information }) => {
-  // const token = localStorage.getItem('accessToken');
+  const token = localStorage.getItem('accessToken');
   const { userContent } = songInfo;
   const hashtagLikeList = ['좋아요', '#인생곡인', '#가사가재밌는', '#몸이기억하는', '#눈물샘자극', '#노래방금지곡', '#영원한18번', '#추억소환'];
 
@@ -75,7 +75,7 @@ const Hashtags = ({ songInfo, information }) => {
   }, [userContent]
   );
 
-  let allHashtagLikes = {
+  const allHashtagLikes = {
     좋아요: 0,
     '#인생곡인': 0,
     '#가사가재밌는': 0,
@@ -85,6 +85,7 @@ const Hashtags = ({ songInfo, information }) => {
     '#영원한18번': 0,
     '#추억소환': 0
   };
+  const [allTags, setAllTags] = useState(allHashtagLikes);
 
   if (songInfo.hashtagLike) {
     songInfo.hashtagLike.map(el => {
@@ -94,24 +95,9 @@ const Hashtags = ({ songInfo, information }) => {
     });
   }
 
-  allHashtagLikes = Object.entries(allHashtagLikes);
+  // allHashtagLikes = Object.entries(allHashtagLikes);
 
   const handleTagLikeCliked = (hashtagLikeName) => {
-    // console.log(hashtagLikes[hashtagLikeName]);
-    if (information) {
-      if (hashtagLikes[hashtagLikeName]) {
-        setHashtagLikes({
-          ...hashtagLikes,
-          [hashtagLikeName]: false
-        });
-      } else {
-        setHashtagLikes({
-          ...hashtagLikes,
-          [hashtagLikeName]: true
-        });
-      }
-    }
-    
     if (!information) {
       alert('로그인이 필요한 서비스입니다.');
     } else {
@@ -120,9 +106,9 @@ const Hashtags = ({ songInfo, information }) => {
         axios
           .delete(process.env.REACT_APP_API_URL + '/hashtag', {
             headers: {
-              // Authorization: `Bearer ${token}`,
+              Authorization: `Bearer ${token}`,
               // JUST FOR TEST PURPOSES
-              Authorization: information.id,
+              // Authorization: information.id,
               'Content-Type': 'application/json'
             },
             data: {
@@ -137,7 +123,15 @@ const Hashtags = ({ songInfo, information }) => {
               } else {
                 alert('해시태그가 취소되었습니다');
               }
-              window.location.replace(`/song:id=${songInfo.id}`);
+              setHashtagLikes({
+                ...hashtagLikes,
+                [hashtagLikeName]: false
+              });
+              setAllTags({
+                ...allTags,
+                [hashtagLikeName]: allTags[hashtagLikeName] - 1
+              });
+              // window.location.replace(`/song:id=${songInfo.id}`);
             }
           })
           .catch((err) => {
@@ -151,10 +145,7 @@ const Hashtags = ({ songInfo, information }) => {
             name: hashtagLikeName
           }, {
             headers: {
-              // Authorization: `Bearer ${token}`,
-
-              // JUST FOR TEST PURPOSES
-              Authorization: information.id,
+              Authorization: `Bearer ${token}`,
               'Content-Type': 'application/json'
             }
           })
@@ -165,14 +156,23 @@ const Hashtags = ({ songInfo, information }) => {
               } else {
                 alert('해시태그가 반영되었습니다');
               }
-              window.location.replace(`/song:id=${songInfo.id}`);
+              setHashtagLikes({
+                ...hashtagLikes,
+                [hashtagLikeName]: true
+              });
+              setAllTags({
+                ...allTags,
+                [hashtagLikeName]: allTags[hashtagLikeName] + 1
+              });
+              // window.location.replace(`/song:id=${songInfo.id}`);
             }
           })
           .catch((err) => {
-            console.log(err.response);
             // console.log('3개 초과');
             if (err.response.data.message === 'You cannot choose over 3 hashtags') {
               alert('해시태그는 3개까지만 등록할 수 있습니다.');
+            } else {
+              console.log(err.response);
             }
             setHashtagLikes({
               ...hashtagLikes,
@@ -190,10 +190,10 @@ const Hashtags = ({ songInfo, information }) => {
           {hashtagLikes['좋아요']
             ? <FontAwesomeIcon icon={faHeart} size='1x' color='red' />
             : <FontAwesomeIcon icon={farHeart} size='1x' color='black' />}
-          {' '}{songInfo.hashtagLike[0][1]}
+          {' '}{allTags['좋아요']}
           </Like>
         : null}
-      {allHashtagLikes.map((el, idx) => {
+      {Object.entries(allTags).map((el, idx) => {
         return (
           <div key={idx}>
             {el[0] === '좋아요'

@@ -84,7 +84,6 @@ function Login({ handleModal }) {
           withCredentials: true
         })
         .then((res) => {
-          dispatch(userLogin(res));
           dispatch(notify('로그인 성공!'));
           localStorage.setItem('accessToken', res.data.accessToken);
           history.push('/mainpage');
@@ -100,14 +99,12 @@ function Login({ handleModal }) {
               }
             })
             .then((res) => {
+              dispatch(userLogin(res.data.data, token));
               localStorage.setItem('userinfo', JSON.stringify(res.data.data));
             });
         })
         .catch((error) => {
-          if (
-            error.response.data.message ===
-            'please check your password and try again'
-          ) {
+          if (error.response.data.message === 'please check your password and try again') {
             setErrorMsg('잘못된 비밀번호입니다');
           }
           if (error.response.data.message === 'Invalid user') {
@@ -165,10 +162,7 @@ function Login({ handleModal }) {
                     }
                   })
                   .then((res) => {
-                    localStorage.setItem(
-                      'userinfo',
-                      JSON.stringify(res.data.data)
-                    );
+                    localStorage.setItem('userinfo', JSON.stringify(res.data.data));
                   });
               })
               .catch((err) => console.log(err.response));
@@ -184,14 +178,15 @@ function Login({ handleModal }) {
         <LoginHeading>로그인</LoginHeading>
         <LoginInputContainer>
           <LoginInputValue>이메일</LoginInputValue>
-          <LoginInput onChange={handleInputValue('email')}></LoginInput>
+          <LoginInput onChange={handleInputValue('email')} />
           <LoginInputValue>비밀번호</LoginInputValue>
           <LoginInput
             type="password"
             onChange={handleInputValue('password')}
             onKeyPress={(e) => {
               enter(e);
-            }}></LoginInput>
+            }}
+          />
         </LoginInputContainer>
         <ButtonContainer>
           <Button onClick={handleLoginRequest}>로그인</Button>
@@ -203,14 +198,9 @@ function Login({ handleModal }) {
           </a>
         </div>
         <div style={{ marginTop: '5px' }}>
-          <span style={{ fontSize: '13px', marginTop: '10px' }}>
-            아직 회원이 아니신가요?{' '}
-          </span>
+          <span style={{ fontSize: '13px', marginTop: '10px' }}>아직 회원이 아니신가요? </span>
           <Link to="/signup">
-            <span style={{ fontSize: '13px', marginTop: '10px' }}>
-              {' '}
-              회원가입
-            </span>
+            <span style={{ fontSize: '13px', marginTop: '10px' }}> 회원가입</span>
           </Link>
         </div>
         <Alertbox>{errorMsg}</Alertbox>

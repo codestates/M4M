@@ -1,7 +1,7 @@
 import { NOTI_FOUND, NOTI_LOST } from '../action';
-import { initialState } from './initialState';
+import { initNotiState } from './initialState';
 
-const notiReducer = (state = initialState, action) => {
+const notiReducer = (state = initNotiState, action) => {
   switch (action.type) {
     case NOTI_FOUND:
       return Object.assign({}, state, {

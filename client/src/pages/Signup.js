@@ -203,19 +203,13 @@ function Signup({ handleModal }) {
           <CheckInfo>{checkNickname === 'ok' ? null : checkNickname}</CheckInfo>
           <SignupInputValue>이메일</SignupInputValue>
           <SignupInput onChange={inputCheck('email')} />
-          <CheckInfo>
-            {checkEmail ? null : '올바른 이메일 주소를 입력해주세요'}
-          </CheckInfo>
+          <CheckInfo>{checkEmail ? null : '올바른 이메일 주소를 입력해주세요'}</CheckInfo>
           <SignupInputValue>비밀번호</SignupInputValue>
           <SignupInput type="password" onChange={inputCheck('password')} />
-          <CheckInfo>
-            {checkPassword ? null : '올바른 비밀번호를 입력해주세요'}
-          </CheckInfo>
+          <CheckInfo>{checkPassword ? null : '올바른 비밀번호를 입력해주세요'}</CheckInfo>
           <SignupInputValue>비밀번호확인</SignupInputValue>
           <SignupInput type="password" onChange={handleCheckPassword} />
-          <CheckInfo>
-            {checkRetypePassword ? null : '비밀번호가 일치하지 않습니다'}
-          </CheckInfo>
+          <CheckInfo>{checkRetypePassword ? null : '비밀번호가 일치하지 않습니다'}</CheckInfo>
           <SignupInputValue>Birth Year</SignupInputValue>
           <Select onChange={handleInputValue('birthYear')}>
             {/* <option value="">-------</option> */}

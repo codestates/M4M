@@ -1,12 +1,18 @@
-export const initialState = {
-  user: {
-    login: false,
-    userInfo: {
-      nickname: 'guest',
-      birthYear: null
-    }
-  },
-  songsBulk: [],
+export const initUserState = {
+  token: null,
+  userInfo: {
+    birthYear: null,
+    email: null,
+    kakao: null,
+    nickname: null
+  }
+};
+
+export const initSongBulkState = {
+  songsBulk: []
+};
+
+export const initNotiState = {
   notifications: {
     message: ''
   }
@@ -18,4 +24,4 @@ export const initTypeState = {
 
 export const initSearchResultState = {
   searchResult: []
-}
+};

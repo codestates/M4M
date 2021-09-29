@@ -86,27 +86,25 @@ function SideNav () {
           {plainList
             .map((list, idx) => {
               return (
-                <div className='item' key={idx+1} value={list} onClick={handleSelectChange}><span className='space' />{list}</div>
+                <div className='item' key={idx + 1} value={list} onClick={handleSelectChange}><span className='space' />{list}</div>
               );
-            })
-          }
+            })}
           {accordionList
             .map((list, idx) => {
               return (
-                <div key={idx+1}>
+                <div key={idx + 1}>
                   <div className='item' value={list} onClick={handleIsOpen}>
                     <span className='arrow' />{list}
                   </div>
                   {isOpen === list
                     ? accordionObj[list]
                       .map((el, idx) =>
-                        <div className='sub-item' key={idx+1} value={el} onClick={handleSelectChange}>{el}</div>
+                        <div className='sub-item' key={idx + 1} value={el} onClick={handleSelectChange}>{el}</div>
                       )
                     : null}
                 </div>
               );
-            })
-          }
+            })}
         </div>
       </div>
     </SideNavWrapper>
