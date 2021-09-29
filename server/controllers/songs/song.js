@@ -148,7 +148,7 @@ module.exports = async (req, res) => {
       };
 
       // 로그인 된 유저에 한해서는 본인이 추가한 좋아요 및 해시태그 정보를 추가적으로 보내주어야 함.
-      if (accessTokenData.id) {
+      if (accessTokenData) {
         let userContent = await songuserhashtaglike.findAll({
           where: {
             userId: accessTokenData.id,

@@ -3,14 +3,8 @@ const { isAuthorized } = require('../tokenFunctions');
 
 module.exports = async (req, res) => {
   try {
-    // 댓글의 id => 적용 불가. 클라이언트에서는 댓글의 id 정보 가지고 있지 않음
-    // const { id, content } = req.body;
-
     // 로그인 된 유저인지 확인
     const accessTokenData = isAuthorized(req);
-    // JUST FOR TEST PURPOSES: without a real accessToken
-    // const accessTokenData = { id: req.headers.authorization };
-    // console.log(accessTokenData.id);
 
     if (!accessTokenData) {
       return res.status(403).json({ message: 'You\'re not logged in' });
