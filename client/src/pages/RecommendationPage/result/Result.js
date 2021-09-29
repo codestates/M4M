@@ -10,7 +10,7 @@ require('dotenv').config();
 
 const Wrapper = styled.div`
   .app-frame::-webkit-scrollbar {
-    width: 15px;
+    width: 12px;
   }
   /* Track */
   .app-frame::-webkit-scrollbar-track {
@@ -33,26 +33,10 @@ const Wrapper = styled.div`
     background: #555;
   } */
 
-  h1 span {
-    background-color: ${Colors.black};
-    padding: .4em .75em;
-    border-radius: 20px;
-  }
   a {
     font-family: 'NeoDunggeunmo';
     font-size: .9em;
     ${media.tabletMini`font-size: .95em;`};
-  }
-  .title {
-    margin-top: 2.5em;
-    font-family: 'DOSMyungjo';
-    text-transform: lowercase;
-    font-weight: 400;
-    text-align: center;
-    color: white;
-    font-size: .8em;
-    ${media.tabletMini`font-size: 1em;`}
-    line-height: 1.5rem;
   }
   .typeName {
     font-family: '국립박물관문화재단클래식M';
@@ -60,8 +44,8 @@ const Wrapper = styled.div`
     text-align: center;
     color: ${Colors.black};
     font-size: 1.3em;
-    ${media.tabletMini`font-size: 1.4em;`}
-    ${media.tablet`font-size: 1.5em;`}
+    ${media.tabletMini`font-size: 1.35em;`}
+    ${media.tablet`font-size: 1.4em;`}
     margin-top: 1em;
     margin-bottom: 2.1em;
     ${media.tabletMini`color: blue;`}
@@ -81,12 +65,12 @@ const Wrapper = styled.div`
     background-color: #fff;
     border: solid 1px ${Colors.black};
     box-shadow: 4px 5px ${Colors.gray};
-    margin: 2em auto 2.1em;
+    margin: 2em auto 2em;
     padding: .3em .2em .8em .2em;
-    ${media.tabletMini`margin: 2.4em auto 3.8em; padding: .8em .2em 1.1em .2em;`}
+    ${media.tabletMini`margin: 2.4em auto 3.5em; padding: .8em .2em 1.1em .2em;`}
   }
   .songs {
-    width: 80%;
+    width: 90%;
     height: auto;
     margin: 2em auto auto;
     padding-bottom: 1em;
@@ -94,8 +78,8 @@ const Wrapper = styled.div`
     color: ${Colors.black};
     font-family: 'DOSGothic';
     text-align: left;
-    font-size: .9em;
-    ${media.tabletMini`font-size: .95em;`}
+    font-size: .85em;
+    ${media.tabletMini`font-size: .9em;`}
   }
   li > span {
     text-decoration: underline;
@@ -118,9 +102,27 @@ const Wrapper = styled.div`
   }
 `;
 
+const Title = styled.div`
+  margin-top: 2.5em;
+  font-family: 'DOSMyungjo';
+  text-transform: lowercase;
+  font-weight: 400;
+  text-align: center;
+  color: white;
+  font-size: .8em;
+  ${media.tabletMini`font-size: 1em;`}
+  line-height: 1.5rem;
+
+  & span {
+    background-color: ${Colors.black};
+    padding: .4em .75em;
+    border-radius: 20px;
+  }
+`;
+
 const Result = ({ resultType, songList }) => {
   let songType;
-  console.log(resultType);
+  // console.log(resultType);
   if (resultType === 'AFL') {
     songType = Type[0];
   } else if (resultType === 'AFW') {
@@ -156,14 +158,14 @@ const Result = ({ resultType, songList }) => {
     <Wrapper>
       <GlobalStyle />
       <div className='app-frame'>
-        <h1 className='title'><span>당신의 노래 취향</span></h1>
+        <Title><span>당신의 노래 취향</span></Title>
         <h2 className='typeName'>{songType.name}</h2>
-        <h1 className='title'><span>타입 설명</span></h1>
+        <Title><span>타입 설명</span></Title>
         <div className='container'>
           <p className='explanation'>{songType.explanation}</p>
           <br /><br /><br /><br /><br /><br /><br /><br />
         </div>
-        <h1 className='title'><span>추천 노래</span></h1>
+        <Title><span>추천 노래</span></Title>
         <ul className='songs'>
           {songList[0] === '당신의 취향에 맞는 노래를 찾지 못했습니다.'
             ? <li key='1'>{songList[0]} <a href='/recommendpage'>다시 추천 받기</a></li>

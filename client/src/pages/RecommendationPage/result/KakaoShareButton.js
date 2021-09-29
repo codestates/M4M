@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { media } from '../../../components/utils/_media-queries';
 require('dotenv').config();
 
 const Wrapper = styled.div`
@@ -9,7 +10,8 @@ const Wrapper = styled.div`
     cursor: pointer;
   }
   .share-button {
-    width: 10rem;
+    width: 9rem;
+    ${media.tablet`width: 9.5rem;`}
     margin: .8rem auto 0;
     padding: .8rem 1rem;
     background-color: #FEE500;
@@ -21,7 +23,8 @@ const Wrapper = styled.div`
     vertical-align: middle;
     margin-left: .3rem;
     font-family: 'Arial';
-    font-size: .8rem;
+    font-size: .75rem;
+    ${media.tablet`font-size: .8rem;`}
     color: #000000 85%;
   }
 `;
