@@ -1,16 +1,17 @@
 import styled from 'styled-components';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { GlobalStyle } from './components/utils/_var';
+import { useState } from 'react';
 import Header from './components/Header';
 import Noti from './components/Notification';
 import Main from './pages/Mainpage/Main';
 import Footer from './components/Footer';
 import Recommendation from './pages/RecommendationPage/Recommendation';
-import Signup from './pages/Signup';
-import { useState } from 'react';
 import Login from './pages/Login';
+import Signup from './pages/Signup';
 import GetLikedSong from './pages/MyPage/LikedSongPage';
 import Mypage from './pages/MyPage/UserInfoPage';
+import MoveTop from './components/MoveTop';
 import SongDetail from './pages/SongDetailPage/SongDetailPage';
 
 const AppWrapper = styled.div`
@@ -64,6 +65,7 @@ function App() {
             </Route>
             <Route path="/song:id" component={SongDetail} />
           </Switch>
+          <MoveTop />
           <Footer />
         </div>
       </AppWrapper>

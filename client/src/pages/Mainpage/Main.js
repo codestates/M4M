@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import SideNav from './MainSideNav';
+import SideNav from '../../components/SideNav';
 import SongList from './MainSongList';
-import { getSongsBulk } from '../../redux/action';
+import { changeType, getSongsBulk } from '../../redux/action';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import axios from 'axios';
@@ -18,9 +18,13 @@ const MainWrapper = styled.div`
 
 function Main () {
   const dispatch = useDispatch();
+  const information = JSON.parse(localStorage.getItem('userinfo'));
   useEffect(() => {
+    dispatch(changeType('All'));
+    let headersContent =  { 'Content-Type': 'application/json' };
+    if (information) headersContent['Authorization'] = information.id;
     axios
-      .get(process.env.REACT_APP_API_URL + '/mainpage', { headers: { 'Content-Type': 'application/json' } })
+      .get(process.env.REACT_APP_API_URL + '/mainpage', { headers: headersContent })
       .then((res) => {
         console.log('✅ songs update');
         dispatch(getSongsBulk(res.data.data));

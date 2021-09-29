@@ -2,6 +2,7 @@ export const NOTI_FOUND = 'NOTI';
 export const NOTI_LOST = 'NOTI_ALIVE';
 export const TYPE_CHANGE = 'TYPE_CHANGE';
 export const GET_SONGS_BULK = 'GET_SONGS_BULK';
+export const GET_SEARCH_RESULT = 'GET_SEARCH_RESULT';
 export const LOG_IN = 'LOG_IN';
 export const LOG_OUT = 'LOG_OUT';
 
@@ -38,6 +39,13 @@ export const getSongsBulk = (songsBulk) => {
     payload: songsBulk
   };
 };
+
+export const getResult = (searchResult) => {
+  return {
+    type: GET_SEARCH_RESULT,
+    payload: searchResult
+  }
+}
 
 export const userLogin = (loginData) => {
   return {
