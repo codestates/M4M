@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
   try {
     const { email, password } = req.body;
     const accessTokenData = isAuthorized(req);
-
+    // console.log(req.body);
     // 토큰정보가 있어 로그인 한 유저인 경우
     if (accessTokenData) {
       return res.status(403).json({ message: 'you are already logged in' });

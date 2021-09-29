@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useHistory } from 'react-router';
 import kakaoImage from '../kakao_login_medium_narrow.png';
 import { useDispatch } from 'react-redux';
-import { userLogin } from '../redux/action';
+import { notify, userLogin } from '../redux/action';
 require('dotenv').config();
 const { Kakao } = window;
 
@@ -69,9 +69,10 @@ function Login({ handleModal }) {
         })
         .then((res) => {
           dispatch(userLogin(res));
+          dispatch(notify('로그인 성공!'));
           localStorage.setItem('accessToken', res.data.accessToken);
           history.push('/mainpage');
-          //   window.location.replace("/mainpage");
+          //   window.location.replace('/mainpage');
           return res.data.accessToken;
         })
         .then((token) => {
@@ -83,7 +84,7 @@ function Login({ handleModal }) {
               }
             })
             .then((res) => {
-              localStorage.setItem('userinfo', res.data.data);
+              localStorage.setItem('userinfo', JSON.stringify(res.data.data));
             });
         })
         .catch((error) => {
@@ -138,7 +139,10 @@ function Login({ handleModal }) {
                     }
                   })
                   .then((res) => {
-                    localStorage.setItem('userinfo', res.data.data);
+                    localStorage.setItem(
+                      'userinfo',
+                      JSON.stringify(res.data.data)
+                    );
                   });
               })
               .catch((err) => console.log(err.response));
