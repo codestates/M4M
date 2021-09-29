@@ -2,57 +2,37 @@
 const { user } = require('../../models');
 
 module.exports = async (req, res) => {
-  // test: without accessToken
   try {
-    const userInfo = await user.findOne({
-      where: {
-        id: req.body.id
-      }
-    });
-
-    res
-      .status(200)
-      .json({
-        data: {
-          nickname: userInfo.nickname,
-          email: userInfo.email,
-          birthYear: userInfo.birthYear
-        },
-        message: 'ok'
-      });
-    // with accessToken
     // const accessTokenData = isAuthorized(req);
 
-    // if (!accessTokenData) {
-    //   return res
-    //     .status(404)
-    //     .send({
-    //       data: null,
-    //       message: 'Not an existing user'
-    //     });
-    // } else {
-    //   delete accessTokenData.password;
+    // JUST FOR TEST PURPOSES: without a real accessToken
+    // console.log(req.headers.authorization);
+    const accessTokenData = { id: req.headers.authorization };
 
-    //   const userInfo = await user.findOne({
-    //     where: {
-    //       id: accessTokenData.id
-    //     }
-    //   });
-
-    //   res
-    //     .status(200)
-    //     .json({
-    //       data: {
-    //         nickname: userInfo.nickname,
-    //         email: userInfo.email,
-    //         birthYear: userInfo.birthYear
-    //       },
-    //       message: 'ok'
-    //     });
-    // }
+    if (!accessTokenData) {
+      return res.status(404).send({ message: 'You\'re not logged in.' });
+    } else {
+      const userInfo = await user.findOne({
+        where: {
+          id: accessTokenData.id
+        }
+      });
+      console.log(userInfo.nickname);
+      res
+        .status(200)
+        .json({
+          data: {
+            nickname: userInfo.nickname,
+            email: userInfo.email,
+            birthYear: userInfo.birthYear,
+            kakao: userInfo.kakao
+          },
+          message: 'ok'
+        });
+    }
   } catch {
     res.status(400).json({
-      message: 'Invalid access token'
+      message: 'Error'
     });
   }
 };

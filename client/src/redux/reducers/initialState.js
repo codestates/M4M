@@ -7,8 +7,15 @@ export const initialState = {
     }
   },
   songsBulk: [],
-  navType: 'All',
   notifications: {
     message: ''
   }
+};
+
+export const initTypeState = {
+  navType: 'All'
+};
+
+export const initSearchResultState = {
+  searchResult: []
 }

@@ -60,7 +60,7 @@ function Signup ({ handleModal }) {
     birthYear: ''
   });
 
-  const [checkNickname, setCheckNickname] = useState(true);
+  const [checkNickname, setCheckNickname] = useState('');
   const [checkPassword, setCheckPassword] = useState(true);
   const [checkRetypePassword, setCheckRetypePassword] = useState(true);
   const [checkEmail, setCheckEmail] = useState(true);
@@ -72,14 +72,18 @@ function Signup ({ handleModal }) {
   };
 
   const isValidNickname = (e) => {
-    if (e.target.value.length >= 2 && e.target.value.length <= 15) {
-      if (e.target.value.search(/\s/) !== -1) {
-        setCheckNickname(false);
-      } else {
-        setCheckNickname(true);
-      }
+    const regExpSpec = /[~!@#$%^&*()_+|<>?:{}]/;
+    const regExpKor = /[ㄱ-ㅎ|ㅏ-ㅣ]/;
+    if (e.target.value.search(/\s/) !== -1) {
+      setCheckNickname('공백을 포함하면 안됩니다');
+    } else if (regExpKor.test(e.target.value)) {
+      setCheckNickname('올바른 한글 형식을 따라주세요');
+    } else if (regExpSpec.test(e.target.value)) {
+      setCheckNickname('특수문자를 포함하면 안됩니다.');
+    } else if (e.target.value.length < 2 || e.target.value.length > 15) {
+      setCheckNickname('닉네임은 2-15자입니다');
     } else {
-      setCheckNickname(false);
+      setCheckNickname('ok');
     }
   };
 
@@ -122,7 +126,7 @@ function Signup ({ handleModal }) {
       userInfo.email === '' ||
       userInfo.password === '' ||
       userInfo.birthYear === '' ||
-      checkNickname !== true ||
+      checkNickname !== 'ok' ||
       checkEmail !== true ||
       checkPassword !== true ||
       checkRetypePassword !== true
@@ -174,7 +178,7 @@ function Signup ({ handleModal }) {
           <SignupInputValue>Nickname</SignupInputValue>
           <SignupInput onChange={inputCheck('nickname')} />
           <CheckInfo>
-            {checkNickname ? null : '닉네임은 공백없이 2~15자 입니다'}
+            {checkNickname === 'ok' ? null : checkNickname}
           </CheckInfo>
           <SignupInputValue>Email</SignupInputValue>
           <SignupInput onChange={inputCheck('email')} />

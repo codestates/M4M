@@ -2,12 +2,12 @@ const { isAuthorized } = require('../tokenFunctions');
 
 module.exports = async (req, res) => {
   try {
-    // const accessTokenData = isAuthorized(req);
+    const accessTokenData = isAuthorized(req);
 
-    // if (!accessTokenData) {
-    //   res.clearCookie("refreshToken");
-    //   return res.status(403).json({ message: "you are not logged in" });
-    // }
+    if (!accessTokenData) {
+      res.clearCookie('refreshToken');
+      return res.status(403).json({ message: 'you are not logged in' });
+    }
     res.setHeader('authorization', '');
     res.clearCookie('accessToken');
     res.clearCookie('refreshToken');

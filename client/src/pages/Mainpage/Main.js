@@ -18,10 +18,13 @@ const MainWrapper = styled.div`
 
 function Main () {
   const dispatch = useDispatch();
+  const information = JSON.parse(localStorage.getItem('userinfo'));
   useEffect(() => {
     dispatch(changeType('All'));
+    let headersContent =  { 'Content-Type': 'application/json' };
+    if (information) headersContent['Authorization'] = information.id;
     axios
-      .get(process.env.REACT_APP_API_URL + '/mainpage', { headers: { 'Content-Type': 'application/json'} })
+      .get(process.env.REACT_APP_API_URL + '/mainpage', { headers: headersContent })
       .then((res) => {
         console.log('✅ songs update');
         dispatch(getSongsBulk(res.data.data));

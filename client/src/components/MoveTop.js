@@ -18,6 +18,7 @@ const MoveTopWrapper = styled.div`
     bottom: calc(54px + 0px);
     animation: vertical 1000ms ease-in-out infinite;
     cursor: pointer;
+    z-index: 99;
   }
   .arrow {
     width: 24px;
@@ -42,7 +43,6 @@ const MoveTopWrapper = styled.div`
 
 function MoveTop () {
   const [moveTopState, setMoveTopState] = useState('init');
-  const t1 = window.scrollY
 
   const handleMoveTopState = () => {
     if (window.scrollY > 300) {
@@ -69,7 +69,7 @@ function MoveTop () {
     <MoveTopWrapper>
       <div className={moveTopState}>
         <div className='move-top' onClick={handleMoveTop}>
-          <div className='arrow'></div>
+          <div className='arrow' />
           <div>TOP</div>
         </div>
       </div>

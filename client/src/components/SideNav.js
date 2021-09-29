@@ -68,9 +68,7 @@ function SideNav () {
     Year: new Array(18).fill(1992).map((el, idx) => String(el + idx))
   };
   const history = useHistory();
-
   const handleSelectChange = (e) => dispatch(changeType(e.target.getAttribute('value')));
-
   const handleIsOpen = (e) => {
     const curValue = e.target.getAttribute('value');
     if (isOpen === curValue) {
@@ -96,7 +94,7 @@ function SideNav () {
             .map((list, idx) => {
               return (
                 <div key={idx+1}>
-                  <div className='item' value={list} onClick={(e) => { handleIsOpen(e); handleSelectChange(e); }}>
+                  <div className='item' value={list} onClick={handleIsOpen}>
                     <span className='arrow' />{list}
                   </div>
                   {isOpen === list
