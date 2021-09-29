@@ -231,10 +231,7 @@ const GetLikedSong = () => {
     if (CheckList.length > 0) {
       axios.delete(process.env.REACT_APP_API_URL + '/my-like', {
         headers: {
-          // Authorization: `Bearer ${token}`,
-
-          // JUST FOR TEST PURPOSES
-          Authorization: information.id,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
         },
         data: {

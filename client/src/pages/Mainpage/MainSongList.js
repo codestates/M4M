@@ -131,12 +131,12 @@ function SongList () {
   console.log('🎶', result, '\n🚦', subSort, '\n📌', typeState, '\n🧲', searchState, '\nℹ️', information, history);
 
   useEffect(() => {
-    setIsSorted(searchState)
+    setIsSorted(searchState);
   }, [searchState]);
 
   useEffect(() => {
     setIsSorted(songsBulkState);
-  }, [songsBulkState])
+  }, [songsBulkState]);
 
   useEffect(() => {
     setResult(isSorted);
@@ -144,40 +144,41 @@ function SongList () {
 
   useEffect(() => {
     if (typeState === 'All') setIsSorted(songsBulkState);
-    if (typeState === 'Like') 
+    if (typeState === 'Like') {
       setIsSorted(
         songsBulkState.slice()
-        .filter((song) => song.hashtagLike[0][1])
-        .sort((a, b) => b.hashtagLike[0][1] - a.hashtagLike[0][1])
+          .filter((song) => song.hashtagLike[0][1])
+          .sort((a, b) => b.hashtagLike[0][1] - a.hashtagLike[0][1])
       );
+    }
     Genre.forEach((el) => {
-      if(typeState === el) {
+      if (typeState === el) {
         setIsSorted(
           songsBulkState.slice()
-          .filter((song) => {
-            const genreList = song.genre.split(', ');
-            for (let i = 0; i < genreList.length; i++) {
-              if (genreList[i] === typeState) return true;
-            }
-            return false;
-          })
+            .filter((song) => {
+              const genreList = song.genre.split(', ');
+              for (let i = 0; i < genreList.length; i++) {
+                if (genreList[i] === typeState) return true;
+              }
+              return false;
+            })
         );
       }
     });
     Hashtag.forEach((el, idx) => {
-      if(typeState === el) {
+      if (typeState === el) {
         setIsSorted(
           songsBulkState.slice()
-          .filter((song) => song.hashtagLike[idx][1])
-          .sort((a, b) => b.hashtagLike[idx][1] - a.hashtagLike[idx][1])
+            .filter((song) => song.hashtagLike[idx][1])
+            .sort((a, b) => b.hashtagLike[idx][1] - a.hashtagLike[idx][1])
         );
       }
     });
     Year.forEach((el) => {
-      if(typeState === el) {
+      if (typeState === el) {
         setIsSorted(
           songsBulkState.slice()
-          .filter((song) => song.year === Number(typeState))
+            .filter((song) => song.year === Number(typeState))
         );
       }
     });
@@ -198,9 +199,9 @@ function SongList () {
       setTimeout(() => {
         setIsLoading(false);
         setIsScrollCnt(isScrollCnt + 1);
-      }, loadingTime)
+      }, loadingTime);
     }
-  }
+  };
 
   const handleSubSort = (e) => {
     const standard = e.target.innerText;
@@ -210,7 +211,7 @@ function SongList () {
           title: 'for',
           artist: 'none',
           date: 'none'
-        })
+        });
         setResult(isSorted.slice().sort((a, b) => a.title.localeCompare(b.title)));
         console.log('🔴 handleSubSort: title(for)');
       } else if (subSort.title === 'for') {
@@ -218,7 +219,7 @@ function SongList () {
           title: 'back',
           artist: 'none',
           date: 'none'
-        })
+        });
         setResult(isSorted.slice().sort((a, b) => b.title.localeCompare(a.title)));
         console.log('🔴 handleSubSort: title(back)');
       } else {
@@ -226,7 +227,7 @@ function SongList () {
           title: 'none',
           artist: 'none',
           date: 'none'
-        })
+        });
         setResult(isSorted);
       }
     } else if (standard === 'artist') {
@@ -235,15 +236,15 @@ function SongList () {
           title: 'none',
           artist: 'for',
           date: 'none'
-        })
+        });
         setResult(isSorted.slice().sort((a, b) => a.artist.localeCompare(b.artist)));
         console.log('🟠 handleSubSort: artist(for)');
-      } else if(subSort.artist === 'for') {
+      } else if (subSort.artist === 'for') {
         setSubSort({
           title: 'none',
           artist: 'back',
           date: 'none'
-        })
+        });
         setResult(isSorted.slice().sort((a, b) => b.artist.localeCompare(a.artist)));
         console.log('🟠 handleSubSort: artist(back)');
       } else {
@@ -251,7 +252,7 @@ function SongList () {
           title: 'none',
           artist: 'none',
           date: 'none'
-        })
+        });
         setResult(isSorted);
       }
     } else if (standard === 'date') {
@@ -260,15 +261,15 @@ function SongList () {
           title: 'none',
           artist: 'none',
           date: 'for'
-        })
+        });
         setResult(isSorted.slice().sort((a, b) => a.date.replace('.', '') - b.date.replace('.', '')));
         console.log('🟡 handleSubSort: date(for)');
-      } else if(subSort.date === 'for') {
+      } else if (subSort.date === 'for') {
         setSubSort({
           title: 'none',
           artist: 'none',
           date: 'back'
-        })
+        });
         setResult(isSorted.slice().sort((a, b) => b.date.replace('.', '') - a.date.replace('.', '')));
         console.log('🟡 handleSubSort: date(back)');
       } else {
@@ -276,20 +277,19 @@ function SongList () {
           title: 'none',
           artist: 'none',
           date: 'none'
-        })
+        });
         setResult(isSorted);
       }
     }
-  }
-  const handleSongDetail = (song) => history.push({ pathname: `/song:id=${song.id}`});
+  };
+  const handleSongDetail = (song) => history.push({ pathname: `/song:id=${song.id}` });
 
   return (
     <SongListWrapper>
       <div className='songlist'>
         {typeState === 'No Result' || result.length === 0
           ? <div className='box no-result'>No Result</div>
-          :
-          <>
+          : <>
             <div className='box type'><h1>{typeState}</h1></div>
             <div className='box sort'>
               <div className={'box sub-sort ' + subSort.title} onClick={handleSubSort}>
@@ -304,41 +304,41 @@ function SongList () {
             </div>
             <div className='box list'>
               {result && result.map((song, idx) => {
-                if ((idx + 1) <= (isScrollCnt * songNumber)) { return(
-                  <div className='box song' key={idx+1} onClick={() => handleSongDetail(song)}>
-                    <img className='song-album_art' src={song.album_art} alt={song.title} loading='lazy' />
-                    <div className='box container'>
-                      <div className='box sub-container-1'>
-                        <div className='box song-title'>{song.title}</div>
-                        <div className='box song-artist'>{song.artist}</div>
-                        <div className='box song-date'>{song.date}</div>
-                        <div className={song.userLike ? 'box pressed' : 'box unpressed'}>👍{song.hashtagLike[0][1]}</div>
-                      </div>
-                      <div className='box sub-container-2'>
-                        <div className='box song-hashtag'>#Hashtag
-                          {Hashtag.map((tag, idx) => {
-                            if (idx !== 0) {
-                              return (
-                                <div key={idx+1}>{tag}: {song.hashtagLike[idx] || 0}</div>
-                              )
-                            }
-                            return null;
-                          })}
+                if ((idx + 1) <= (isScrollCnt * songNumber)) {
+                  return (
+                    <div className='box song' key={idx + 1} onClick={() => handleSongDetail(song)}>
+                      <img className='song-album_art' src={song.album_art} alt={song.title} loading='lazy' />
+                      <div className='box container'>
+                        <div className='box sub-container-1'>
+                          <div className='box song-title'>{song.title}</div>
+                          <div className='box song-artist'>{song.artist}</div>
+                          <div className='box song-date'>{song.date}</div>
+                          <div className={song.userLike ? 'box pressed' : 'box unpressed'}>👍{song.hashtagLike[0][1]}</div>
+                        </div>
+                        <div className='box sub-container-2'>
+                          <div className='box song-hashtag'>#Hashtag
+                            {Hashtag.map((tag, idx) => {
+                              if (idx !== 0) {
+                                return (
+                                  <div key={idx + 1}>{tag}: {song.hashtagLike[idx] || 0}</div>
+                                );
+                              }
+                              return null;
+                            })}
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                )}
+                  );
+                }
                 return null;
               })}
-              {isLoading && 
+              {isLoading &&
                 <div className='loadingWrapper'>
                   <div className='loading'>Loading...</div>
-                </div>
-              }
+                </div>}
             </div>
-          </>
-        }
+          </>}
       </div>
     </SongListWrapper>
   );

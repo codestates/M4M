@@ -76,7 +76,7 @@ const AlertMessage = styled.div`
 // const Mypage = ({ afterWithdrawal }) => {
 const Mypage = () => {
   const information = JSON.parse(localStorage.getItem('userinfo'));
-  // const token = localStorage.getItem('accessToken');
+  const token = localStorage.getItem('accessToken');
   const [checkNickname, setCheckNickname] = useState('ok');
   const [checkPassword, setCheckPassword] = useState('ok');
   const [checkBirthYear, setCheckBirthYear] = useState('ok');
@@ -84,7 +84,6 @@ const Mypage = () => {
   const [errorMsg, setErrorMsg] = useState('');
 
   const [myInfo, setMyInfo] = useState({
-    id: information.id,
     nickname: '',
     email: information.email,
     password: '',
@@ -92,6 +91,8 @@ const Mypage = () => {
     birthYear: information.birthYear,
     kakao: information.kakao
   });
+
+  const id = information.nickname.split('#')[1];
 
   const handleInputValue = (key) => (e) => {
     setMyInfo({ ...myInfo, [key]: e.target.value || '' });
@@ -230,15 +231,12 @@ const Mypage = () => {
     ) {
       setErrorMsg('변경할 정보를 올바르게 입력해주세요.');
     } else {
-      console.log('user info has sent to the server');
-      // myInfo.nickname = myInfo.nickname + `#${information.id}`;
+      // console.log('user info has sent to the server');
 
       axios
         .patch(process.env.REACT_APP_API_URL + '/user-info', myInfo, {
           headers: {
-            // Authorization: `Bearer ${token}`,
-            // JUST FOR TEST PURPOSES
-            Authorization: information.id,
+            Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json'
           }
         })
@@ -248,7 +246,7 @@ const Mypage = () => {
             if (myInfo.nickname === '') {
               myInfo.nickname = information.nickname;
             } else {
-              myInfo.nickname = myInfo.nickname + `#${information.id}`;
+              myInfo.nickname = myInfo.nickname + `#${id}`;
             }
             if (myInfo.password === '') {
               myInfo.password = information.password;
@@ -266,15 +264,11 @@ const Mypage = () => {
   const history = useHistory();
 
   const handleWithdrawalRequest = () => {
-    console.log(information.id);
     axios
       .delete(
         process.env.REACT_APP_API_URL + '/withdrawal', {
           headers: {
-            // Authorization: `Bearer ${token}`,
-
-            // JUST FOR TEST PURPOSES
-            Authorization: information.id,
+            Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json'
           }
         }
@@ -291,6 +285,7 @@ const Mypage = () => {
         }
         localStorage.removeItem('userinfo');
         localStorage.removeItem('accessToken');
+        localStorage.removeItem('kakaoToken');
       });
   };
 

@@ -1,14 +1,16 @@
 import styled from 'styled-components';
+import { media } from '../../../components/utils/_media-queries';
 
 const Button = styled.div`
-  width: 10rem;
+  width: 9rem;
   margin: .6rem auto 1.7rem;
   padding: .8rem 1rem;
   background-color: #553830;
   border-radius: 7px;
   border: none;
   font-family: 'Arial';
-  font-size: .8rem;
+  font-size: .75rem;
+  ${media.tablet`font-size: .8em; width: 9.5rem;`}
   color: white;
 
   &:hover {

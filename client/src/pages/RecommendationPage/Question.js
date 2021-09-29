@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import Quiz from './quiz/Quiz';
 import Result from './result/Result';
-import quizQuestions from '../../questions/quizQuestions';
+import quizQuestions from './questions/quizQuestions';
 axios.defaults.withCredentials = true;
 require('dotenv').config();
 

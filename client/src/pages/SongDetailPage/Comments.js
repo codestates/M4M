@@ -111,9 +111,6 @@ const Comments = ({ comments, information, songId }) => {
           }, {
             headers: {
               Authorization: `Bearer ${token}`,
-
-              // JUST FOR TEST PURPOSES
-              // Authorization: information.id,
               'Content-Type': 'application/json'
             }
           })

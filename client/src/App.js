@@ -16,15 +16,16 @@ import SongDetail from './pages/SongDetailPage/SongDetailPage';
 
 const AppWrapper = styled.div`
   * {
-    font-family: 'NeoDunggeunmo';
+    /* font-family: 'NeoDunggeunmo'; */
     box-sizing: border-box;
   }
   .App {
+    font-family: 'NeoDunggeunmo';
     text-align: center;
   }
 `;
 
-function App() {
+function App () {
   const [openModal, setOpenModal] = useState(false);
 
   const handleModalOpen = () => {
@@ -40,30 +41,30 @@ function App() {
     <BrowserRouter>
       <AppWrapper>
         <GlobalStyle />
-        <div className="App">
+        <div className='App'>
           <Header handleModal={handleModalOpen} />
           <Noti />
           <Switch>
-            <Route exact path="/" />
-            <Route path="/mainpage" component={Main} />
-            <Route path="/recommendpage" component={Recommendation} />
+            <Route exact path='/' />
+            <Route path='/mainpage' component={Main} />
+            <Route path='/recommendpage' component={Recommendation} />
           </Switch>
           <Switch>
-            <Route path="/signup">
+            <Route path='/signup'>
               {openModal ? <Signup handleModal={handleModalClose} /> : null}
             </Route>
           </Switch>
           <Switch>
-            <Route path="/login">
+            <Route path='/login'>
               {openModal ? <Login handleModal={handleModalClose} /> : null}
             </Route>
-            <Route path="/mylike">
-              {information ? <GetLikedSong /> : <Redirect to="/mainpage" />}
+            <Route path='/mylike'>
+              {information ? <GetLikedSong /> : <Redirect to='/mainpage' />}
             </Route>
-            <Route path="/myinfo">
-              {information ? <Mypage /> : <Redirect to="/mainpage" />}
+            <Route path='/myinfo'>
+              {information ? <Mypage /> : <Redirect to='/mainpage' />}
             </Route>
-            <Route path="/song:id" component={SongDetail} />
+            <Route path='/song:id' component={SongDetail} />
           </Switch>
           <MoveTop />
           <Footer />

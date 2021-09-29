@@ -1,7 +1,7 @@
 import { GET_SONGS_BULK } from '../action';
-import { initialState } from './initialState';
+import { initSongBulkState } from './initialState';
 
-const songsBulkReducer = (state = initialState, action) => {
+const songsBulkReducer = (state = initSongBulkState, action) => {
   switch (action.type) {
     case GET_SONGS_BULK:
       return Object.assign({}, state, {

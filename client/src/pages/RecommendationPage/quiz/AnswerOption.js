@@ -30,11 +30,11 @@ const Wrapper = styled.div`
     font-family: 'DOSGothic';
     text-align: center;
     color: ${Colors.black};
-    font-size: 1em;
-    padding: 1.2rem 1.8rem;
+    font-size: .75em;
+    padding: 1.1rem 1.8rem;
     line-height: 1.6rem;
-    ${media.tabletMini`font-size: 1em; padding: 1.4rem 2rem; line-height: 1.6rem;`}
-    ${media.tablet`font-size: 1.1em; padding: 1.75rem 3rem; line-height: 1.7rem;`}
+    ${media.tabletMini`font-size: .8em; padding: 1.3rem 1.9rem; line-height: 1.6rem;`}
+    ${media.tablet`font-size: .85em; padding: 1.5rem 1.9rem; line-height: 1.7rem;`}
     transition-duration: 0.5s;
   }
   .answerOptionLabel:active {

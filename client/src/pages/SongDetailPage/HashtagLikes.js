@@ -102,7 +102,7 @@ const Hashtags = ({ songInfo, information }) => {
       alert('로그인이 필요한 서비스입니다.');
     } else {
       if (hashtagLikes[hashtagLikeName] === true) {
-        console.log('delete', hashtagLikeName);
+        // console.log('delete', hashtagLikeName);
         axios
           .delete(process.env.REACT_APP_API_URL + '/hashtag', {
             headers: {
@@ -138,7 +138,7 @@ const Hashtags = ({ songInfo, information }) => {
             console.log(err.response);
           });
       } else {
-        console.log('add', hashtagLikeName);
+        // console.log('add', hashtagLikeName);
         axios
           .post(process.env.REACT_APP_API_URL + '/hashtag', {
             id: songInfo.id,
@@ -146,9 +146,6 @@ const Hashtags = ({ songInfo, information }) => {
           }, {
             headers: {
               Authorization: `Bearer ${token}`,
-
-              // JUST FOR TEST PURPOSES
-              // Authorization: information.id,
               'Content-Type': 'application/json'
             }
           })
@@ -171,10 +168,11 @@ const Hashtags = ({ songInfo, information }) => {
             }
           })
           .catch((err) => {
-            console.log(err.response);
             // console.log('3개 초과');
             if (err.response.data.message === 'You cannot choose over 3 hashtags') {
               alert('해시태그는 3개까지만 등록할 수 있습니다.');
+            } else {
+              console.log(err.response);
             }
             setHashtagLikes({
               ...hashtagLikes,

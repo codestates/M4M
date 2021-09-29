@@ -150,9 +150,6 @@ const CommentPagination = ({ information, songId, totalComments }) => {
         .delete(process.env.REACT_APP_API_URL + '/comment', {
           headers: {
             Authorization: `Bearer ${token}`,
-
-            // JUST FOR TEST PURPOSES
-            // Authorization: information.id,
             'Content-Type': 'application/json'
           },
           data: {

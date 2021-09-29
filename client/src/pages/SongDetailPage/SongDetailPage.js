@@ -132,9 +132,6 @@ const SongDetail = () => {
           const result = await axios.get(process.env.REACT_APP_API_URL + `/song?query=${songId}`, {
             headers: {
               Authorization: `Bearer ${token}`,
-
-              // JUST FOR TEST PURPOSES
-              // Authorization: information.id,
               'Content-Type': 'application/json'
             }
           });
@@ -153,7 +150,6 @@ const SongDetail = () => {
     fetchData();
   }, []);
 
-  console.log(songInfo)
   const [isOpen, setIsOpen] = useState({
     lineNum: 13,
     buttonContent: '펼치기',

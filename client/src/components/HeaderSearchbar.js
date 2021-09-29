@@ -1,4 +1,4 @@
-import { getRegExp } from "korean-regexp";
+import { getRegExp } from 'korean-regexp';
 import axios from 'axios';
 import { useState } from 'react';
 import styled from 'styled-components';
@@ -70,7 +70,7 @@ function HeaderSearchbar (isRecommend) {
 
   return (
     <HeaderSearchbarWrapper>
-      <div className={history.location.pathname !== 'recommendpage'  ? 'searchbar' : 'display-none'}>
+      <div className={history.location.pathname !== 'recommendpage' ? 'searchbar' : 'display-none'}>
         <select className='searchbar-dropbox' onChange={handleSearchTypeChange}>
           {searchTypeList.map((searchType, idx) => <option value={searchType} key={idx + 1}>{searchType}</option>)}
         </select>
