@@ -45,6 +45,7 @@ const Intro = ({ _onStartClick }) => {
         <ul className='list-group'>
           <li className='list-item'>밀레니얼 세대를 위한<br />노래 추천</li>
         </ul>
+        <div>다시 테스트</div>
         <StartBtn onClick={_onStartClick}>
           <span>테스트 시작!</span>
         </StartBtn>
