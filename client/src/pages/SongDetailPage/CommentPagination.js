@@ -102,7 +102,7 @@ const Wrapper = styled.div`
 `;
 
 const CommentPagination = ({ information, songId, totalComments }) => {
-  // const token = localStorage.getItem('accessToken');
+  const token = localStorage.getItem('accessToken');
 
   const [commentList, setCommentList] = useState({
     comments: [],
@@ -149,10 +149,7 @@ const CommentPagination = ({ information, songId, totalComments }) => {
       axios
         .delete(process.env.REACT_APP_API_URL + '/comment', {
           headers: {
-            // Authorization: `Bearer ${token}`,
-
-            // JUST FOR TEST PURPOSES
-            Authorization: information.id,
+            Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json'
           },
           data: {

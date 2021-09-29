@@ -1,14 +1,10 @@
-// const { isAuthorized } = require('../tokenFunctions');
+const { isAuthorized } = require('../tokenFunctions');
 const { user } = require('../../models');
 
 // DELETE http://localhost:80/withdrawal
 module.exports = async (req, res) => {
   try {
-    // const accessTokenData = isAuthorized(req);
-
-    // JUST FOR TEST PURPOSES: without a real accessToken
-    // console.log(req.headers.authorization);
-    const accessTokenData = { id: req.headers.authorization };
+    const accessTokenData = isAuthorized(req);
 
     if (!accessTokenData) {
       return res.status(404).send({ message: 'You\'re not logged in.' });

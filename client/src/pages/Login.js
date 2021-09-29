@@ -45,7 +45,7 @@ export const Alertbox = styled.div``;
 
 export const LoginBtn = styled.button``;
 
-function Login({ handleModal }) {
+function Login ({ handleModal }) {
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: ''
@@ -158,20 +158,21 @@ function Login({ handleModal }) {
         <LoginHeading>로그인</LoginHeading>
         <LoginInputContainer>
           <LoginInputValue>이메일</LoginInputValue>
-          <LoginInput onChange={handleInputValue('email')}></LoginInput>
+          <LoginInput onChange={handleInputValue('email')} />
           <LoginInputValue>비밀번호</LoginInputValue>
           <LoginInput
-            type="password"
+            type='password'
             onChange={handleInputValue('password')}
             onKeyPress={(e) => {
               enter(e);
-            }}></LoginInput>
+            }}
+          />
         </LoginInputContainer>
         <Alertbox>{errorMsg}</Alertbox>
         <LoginBtn onClick={handleLoginRequest}>로그인</LoginBtn>
         <button onClick={closeModal}>창닫기</button>
         <a onClick={kakaoLogin}>
-          <img src={kakaoImage}></img>
+          <img src={kakaoImage} />
         </a>
       </LoginView>
     </LoginBackdrop>

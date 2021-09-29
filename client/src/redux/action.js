@@ -44,8 +44,8 @@ export const getResult = (searchResult) => {
   return {
     type: GET_SEARCH_RESULT,
     payload: searchResult
-  }
-}
+  };
+};
 
 export const userLogin = (loginData, token) => {
   return {

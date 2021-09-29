@@ -49,7 +49,7 @@ const HeaderWrapper = styled.div`
   }
 `;
 
-function Header({ handleModal }) {
+function Header ({ handleModal }) {
   const isLogin = useSelector((state) => state.userReducer).token;
   const [isRecommend, setIsRecommend] = useState(false);
   const handleIsRecommend = (status) => setIsRecommend(status);
@@ -83,60 +83,65 @@ function Header({ handleModal }) {
 
   return (
     <HeaderWrapper>
-      <div className="header">
-        <div className="header-container-1">
-          <Link to="/mainpage">
-            <div className="logo" onClick={() => handleIsRecommend(false)}>
+      <div className='header'>
+        <div className='header-container-1'>
+          <Link to='/mainpage'>
+            <div className='logo' onClick={() => handleIsRecommend(false)}>
               M4M Logo
             </div>
           </Link>
         </div>
-        <div className="header-container-2">
-          <Link to="/recommendpage">
+        <div className='header-container-2'>
+          <Link to='/recommendpage'>
             <button
-              className="btn recommend-page"
+              className='btn recommend-page'
               onClick={() => handleIsRecommend(true)}
-              disabled={isRecommend ? 'disabled' : null}>
+              disabled={isRecommend ? 'disabled' : null}
+            >
               recommend page
             </button>
           </Link>
         </div>
-        <div className="header-container-3">
+        <div className='header-container-3'>
           <HeaderSearchbar isRecommend={isRecommend} />
         </div>
-        <div className="header-container-4">
+        <div className='header-container-4'>
           {!isLogin ? (
-            <Link to="/login">
+            <Link to='/login'>
               <button
-                className="btn login"
+                className='btn login'
                 onClick={() => {
                   handleModal();
-                }}>
+                }}
+              >
                 login
               </button>
             </Link>
           ) : (
             // <Link to="/logout">
-            <button className="btn logout" onClick={handleLogoutRequest}>
+            <button className='btn logout' onClick={handleLogoutRequest}>
               logout
             </button>
             // </Link>
           )}
-          {!isLogin ? (
-            <Link to="/signup">
-              <button
-                className="btn signup"
-                onClick={() => {
-                  handleModal();
-                }}>
-                signup
-              </button>
-            </Link>
-          ) : (
-            <Link to="/mypage">
-              <button className="btn mypage">mypage</button>
-            </Link>
-          )}
+          {!isLogin
+            ? (
+              <Link to='/signup'>
+                <button
+                  className='btn signup'
+                  onClick={() => {
+                    handleModal();
+                  }}
+                >
+                  signup
+                </button>
+              </Link>
+              )
+            : (
+              <Link to='/mylike'>
+                <button className='btn mypage'>mypage</button>
+              </Link>
+              )}
         </div>
       </div>
     </HeaderWrapper>
