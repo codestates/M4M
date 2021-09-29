@@ -16,10 +16,11 @@ import SongDetail from './pages/SongDetailPage/SongDetailPage';
 
 const AppWrapper = styled.div`
   * {
-    font-family: 'NeoDunggeunmo';
+    /* font-family: 'NeoDunggeunmo'; */
     box-sizing: border-box;
   }
   .App {
+    font-family: 'NeoDunggeunmo';
     text-align: center;
   }
 `;
