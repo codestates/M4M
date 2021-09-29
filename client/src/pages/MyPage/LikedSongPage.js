@@ -170,21 +170,22 @@ const GetLikedSong = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      // setIsLoading(true);
+      setIsLoading(true);
       try {
         const result = await axios.get(process.env.REACT_APP_API_URL + '/my-like', {
           headers: {
             Authorization: `Bearer ${token}`,
-
-            // JUST FOR TEST PURPOSES
-            // Authorization: information.id,
             'Content-Type': 'application/json'
           }
         });
         setSongList(result.data.data);
-        // setIsLoading(false);
+        setIsLoading(false);
       } catch (error) {
-        console.log(error);
+        if (error.response.data.message === 'No songs are added to the list') {
+          setIsLoading(false);
+        } else {
+          console.log(error);
+        }
       }
     };
     fetchData();
