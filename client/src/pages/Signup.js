@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router';
+import { notify } from '../redux/action';
+import { useSelector, useDispatch } from 'react-redux';
 require('dotenv').config();
 
 export const SignupBackdrop = styled.div`
@@ -34,7 +36,7 @@ export const SignupInputContainer = styled.div`
 `;
 
 export const SignupInputValue = styled.div`
-  font-weight: bold;
+  // font-weight: bold;
   margin: 5px 0px 5px 0px;
 `;
 
@@ -52,12 +54,13 @@ export const CheckInfo = styled.div`
   opacity: 0.8;
 `;
 
-function Signup ({ handleModal }) {
+function Signup({ handleModal }) {
   const [userInfo, setUserInfo] = useState({
     nickname: '',
     email: '',
     password: '',
-    birthYear: ''
+    birthYear: '',
+    kakao: false
   });
 
   const [checkNickname, setCheckNickname] = useState('');
@@ -65,6 +68,8 @@ function Signup ({ handleModal }) {
   const [checkRetypePassword, setCheckRetypePassword] = useState(true);
   const [checkEmail, setCheckEmail] = useState(true);
   const [errorMsg, setErrorMsg] = useState('');
+  const notiState = useSelector((state) => state.notiReducer).notifications;
+  const dispatch = useDispatch();
   const history = useHistory();
 
   const handleInputValue = (key) => (e) => {
@@ -72,7 +77,7 @@ function Signup ({ handleModal }) {
   };
 
   const isValidNickname = (e) => {
-    const regExpSpec = /[~!@#$%^&*()_+|<>?:{}]/;
+    const regExpSpec = /[~!@#$%^&*()_+|<>?:{}`=,.]/;
     const regExpKor = /[ㄱ-ㅎ|ㅏ-ㅣ]/;
     if (e.target.value.search(/\s/) !== -1) {
       setCheckNickname('공백을 포함하면 안됩니다');
@@ -141,11 +146,16 @@ function Signup ({ handleModal }) {
         .then((res) => {
           if (res.status === 201) {
             handleModal();
-            window.location.replace('/');
+            if (notiState.message === '') {
+              dispatch(notify('회원가입이 완료되었습니다'));
+            }
           }
         })
-        .catch((err) => {
-          if (err.response.status === 409) {
+        .then(() => {
+          window.location.replace('/mainpage');
+        })
+        .catch((error) => {
+          if (error.response.message === 'conflict: email') {
             setErrorMsg('이미 가입된 이메일입니다');
           }
         });
@@ -173,32 +183,30 @@ function Signup ({ handleModal }) {
   return (
     <SignupBackdrop>
       <SignupView>
-        <SignupHeading>SIGN UP </SignupHeading>
+        <SignupHeading>회원가입</SignupHeading>
         <SignupInputContainer>
-          <SignupInputValue>Nickname</SignupInputValue>
+          <SignupInputValue>닉네임</SignupInputValue>
           <SignupInput onChange={inputCheck('nickname')} />
-          <CheckInfo>
-            {checkNickname === 'ok' ? null : checkNickname}
-          </CheckInfo>
-          <SignupInputValue>Email</SignupInputValue>
+          <CheckInfo>{checkNickname === 'ok' ? null : checkNickname}</CheckInfo>
+          <SignupInputValue>이메일</SignupInputValue>
           <SignupInput onChange={inputCheck('email')} />
           <CheckInfo>
             {checkEmail ? null : '올바른 이메일 주소를 입력해주세요'}
           </CheckInfo>
-          <SignupInputValue>Password</SignupInputValue>
-          <SignupInput type='password' onChange={inputCheck('password')} />
+          <SignupInputValue>비밀번호</SignupInputValue>
+          <SignupInput type="password" onChange={inputCheck('password')} />
           <CheckInfo>
             {checkPassword ? null : '올바른 비밀번호를 입력해주세요'}
           </CheckInfo>
-          <SignupInputValue>Password Check</SignupInputValue>
-          <SignupInput type='password' onChange={handleCheckPassword} />
+          <SignupInputValue>비밀번호확인</SignupInputValue>
+          <SignupInput type="password" onChange={handleCheckPassword} />
           <CheckInfo>
             {checkRetypePassword ? null : '비밀번호가 일치하지 않습니다'}
           </CheckInfo>
           <SignupInputValue>Birth Year</SignupInputValue>
           <select onChange={handleInputValue('birthYear')}>
             {/* <option value="">-------</option> */}
-            <option value='' selected disabled hidden>
+            <option value="" selected disabled hidden>
               선택
             </option>
             {yearList.map((el, idx) => {
@@ -206,7 +214,7 @@ function Signup ({ handleModal }) {
             })}
           </select>
         </SignupInputContainer>
-        <SignupBtn onClick={handleSignupRequest}>Sign up</SignupBtn>
+        <SignupBtn onClick={handleSignupRequest}>회원가입</SignupBtn>
         <Alertbox>{errorMsg}</Alertbox>
         <button onClick={closeModal}>창닫기</button>
       </SignupView>

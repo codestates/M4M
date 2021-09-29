@@ -1,16 +1,12 @@
-// const { isAuthorized } = require('../tokenFunctions');
+const { isAuthorized } = require('../tokenFunctions');
 const { user } = require('../../models');
 
 module.exports = async (req, res) => {
   try {
-    // const accessTokenData = isAuthorized(req);
-
-    // JUST FOR TEST PURPOSES: without a real accessToken
-    // console.log(req.headers.authorization);
-    const accessTokenData = { id: req.headers.authorization };
+    const accessTokenData = isAuthorized(req);
 
     if (!accessTokenData) {
-      return res.status(404).send({ message: 'You\'re not logged in.' });
+      return res.status(404).send({ message: "You're not logged in." });
     } else {
       const userInfo = await user.findOne({
         where: {
@@ -18,19 +14,18 @@ module.exports = async (req, res) => {
         }
       });
       console.log(userInfo.nickname);
-      res
-        .status(200)
-        .json({
-          data: {
-            nickname: userInfo.nickname,
-            email: userInfo.email,
-            birthYear: userInfo.birthYear,
-            kakao: userInfo.kakao
-          },
-          message: 'ok'
-        });
+      res.status(200).json({
+        data: {
+          nickname: userInfo.nickname,
+          email: userInfo.email,
+          birthYear: userInfo.birthYear,
+          kakao: userInfo.kakao
+        },
+        message: 'ok'
+      });
     }
-  } catch {
+  } catch (err) {
+    console.log(err);
     res.status(400).json({
       message: 'Error'
     });
