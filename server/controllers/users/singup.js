@@ -10,21 +10,22 @@ module.exports = async (req, res) => {
   try {
     const { nickname, email, password, birthYear, kakao } = req.body;
     if (kakao) {
-      const members = await user.findOne({
-        where: { email: email }
-        // order: [['createdAt', 'DESC']]
+      const members = await user.findAll({
+        order: [['createdAt', 'DESC']]
       });
-      // console.log(members);
-      const userNickname = `${nickname}#${members.dataValues.id + 1}`;
+      console.log('mmmmm', members);
+      const userNickname = `${nickname}#${members[0].dataValues.id + 1}`;
+      console.log(userNickname);
 
-      const dplctEmail = await user.findOne({
+      const dplctEmail = await user.findAll({
         where: {
           email: email
         }
       });
+      console.log(dplctEmail);
 
-      const accessToken = generateAccessToken(members.dataValues);
-      const refreshToken = generateRefreshToken(members.dataValues);
+      const accessToken = generateAccessToken(members[0].dataValues);
+      const refreshToken = generateRefreshToken(members[0].dataValues);
       const cookieOptions = {
         httpOnly: true,
         sameSite: 'None'
@@ -40,8 +41,6 @@ module.exports = async (req, res) => {
         res.cookie('refreshToken', refreshToken, cookieOptions);
         res.status(201).json({ accessToken, refreshToken, message: 'ok' });
       }
-
-      // console.log(dplctEmail);
     } else {
       const salt = crypto.randomBytes(64).toString('hex');
       const encryptedPassword = crypto
