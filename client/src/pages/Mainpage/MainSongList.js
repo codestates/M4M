@@ -128,7 +128,7 @@ function SongList () {
     artist: 'none',
     date: 'none'
   });
-  console.log('🎶', result, '\n🚦', subSort, '\n📌', typeState, '\n🧲', searchState, '\nℹ️', information, history);
+  console.log('🎶', result, '\n🚦', subSort, '\n📌', typeState, '\n🧲', searchState, '\nℹ️', information);
 
   useEffect(() => {
     setIsSorted(searchState)

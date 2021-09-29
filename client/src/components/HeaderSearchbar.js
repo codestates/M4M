@@ -1,10 +1,9 @@
-import { getRegExp } from "korean-regexp";
-import axios from 'axios';
-import { useState } from 'react';
 import styled from 'styled-components';
+import { getRegExp } from "korean-regexp";
+import { useState } from 'react';
 import { notify, changeType, getResult } from '../redux/action';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 
 axios.defaults.headers.withCredentials = true;
 
@@ -33,14 +32,12 @@ const HeaderSearchbarWrapper = styled.div`
 `;
 
 function HeaderSearchbar (isRecommend) {
-  const history = useHistory();
   const songsBulkState = useSelector(state => state.songsBulkReducer).songsBulk;
   const notiState = useSelector(state => state.notiReducer).notifications;
   const dispatch = useDispatch();
   const searchTypeList = ['title', 'artist'];
   const keyword = document.getElementsByClassName('searchbar-text');
   const [searchType, setSearchType] = useState(searchTypeList[0]);
-  console.log(history.location.pathname);
 
   const getSearchResult = (reqSearchType, reqKeyword) => {
     if (reqKeyword.length !== 0) {
@@ -70,7 +67,7 @@ function HeaderSearchbar (isRecommend) {
 
   return (
     <HeaderSearchbarWrapper>
-      <div className={history.location.pathname !== 'recommendpage'  ? 'searchbar' : 'display-none'}>
+      <div className={!isRecommend.isRecommend ? 'searchbar' : 'display-none'}>
         <select className='searchbar-dropbox' onChange={handleSearchTypeChange}>
           {searchTypeList.map((searchType, idx) => <option value={searchType} key={idx + 1}>{searchType}</option>)}
         </select>

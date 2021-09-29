@@ -177,7 +177,7 @@ function Signup({ handleModal }) {
 
   const closeModal = () => {
     handleModal();
-    history.push('/');
+    history.goBack();
   };
 
   return (

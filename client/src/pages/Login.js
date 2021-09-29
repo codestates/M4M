@@ -101,7 +101,7 @@ function Login({ handleModal }) {
 
   const closeModal = () => {
     handleModal();
-    history.push('/');
+    history.goBack();
   };
 
   const kakaoLogin = () => {
