@@ -68,7 +68,6 @@ function Login({ handleModal }) {
           withCredentials: true
         })
         .then((res) => {
-          dispatch(userLogin(res));
           dispatch(notify('로그인 성공!'));
           localStorage.setItem('accessToken', res.data.accessToken);
           history.push('/mainpage');
@@ -84,6 +83,7 @@ function Login({ handleModal }) {
               }
             })
             .then((res) => {
+              dispatch(userLogin(res.data.data, token));
               localStorage.setItem('userinfo', JSON.stringify(res.data.data));
             });
         })

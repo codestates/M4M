@@ -50,7 +50,7 @@ const HeaderWrapper = styled.div`
 `;
 
 function Header({ handleModal }) {
-  const isLogin = useSelector((state) => state.userReducer.user.login);
+  const isLogin = useSelector((state) => state.userReducer).token;
   const [isRecommend, setIsRecommend] = useState(false);
   const handleIsRecommend = (status) => setIsRecommend(status);
   const dispatch = useDispatch();

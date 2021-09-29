@@ -47,10 +47,11 @@ export const getResult = (searchResult) => {
   }
 }
 
-export const userLogin = (loginData) => {
+export const userLogin = (loginData, token) => {
   return {
     type: LOG_IN,
-    payload: loginData
+    payload: loginData,
+    token: token
   };
 };
 
