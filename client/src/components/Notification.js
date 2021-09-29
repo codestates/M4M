@@ -13,6 +13,7 @@ const NotiWrapper = styled.div`
     word-break: break-all;
     box-shadow: 4px 4px 0px gray;
     animation: blink 3000ms forwards;
+    z-index: 99;
   }
   @keyframes blink {     
     0% { opacity: 0; }
@@ -23,9 +24,6 @@ const NotiWrapper = styled.div`
     92% { opacity: 0.6; }
     96% { opacity: 0.8; }
     100% { opacity: 0; }
-  }
-  .test {
-    position: absolute;
   }
 `;
 
