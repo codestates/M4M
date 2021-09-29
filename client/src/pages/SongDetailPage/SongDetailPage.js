@@ -107,7 +107,7 @@ const Wrapper = styled.div`
 
 const SongDetail = () => {
   const information = JSON.parse(localStorage.getItem('userinfo'));
-  // const token = localStorage.getItem('accessToken');
+  const token = localStorage.getItem('accessToken');
   const location = useLocation();
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
@@ -131,10 +131,10 @@ const SongDetail = () => {
         } else {
           const result = await axios.get(process.env.REACT_APP_API_URL + `/song?query=${songId}`, {
             headers: {
-              // Authorization: `Bearer ${token}`,
+              Authorization: `Bearer ${token}`,
 
               // JUST FOR TEST PURPOSES
-              Authorization: information.id,
+              // Authorization: information.id,
               'Content-Type': 'application/json'
             }
           });
@@ -153,6 +153,7 @@ const SongDetail = () => {
     fetchData();
   }, []);
 
+  console.log(songInfo)
   const [isOpen, setIsOpen] = useState({
     lineNum: 13,
     buttonContent: '펼치기',

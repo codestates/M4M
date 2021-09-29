@@ -70,7 +70,7 @@ const Wrapper = styled.div`
 //
 
 const Comments = ({ comments, information, songId }) => {
-  // const token = localStorage.getItem('accessToken');
+  const token = localStorage.getItem('accessToken');
   const [newComment, setNewComment] = useState({
     newContent: ''
   });
@@ -110,10 +110,10 @@ const Comments = ({ comments, information, songId }) => {
             content: newContent
           }, {
             headers: {
-              // Authorization: `Bearer ${token}`,
+              Authorization: `Bearer ${token}`,
 
               // JUST FOR TEST PURPOSES
-              Authorization: information.id,
+              // Authorization: information.id,
               'Content-Type': 'application/json'
             }
           })

@@ -160,7 +160,7 @@ const Wrapper = styled.div`
 //
 
 const GetLikedSong = () => {
-  // const token = localStorage.getItem('accessToken');
+  const token = localStorage.getItem('accessToken');
   const [songList, setSongList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [CheckList, setCheckList] = useState([]);
@@ -170,19 +170,19 @@ const GetLikedSong = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true);
+      // setIsLoading(true);
       try {
         const result = await axios.get(process.env.REACT_APP_API_URL + '/my-like', {
           headers: {
-            // Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
 
             // JUST FOR TEST PURPOSES
-            Authorization: information.id,
+            // Authorization: information.id,
             'Content-Type': 'application/json'
           }
         });
         setSongList(result.data.data);
-        setIsLoading(false);
+        // setIsLoading(false);
       } catch (error) {
         console.log(error);
       }
@@ -217,7 +217,7 @@ const GetLikedSong = () => {
     }
   };
 
-  // console.log('checked song id: ' + CheckList);
+  console.log('checked song id: ' + CheckList);
 
   // Song Detail 페이지로 연결
   const handleSongClicked = (song) => {
