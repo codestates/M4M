@@ -1,8 +1,10 @@
+import { getRegExp } from "korean-regexp";
 import axios from 'axios';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { notify, changeType } from '../redux/action';
+import { notify, changeType, getResult } from '../redux/action';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 axios.defaults.headers.withCredentials = true;
 
@@ -31,27 +33,24 @@ const HeaderSearchbarWrapper = styled.div`
 `;
 
 function HeaderSearchbar (isRecommend) {
+  const history = useHistory();
+  const songsBulkState = useSelector(state => state.songsBulkReducer).songsBulk;
   const notiState = useSelector(state => state.notiReducer).notifications;
   const dispatch = useDispatch();
   const searchTypeList = ['title', 'artist'];
   const keyword = document.getElementsByClassName('searchbar-text');
   const [searchType, setSearchType] = useState(searchTypeList[0]);
+  console.log(history.location.pathname);
 
   const getSearchResult = (reqSearchType, reqKeyword) => {
     if (reqKeyword.length !== 0) {
-      axios
-        .get(
-          process.env.REACT_APP_API_URL + `/${reqSearchType}?query=${reqKeyword}`,
-          { headers: { 'Content-Type': 'application/json' } }
-        )
-        .then((searchResult) => {
-          const songIdList = searchResult.data.data;
-          console.log(songIdList);
-        })
-        .catch((err) => {
-          dispatch(changeType('No Result'));
-          console.log(err);
-        });
+      const result = songsBulkState.filter((song) => getRegExp(reqKeyword).test(song[reqSearchType]));
+      if (result.length !== 0) {
+        dispatch(changeType(`검색 결과: ${reqSearchType} - ${reqKeyword}`));
+        dispatch(getResult(result));
+      } else {
+        dispatch(changeType('No Result'));
+      }
     } else {
       if (notiState.message === '') {
         dispatch(notify('검색창이 비었습니다. 추억을 입력해주세요! ᕕ( ᐛ )ᕗ'));
@@ -71,7 +70,7 @@ function HeaderSearchbar (isRecommend) {
 
   return (
     <HeaderSearchbarWrapper>
-      <div className={!isRecommend.isRecommend ? 'searchbar' : 'display-none'}>
+      <div className={history.location.pathname !== 'recommendpage'  ? 'searchbar' : 'display-none'}>
         <select className='searchbar-dropbox' onChange={handleSearchTypeChange}>
           {searchTypeList.map((searchType, idx) => <option value={searchType} key={idx + 1}>{searchType}</option>)}
         </select>
