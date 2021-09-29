@@ -1,5 +1,5 @@
-import { LOG_IN, LOG_OUT } from '../action';
-import { initialState } from './initialState';
+import { LOG_IN, LOG_OUT } from "../action";
+import { initialState } from "./initialState";
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -9,9 +9,9 @@ const userReducer = (state = initialState, action) => {
           login: true,
           userInfo: {
             nickname: action.payload.nickname,
-            birthYear: action.payload.birthYear
-          }
-        }
+            birthYear: action.payload.birthYear,
+          },
+        },
       });
 
     case LOG_OUT:
@@ -19,13 +19,14 @@ const userReducer = (state = initialState, action) => {
         user: {
           login: false,
           userInfo: {
-            nickname: 'guest',
-            birthYear: null
-          }
-        }
+            nickname: "guest",
+            birthYear: null,
+          },
+        },
       });
 
-    default: return state;
+    default:
+      return state;
   }
 };
 
