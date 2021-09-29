@@ -6,9 +6,11 @@ module.exports = async (req, res) => {
     // 곡의 id, hashtag 네임
     const { id, name } = req.body;
     // 로그인 된 유저인지 확인
-    // const accessTokenData = isAuthorized(req);
+
+    const accessTokenData = isAuthorized(req);
+    console.log(accessTokenData);
     // JUST FOR TEST PURPOSES: without a real accessToken
-    const accessTokenData = { id: req.headers.authorization };
+    // const accessTokenData = { id: req.headers.authorization };
 
     if (!accessTokenData) {
       return res.status(403).json({ message: 'You\'re not logged in' });

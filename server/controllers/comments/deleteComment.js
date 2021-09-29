@@ -7,9 +7,9 @@ module.exports = async (req, res) => {
     // const { id } = req.body;
 
     // 로그인 된 유저인지 확인
-    // const accessTokenData = isAuthorized(req);
+    const accessTokenData = isAuthorized(req);
     // JUST FOR TEST PURPOSES: without a real accessToken
-    const accessTokenData = { id: req.headers.authorization };
+    // const accessTokenData = { id: req.headers.authorization };
     // console.log(req.body, accessTokenData.id);
 
     if (!accessTokenData) {
