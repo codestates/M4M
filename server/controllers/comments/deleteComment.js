@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
     // console.log(req.body, accessTokenData.id);
 
     if (!accessTokenData) {
-      return res.status(403).json({ message: 'You\'re not logged in' });
+      return res.status(403).json({ message: "You're not logged in" });
     } else {
       const { songId, content } = req.body;
       const deleteContent = await comment.destroy({

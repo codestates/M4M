@@ -52,12 +52,14 @@ module.exports = async (req, res) => {
       } else {
         const userNickname = `${nickname}#${members[0].dataValues.id + 1}`;
 
+        // 카카오 로그인이 아닌 경우
         await user.create({
           nickname: userNickname,
           email: email,
           salt: salt,
           password: encryptedPassword,
-          birthYear: birthYear
+          birthYear: birthYear,
+          kakao: false
         });
 
         return res.status(201).json({ message: 'thank you for signing up!' });
