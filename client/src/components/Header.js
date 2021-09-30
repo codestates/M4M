@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import HeaderSearchbar from './HeaderSearchbar';
 import { useSelector, useDispatch } from 'react-redux';
-import { userLogout } from '../redux/action';
+import { notify, userLogout } from '../redux/action';
 import axios from 'axios';
 import { useHistory } from 'react-router';
 
@@ -71,10 +71,11 @@ function Header ({ handleModal }) {
       .post(logoutUrl, logoutData, logoutConfig)
       .then((res) => {
         dispatch(userLogout(res));
+        dispatch(notify('로그아웃되었습니다.'));
         localStorage.removeItem('accessToken');
         localStorage.removeItem('userinfo');
         history.push('/mainpage');
-        // window.location.replace("/mainpage");
+        // window.location.replace('/mainpage');
       })
       .catch((error) => {
         console.log(error.response);
