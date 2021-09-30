@@ -405,14 +405,6 @@ function SongList () {
                           {' '}{song.hashtagLike[0][1]}
                         </div>
                         <div className='hashtagBox'>
-                          {/* {Hashtag.map((tag, idx) => {
-                            if (idx !== 0) {
-                              return (
-                                <div className='hashtag' key={idx + 1}>{tag} {song.hashtagLike[idx]}</div>
-                              );
-                            }
-                            return null;
-                          })} */}
                           {song.hashtagLike.map((tag, idx) => {
                             return (
                               <div key={idx}>

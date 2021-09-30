@@ -4,12 +4,17 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import SideNav from '../../components/SideNav';
 import { Colors, GlobalStyle } from '../../components/utils/_var';
-// import SideNav from '../../components/Mainpage/MainSideNav';
 axios.defaults.withCredentials = true;
 require('dotenv').config();
 
 const Wrapper = styled.div`
+  .main {
+    display: flex;
+    /* background-color: #f7efe5; */
+    min-height: calc(100vh - 41px - 56px);
+  }
   .scrollable::-webkit-scrollbar {
     background: ${Colors.beige};
     height: 10px;
@@ -263,65 +268,67 @@ const GetLikedSong = () => {
   if (isLoading) return <div>로딩 중입니다...</div>;
   return (
     <Wrapper>
-      {/* <SideNav /> */}
       <GlobalStyle />
-      <div>
-        <div className='button-container'>
-          <button onClick={handleSongDelete}>선택 항목 삭제</button>
-        </div>
-        <div className='field-container'>
-          <input
-            type='checkbox'
-            className='select-all'
-            onChange={onChangeAll}
-            checked={CheckList.length === IdList.length}
-          />
-          <div className='field'>
-            <div className='grid-item field-album'>앨범</div>
-            <div className='grid-item field-title'>제목</div>
-            <div className='grid-item field-artist'>가수</div>
-            <div className='grid-item field-date'>발매일</div>
-            <div className='grid-item field-like'>좋아요</div>
+      <div className='main'>
+        <SideNav />
+        <div>
+          <div className='button-container'>
+            <button onClick={handleSongDelete}>선택 항목 삭제</button>
           </div>
-        </div><br />
-        {songList.length !== 0
-          ? songList.map((song, idx) => {
-            return (
-              <div key={idx}>
-                <div className='song-container'>
-                  <input
-                    type='checkbox'
-                    className='select-one'
-                    onChange={(e) => onChangeEach(e, song.id)}
-                    checked={CheckList.includes(song.id)}
-                  />
-                  <div className='song-info-container' onClick={() => handleSongClicked(song)}>
-                    <img src={song.album_art} alt={song.id} className='album_art' />
-                    <div className='title scrollable'>{song.title}</div>
-                    <div className='artist scrollable'>{song.artist}</div>
-                    <div className='date'>{song.date}</div>
-                    <div className='like'>
-                      <FontAwesomeIcon icon={faHeart} size='xs' color='red' />
-                      {' '}{song.hashtagLike[0][1]}
+          <div className='field-container'>
+            <input
+              type='checkbox'
+              className='select-all'
+              onChange={onChangeAll}
+              checked={CheckList.length === IdList.length}
+            />
+            <div className='field'>
+              <div className='grid-item field-album'>앨범</div>
+              <div className='grid-item field-title'>제목</div>
+              <div className='grid-item field-artist'>가수</div>
+              <div className='grid-item field-date'>발매일</div>
+              <div className='grid-item field-like'>좋아요</div>
+            </div>
+          </div><br />
+          {songList.length !== 0
+            ? songList.map((song, idx) => {
+              return (
+                <div key={idx}>
+                  <div className='song-container'>
+                    <input
+                      type='checkbox'
+                      className='select-one'
+                      onChange={(e) => onChangeEach(e, song.id)}
+                      checked={CheckList.includes(song.id)}
+                    />
+                    <div className='song-info-container' onClick={() => handleSongClicked(song)}>
+                      <img src={song.album_art} alt={song.id} className='album_art' />
+                      <div className='title scrollable'>{song.title}</div>
+                      <div className='artist scrollable'>{song.artist}</div>
+                      <div className='date'>{song.date}</div>
+                      <div className='like'>
+                        <FontAwesomeIcon icon={faHeart} size='xs' color='red' />
+                        {' '}{song.hashtagLike[0][1]}
+                      </div>
+                      <div className='hashtagBox'>
+                        {song.hashtagLike.map((el, idx) => {
+                          return (
+                            <div key={idx}>
+                              {el[0] === '좋아요'
+                                ? null
+                                : <div className='hashtag' key={idx}>{el[0]} {el[1]}</div>}
+                            </div>
+                          );
+                        })}
+                      </div>
                     </div>
-                    <div className='hashtagBox'>
-                      {song.hashtagLike.map((el, idx) => {
-                        return (
-                          <div key={idx}>
-                            {el[0] === '좋아요'
-                              ? null
-                              : <div className='hashtag' key={idx}>{el[0]} {el[1]}</div>}
-                          </div>
-                        );
-                      })}
-                    </div>
+                    <br />
                   </div>
-                  <br />
                 </div>
-              </div>
-            );
-          })
-          : <div className='message'>현재 좋아요를 선택한 곡이 없습니다.</div>}
+              );
+            })
+            : <div className='message'>현재 좋아요를 선택한 곡이 없습니다.</div>}
+        </div>
       </div>
     </Wrapper>
   );

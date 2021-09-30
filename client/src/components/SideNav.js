@@ -67,6 +67,8 @@ function SideNav () {
     Hashtag: ['#인생곡인', '#가사가재밌는', '#몸이기억하는', '#눈물샘자극', '#노래방금지곡', '#영원한18번', '#추억소환'],
     Year: new Array(18).fill(1992).map((el, idx) => String(el + idx))
   };
+  const mypageList = ['Liked Songs', 'My Info'];
+  const mypageEndpoint = ['/mylike', '/myinfo'];
   const history = useHistory();
   const handleSelectChange = (e) => dispatch(changeType(e.target.getAttribute('value')));
   const handleIsOpen = (e) => {
@@ -77,12 +79,17 @@ function SideNav () {
       setIsOpen(curValue);
     }
   };
+  const handleClicked = (idx) => {
+    history.push({
+      pathname: mypageEndpoint[idx]
+    });
+  };
 
   return (
     <SideNavWrapper>
       <div className='sidenav'>
         {/* history 값이 mainpage일 때, 다른 값 보여주기 */}
-        <div className={history.location.pathname === '/mainpage' ? 'main-active' : 'main-deactive'}>
+        <div className={history.location.pathname === '/mainpage' || history.location.pathname.split(':id=')[0] === '/song' ? 'main-active' : 'main-deactive'}>
           {plainList
             .map((list, idx) => {
               return (
@@ -103,6 +110,15 @@ function SideNav () {
                       )
                     : null}
                 </div>
+              );
+            })}
+        </div>
+        {/* history 값이 mylike나 myinfo일 때, 다른 값 보여주기 */}
+        <div className={history.location.pathname === ('/mylike' || '/myinfo') ? 'main-active' : 'main-deactive'}>
+          {mypageList
+            .map((list, idx) => {
+              return (
+                <div className='item' key={idx + 1} value={list} onClick={() => handleClicked(idx)}><span className='space' />{list}</div>
               );
             })}
         </div>

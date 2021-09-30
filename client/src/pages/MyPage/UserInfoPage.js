@@ -2,12 +2,17 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
-// import SideNav from '../../components/Mainpage/MainSideNav';
+import SideNav from '../../components/SideNav';
 import { Colors } from '../../components/utils/_var';
 axios.defaults.withCredentials = true;
 require('dotenv').config();
 
 const Wrapper = styled.div`
+  .main {
+    display: flex;
+    /* background-color: #f7efe5; */
+    min-height: calc(100vh - 41px - 56px);
+  }
   .mypage-container {
     width: 15rem;
     margin: 2rem auto;
@@ -302,67 +307,69 @@ const Mypage = () => {
 
   return (
     <Wrapper>
-      {/* <SideNav /> */}
-      <div className='mypage-container'>
-        <MyPageField>닉네임</MyPageField>
-        <input
-          type='text'
-          placeholder={information.nickname.split('#')[0]}
-          onChange={inputCheck('nickname')}
-        />
-        <span className='id-number'>
-          #{information.nickname.split('#')[1]}
-        </span>
-        <AlertMessage>
-          {checkNickname === 'ok' ? null : checkNickname}
-        </AlertMessage>
-        <MyPageField>이메일</MyPageField>
-        <input
-          disabled
-          value={information.email}
-        />
-        <MyPageField>비밀번호</MyPageField>
-        <input
-          disabled={information.kakao ? 'disabled' : null}
-          type='password'
-          placeholder='영문/숫자 조합 8~10글자'
-          onChange={inputCheck('password')}
-        />
-        <AlertMessage>
-          {checkPassword === 'no' ? '올바른 비밀번호 형식이 아닙니다.' : null}
-          {checkPassword === 'empty' ? '비밀번호를 입력해주세요.' : null}
-        </AlertMessage>
-        <MyPageField>비밀번호 확인</MyPageField>
-        <input
-          disabled={information.kakao ? 'disabled' : null}
-          type='password'
-          onChange={inputCheck('passwordRetype')}
-        />
-        <AlertMessage>
-          {checkRetypePassword ? null : '비밀번호가 일치하지 않습니다'}
-        </AlertMessage>
-        <MyPageField>출생년도</MyPageField>
-        {information.kakao && !information.birthYear
-          ? <>
-            <input
-              onChange={inputCheck('birthYear')}
-            />
-            <AlertMessage>
-              {checkBirthYear === 'no' ? '올바른 범위내의 출생년도를 입력해주세요' : null}
-              {checkBirthYear === 'nan' ? '숫자만 입력해주세요' : null}
-            </AlertMessage>
-          </>
-          : <input
-              disabled
-              value={information.birthYear}
-            />}
-        <button onClick={handleEditUserRequest}>
-          정보수정
-        </button>
-        <button onClick={handleWithdrawalRequest}>
-          회원탈퇴
-        </button>
-        <AlertMessage>{errorMsg}</AlertMessage>
+      <div className='main'>
+        <SideNav />
+        <div className='mypage-container'>
+          <MyPageField>닉네임</MyPageField>
+          <input
+            type='text'
+            placeholder={information.nickname.split('#')[0]}
+            onChange={inputCheck('nickname')}
+          />
+          <span className='id-number'>
+            #{information.nickname.split('#')[1]}
+          </span>
+          <AlertMessage>
+            {checkNickname === 'ok' ? null : checkNickname}
+          </AlertMessage>
+          <MyPageField>이메일</MyPageField>
+          <input
+            disabled
+            value={information.email}
+          />
+          <MyPageField>비밀번호</MyPageField>
+          <input
+            disabled={information.kakao ? 'disabled' : null}
+            type='password'
+            placeholder='영문/숫자 조합 8~10글자'
+            onChange={inputCheck('password')}
+          />
+          <AlertMessage>
+            {checkPassword === 'no' ? '올바른 비밀번호 형식이 아닙니다.' : null}
+            {checkPassword === 'empty' ? '비밀번호를 입력해주세요.' : null}
+          </AlertMessage>
+          <MyPageField>비밀번호 확인</MyPageField>
+          <input
+            disabled={information.kakao ? 'disabled' : null}
+            type='password'
+            onChange={inputCheck('passwordRetype')}
+          />
+          <AlertMessage>
+            {checkRetypePassword ? null : '비밀번호가 일치하지 않습니다'}
+          </AlertMessage>
+          <MyPageField>출생년도</MyPageField>
+          {information.kakao && !information.birthYear
+            ? <>
+              <input
+                onChange={inputCheck('birthYear')}
+              />
+              <AlertMessage>
+                {checkBirthYear === 'no' ? '올바른 범위내의 출생년도를 입력해주세요' : null}
+                {checkBirthYear === 'nan' ? '숫자만 입력해주세요' : null}
+              </AlertMessage>
+            </>
+            : <input
+                disabled
+                value={information.birthYear}
+              />}
+          <button onClick={handleEditUserRequest}>
+            정보수정
+          </button>
+          <button onClick={handleWithdrawalRequest}>
+            회원탈퇴
+          </button>
+          <AlertMessage>{errorMsg}</AlertMessage>
+        </div>
       </div>
     </Wrapper>
   );
