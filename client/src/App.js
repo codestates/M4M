@@ -4,6 +4,7 @@ import { GlobalStyle } from './components/utils/_var';
 import { useState } from 'react';
 import Header from './components/Header';
 import Noti from './components/Notification';
+import Landing from './pages/Landing';
 import Main from './pages/Mainpage/Main';
 import Footer from './components/Footer';
 import Recommendation from './pages/RecommendationPage/Recommendation';
@@ -44,7 +45,7 @@ function App() {
           <Header handleModal={handleModalOpen} />
           <Noti />
           <Switch>
-            <Route exact path="/" />
+            <Route exact path="/" component={Landing} />
             <Route path="/mainpage" component={Main} />
             <Route path="/recommendpage" component={Recommendation} />
           </Switch>
@@ -64,6 +65,7 @@ function App() {
               {information ? <Mypage /> : <Redirect to="/mainpage" />}
             </Route>
             <Route path="/song:id" component={SongDetail} />
+            <Redirect to='/' />
           </Switch>
           <MoveTop />
           <Footer />
