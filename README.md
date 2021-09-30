@@ -1,5 +1,9 @@
-# M4M (Music for Millennials) Service Intro
-서비스 소개
+# M4M (Music for Millennials)
+
+밀레니얼 세대를 위한 세대공감 음악 추천 및 검색 서비스 M4M<br>
+밀레니얼 세대들이 추억여행을 떠날 수 있는 1992년 부터 2009년까지 노래들을 준비했습니다!<br>
+간단한 질문들을 통해 여러분의 평소 성향에 어울릴만한 노래를 추천해드립니다!<br>
+추천받은 노래들을 친구/동료들과 공유해보면서 추억여행을 떠나보세요!
 
 # Team MGs
 
@@ -59,4 +63,3 @@
 
 # Need More Information?
 - [Check out M4M wiki page!](https://github.com/codestates/M4M/wiki)
-
