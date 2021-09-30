@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { changeHeader } from '../../redux/action';
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import axios from 'axios';
 
@@ -110,6 +111,7 @@ const SongListWrapper = styled.div`
 
 function SongList () {
   const information = JSON.parse(localStorage.getItem('userinfo'));
+  const dispatch = useDispatch();
   const history = useHistory();
   const searchState = useSelector(state => state.searchReducer).searchResult;
   const typeState = useSelector(state => state.typeReducer).navType;
@@ -135,6 +137,7 @@ function SongList () {
   }, [searchState]);
 
   useEffect(() => {
+    dispatch(changeHeader([true, true]))
     setIsSorted(songsBulkState);
   }, [songsBulkState])
 

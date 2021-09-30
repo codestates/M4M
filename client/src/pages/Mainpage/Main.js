@@ -4,6 +4,7 @@ import SongList from './MainSongList';
 import { changeType, getSongsBulk } from '../../redux/action';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+import { useHistory } from 'react-router';
 import axios from 'axios';
 
 axios.defaults.headers.withCredentials = true;
@@ -18,6 +19,8 @@ const MainWrapper = styled.div`
 
 function Main () {
   const dispatch = useDispatch();
+  const history = useHistory();
+  console.log('🔥', history.location.pathname);
   const information = JSON.parse(localStorage.getItem('userinfo'));
   useEffect(() => {
     dispatch(changeType('All'));

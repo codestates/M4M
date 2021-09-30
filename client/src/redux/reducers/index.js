@@ -6,6 +6,7 @@ import songsBulkReducer from './songsBulkReducer';
 import searchReducer from './searchReducer';
 import typeReducer from './typeReducer';
 import userReducer from './userReducer';
+import headerReducer from './headerReducer';
 
 const persistConfig = {
   key: 'root',
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
   songsBulkReducer,
   searchReducer,
   typeReducer,
-  userReducer
+  userReducer,
+  headerReducer
 });
 
 export default persistReducer(persistConfig, rootReducer);

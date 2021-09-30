@@ -5,6 +5,7 @@ export const GET_SONGS_BULK = 'GET_SONGS_BULK';
 export const GET_SEARCH_RESULT = 'GET_SEARCH_RESULT';
 export const LOG_IN = 'LOG_IN';
 export const LOG_OUT = 'LOG_OUT';
+export const HEADER_CHANGE = 'HEADER_CHANGE';
 
 export const notify = (message, duration = 3000) => dispatch => {
   dispatch(notiFound(message));
@@ -60,3 +61,10 @@ export const userLogout = () => {
     type: LOG_OUT
   };
 };
+
+export const changeHeader = (pathname) => {
+  return {
+    type: HEADER_CHANGE,
+    payload: pathname
+  };
+}; 

@@ -49,14 +49,22 @@ const HeaderWrapper = styled.div`
   .mypage {
     margin: 0px 8px;
   }
+  .display-none {
+    display: none;
+  }
 `;
 
 function Header({ handleModal }) {
   const isLogin = useSelector((state) => state.userReducer).token;
+  const headerState = useSelector((state) => state.headerReducer);
   const [isRecommend, setIsRecommend] = useState(false);
   const handleIsRecommend = (status) => setIsRecommend(status);
   const dispatch = useDispatch();
   const history = useHistory();
+  console.log('🤔', headerState);
+  window.onpageshow = (e) => {
+    if (e.persisted) console.log('🤔🤔🤔 change!')
+  }
 
   useEffect(() => {
     if(history.location.pathname === '/recommendpage') {
@@ -64,7 +72,7 @@ function Header({ handleModal }) {
     } else {
       setIsRecommend(false);
     }
-  }, [isLogin])
+  }, [isLogin, history])
 
   const handleLogoutRequest = () => {
     const token = localStorage.getItem('accessToken');
@@ -103,16 +111,15 @@ function Header({ handleModal }) {
         <div className='header-container-2'>
           <Link to='/recommendpage'>
             <button
-              className='btn recommend-page'
+              className={headerState.recommendBtn ? 'btn recommend-page': 'display-none'}
               onClick={() => handleIsRecommend(true)}
-              disabled={isRecommend ? 'disabled' : null}
             >
               recommend page
             </button>
           </Link>
         </div>
         <div className='header-container-3'>
-          <HeaderSearchbar isRecommend={isRecommend} />
+          <HeaderSearchbar isRecommend={headerState.searchBar} />
         </div>
         <div className='header-container-4'>
           {!isLogin ? (

@@ -25,3 +25,8 @@ export const initTypeState = {
 export const initSearchResultState = {
   searchResult: []
 }
+
+export const initHeaderState = {
+  recommendBtn: null,
+  searchBar: null
+}

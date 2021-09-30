@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 // import SideNav from '../../components/Mainpage/MainSideNav';
 import { Colors } from '../../components/utils/_var';
+import { changeHeader } from '../../redux/action';
+import { useDispatch } from 'react-redux';
 axios.defaults.withCredentials = true;
 require('dotenv').config();
 
@@ -82,6 +84,9 @@ const Mypage = () => {
   const [checkBirthYear, setCheckBirthYear] = useState('ok');
   const [checkRetypePassword, setCheckRetypePassword] = useState(true);
   const [errorMsg, setErrorMsg] = useState('');
+  const dispatch = useDispatch();
+
+  useEffect(() => dispatch(changeHeader([true, false])), [dispatch]);
 
   const [myInfo, setMyInfo] = useState({
     id: information.id,

@@ -12,6 +12,8 @@ import {
   faAngleDown,
   faAngleUp
 } from '@fortawesome/free-solid-svg-icons';
+import { changeHeader } from '../../redux/action';
+import { useDispatch } from 'react-redux';
 axios.defaults.withCredentials = true;
 require('dotenv').config();
 
@@ -112,6 +114,9 @@ const SongDetail = () => {
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
   const [songInfo, setSongInfo] = useState([]);
+  const dispatch = useDispatch();
+
+  useEffect(() => dispatch(changeHeader([true, false])), [dispatch]);
 
   useEffect(() => {
     // console.log('song detail page');
