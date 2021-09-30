@@ -5,7 +5,6 @@ import { useHistory } from 'react-router';
 import kakaoImage from '../kakao_login_medium_narrow.png';
 import { useDispatch } from 'react-redux';
 import { notify, userLogin } from '../redux/action';
-import { Link } from 'react-router-dom';
 require('dotenv').config();
 const { Kakao } = window;
 
@@ -61,7 +60,7 @@ export const ButtonContainer = styled.div`
 
 export const SignupBtn = styled.button``;
 
-function Login({ handleModal }) {
+function Login ({ handleModal, signup }) {
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: ''
@@ -86,7 +85,9 @@ function Login({ handleModal }) {
         .then((res) => {
           dispatch(notify('로그인 성공!'));
           localStorage.setItem('accessToken', res.data.accessToken);
+          localStorage.setItem('accessTokenTime', (new Date()).getTime());
           history.push('/mainpage');
+          handleModal();
           //   window.location.replace('/mainpage');
           return res.data.accessToken;
         })
@@ -130,7 +131,6 @@ function Login({ handleModal }) {
     Kakao.Auth.login({
       scope: 'profile_nickname, account_email',
       success: (res) => {
-        // localStorage.setItem('kakaoToken', res.access_token);
         Kakao.API.request({
           url: '/v2/user/me',
           success: (res) => {
@@ -148,9 +148,10 @@ function Login({ handleModal }) {
               })
               .then((res) => {
                 localStorage.setItem('accessToken', res.data.accessToken);
-                dispatch(userLogin(res));
+                localStorage.setItem('accessTokenTime', (new Date()).getTime());
                 dispatch(notify('로그인 성공!'));
                 history.push('/mainpage');
+                handleModal();
                 return res.data.accessToken;
               })
               .then((token) => {
@@ -162,6 +163,7 @@ function Login({ handleModal }) {
                     }
                   })
                   .then((res) => {
+                    dispatch(userLogin(res.data.data, token));
                     localStorage.setItem('userinfo', JSON.stringify(res.data.data));
                   });
               })
@@ -170,6 +172,11 @@ function Login({ handleModal }) {
         });
       }
     });
+  };
+
+  const goSignup = () => {
+    handleModal();
+    signup();
   };
 
   return (
@@ -181,7 +188,7 @@ function Login({ handleModal }) {
           <LoginInput onChange={handleInputValue('email')} />
           <LoginInputValue>비밀번호</LoginInputValue>
           <LoginInput
-            type="password"
+            type='password'
             onChange={handleInputValue('password')}
             onKeyPress={(e) => {
               enter(e);
@@ -193,15 +200,13 @@ function Login({ handleModal }) {
           <Button onClick={closeModal}>창닫기</Button>
         </ButtonContainer>
         <div>
-          <a onClick={kakaoLogin}>
-            <img src={kakaoImage} style={{ width: '140px' }}></img>
-          </a>
+          <img src={kakaoImage} style={{ width: '140px' }} onClick={kakaoLogin} />
         </div>
         <div style={{ marginTop: '5px' }}>
           <span style={{ fontSize: '13px', marginTop: '10px' }}>아직 회원이 아니신가요? </span>
-          <Link to="/signup">
-            <span style={{ fontSize: '13px', marginTop: '10px' }}> 회원가입</span>
-          </Link>
+          <span style={{ fontSize: '13px', marginTop: '10px' }} onClick={goSignup}>
+            회원가입
+          </span>
         </div>
         <Alertbox>{errorMsg}</Alertbox>
       </LoginView>

@@ -6,10 +6,10 @@ module.exports = async (req, res) => {
     // 곡의 id, hashtag 네임
     const { id, name } = req.body;
     const accessTokenData = isAuthorized(req);
-    
+
     // 로그인 된 유저인지 확인
     if (!accessTokenData) {
-      return res.status(403).json({ message: 'You\'re not logged in' });
+      return res.status(401).json({ message: 'You\'re not logged in' });
     } else {
       const songId = await song.findOne({
         where: {

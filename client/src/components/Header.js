@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { notify, userLogout } from '../redux/action';
 import axios from 'axios';
 import { useHistory } from 'react-router';
+axios.defaults.withCredentials = true;
 
 const HeaderWrapper = styled.div`
   .header {
@@ -49,7 +50,7 @@ const HeaderWrapper = styled.div`
   }
 `;
 
-function Header ({ handleModal }) {
+function Header ({ login, signup }) {
   const isLogin = useSelector((state) => state.userReducer).token;
   const [isRecommend, setIsRecommend] = useState(false);
   const handleIsRecommend = (status) => setIsRecommend(status);
@@ -58,6 +59,8 @@ function Header ({ handleModal }) {
 
   const handleLogoutRequest = () => {
     const token = localStorage.getItem('accessToken');
+    const accessTokenTime = localStorage.getItem('accessTokenTime');
+    const expiredTime = Number(process.env.REACT_APP_TOKEN_TIME);
     const logoutUrl = process.env.REACT_APP_API_URL + '/logout';
     const logoutConfig = {
       headers: {
@@ -67,20 +70,26 @@ function Header ({ handleModal }) {
       withCredentials: true
     };
     const logoutData = { data: null };
-    axios
-      .post(logoutUrl, logoutData, logoutConfig)
-      .then((res) => {
-        dispatch(userLogout(res));
-        dispatch(notify('로그아웃되었습니다.'));
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('userinfo');
-        history.push('/mainpage');
-        // window.location.replace('/mainpage');
-      })
-      .catch((error) => {
-        console.log(error.response);
-      });
-  };
+    if (parseInt(accessTokenTime, 10) + expiredTime - (new Date()).getTime() < 0) {
+      alert('토큰이 만료되었습니다');
+    } else {
+      axios
+        .post(logoutUrl, logoutData, logoutConfig)
+        .then((res) => {
+          dispatch(userLogout(res));
+          dispatch(notify('로그아웃되었습니다.'));
+          localStorage.removeItem('accessToken');
+          localStorage.removeItem('userinfo');
+          localStorage.removeItem('accesstokenTime');
+          localStorage.removeItem('initialTime');
+          history.push('/mainpage');
+          // window.location.replace('/mainpage');
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
+      };
+    }
 
   return (
     <HeaderWrapper>
@@ -107,36 +116,32 @@ function Header ({ handleModal }) {
           <HeaderSearchbar isRecommend={isRecommend} />
         </div>
         <div className='header-container-4'>
-          {!isLogin ? (
-            <Link to='/login'>
+          {!isLogin
+            ? (
               <button
                 className='btn login'
                 onClick={() => {
-                  handleModal();
+                  login();
                 }}
               >
                 login
               </button>
-            </Link>
-          ) : (
-            // <Link to="/logout">
-            <button className='btn logout' onClick={handleLogoutRequest}>
-              logout
-            </button>
-            // </Link>
-          )}
+              )
+            : (
+              <button className='btn logout' onClick={handleLogoutRequest}>
+                logout
+              </button>
+              )}
           {!isLogin
             ? (
-              <Link to='/signup'>
-                <button
-                  className='btn signup'
-                  onClick={() => {
-                    handleModal();
-                  }}
-                >
-                  signup
-                </button>
-              </Link>
+              <button
+                className='btn signup'
+                onClick={() => {
+                  signup();
+                }}
+              >
+                signup
+              </button>
               )
             : (
               <Link to='/mylike'>

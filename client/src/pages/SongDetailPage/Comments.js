@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import CommentPagination from './CommentPagination';
 import { Colors, Size, GlobalStyle } from '../../components/utils/_var';
 axios.defaults.withCredentials = true;
+require('dotenv').config();
 
 const Wrapper = styled.div`
   .counter {
@@ -71,6 +72,9 @@ const Wrapper = styled.div`
 
 const Comments = ({ comments, information, songId }) => {
   const token = localStorage.getItem('accessToken');
+  const accessTokenTime = localStorage.getItem('accessTokenTime');
+  const expiredTime = Number(process.env.REACT_APP_TOKEN_TIME);
+
   const [newComment, setNewComment] = useState({
     newContent: ''
   });
@@ -96,6 +100,8 @@ const Comments = ({ comments, information, songId }) => {
   const handlePostClicked = () => {
     if (!information) {
       alert('로그인이 필요한 서비스입니다.');
+    } if (parseInt(accessTokenTime, 10) + expiredTime - (new Date()).getTime() < 0) {
+      alert('토큰이 만료되었습니다');
     } else if (!initialTime || parseInt(initialTime, 10) + waitTime - (new Date()).getTime() < 0) {
       // console.log('nickname: ', information.nickname, 'content: ', newComment);
       if (newContent.length > 300) {

@@ -7,7 +7,7 @@ module.exports = async (req, res) => {
     const accessTokenData = isAuthorized(req);
 
     if (!accessTokenData) {
-      return res.status(404).send({ message: 'You\'re not logged in.' });
+      return res.status(401).send({ message: 'You\'re not logged in.' });
     } else {
       const userInfo = await user.findOne({
         where: {
@@ -30,13 +30,13 @@ module.exports = async (req, res) => {
         });
       } else {
         res.status(400).json({
-          message: 'Error'
+          message: 'error'
         });
       }
     }
   } catch {
     res.status(400).json({
-      message: 'Error'
+      message: 'error'
     });
   }
 };

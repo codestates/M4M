@@ -103,6 +103,8 @@ const Wrapper = styled.div`
 
 const CommentPagination = ({ information, songId, totalComments }) => {
   const token = localStorage.getItem('accessToken');
+  const accessTokenTime = localStorage.getItem('accessTokenTime');
+  const expiredTime = Number(process.env.REACT_APP_TOKEN_TIME);
 
   const [commentList, setCommentList] = useState({
     comments: [],
@@ -145,28 +147,31 @@ const CommentPagination = ({ information, songId, totalComments }) => {
       alert('로그인이 필요한 서비스입니다.');
     } else {
       // console.log('nickname: ', information.nickname, 'content: ', commentContent);
-
-      axios
-        .delete(process.env.REACT_APP_API_URL + '/comment', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          },
-          data: {
-            userId: information.id,
-            songId: songId,
-            content: commentContent
-          }
-        })
-        .then((res) => {
-          if (res.status === 200) {
-            alert('댓글이 삭제되었습니다.');
-            window.location.replace(`/song:id=${songId}`);
-          }
-        })
-        .catch((err) => {
-          console.log(err.response);
-        });
+      if (parseInt(accessTokenTime, 10) + expiredTime - (new Date()).getTime() < 0) {
+        alert('토큰이 만료되었습니다');
+      } else {
+        axios
+          .delete(process.env.REACT_APP_API_URL + '/comment', {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            },
+            data: {
+              userId: information.id,
+              songId: songId,
+              content: commentContent
+            }
+          })
+          .then((res) => {
+            if (res.status === 200) {
+              alert('댓글이 삭제되었습니다.');
+              window.location.replace(`/song:id=${songId}`);
+            }
+          })
+          .catch((err) => {
+            console.log(err.response);
+          });
+      }
     }
   };
 

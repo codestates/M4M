@@ -46,6 +46,9 @@ const Like = styled.div`
 
 const Hashtags = ({ songInfo, information }) => {
   const token = localStorage.getItem('accessToken');
+  const accessTokenTime = localStorage.getItem('accessTokenTime');
+  const expiredTime = Number(process.env.REACT_APP_TOKEN_TIME);
+
   const { userContent } = songInfo;
   const hashtagLikeList = ['좋아요', '#인생곡인', '#가사가재밌는', '#몸이기억하는', '#눈물샘자극', '#노래방금지곡', '#영원한18번', '#추억소환'];
 
@@ -75,7 +78,7 @@ const Hashtags = ({ songInfo, information }) => {
   }, [userContent]
   );
 
-  let allHashtagLikes = {
+  const allHashtagLikes = {
     좋아요: 0,
     '#인생곡인': 0,
     '#가사가재밌는': 0,
@@ -101,7 +104,9 @@ const Hashtags = ({ songInfo, information }) => {
     if (!token) {
       alert('로그인이 필요한 서비스입니다.');
     } else {
-      if (hashtagLikes[hashtagLikeName] === true) {
+      if (parseInt(accessTokenTime, 10) + expiredTime - (new Date()).getTime() < 0) {
+        alert('토큰이 만료되었습니다');
+      } else if (hashtagLikes[hashtagLikeName] === true) {
         // console.log('delete', hashtagLikeName);
         axios
           .delete(process.env.REACT_APP_API_URL + '/hashtag', {
@@ -130,7 +135,7 @@ const Hashtags = ({ songInfo, information }) => {
               setAllTags({
                 ...allTags,
                 [hashtagLikeName]: allTags[hashtagLikeName] - 1
-              })
+              });
               // window.location.replace(`/song:id=${songInfo.id}`);
             }
           })
@@ -139,46 +144,50 @@ const Hashtags = ({ songInfo, information }) => {
           });
       } else {
         // console.log('add', hashtagLikeName);
-        axios
-          .post(process.env.REACT_APP_API_URL + '/hashtag', {
-            id: songInfo.id,
-            name: hashtagLikeName
-          }, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              'Content-Type': 'application/json'
-            }
-          })
-          .then((res) => {
-            if (res.status === 200) {
-              if (hashtagLikeName === '좋아요') {
-                alert('좋아요가 반영되었습니다');
+        if (parseInt(accessTokenTime, 10) + expiredTime - (new Date()).getTime() < 0) {
+          alert('토큰이 만료되었습니다');
+        } else {
+          axios
+            .post(process.env.REACT_APP_API_URL + '/hashtag', {
+              id: songInfo.id,
+              name: hashtagLikeName
+            }, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+              }
+            })
+            .then((res) => {
+              if (res.status === 200) {
+                if (hashtagLikeName === '좋아요') {
+                  alert('좋아요가 반영되었습니다');
+                } else {
+                  alert('해시태그가 반영되었습니다');
+                }
+                setHashtagLikes({
+                  ...hashtagLikes,
+                  [hashtagLikeName]: true
+                });
+                setAllTags({
+                  ...allTags,
+                  [hashtagLikeName]: allTags[hashtagLikeName] + 1
+                });
+                // window.location.replace(`/song:id=${songInfo.id}`);
+              }
+            })
+            .catch((err) => {
+              // console.log('3개 초과');
+              if (err.response.data.message === 'You cannot choose over 3 hashtags') {
+                alert('해시태그는 3개까지만 등록할 수 있습니다.');
               } else {
-                alert('해시태그가 반영되었습니다');
+                console.log(err.response);
               }
               setHashtagLikes({
                 ...hashtagLikes,
-                [hashtagLikeName]: true
+                [hashtagLikeName]: false
               });
-              setAllTags({
-                ...allTags,
-                [hashtagLikeName]: allTags[hashtagLikeName] + 1
-              })
-              // window.location.replace(`/song:id=${songInfo.id}`);
-            }
-          })
-          .catch((err) => {
-            // console.log('3개 초과');
-            if (err.response.data.message === 'You cannot choose over 3 hashtags') {
-              alert('해시태그는 3개까지만 등록할 수 있습니다.');
-            } else {
-              console.log(err.response);
-            }
-            setHashtagLikes({
-              ...hashtagLikes,
-              [hashtagLikeName]: false
             });
-          });
+        }
       }
     }
   };

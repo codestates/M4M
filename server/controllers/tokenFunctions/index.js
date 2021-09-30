@@ -27,6 +27,10 @@ module.exports = {
     try {
       return jwt.verify(token, process.env.ACCESS_SECRET);
     } catch (err) {
+      // console.log(err.message);
+      // if (err.message === 'jwt expired') {
+      //   return 'invalid token';
+      // }
       return null;
     }
   },
