@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
     const accessTokenData = isAuthorized(req);
 
     if (!accessTokenData) {
-      return res.status(404).send({ message: 'You\'re not logged in.' });
+      return res.status(401).send({ message: 'You\'re not logged in.' });
     } else {
       // console.log(req.body.songId);
 
