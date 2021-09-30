@@ -1,10 +1,6 @@
 const crypto = require('crypto');
 const { user } = require('../../models');
-const {
-  isAuthorized,
-  generateAccessToken,
-  generateRefreshToken
-} = require('../tokenFunctions');
+const { isAuthorized, generateAccessToken, generateRefreshToken } = require('../tokenFunctions');
 
 module.exports = async (req, res) => {
   try {
@@ -13,16 +9,14 @@ module.exports = async (req, res) => {
       const members = await user.findAll({
         order: [['createdAt', 'DESC']]
       });
-      console.log('mmmmm', members);
+
       const userNickname = `${nickname}#${members[0].dataValues.id + 1}`;
-      console.log(userNickname);
 
       const dplctEmail = await user.findAll({
         where: {
           email: email
         }
       });
-      console.log(dplctEmail);
 
       const accessToken = generateAccessToken(members[0].dataValues);
       const refreshToken = generateRefreshToken(members[0].dataValues);
@@ -56,9 +50,7 @@ module.exports = async (req, res) => {
 
       // 회원가입 양식을 다 채우지 않은 경우
       if (!nickname || !email || !password || !birthYear) {
-        return res
-          .status(422)
-          .json({ message: 'insufficient parameters supplied' });
+        return res.status(422).json({ message: 'insufficient parameters supplied' });
       }
 
       // 이메일이 중복인 경우
