@@ -13,6 +13,7 @@ import GetLikedSong from './pages/MyPage/LikedSongPage';
 import Mypage from './pages/MyPage/UserInfoPage';
 import MoveTop from './components/MoveTop';
 import SongDetail from './pages/SongDetailPage/SongDetailPage';
+import Modal from './components/Modal';
 
 const AppWrapper = styled.div`
   * {
@@ -25,9 +26,10 @@ const AppWrapper = styled.div`
   }
 `;
 
-function App () {
+function App() {
   const [openLogin, setOpenLogin] = useState(false);
   const [openSignup, setOpenSignup] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   const handleLoginModalOpen = () => {
     setOpenLogin(true);
@@ -42,32 +44,45 @@ function App () {
     setOpenSignup(false);
   };
 
+  const handleModalOpen = () => {
+    setOpenModal(true);
+  };
+
+  const handleModalClose = () => {
+    setOpenModal(false);
+  };
+
   const information = JSON.parse(localStorage.getItem('userinfo'));
 
   return (
     <BrowserRouter>
       <AppWrapper>
         <GlobalStyle />
-        <div className='App'>
-          <Header login={handleLoginModalOpen} signup={handleSignupModalOpen} />
+        <div className="App">
+          <Header
+            login={handleLoginModalOpen}
+            signup={handleSignupModalOpen}
+            modal={handleModalOpen}
+          />
+          {openModal ? <Modal handleModal={handleModalClose} login={handleLoginModalOpen} /> : null}
           <Noti />
           <Switch>
-            <Route exact path='/' />
-            <Route path='/mainpage' component={Main} />
-            <Route path='/recommendpage' component={Recommendation} />
+            <Route exact path="/" />
+            <Route path="/mainpage" component={Main} />
+            <Route path="/recommendpage" render={() => <Recommendation />} />
           </Switch>
           {openSignup ? <Signup handleModal={handleSignupModalClose} /> : null}
-          {openLogin
-            ? (
-              <Login handleModal={handleLoginModalClose} signup={handleSignupModalOpen} />
-              )
-            : null}
+          {openLogin ? (
+            <Login handleModal={handleLoginModalClose} signup={handleSignupModalOpen} />
+          ) : null}
           <Switch>
-            <Route path='/mylike'>
-              {information ? <GetLikedSong /> : <Redirect to='/mainpage' />}
+            <Route path="/mylike">
+              {information ? <GetLikedSong modal={handleModalOpen} /> : <Redirect to="/mainpage" />}
             </Route>
-            <Route path='/myinfo'>{information ? <Mypage /> : <Redirect to='/mainpage' />}</Route>
-            <Route path='/song:id' component={SongDetail} />
+            <Route path="/myinfo">
+              {information ? <Mypage modal={handleModalOpen} /> : <Redirect to="/mainpage" />}
+            </Route>
+            <Route path="/song:id" render={() => <SongDetail modal={handleModalOpen} />} />
           </Switch>
           <MoveTop />
           <Footer />
