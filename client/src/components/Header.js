@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { notify, userLogout } from '../redux/action';
 import axios from 'axios';
 import { useHistory } from 'react-router';
+axios.defaults.withCredentials = true;
 
 const HeaderWrapper = styled.div`
   .header {
@@ -49,7 +50,7 @@ const HeaderWrapper = styled.div`
   }
 `;
 
-function Header({ login, signup }) {
+function Header ({ login, signup }) {
   const isLogin = useSelector((state) => state.userReducer).token;
   const [isRecommend, setIsRecommend] = useState(false);
   const handleIsRecommend = (status) => setIsRecommend(status);
@@ -58,6 +59,8 @@ function Header({ login, signup }) {
 
   const handleLogoutRequest = () => {
     const token = localStorage.getItem('accessToken');
+    const accessTokenTime = localStorage.getItem('accessTokenTime');
+    const expiredTime = Number(process.env.REACT_APP_TOKEN_TIME);
     const logoutUrl = process.env.REACT_APP_API_URL + '/logout';
     const logoutConfig = {
       headers: {
@@ -67,71 +70,84 @@ function Header({ login, signup }) {
       withCredentials: true
     };
     const logoutData = { data: null };
-    axios
-      .post(logoutUrl, logoutData, logoutConfig)
-      .then((res) => {
-        dispatch(userLogout(res));
-        dispatch(notify('로그아웃되었습니다.'));
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('userinfo');
-        history.push('/mainpage');
-        // window.location.replace('/mainpage');
-      })
-      .catch((error) => {
-        console.log(error.response);
-      });
+    if (parseInt(accessTokenTime, 10) + expiredTime - (new Date()).getTime() < 0) {
+      alert('토큰이 만료되었습니다');
+    } else {
+      axios
+        .post(logoutUrl, logoutData, logoutConfig)
+        .then((res) => {
+          dispatch(userLogout(res));
+          dispatch(notify('로그아웃되었습니다.'));
+          localStorage.removeItem('accessToken');
+          localStorage.removeItem('userinfo');
+          localStorage.removeItem('accesstokenTime');
+          localStorage.removeItem('initialTime');
+          history.push('/mainpage');
+          // window.location.replace('/mainpage');
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
+    }
   };
 
   return (
     <HeaderWrapper>
-      <div className="header">
-        <div className="header-container-1">
-          <Link to="/mainpage">
-            <div className="logo" onClick={() => handleIsRecommend(false)}>
+      <div className='header'>
+        <div className='header-container-1'>
+          <Link to='/mainpage'>
+            <div className='logo' onClick={() => handleIsRecommend(false)}>
               M4M Logo
             </div>
           </Link>
         </div>
-        <div className="header-container-2">
-          <Link to="/recommendpage">
+        <div className='header-container-2'>
+          <Link to='/recommendpage'>
             <button
-              className="btn recommend-page"
+              className='btn recommend-page'
               onClick={() => handleIsRecommend(true)}
-              disabled={isRecommend ? 'disabled' : null}>
+              disabled={isRecommend ? 'disabled' : null}
+            >
               recommend page
             </button>
           </Link>
         </div>
-        <div className="header-container-3">
+        <div className='header-container-3'>
           <HeaderSearchbar isRecommend={isRecommend} />
         </div>
-        <div className="header-container-4">
-          {!isLogin ? (
-            <button
-              className="btn login"
-              onClick={() => {
-                login();
-              }}>
-              login
-            </button>
-          ) : (
-            <button className="btn logout" onClick={handleLogoutRequest}>
-              logout
-            </button>
-          )}
-          {!isLogin ? (
-            <button
-              className="btn signup"
-              onClick={() => {
-                signup();
-              }}>
-              signup
-            </button>
-          ) : (
-            <Link to="/mylike">
-              <button className="btn mypage">mypage</button>
-            </Link>
-          )}
+        <div className='header-container-4'>
+          {!isLogin
+            ? (
+              <button
+                className='btn login'
+                onClick={() => {
+                  login();
+                }}
+              >
+                login
+              </button>
+              )
+            : (
+              <button className='btn logout' onClick={handleLogoutRequest}>
+                logout
+              </button>
+              )}
+          {!isLogin
+            ? (
+              <button
+                className='btn signup'
+                onClick={() => {
+                  signup();
+                }}
+              >
+                signup
+              </button>
+              )
+            : (
+              <Link to='/mylike'>
+                <button className='btn mypage'>mypage</button>
+              </Link>
+              )}
         </div>
       </div>
     </HeaderWrapper>

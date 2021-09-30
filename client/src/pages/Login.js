@@ -60,7 +60,7 @@ export const ButtonContainer = styled.div`
 
 export const SignupBtn = styled.button``;
 
-function Login({ handleModal, signup }) {
+function Login ({ handleModal, signup }) {
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: ''
@@ -85,6 +85,7 @@ function Login({ handleModal, signup }) {
         .then((res) => {
           dispatch(notify('로그인 성공!'));
           localStorage.setItem('accessToken', res.data.accessToken);
+          localStorage.setItem('accessTokenTime', (new Date()).getTime());
           history.push('/mainpage');
           handleModal();
           //   window.location.replace('/mainpage');
@@ -147,6 +148,7 @@ function Login({ handleModal, signup }) {
               })
               .then((res) => {
                 localStorage.setItem('accessToken', res.data.accessToken);
+                localStorage.setItem('accessTokenTime', (new Date()).getTime());
                 dispatch(notify('로그인 성공!'));
                 history.push('/mainpage');
                 handleModal();
@@ -186,7 +188,7 @@ function Login({ handleModal, signup }) {
           <LoginInput onChange={handleInputValue('email')} />
           <LoginInputValue>비밀번호</LoginInputValue>
           <LoginInput
-            type="password"
+            type='password'
             onChange={handleInputValue('password')}
             onKeyPress={(e) => {
               enter(e);
@@ -198,7 +200,7 @@ function Login({ handleModal, signup }) {
           <Button onClick={closeModal}>창닫기</Button>
         </ButtonContainer>
         <div>
-          <img src={kakaoImage} style={{ width: '140px' }} onClick={kakaoLogin}></img>
+          <img src={kakaoImage} style={{ width: '140px' }} onClick={kakaoLogin} />
         </div>
         <div style={{ marginTop: '5px' }}>
           <span style={{ fontSize: '13px', marginTop: '10px' }}>아직 회원이 아니신가요? </span>
