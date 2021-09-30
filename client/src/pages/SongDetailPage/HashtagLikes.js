@@ -98,7 +98,7 @@ const Hashtags = ({ songInfo, information }) => {
   // allHashtagLikes = Object.entries(allHashtagLikes);
 
   const handleTagLikeCliked = (hashtagLikeName) => {
-    if (!information) {
+    if (!token) {
       alert('로그인이 필요한 서비스입니다.');
     } else {
       if (hashtagLikes[hashtagLikeName] === true) {

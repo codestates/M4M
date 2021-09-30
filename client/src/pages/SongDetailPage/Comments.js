@@ -77,7 +77,7 @@ const Comments = ({ comments, information, songId }) => {
   const { newContent } = newComment;
 
   const handleCommentChange = (e) => {
-    if (!information) {
+    if (!token) {
       alert('로그인이 필요한 서비스입니다.');
     } else if (e.target.value.length > 300) {
       alert('댓글은 300자 이내로 입력해주세요.');
