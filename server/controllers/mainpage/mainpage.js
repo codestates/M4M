@@ -4,9 +4,7 @@ const Sequelize = require('sequelize');
 
 module.exports = async (req, res) => {
   try {
-    // const accessTokenData = isAuthorized(req);
-    // JUST FOR TEST PURPOSES: without a real accessToken
-    const accessTokenData = { id: req.headers.authorization };
+    const accessTokenData = isAuthorized(req);
     let songList = await song.findAll();
 
     if (songList.length === 0) {
@@ -85,7 +83,7 @@ module.exports = async (req, res) => {
             };
 
             // 로그인 된 유저에 한해서는 본인이 추가한 좋아요 및 해시태그 정보를 추가적으로 보내주어야 함.
-            if (accessTokenData.id) {
+            if (accessTokenData) {
               let userLike = await songuserhashtaglike.findAll(
                 {
                   where: {

@@ -107,7 +107,7 @@ const Wrapper = styled.div`
 
 const SongDetail = () => {
   const information = JSON.parse(localStorage.getItem('userinfo'));
-  // const token = localStorage.getItem('accessToken');
+  const token = localStorage.getItem('accessToken');
   const location = useLocation();
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
@@ -131,10 +131,7 @@ const SongDetail = () => {
         } else {
           const result = await axios.get(process.env.REACT_APP_API_URL + `/song?query=${songId}`, {
             headers: {
-              // Authorization: `Bearer ${token}`,
-
-              // JUST FOR TEST PURPOSES
-              Authorization: information.id,
+              Authorization: `Bearer ${token}`,
               'Content-Type': 'application/json'
             }
           });

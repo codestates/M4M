@@ -1,4 +1,4 @@
-// const { isAuthorized } = require('../tokenFunctions');
+const { isAuthorized } = require('../tokenFunctions');
 const { user, song, hashtaglike, songuserhashtaglike } = require('../../models');
 const Sequelize = require('sequelize');
 require('sequelize-values')(Sequelize);
@@ -7,14 +7,9 @@ const Op = Sequelize.Op;
 // GET http://localhost:80/my-like
 module.exports = async (req, res) => {
   try {
-    // const accessTokenData = isAuthorized(req);
-
-    // JUST FOR TEST PURPOSES: without a real accessToken
-    // console.log(req.headers.authorization);
-    const accessTokenData = { id: req.headers.authorization };
-
+    const accessTokenData = isAuthorized(req);
     if (!accessTokenData) {
-      return res.status(404).send({ message: 'You\'re not logged in.' });
+      return res.status(401).send({ message: 'You\'re not logged in.' });
     } else {
       const userInfo = await user.findOne({
         where: {
@@ -44,11 +39,9 @@ module.exports = async (req, res) => {
       } else {
         songList = Sequelize.getValues(songList);
         songList = songList.map((el) => el.song);
-        // console.log('++++++++++++++++++\n', songList);
 
         const fetchSongInfo = async () => {
           const songInfo = songList.map(async (song) => {
-            // console.log('++++++++++++++++++\n', song.id);
             try {
               let getHashtagName = await songuserhashtaglike.findAll({
                 include: [{
@@ -107,8 +100,6 @@ module.exports = async (req, res) => {
       }
     }
   } catch {
-    res.status(400).json({
-      message: 'Invalid access token'
-    });
+    res.status(400).json({ message: 'error' });
   }
 };
