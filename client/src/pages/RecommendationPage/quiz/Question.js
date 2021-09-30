@@ -6,25 +6,19 @@ import { Colors, GlobalStyle } from '../../../components/utils/_var';
 
 const Wrapper = styled.div`    
   .row {
-    margin-top: 3rem; 
-    margin-bottom: -1.5rem;
-    ${media.tabletMini`margin-top: 3.7rem; margin-bottom: 0rem;`}
-    ${media.tablet`margin-top: 4.2rem; margin-bottom: 0rem;`}
+    margin-top: 3.7rem; 
+    margin-bottom: 0rem;
+    ${media.tablet`margin-top: 4rem; margin-bottom: -1rem;`}
     .col {
       padding: 0 3rem;
       h1 {
         color: ${Colors.black};
-        font-size: 1rem;
-        ${media.tabletMini`font-size: 1.1rem;`}
-        ${media.tablet`font-size: 1.2rem;`}
+        font-size: .85rem;
+        ${media.tabletMini`font-size: .9rem;`}
+        ${media.tablet`font-size: 1rem;`}
         font-family: 'NeoDunggeunmo';
         text-align: left;
         line-height: 1.7em;
-      }
-      h2 {
-        color: transparent;
-        font-size: 1rem;
-        line-height: 0;
       }
     }
   }
@@ -37,7 +31,6 @@ const Question = (props) => {
       <div className='row'>
         <div className='col'>
           <h1>{props.content}</h1>
-          <h2>this is just an empty content. this is just an empty content. this is just an empty content.</h2>
         </div>
       </div>
     </Wrapper>

@@ -62,8 +62,9 @@ const GlobalStyle = createGlobalStyle`
     height: 80vh;
     max-width: 525px;
     min-width: 259px;    
+    min-height: calc(100vh - 41px - 56px);
     box-shadow: 0 0 0 1px ${Colors.black} inset; 
-    margin: 5px auto 10px;
+    margin: 0 auto;
   }
 `;
 
