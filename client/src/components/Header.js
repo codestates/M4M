@@ -88,8 +88,8 @@ function Header ({ login, signup }) {
         .catch((error) => {
           console.log(error.response);
         });
-      };
     }
+  };
 
   return (
     <HeaderWrapper>
