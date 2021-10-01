@@ -27,12 +27,12 @@ const Wrapper = styled.div`
       border: 0;
       color: ${Colors.black};
       font-size: 1.2em;      
-      ${media.tabletMini`font-size: 1.3em`}
-      ${media.tablet`font-size: 1.4em`}
-      ${media.laptop`font-size: 1.5em`}
-      ${media.tabletMini`color: blue`}
-      ${media.tablet`color: red`}
-      ${media.laptop`color: green`}
+      ${media.tabletMini`font-size: 1.3em;`}
+      ${media.tablet`font-size: 1.4em;`}
+      ${media.laptop`font-size: 1.5em;`}
+      ${media.tabletMini`color: blue;`}
+      ${media.tablet`color: red;`}
+      ${media.laptop`color: green;`}
     }
   }
 `;
@@ -45,7 +45,6 @@ const Intro = ({ _onStartClick }) => {
         <ul className='list-group'>
           <li className='list-item'>밀레니얼 세대를 위한<br />노래 추천</li>
         </ul>
-        <div>자동화됐습니다ㅠㅠ</div>
         <StartBtn onClick={_onStartClick}>
           <span>테스트 시작!</span>
         </StartBtn>
