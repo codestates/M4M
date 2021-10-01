@@ -5,6 +5,9 @@ const Sequelize = require('sequelize');
 module.exports = async (req, res) => {
   try {
     const accessTokenData = isAuthorized(req);
+    // console.log(req.headers.authorization);
+    // const accessTokenData = { id: req.headers.authorization };
+
     let songList = await song.findAll();
 
     if (songList.length === 0) {
@@ -33,7 +36,6 @@ module.exports = async (req, res) => {
 
       const fetchSongInfo = async () => {
         const songInfo = songList.map(async (song) => {
-          // console.log('++++++++++++++++++\n', song.id);
           try {
             let getHashtagName = await songuserhashtaglike.findAll({
               include: [{
@@ -84,28 +86,26 @@ module.exports = async (req, res) => {
 
             // 로그인 된 유저에 한해서는 본인이 추가한 좋아요 및 해시태그 정보를 추가적으로 보내주어야 함.
             if (accessTokenData) {
-              let userLike = await songuserhashtaglike.findAll(
+              let userHashtagLikes = await songuserhashtaglike.findAll(
                 {
                   where: {
                     userId: accessTokenData.id,
-                    songId: song.id,
-                    hashtagId: 1
+                    songId: song.id
                   }
                 }
               );
 
-              userLike = Sequelize.getValues(userLike);
+              userHashtagLikes = Sequelize.getValues(userHashtagLikes);
 
-              if (userLike.length > 0) {
-                payload.userLike = true;
-              } else {
-                payload.userLike = false;
+              if (userHashtagLikes) {
+                userHashtagLikes = userHashtagLikes.map((el) => el.hashtagId);
+                payload.userHashtagLikes = userHashtagLikes;
               }
             }
 
             return payload;
           } catch (error) {
-            res.status(400).json({ message: 'Error' });
+            res.status(400).json({ message: 'error' });
           }
         });
 
@@ -120,6 +120,6 @@ module.exports = async (req, res) => {
       fetchSongInfo();
     }
   } catch (error) {
-    res.status(400).json({ message: 'Error' });
+    res.status(400).json({ message: 'error' });
   }
 };
