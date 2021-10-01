@@ -1,5 +1,3 @@
-const express = require('express');
-const router = express.Router();
 const nodemailer = require('nodemailer');
 const ejs = require('ejs');
 const path = require('path');
@@ -15,7 +13,7 @@ module.exports = async (req, res) => {
     emailTemplete = data;
   });
 
-  let transporter = nodemailer.createTransport({
+  const transporter = nodemailer.createTransport({
     service: 'gmail',
     host: 'smtp.gmail.com',
     port: 587,
@@ -26,7 +24,7 @@ module.exports = async (req, res) => {
     }
   });
 
-  let mailOptions = await transporter.sendMail({
+  const mailOptions = await transporter.sendMail({
     from: `test`,
     to: req.body.email,
     subject: '회원가입을 위한 인증번호를 입력해주세요.',
