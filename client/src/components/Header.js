@@ -54,7 +54,7 @@ const HeaderWrapper = styled.div`
   }
 `;
 
-function Header({ login, signup, modal }) {
+function Header ({ login, signup, modal }) {
   const isLogin = useSelector((state) => state.userReducer).token;
   const headerState = useSelector((state) => state.headerReducer);
   const dispatch = useDispatch();
@@ -106,7 +106,7 @@ function Header({ login, signup, modal }) {
         </div>
         <div className='header-container-2'>
           <Link to='/recommendpage'>
-            <button className={headerState.recommendBtn ? 'btn recommend-page': 'display-none'}>
+            <button className={headerState.recommendBtn ? 'btn recommend-page' : 'display-none'}>
               recommend page
             </button>
           </Link>
@@ -115,24 +115,28 @@ function Header({ login, signup, modal }) {
           <HeaderSearchbar isRecommend={headerState.searchBar} />
         </div>
         <div className='header-container-4'>
-          {!isLogin ? (
+          {!isLogin
+            ? (
               <button className='btn login' onClick={login}>
                 login
               </button>
-          ) : (
-            <button className='btn logout' onClick={handleLogoutRequest}>
-              logout
-            </button>
-          )}
-          {!isLogin ? (
+              )
+            : (
+              <button className='btn logout' onClick={handleLogoutRequest}>
+                logout
+              </button>
+              )}
+          {!isLogin
+            ? (
               <button className='btn signup' onClick={signup}>
                 signup
               </button>
-          ) : (
-            <Link to='/mylike'>
-              <button className='btn mypage'>mypage</button>
-            </Link>
-          )}
+              )
+            : (
+              <Link to='/mylike'>
+                <button className='btn mypage'>mypage</button>
+              </Link>
+              )}
         </div>
       </div>
     </HeaderWrapper>

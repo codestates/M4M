@@ -158,16 +158,16 @@ const Comments = ({ comments, information, songId, modal }) => {
   return (
     <Wrapper>
       <GlobalStyle />
-      <div className="counter">댓글 {comments.length}</div>
-      <div className="comments-container">
-        <div className="comments-input-container">
+      <div className='counter'>댓글 {comments.length}</div>
+      <div className='comments-container'>
+        <div className='comments-input-container'>
           <textarea
-            className="write-comment"
-            placeholder="300자 이내 입력 가능"
+            className='write-comment'
+            placeholder='300자 이내 입력 가능'
             onChange={handleCommentChange}
             value={newContent || ''}
           />
-          <button className="postButton" type="submit" onClick={handlePostClicked}>
+          <button className='postButton' type='submit' onClick={handlePostClicked}>
             등록
           </button>
         </div>

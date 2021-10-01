@@ -67,4 +67,4 @@ export const changeHeader = (pathname) => {
     type: HEADER_CHANGE,
     payload: pathname
   };
-}; 
+};

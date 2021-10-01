@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { getRegExp } from "korean-regexp";
+import { getRegExp } from 'korean-regexp';
 import { useState } from 'react';
 import { notify, changeType, getResult } from '../redux/action';
 import { useSelector, useDispatch } from 'react-redux';

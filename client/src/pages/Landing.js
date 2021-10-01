@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import infoImg from '../intro_image.png'
+import infoImg from '../intro_image.png';
 import { changeHeader } from '../redux/action';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
@@ -42,8 +42,8 @@ function Landing () {
 
   const handleSongDetail = (e) => {
     const target = e.target.getAttribute('value');
-    history.push({ pathname: `${target}`});
-  }
+    history.push({ pathname: `${target}` });
+  };
 
   return (
     <LandingWrapper>
@@ -54,7 +54,7 @@ function Landing () {
             반짝 빛나던<br />
             음악 여행
           </div>
-          <img className='info-image' src={infoImg}/>
+          <img className='info-image' src={infoImg} />
           <button value='/mainpage' onClick={handleSongDetail}>추억 검색하기</button>
           <button value='/recommendpage' onClick={handleSongDetail}>추억 추천받기</button>
         </div>
