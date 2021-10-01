@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { Colors, GlobalStyle } from '../../components/utils/_var';
 // import SideNav from '../../components/Mainpage/MainSideNav';
+import { changeHeader } from '../../redux/action';
+import { useDispatch } from 'react-redux';
 axios.defaults.withCredentials = true;
 require('dotenv').config();
 
@@ -171,6 +173,9 @@ const GetLikedSong = ({ modal }) => {
   const [IdList, setIdList] = useState([]);
   const information = JSON.parse(localStorage.getItem('userinfo'));
   const history = useHistory();
+  const dispatch = useDispatch();
+
+  useEffect(() => dispatch(changeHeader([true, false])), [dispatch]);
 
   useEffect(() => {
     const fetchData = async () => {

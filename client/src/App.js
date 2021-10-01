@@ -4,6 +4,7 @@ import { GlobalStyle } from './components/utils/_var';
 import { useState } from 'react';
 import Header from './components/Header';
 import Noti from './components/Notification';
+import Landing from './pages/Landing';
 import Main from './pages/Mainpage/Main';
 import Footer from './components/Footer';
 import Recommendation from './pages/RecommendationPage/Recommendation';
@@ -17,7 +18,6 @@ import Modal from './components/Modal';
 
 const AppWrapper = styled.div`
   * {
-    /* font-family: 'NeoDunggeunmo'; */
     box-sizing: border-box;
   }
   .App {
@@ -53,6 +53,7 @@ function App() {
   };
 
   const information = JSON.parse(localStorage.getItem('userinfo'));
+  console.log('⭐️⭐️⭐️⭐️⭐️', information)
 
   return (
     <BrowserRouter>
@@ -67,25 +68,18 @@ function App() {
           {openModal ? <Modal handleModal={handleModalClose} login={handleLoginModalOpen} /> : null}
           <Noti />
           <Switch>
-            <Route exact path="/" />
+            <Route exact path="/" component={Landing} />
             <Route path="/mainpage" component={Main} />
             <Route path="/recommendpage" render={() => <Recommendation />} />
-          </Switch>
-          {openSignup ? <Signup handleModal={handleSignupModalClose} /> : null}
-          {openLogin ? (
-            <Login handleModal={handleLoginModalClose} signup={handleSignupModalOpen} />
-          ) : null}
-          <Switch>
-            <Route path="/mylike">
-              {information ? <GetLikedSong modal={handleModalOpen} /> : <Redirect to="/mainpage" />}
-            </Route>
-            <Route path="/myinfo">
-              {information ? <Mypage modal={handleModalOpen} /> : <Redirect to="/mainpage" />}
-            </Route>
-            <Route path="/song:id" render={() => <SongDetail modal={handleModalOpen} />} />
+            <Route path='/mylike'>{information ? <GetLikedSong modal={handleModalOpen} /> : <Redirect to="/mainpage" />}</Route>
+            <Route path='/myinfo'>{information ? <Mypage modal={handleModalOpen} /> : <Redirect to="/mainpage" />}</Route>
+            <Route path='/song:id' render={() => <SongDetail modal={handleModalOpen} />} />
+            <Redirect to='/' />
           </Switch>
           <MoveTop />
           <Footer />
+          {openSignup ? <Signup handleModal={handleSignupModalClose} /> : null}
+          {openLogin ? <Login handleModal={handleLoginModalClose} signup={handleSignupModalOpen} /> : null}
         </div>
       </AppWrapper>
     </BrowserRouter>
