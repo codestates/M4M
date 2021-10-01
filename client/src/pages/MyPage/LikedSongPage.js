@@ -4,14 +4,10 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
-import SideNav from '../../components/SideNav';
 import { Colors, GlobalStyle } from '../../components/utils/_var';
-<<<<<<< HEAD
-=======
 import SideNav from '../../components/SideNav';
 import { changeHeader } from '../../redux/action';
 import { useDispatch } from 'react-redux';
->>>>>>> ca12bc3296fa13d03e0c191b70658313ba628873
 axios.defaults.withCredentials = true;
 require('dotenv').config();
 
@@ -174,6 +170,7 @@ const HashTag = styled.div`
   font-size: .7rem;
 `;
 
+
 // =====================================================================
 //                                TO DO
 // =====================================================================
@@ -253,7 +250,7 @@ const GetLikedSong = ({ modal }) => {
     }
   };
 
-  // console.log('checked song id: ' + CheckList);
+  console.log('checked song id: ' + CheckList);
 
   // Song Detail 페이지로 연결
   const handleSongClicked = (song) => {
