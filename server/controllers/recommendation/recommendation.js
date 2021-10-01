@@ -4,8 +4,6 @@ const Op = Sequelize.Op;
 
 module.exports = async (req, res) => {
   try {
-    // console.log(req.body);
-
     const resultType = req.body.resultType;
     let recommendType = '';
     if (resultType === 'AFL') {
@@ -46,7 +44,7 @@ module.exports = async (req, res) => {
       }
     });
 
-    console.log(songList.length);
+    // console.log(songList.length);
 
     if (songList.length === 0) {
       res.status(422).json({

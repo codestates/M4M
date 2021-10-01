@@ -23,7 +23,6 @@ module.exports = async (req, res) => {
         });
 
         res.setHeader('authorization', '');
-        // res.cookie('refreshToken', '');
 
         res.status(200).json({
           message: 'Successfully withdrawn'

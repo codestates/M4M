@@ -25,7 +25,7 @@ module.exports = async (req, res) => {
       });
 
       songInfo = Sequelize.getValues(songInfo);
-      console.log(songInfo.length);
+      // console.log(songInfo.length);
 
       songInfo = songInfo.map((song) => song.id);
       // console.log(songInfo);
