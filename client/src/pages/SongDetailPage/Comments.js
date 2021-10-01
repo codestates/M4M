@@ -9,9 +9,9 @@ require('dotenv').config();
 const Wrapper = styled.div`
   .counter {
     width: ${Size.container};
-    margin: .5rem auto;
+    margin: 0.5rem auto;
     text-align: left;
-    font-size: .9rem;
+    font-size: 0.9rem;
   }
   .comments-container {
     margin: auto auto 1.2rem;
@@ -56,7 +56,7 @@ const Wrapper = styled.div`
   }
   textarea {
     border: solid 1px ${Colors.lightGray};
-    padding: .4rem;
+    padding: 0.4rem;
     font-family: 'Arial';
     resize: none;
     height: auto;
@@ -70,7 +70,7 @@ const Wrapper = styled.div`
 // 1.
 //
 
-const Comments = ({ comments, information, songId }) => {
+const Comments = ({ comments, information, songId, modal }) => {
   const token = localStorage.getItem('accessToken');
   const accessTokenTime = localStorage.getItem('accessTokenTime');
   const expiredTime = Number(process.env.REACT_APP_TOKEN_TIME);
@@ -100,9 +100,11 @@ const Comments = ({ comments, information, songId }) => {
   const handlePostClicked = () => {
     if (!information) {
       alert('로그인이 필요한 서비스입니다.');
-    } if (parseInt(accessTokenTime, 10) + expiredTime - (new Date()).getTime() < 0) {
-      alert('토큰이 만료되었습니다');
-    } else if (!initialTime || parseInt(initialTime, 10) + waitTime - (new Date()).getTime() < 0) {
+    }
+    if (parseInt(accessTokenTime, 10) + expiredTime - new Date().getTime() < 0) {
+      // alert('토큰이 만료되었습니다');
+      modal();
+    } else if (!initialTime || parseInt(initialTime, 10) + waitTime - new Date().getTime() < 0) {
       // console.log('nickname: ', information.nickname, 'content: ', newComment);
       if (newContent.length > 300) {
         alert('댓글은 300자 이내로 입력해주세요.');
@@ -110,20 +112,24 @@ const Comments = ({ comments, information, songId }) => {
         alert('댓글을 입력해주세요');
       } else {
         axios
-          .post(process.env.REACT_APP_API_URL + '/comment', {
-            userId: information.id,
-            songId: songId,
-            content: newContent
-          }, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              'Content-Type': 'application/json'
+          .post(
+            process.env.REACT_APP_API_URL + '/comment',
+            {
+              userId: information.id,
+              songId: songId,
+              content: newContent
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+              }
             }
-          })
+          )
           .then((res) => {
             if (res.status === 200) {
               // 클라이언트쪽에서 댓글 시간 제한 처리
-              localStorage.setItem('initialTime', (new Date()).getTime());
+              localStorage.setItem('initialTime', new Date().getTime());
               alert('댓글이 등록되었습니다.');
               setNewComment({
                 newContent: ''
@@ -152,16 +158,18 @@ const Comments = ({ comments, information, songId }) => {
   return (
     <Wrapper>
       <GlobalStyle />
-      <div className='counter'>댓글 {comments.length}</div>
-      <div className='comments-container'>
-        <div className='comments-input-container'>
+      <div className="counter">댓글 {comments.length}</div>
+      <div className="comments-container">
+        <div className="comments-input-container">
           <textarea
-            className='write-comment'
-            placeholder='300자 이내 입력 가능'
+            className="write-comment"
+            placeholder="300자 이내 입력 가능"
             onChange={handleCommentChange}
             value={newContent || ''}
           />
-          <button className='postButton' type='submit' onClick={handlePostClicked}>등록</button>
+          <button className="postButton" type="submit" onClick={handlePostClicked}>
+            등록
+          </button>
         </div>
       </div>
       <CommentPagination information={information} songId={songId} totalComments={comments} />

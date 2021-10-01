@@ -1,10 +1,6 @@
 const crypto = require('crypto');
 const { user } = require('../../models');
-const {
-  isAuthorized,
-  generateAccessToken,
-  generateRefreshToken
-} = require('../tokenFunctions');
+const { isAuthorized, generateAccessToken, generateRefreshToken } = require('../tokenFunctions');
 
 module.exports = async (req, res) => {
   try {
@@ -18,9 +14,7 @@ module.exports = async (req, res) => {
 
     // 로그인 양식을 다 채우지 않은 경우
     if (!email || !password) {
-      return res
-        .status(417)
-        .json({ message: 'please fill in all the required fields.' });
+      return res.status(417).json({ message: 'please fill in all the required fields.' });
     }
 
     // 가입된 유저인지 확인
@@ -39,9 +33,7 @@ module.exports = async (req, res) => {
 
       // 비밀번호가 틀렸을 경우
       if (hashedPassword !== dbPassword) {
-        return res
-          .status(400)
-          .json({ message: 'please check your password and try again' });
+        return res.status(400).json({ message: 'please check your password and try again' });
       } else {
         const accessToken = generateAccessToken(member.dataValues);
         const refreshToken = generateRefreshToken(member.dataValues);
