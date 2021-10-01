@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import SideNav from '../../components/SideNav';
 import { Colors } from '../../components/utils/_var';
+import { changeHeader } from '../../redux/action';
+import { useDispatch } from 'react-redux';
 axios.defaults.withCredentials = true;
 require('dotenv').config();
 
@@ -85,7 +87,7 @@ const AlertMessage = styled.div`
 `;
 
 // const Mypage = ({ afterWithdrawal }) => {
-const Mypage = () => {
+const Mypage = ({ modal }) => {
   const information = JSON.parse(localStorage.getItem('userinfo'));
   const token = localStorage.getItem('accessToken');
   const accessTokenTime = localStorage.getItem('accessTokenTime');
@@ -95,6 +97,9 @@ const Mypage = () => {
   const [checkBirthYear, setCheckBirthYear] = useState('ok');
   const [checkRetypePassword, setCheckRetypePassword] = useState(true);
   const [errorMsg, setErrorMsg] = useState('');
+  const dispatch = useDispatch();
+
+  useEffect(() => dispatch(changeHeader([true, false])), [dispatch]);
 
   const [myInfo, setMyInfo] = useState({
     nickname: '',
@@ -230,7 +235,12 @@ const Mypage = () => {
       setCheckRetypePassword(false);
     }
     // console.log(checkPassword, checkRetypePassword,checkNickname, checkBirthYear)
-    if (information.kakao && !information.birthYear && !myInfo.birthYear && myInfo.nickname === '') {
+    if (
+      information.kakao &&
+      !information.birthYear &&
+      !myInfo.birthYear &&
+      myInfo.nickname === ''
+    ) {
       setErrorMsg('변경할 정보를 입력해주세요.');
     } else if (information.kakao && information.birthYear && myInfo.nickname === '') {
       setErrorMsg('변경할 정보를 입력해주세요.');
@@ -245,8 +255,9 @@ const Mypage = () => {
       setErrorMsg('변경할 정보를 올바르게 입력해주세요.');
     } else {
       // console.log('user info has sent to the server');
-      if (parseInt(accessTokenTime, 10) + expiredTime - (new Date()).getTime() < 0) {
-        alert('토큰이 만료되었습니다');
+      if (parseInt(accessTokenTime, 10) + expiredTime - new Date().getTime() < 0) {
+        // alert('토큰이 만료되었습니다');
+        modal();
       } else {
         axios
           .patch(process.env.REACT_APP_API_URL + '/user-info', myInfo, {
@@ -280,18 +291,17 @@ const Mypage = () => {
   const history = useHistory();
 
   const handleWithdrawalRequest = () => {
-    if (parseInt(accessTokenTime, 10) + expiredTime - (new Date()).getTime() < 0) {
-      alert('토큰이 만료되었습니다');
+    if (parseInt(accessTokenTime, 10) + expiredTime - new Date().getTime() < 0) {
+      // alert('토큰이 만료되었습니다');
+      modal();
     } else {
       axios
-        .delete(
-          process.env.REACT_APP_API_URL + '/withdrawal', {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              'Content-Type': 'application/json'
-            }
+        .delete(process.env.REACT_APP_API_URL + '/withdrawal', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
           }
-        )
+        })
         .then((res) => {
           if (res.status === 200) {
             alert('회원탈퇴가 완료되었습니다.');

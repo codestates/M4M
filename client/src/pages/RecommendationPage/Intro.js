@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { changeHeader } from '../../redux/action';
+import { useDispatch } from 'react-redux';
 import { media } from '../../components/utils/_media-queries';
 import { Colors, GlobalStyle } from '../../components/utils/_var';
 import { StartBtn } from '../../components/utils/Buttons';
@@ -38,6 +40,8 @@ const Wrapper = styled.div`
 `;
 
 const Intro = ({ _onStartClick }) => {
+  const dispatch = useDispatch();
+  useEffect(() => dispatch(changeHeader([true, false])), [dispatch]);
   return (
     <Wrapper>
       <GlobalStyle />

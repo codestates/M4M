@@ -6,6 +6,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import SideNav from '../../components/SideNav';
 import { Colors, GlobalStyle } from '../../components/utils/_var';
+<<<<<<< HEAD
+=======
+import SideNav from '../../components/SideNav';
+import { changeHeader } from '../../redux/action';
+import { useDispatch } from 'react-redux';
+>>>>>>> ca12bc3296fa13d03e0c191b70658313ba628873
 axios.defaults.withCredentials = true;
 require('dotenv').config();
 
@@ -175,7 +181,7 @@ const HashTag = styled.div`
 // 1. CSS 개선
 //
 
-const GetLikedSong = () => {
+const GetLikedSong = ({ modal }) => {
   const token = localStorage.getItem('accessToken');
   const accessTokenTime = localStorage.getItem('accessTokenTime');
   const expiredTime = Number(process.env.REACT_APP_TOKEN_TIME);
@@ -186,13 +192,17 @@ const GetLikedSong = () => {
   const information = JSON.parse(localStorage.getItem('userinfo'));
   const Hashtag = ['좋아요', '#인생곡인', '#가사가재밌는', '#몸이기억하는', '#눈물샘자극', '#노래방금지곡', '#영원한18번', '#추억소환'];
   const history = useHistory();
+  const dispatch = useDispatch();
+
+  useEffect(() => dispatch(changeHeader([true, false])), [dispatch]);
 
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        if (parseInt(accessTokenTime, 10) + expiredTime - (new Date()).getTime() < 0) {
-          alert('토큰이 만료되었습니다');
+        if (parseInt(accessTokenTime, 10) + expiredTime - new Date().getTime() < 0) {
+          // alert('토큰이 만료되었습니다');
+          modal();
           setIsLoading(false);
         } else {
           const result = await axios.get(process.env.REACT_APP_API_URL + '/my-like', {
@@ -237,7 +247,7 @@ const GetLikedSong = () => {
     // 체크할 시 CheckList에 id값 넣기
     if (e.target.checked) {
       setCheckList([...CheckList, id]);
-    // 체크 해제할 시 CheckList에서 해당 id값이 아닌 값만 배열에 넣기
+      // 체크 해제할 시 CheckList에서 해당 id값이 아닌 값만 배열에 넣기
     } else {
       setCheckList(CheckList.filter((checkedId) => checkedId !== id));
     }
@@ -253,18 +263,20 @@ const GetLikedSong = () => {
   };
 
   const handleSongDelete = () => {
-    if (parseInt(accessTokenTime, 10) + expiredTime - (new Date()).getTime() < 0) {
-      alert('토큰이 만료되었습니다');
+    if (parseInt(accessTokenTime, 10) + expiredTime - new Date().getTime() < 0) {
+      // alert('토큰이 만료되었습니다');
+      modal();
     } else if (CheckList.length > 0) {
-      axios.delete(process.env.REACT_APP_API_URL + '/my-like', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-        data: {
-          songId: CheckList
-        }
-      })
+      axios
+        .delete(process.env.REACT_APP_API_URL + '/my-like', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
+          data: {
+            songId: CheckList
+          }
+        })
         .then((res) => {
           console.log(res.data.message);
         })

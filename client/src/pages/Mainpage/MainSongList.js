@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { changeHeader } from '../../redux/action';
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -203,6 +204,7 @@ const HashTag = styled.div`
 
 function SongList () {
   const information = JSON.parse(localStorage.getItem('userinfo'));
+  const dispatch = useDispatch();
   const history = useHistory();
   const searchState = useSelector(state => state.searchReducer).searchResult;
   const typeState = useSelector(state => state.typeReducer).navType;
@@ -221,13 +223,14 @@ function SongList () {
     artist: 'none',
     date: 'none'
   });
-  console.log('🎶', result, '\n🚦', subSort, '\n📌', typeState, '\n🧲', searchState, '\nℹ️', information, history);
+  console.log('🎶', result, '\n🚦', subSort, '\n📌', typeState, '\n🧲', searchState, '\nℹ️', information);
 
   useEffect(() => {
     setIsSorted(searchState);
   }, [searchState]);
 
   useEffect(() => {
+    dispatch(changeHeader([true, true]));
     setIsSorted(songsBulkState);
   }, [songsBulkState]);
 
@@ -403,8 +406,8 @@ function SongList () {
               {result && result.map((song, idx) => {
                 if ((idx + 1) <= (isScrollCnt * songNumber)) {
                   return (
-                    <div className='song-container'>
-                      <div className='song-info-container' key={idx + 1} onClick={() => handleSongDetail(song)}>
+                    <div className='song-container' key={song.id}>
+                      <div className='song-info-container' onClick={() => handleSongDetail(song)}>
                         <img className='album_art' src={song.album_art} alt={song.title} loading='lazy' />
                         <div className='title scrollable'>{song.title}</div>
                         <div className='artist scrollable'>{song.artist}</div>

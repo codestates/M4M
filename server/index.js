@@ -4,6 +4,7 @@ const https = require('https');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const express = require('express');
+const nodemailer = require('nodemailer');
 const app = express();
 
 const controllers = require('./controllers');
@@ -34,8 +35,8 @@ app.patch('/comment', controllers.editComment);
 app.delete('/comment', controllers.deleteComment);
 app.post('/hashtag', controllers.hitHashtag);
 app.delete('/hashtag', controllers.deleteHashtag);
-app.post('/like', controllers.hitLike);
-app.delete('/like', controllers.deleteLike);
+// app.post('/like', controllers.hitLike);
+// app.delete('/like', controllers.deleteLike);
 app.get('/title', findAllTitle);
 app.get('/artist', findAllArtist);
 app.get('/user-info', controllers.userInfo);
@@ -45,6 +46,7 @@ app.get('/my-like', controllers.myLike);
 app.delete('/my-like', controllers.deleteMyLike);
 app.post('/recommendation', controllers.recommendation);
 app.get('/mainpage', controllers.mainpage);
+app.post('/auth', controllers.auth);
 
 const HTTPS_PORT = process.env.HTTPS_PORT || 80;
 

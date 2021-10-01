@@ -46,6 +46,7 @@ export const SignupInput = styled.input``;
 
 export const Button = styled.button`
   margin: 0.4rem 0.4rem 0.1rem 0.4rem;
+  cursor: pointer;
 `;
 
 export const Alertbox = styled.div`
@@ -188,11 +189,6 @@ function Signup ({ handleModal }) {
     }
   };
 
-  const closeModal = () => {
-    handleModal();
-    history.push('/');
-  };
-
   return (
     <SignupBackdrop>
       <SignupView>
@@ -212,7 +208,6 @@ function Signup ({ handleModal }) {
           <CheckInfo>{checkRetypePassword ? null : '비밀번호가 일치하지 않습니다'}</CheckInfo>
           <SignupInputValue>Birth Year</SignupInputValue>
           <Select onChange={handleInputValue('birthYear')}>
-            {/* <option value="">-------</option> */}
             <option value='' selected disabled hidden>
               선택
             </option>
@@ -223,7 +218,7 @@ function Signup ({ handleModal }) {
         </SignupInputContainer>
         <ButtonContainer>
           <Button onClick={handleSignupRequest}>회원가입</Button>
-          <Button onClick={closeModal}>창닫기</Button>
+          <Button onClick={handleModal}>창닫기</Button>
         </ButtonContainer>
         <Alertbox>{errorMsg}</Alertbox>
       </SignupView>

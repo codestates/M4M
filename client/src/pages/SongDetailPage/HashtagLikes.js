@@ -17,14 +17,14 @@ const Wrapper = styled.div`
 
 const HashTag = styled.div`
   float: left;
-  margin: .2rem 0 auto .3rem;
-  padding: .27rem;
+  margin: 0.2rem 0 auto 0.3rem;
+  padding: 0.27rem;
   border: solid 1px ${Colors.gray};
   border-radius: 10px;
-  background-color: ${props => props.backgroundColor};
-  color: ${props => props.textColor};
-  font-size: .7rem;
-  
+  background-color: ${(props) => props.backgroundColor};
+  color: ${(props) => props.textColor};
+  font-size: 0.7rem;
+
   &:hover {
     cursor: pointer;
   }
@@ -33,7 +33,7 @@ const HashTag = styled.div`
 const Like = styled.div`
   grid-row: 3;
   width: 2.5rem;
-  margin: .2rem 0 .2rem .3rem;
+  margin: 0.2rem 0 0.2rem 0.3rem;
   text-align: left;
   line-height: 1.5rem;
   font-size: 1rem;
@@ -44,13 +44,22 @@ const Like = styled.div`
   }
 `;
 
-const Hashtags = ({ songInfo, information }) => {
+const Hashtags = ({ songInfo, information, modal }) => {
   const token = localStorage.getItem('accessToken');
   const accessTokenTime = localStorage.getItem('accessTokenTime');
   const expiredTime = Number(process.env.REACT_APP_TOKEN_TIME);
 
   const { userContent } = songInfo;
-  const hashtagLikeList = ['좋아요', '#인생곡인', '#가사가재밌는', '#몸이기억하는', '#눈물샘자극', '#노래방금지곡', '#영원한18번', '#추억소환'];
+  const hashtagLikeList = [
+    '좋아요',
+    '#인생곡인',
+    '#가사가재밌는',
+    '#몸이기억하는',
+    '#눈물샘자극',
+    '#노래방금지곡',
+    '#영원한18번',
+    '#추억소환'
+  ];
 
   const [hashtagLikes, setHashtagLikes] = useState({});
 
@@ -67,16 +76,16 @@ const Hashtags = ({ songInfo, information }) => {
     '#추억소환': false
   };
 
-  userContent && userContent.map(el => {
-    return userHashtagLikes[hashtagLikeList[el - 1]] = true;
-  });
+  userContent &&
+    userContent.map((el) => {
+      return (userHashtagLikes[hashtagLikeList[el - 1]] = true);
+    });
 
   useEffect(() => {
     if (userContent) {
       setHashtagLikes(userHashtagLikes);
     }
-  }, [userContent]
-  );
+  }, [userContent]);
 
   const allHashtagLikes = {
     좋아요: 0,
@@ -91,7 +100,7 @@ const Hashtags = ({ songInfo, information }) => {
   const [allTags, setAllTags] = useState(allHashtagLikes);
 
   if (songInfo.hashtagLike) {
-    songInfo.hashtagLike.map(el => {
+    songInfo.hashtagLike.map((el) => {
       if (allHashtagLikes[el[0]] >= 0) {
         allHashtagLikes[el[0]] += el[1];
       }
@@ -104,8 +113,9 @@ const Hashtags = ({ songInfo, information }) => {
     if (!token) {
       alert('로그인이 필요한 서비스입니다.');
     } else {
-      if (parseInt(accessTokenTime, 10) + expiredTime - (new Date()).getTime() < 0) {
-        alert('토큰이 만료되었습니다');
+      if (parseInt(accessTokenTime, 10) + expiredTime - new Date().getTime() < 0) {
+        // alert('토큰이 만료되었습니다');
+        modal();
       } else if (hashtagLikes[hashtagLikeName] === true) {
         // console.log('delete', hashtagLikeName);
         axios
@@ -144,19 +154,24 @@ const Hashtags = ({ songInfo, information }) => {
           });
       } else {
         // console.log('add', hashtagLikeName);
-        if (parseInt(accessTokenTime, 10) + expiredTime - (new Date()).getTime() < 0) {
-          alert('토큰이 만료되었습니다');
+        if (parseInt(accessTokenTime, 10) + expiredTime - new Date().getTime() < 0) {
+          // alert('토큰이 만료되었습니다');
+          modal();
         } else {
           axios
-            .post(process.env.REACT_APP_API_URL + '/hashtag', {
-              id: songInfo.id,
-              name: hashtagLikeName
-            }, {
-              headers: {
-                Authorization: `Bearer ${token}`,
-                'Content-Type': 'application/json'
+            .post(
+              process.env.REACT_APP_API_URL + '/hashtag',
+              {
+                id: songInfo.id,
+                name: hashtagLikeName
+              },
+              {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                  'Content-Type': 'application/json'
+                }
               }
-            })
+            )
             .then((res) => {
               if (res.status === 200) {
                 if (hashtagLikeName === '좋아요') {
@@ -195,25 +210,33 @@ const Hashtags = ({ songInfo, information }) => {
   return (
     <Wrapper>
       {songInfo.hashtagLike
-        ? <Like onClick={() => handleTagLikeCliked(songInfo.hashtagLike[0][0])}>
-          {hashtagLikes['좋아요']
-            ? <FontAwesomeIcon icon={faHeart} size='1x' color='red' />
-            : <FontAwesomeIcon icon={farHeart} size='1x' color='black' />}
-          {' '}{allTags['좋아요']}
+        ? (
+          <Like onClick={() => handleTagLikeCliked(songInfo.hashtagLike[0][0])}>
+            {hashtagLikes['좋아요']
+              ? (
+                <FontAwesomeIcon icon={faHeart} size='1x' color='red' />
+                )
+              : (
+                <FontAwesomeIcon icon={farHeart} size='1x' color='black' />
+                )}{' '}
+            {allTags['좋아요']}
           </Like>
+          )
         : null}
       {Object.entries(allTags).map((el, idx) => {
         return (
           <div key={idx}>
             {el[0] === '좋아요'
               ? null
-              : <HashTag
+              : (
+                <HashTag
                   onClick={() => handleTagLikeCliked(el[0])}
                   backgroundColor={hashtagLikes[el[0]] ? Colors.darkGray : 'white'}
                   textColor={hashtagLikes[el[0]] ? 'white' : Colors.darkGray}
                 >
-                {el[0]} {el[1]}
-                </HashTag>}
+                  {el[0]} {el[1]}
+                </HashTag>
+                )}
           </div>
         );
       })}
