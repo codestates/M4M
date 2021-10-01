@@ -14,17 +14,17 @@ const Wrapper = styled.div`
   }
   span {
     position: absolute;
-    padding: .4rem .2rem;
-    margin: .2rem;
+    padding: 0.4rem 0.2rem;
+    margin: 0.2rem;
     color: ${Colors.gray};
     font-family: 'Arial';
-    font-size: .9rem;
+    font-size: 0.9rem;
   }
   input {
     width: 15rem;
     height: 1.8rem;
-    margin: .2rem auto;
-    padding: .5rem;
+    margin: 0.2rem auto;
+    padding: 0.5rem;
     border-color: ${Colors.lightGray};
     border-width: 0.2px;
     font-family: 'Arial';
@@ -40,8 +40,8 @@ const Wrapper = styled.div`
     color: ${Colors.gray};
   }
   button {
-    margin: .8rem .1rem .6rem;
-    padding: .4rem;
+    margin: 0.8rem 0.1rem 0.6rem;
+    padding: 0.4rem;
   }
   button:hover {
     cursor: pointer;
@@ -49,11 +49,11 @@ const Wrapper = styled.div`
 `;
 
 const MyPageField = styled.div`
-  margin: 1rem auto .15rem;
+  margin: 1rem auto 0.15rem;
   text-align: left;
   color: ${Colors.black};
-  font-size: .95rem;
-  
+  font-size: 0.95rem;
+
   &:first-of-type {
     padding-top: 1rem;
   }
@@ -63,18 +63,18 @@ const AlertMessage = styled.div`
   color: red;
   font-family: 'Arial';
 
-  &:not(:last-of-type){
+  &:not(:last-of-type) {
     text-align: left;
-    font-size: .8rem;
+    font-size: 0.8rem;
   }
   &:last-of-type {
-    margin: 0 auto; 
-    font-size: .95rem;
+    margin: 0 auto;
+    font-size: 0.95rem;
   }
 `;
 
 // const Mypage = ({ afterWithdrawal }) => {
-const Mypage = () => {
+const Mypage = ({ modal }) => {
   const information = JSON.parse(localStorage.getItem('userinfo'));
   const token = localStorage.getItem('accessToken');
   const accessTokenTime = localStorage.getItem('accessTokenTime');
@@ -219,7 +219,12 @@ const Mypage = () => {
       setCheckRetypePassword(false);
     }
     // console.log(checkPassword, checkRetypePassword,checkNickname, checkBirthYear)
-    if (information.kakao && !information.birthYear && !myInfo.birthYear && myInfo.nickname === '') {
+    if (
+      information.kakao &&
+      !information.birthYear &&
+      !myInfo.birthYear &&
+      myInfo.nickname === ''
+    ) {
       setErrorMsg('변경할 정보를 입력해주세요.');
     } else if (information.kakao && information.birthYear && myInfo.nickname === '') {
       setErrorMsg('변경할 정보를 입력해주세요.');
@@ -234,8 +239,9 @@ const Mypage = () => {
       setErrorMsg('변경할 정보를 올바르게 입력해주세요.');
     } else {
       // console.log('user info has sent to the server');
-      if (parseInt(accessTokenTime, 10) + expiredTime - (new Date()).getTime() < 0) {
-        alert('토큰이 만료되었습니다');
+      if (parseInt(accessTokenTime, 10) + expiredTime - new Date().getTime() < 0) {
+        // alert('토큰이 만료되었습니다');
+        modal();
       } else {
         axios
           .patch(process.env.REACT_APP_API_URL + '/user-info', myInfo, {
@@ -269,18 +275,17 @@ const Mypage = () => {
   const history = useHistory();
 
   const handleWithdrawalRequest = () => {
-    if (parseInt(accessTokenTime, 10) + expiredTime - (new Date()).getTime() < 0) {
-      alert('토큰이 만료되었습니다');
+    if (parseInt(accessTokenTime, 10) + expiredTime - new Date().getTime() < 0) {
+      // alert('토큰이 만료되었습니다');
+      modal();
     } else {
       axios
-        .delete(
-          process.env.REACT_APP_API_URL + '/withdrawal', {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              'Content-Type': 'application/json'
-            }
+        .delete(process.env.REACT_APP_API_URL + '/withdrawal', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
           }
-        )
+        })
         .then((res) => {
           if (res.status === 200) {
             alert('회원탈퇴가 완료되었습니다.');
@@ -303,29 +308,22 @@ const Mypage = () => {
   return (
     <Wrapper>
       {/* <SideNav /> */}
-      <div className='mypage-container'>
+      <div className="mypage-container">
         <MyPageField>닉네임</MyPageField>
         <input
-          type='text'
+          type="text"
           placeholder={information.nickname.split('#')[0]}
           onChange={inputCheck('nickname')}
         />
-        <span className='id-number'>
-          #{information.nickname.split('#')[1]}
-        </span>
-        <AlertMessage>
-          {checkNickname === 'ok' ? null : checkNickname}
-        </AlertMessage>
+        <span className="id-number">#{information.nickname.split('#')[1]}</span>
+        <AlertMessage>{checkNickname === 'ok' ? null : checkNickname}</AlertMessage>
         <MyPageField>이메일</MyPageField>
-        <input
-          disabled
-          value={information.email}
-        />
+        <input disabled value={information.email} />
         <MyPageField>비밀번호</MyPageField>
         <input
           disabled={information.kakao ? 'disabled' : null}
-          type='password'
-          placeholder='영문/숫자 조합 8~10글자'
+          type="password"
+          placeholder="영문/숫자 조합 8~10글자"
           onChange={inputCheck('password')}
         />
         <AlertMessage>
@@ -335,33 +333,24 @@ const Mypage = () => {
         <MyPageField>비밀번호 확인</MyPageField>
         <input
           disabled={information.kakao ? 'disabled' : null}
-          type='password'
+          type="password"
           onChange={inputCheck('passwordRetype')}
         />
-        <AlertMessage>
-          {checkRetypePassword ? null : '비밀번호가 일치하지 않습니다'}
-        </AlertMessage>
+        <AlertMessage>{checkRetypePassword ? null : '비밀번호가 일치하지 않습니다'}</AlertMessage>
         <MyPageField>출생년도</MyPageField>
-        {information.kakao && !information.birthYear
-          ? <>
-            <input
-              onChange={inputCheck('birthYear')}
-            />
+        {information.kakao && !information.birthYear ? (
+          <>
+            <input onChange={inputCheck('birthYear')} />
             <AlertMessage>
               {checkBirthYear === 'no' ? '올바른 범위내의 출생년도를 입력해주세요' : null}
               {checkBirthYear === 'nan' ? '숫자만 입력해주세요' : null}
             </AlertMessage>
           </>
-          : <input
-              disabled
-              value={information.birthYear}
-            />}
-        <button onClick={handleEditUserRequest}>
-          정보수정
-        </button>
-        <button onClick={handleWithdrawalRequest}>
-          회원탈퇴
-        </button>
+        ) : (
+          <input disabled value={information.birthYear} />
+        )}
+        <button onClick={handleEditUserRequest}>정보수정</button>
+        <button onClick={handleWithdrawalRequest}>회원탈퇴</button>
         <AlertMessage>{errorMsg}</AlertMessage>
       </div>
     </Wrapper>
