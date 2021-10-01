@@ -7,14 +7,15 @@ import { Colors, GlobalStyle } from '../../../components/utils/_var';
 const Wrapper = styled.div`
   .container {
     display: flex;
-    margin: 1em 1.5em;
+    margin: 1rem 1.5rem 1rem;
+    ${media.tabletMini`margin: 1rem 1.5rem;`}
   }
   .questionCountLeft {
-    border-bottom: solid .17em ${Colors.black};
+    border-bottom: solid .17rem ${Colors.black};
     font-family: '국립박물관문화재단클래식M';
-    font-size: 1.3em;
-    ${media.tabletMini`font-size: 1.5em;`}
-    ${media.tablet`font-size: 1.75em;`}
+    font-size: 1.3rem;
+    ${media.tabletMini`font-size: 1.5rem;`}
+    ${media.tablet`font-size: 1.75rem;`}
     color: ${Colors.black};
     ${media.tabletMini`color: blue;`}
     ${media.tablet`color: red;`}
@@ -22,17 +23,17 @@ const Wrapper = styled.div`
   }
   .questionCountRight {
     height: 80%;
-    padding: .5em .75em;
+    padding: .5rem .75rem;
     background-color: #e5e4e2;
     border: solid 1px ${Colors.black};
     border-radius: 5px;
     margin-left: auto;
     font-family: 'NeoDunggeunmo';
-    font-size: .8em;
+    font-size: .8rem;
     color: ${Colors.black};
     background-color: ${Colors.beige};
-    font-size: .75em;
-    ${media.tabletMini`font-size: .9em;`}
+    font-size: .75rem;
+    ${media.tabletMini`font-size: .9rem;`}
   }
 `;
 

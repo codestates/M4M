@@ -52,16 +52,16 @@ function MoveTop () {
     }
   };
   const handleMoveTop = () => {
-    window.scrollTo ({
-      top: 0, 
+    window.scrollTo({
+      top: 0,
       behavior: 'smooth'
-    })
+    });
   };
 
   useEffect(() => {
-    window.addEventListener("scroll", handleMoveTopState);
+    window.addEventListener('scroll', handleMoveTopState);
     return () => {
-      window.removeEventListener("scroll", handleMoveTopState);
+      window.removeEventListener('scroll', handleMoveTopState);
     };
   });
 

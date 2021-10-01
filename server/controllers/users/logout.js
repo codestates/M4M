@@ -6,7 +6,7 @@ module.exports = async (req, res) => {
     console.log(req);
     if (!accessTokenData) {
       res.clearCookie('refreshToken');
-      return res.status(403).json({ message: 'you are not logged in' });
+      return res.status(401).json({ message: 'You\'re not logged in' });
     }
     res.setHeader('authorization', '');
     res.clearCookie('accessToken');

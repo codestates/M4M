@@ -162,7 +162,9 @@ const Wrapper = styled.div`
 //
 
 const GetLikedSong = () => {
-  // const token = localStorage.getItem('accessToken');
+  const token = localStorage.getItem('accessToken');
+  const accessTokenTime = localStorage.getItem('accessTokenTime');
+  const expiredTime = Number(process.env.REACT_APP_TOKEN_TIME);
   const [songList, setSongList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [CheckList, setCheckList] = useState([]);
@@ -177,21 +179,28 @@ const GetLikedSong = () => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const result = await axios.get(process.env.REACT_APP_API_URL + '/my-like', {
-          headers: {
-            // Authorization: `Bearer ${token}`,
-
-            // JUST FOR TEST PURPOSES
-            Authorization: information.id,
-            'Content-Type': 'application/json'
-          }
-        });
-        setSongList(result.data.data);
-        setIsLoading(false);
+        if (parseInt(accessTokenTime, 10) + expiredTime - (new Date()).getTime() < 0) {
+          alert('토큰이 만료되었습니다');
+          setIsLoading(false);
+        } else {
+          const result = await axios.get(process.env.REACT_APP_API_URL + '/my-like', {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            }
+          });
+          setSongList(result.data.data);
+          setIsLoading(false);
+        }
       } catch (error) {
-        console.log(error);
+        if (error.response.data.message === 'No songs are added to the list') {
+          setIsLoading(false);
+        } else {
+          console.log(error);
+        }
       }
     };
+
     fetchData();
   }, []);
 
@@ -222,7 +231,7 @@ const GetLikedSong = () => {
     }
   };
 
-  // console.log('checked song id: ' + CheckList);
+  console.log('checked song id: ' + CheckList);
 
   // Song Detail 페이지로 연결
   const handleSongClicked = (song) => {
@@ -232,13 +241,12 @@ const GetLikedSong = () => {
   };
 
   const handleSongDelete = () => {
-    if (CheckList.length > 0) {
+    if (parseInt(accessTokenTime, 10) + expiredTime - (new Date()).getTime() < 0) {
+      alert('토큰이 만료되었습니다');
+    } else if (CheckList.length > 0) {
       axios.delete(process.env.REACT_APP_API_URL + '/my-like', {
         headers: {
-          // Authorization: `Bearer ${token}`,
-
-          // JUST FOR TEST PURPOSES
-          Authorization: information.id,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
         },
         data: {

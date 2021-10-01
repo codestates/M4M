@@ -78,7 +78,9 @@ const AlertMessage = styled.div`
 // const Mypage = ({ afterWithdrawal }) => {
 const Mypage = () => {
   const information = JSON.parse(localStorage.getItem('userinfo'));
-  // const token = localStorage.getItem('accessToken');
+  const token = localStorage.getItem('accessToken');
+  const accessTokenTime = localStorage.getItem('accessTokenTime');
+  const expiredTime = Number(process.env.REACT_APP_TOKEN_TIME);
   const [checkNickname, setCheckNickname] = useState('ok');
   const [checkPassword, setCheckPassword] = useState('ok');
   const [checkBirthYear, setCheckBirthYear] = useState('ok');
@@ -89,7 +91,6 @@ const Mypage = () => {
   useEffect(() => dispatch(changeHeader([true, false])), [dispatch]);
 
   const [myInfo, setMyInfo] = useState({
-    id: information.id,
     nickname: '',
     email: information.email,
     password: '',
@@ -97,6 +98,8 @@ const Mypage = () => {
     birthYear: information.birthYear,
     kakao: information.kakao
   });
+
+  const id = information.nickname.split('#')[1];
 
   const handleInputValue = (key) => (e) => {
     setMyInfo({ ...myInfo, [key]: e.target.value || '' });
@@ -216,7 +219,7 @@ const Mypage = () => {
   };
 
   const handleEditUserRequest = () => {
-    console.log(myInfo);
+    // console.log(myInfo);
     if (myInfo.passwordRetype !== myInfo.password) {
       setCheckRetypePassword(false);
     }
@@ -235,68 +238,71 @@ const Mypage = () => {
     ) {
       setErrorMsg('변경할 정보를 올바르게 입력해주세요.');
     } else {
-      console.log('user info has sent to the server');
-      // myInfo.nickname = myInfo.nickname + `#${information.id}`;
-
-      axios
-        .patch(process.env.REACT_APP_API_URL + '/user-info', myInfo, {
-          headers: {
-            // Authorization: `Bearer ${token}`,
-            // JUST FOR TEST PURPOSES
-            Authorization: information.id,
-            'Content-Type': 'application/json'
-          }
-        })
-        .then((res) => {
-          if (res.status === 200) {
-            alert('회원정보가 수정되었습니다.');
-            if (myInfo.nickname === '') {
-              myInfo.nickname = information.nickname;
-            } else {
-              myInfo.nickname = myInfo.nickname + `#${information.id}`;
+      // console.log('user info has sent to the server');
+      if (parseInt(accessTokenTime, 10) + expiredTime - (new Date()).getTime() < 0) {
+        alert('토큰이 만료되었습니다');
+      } else {
+        axios
+          .patch(process.env.REACT_APP_API_URL + '/user-info', myInfo, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json'
             }
-            if (myInfo.password === '') {
-              myInfo.password = information.password;
+          })
+          .then((res) => {
+            if (res.status === 200) {
+              alert('회원정보가 수정되었습니다.');
+              if (myInfo.nickname === '') {
+                myInfo.nickname = information.nickname;
+              } else {
+                myInfo.nickname = myInfo.nickname + `#${id}`;
+              }
+              if (myInfo.password === '') {
+                myInfo.password = information.password;
+              }
+              localStorage.setItem('userinfo', JSON.stringify(myInfo));
+              window.location.replace('/myinfo');
             }
-            localStorage.setItem('userinfo', JSON.stringify(myInfo));
-            window.location.replace('/myinfo');
-          }
-        })
-        .catch((err) => {
-          console.log(err.response);
-        });
+          })
+          .catch((err) => {
+            console.log(err.response);
+          });
+      }
     }
   };
 
   const history = useHistory();
 
   const handleWithdrawalRequest = () => {
-    console.log(information.id);
-    axios
-      .delete(
-        process.env.REACT_APP_API_URL + '/withdrawal', {
-          headers: {
-            // Authorization: `Bearer ${token}`,
+    if (parseInt(accessTokenTime, 10) + expiredTime - (new Date()).getTime() < 0) {
+      alert('토큰이 만료되었습니다');
+    } else {
+      axios
+        .delete(
+          process.env.REACT_APP_API_URL + '/withdrawal', {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            }
+          }
+        )
+        .then((res) => {
+          if (res.status === 200) {
+            alert('회원탈퇴가 완료되었습니다.');
+            // afterWithdrawal();
 
             // JUST FOR TEST PURPOSES
-            Authorization: information.id,
-            'Content-Type': 'application/json'
+            history.push({
+              pathname: '/mainpage'
+            });
           }
-        }
-      )
-      .then((res) => {
-        if (res.status === 200) {
-          alert('회원탈퇴가 완료되었습니다.');
-          // afterWithdrawal();
-
-          // JUST FOR TEST PURPOSES
-          history.push({
-            pathname: '/mainpage'
-          });
-        }
-        localStorage.removeItem('userinfo');
-        localStorage.removeItem('accessToken');
-      });
+          localStorage.removeItem('userinfo');
+          localStorage.removeItem('accessToken');
+          localStorage.removeItem('accesstokenTime');
+          localStorage.removeItem('kakaoToken');
+          localStorage.removeItem('initialTime');
+        });
+    }
   };
 
   return (

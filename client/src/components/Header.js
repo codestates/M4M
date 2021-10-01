@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { userLogout } from '../redux/action';
 import { useHistory } from 'react-router';
 import HeaderSearchbar from './HeaderSearchbar';
+import { notify, userLogout } from '../redux/action';
 import axios from 'axios';
 
 axios.defaults.headers.withCredentials = true;
@@ -54,28 +54,30 @@ const HeaderWrapper = styled.div`
   }
 `;
 
-function Header({ handleModal }) {
+function Header ({ login, signup }) {
   const isLogin = useSelector((state) => state.userReducer).token;
   const headerState = useSelector((state) => state.headerReducer);
-  const [isRecommend, setIsRecommend] = useState(false);
-  const handleIsRecommend = (status) => setIsRecommend(status);
+  // const [isRecommend, setIsRecommend] = useState(false);
+  // const handleIsRecommend = (status) => setIsRecommend(status);
   const dispatch = useDispatch();
   const history = useHistory();
-  console.log('🤔', headerState);
-  window.onpageshow = (e) => {
-    if (e.persisted) console.log('🤔🤔🤔 change!')
-  }
+  // console.log('🤔', headerState);
+  // window.onpageshow = (e) => {
+  //   if (e.persisted) console.log('🤔🤔🤔 change!')
+  // }
 
-  useEffect(() => {
-    if(history.location.pathname === '/recommendpage') {
-      setIsRecommend(true);
-    } else {
-      setIsRecommend(false);
-    }
-  }, [isLogin, history])
+  // useEffect(() => {
+  //   if(history.location.pathname === '/recommendpage') {
+  //     setIsRecommend(true);
+  //   } else {
+  //     setIsRecommend(false);
+  //   }
+  // }, [isLogin, history])
 
   const handleLogoutRequest = () => {
     const token = localStorage.getItem('accessToken');
+    const accessTokenTime = localStorage.getItem('accessTokenTime');
+    const expiredTime = Number(process.env.REACT_APP_TOKEN_TIME);
     const logoutUrl = process.env.REACT_APP_API_URL + '/logout';
     const logoutConfig = {
       headers: {
@@ -84,18 +86,25 @@ function Header({ handleModal }) {
       }
     };
     const logoutData = { data: null };
-    axios
-      .post(logoutUrl, logoutData, logoutConfig)
-      .then((res) => {
-        dispatch(userLogout(res));
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('userinfo');
-        history.push('/mainpage');
-        setIsRecommend(false);
-      })
-      .catch((error) => {
-        console.log(error.response);
-      });
+    if (parseInt(accessTokenTime, 10) + expiredTime - (new Date()).getTime() < 0) {
+      alert('토큰이 만료되었습니다');
+    } else {
+      axios
+        .post(logoutUrl, logoutData, logoutConfig)
+        .then((res) => {
+          dispatch(userLogout(res));
+          dispatch(notify('로그아웃되었습니다.'));
+          localStorage.removeItem('accessToken');
+          localStorage.removeItem('userinfo');
+          localStorage.removeItem('accesstokenTime');
+          localStorage.removeItem('initialTime');
+          history.push('/mainpage');
+          // window.location.replace('/mainpage');
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
+    }
   };
 
   return (
@@ -103,7 +112,7 @@ function Header({ handleModal }) {
       <div className='header'>
         <div className='header-container-1'>
           <Link to='/mainpage'>
-            <div className='logo' onClick={() => handleIsRecommend(false)}>
+            <div className='logo'>
               M4M Logo
             </div>
           </Link>
@@ -112,7 +121,6 @@ function Header({ handleModal }) {
           <Link to='/recommendpage'>
             <button
               className={headerState.recommendBtn ? 'btn recommend-page': 'display-none'}
-              onClick={() => handleIsRecommend(true)}
             >
               recommend page
             </button>
@@ -124,7 +132,7 @@ function Header({ handleModal }) {
         <div className='header-container-4'>
           {!isLogin ? (
             <Link to='/login'>
-              <button className='btn login' onClick={handleModal}>
+              <button className='btn login' onClick={login}>
                 login
               </button>
             </Link>
@@ -135,13 +143,13 @@ function Header({ handleModal }) {
           )}
           {!isLogin ? (
             <Link to='/signup'>
-              <button className='btn signup' onClick={handleModal}>
+              <button className='btn signup' onClick={signup}>
                 signup
               </button>
             </Link>
           ) : (
             <Link to='/mylike'>
-              <button className='btn mypage' onClick={() => handleIsRecommend(false)}>mypage</button>
+              <button className='btn mypage'>mypage</button>
             </Link>
           )}
         </div>

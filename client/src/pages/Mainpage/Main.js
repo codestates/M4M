@@ -21,8 +21,8 @@ function Main () {
   const information = JSON.parse(localStorage.getItem('userinfo'));
   useEffect(() => {
     dispatch(changeType('All'));
-    let headersContent =  { 'Content-Type': 'application/json' };
-    if (information) headersContent['Authorization'] = information.id;
+    const headersContent = { 'Content-Type': 'application/json' };
+    if (information) headersContent.Authorization = information.id;
     axios
       .get(process.env.REACT_APP_API_URL + '/mainpage', { headers: headersContent })
       .then((res) => {
