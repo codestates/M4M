@@ -8,11 +8,11 @@ require('sequelize-values')(Sequelize);
 module.exports = async (req, res) => {
   try {
     const accessTokenData = isAuthorized(req);
-    console.log(accessTokenData);
+    // console.log(accessTokenData);
     if (!accessTokenData) {
       return res.status(401).send({ message: 'You\'re not logged in.' });
     } else {
-      console.log(req.body);
+      // console.log(req.body);
 
       const { nickname, password, birthYear } = req.body;
       // console.log(nickname, password, birthYear);

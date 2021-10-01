@@ -46,7 +46,7 @@ const Wrapper = styled.div`
   }
   .field-container {
     display: flex;
-    margin: .75rem auto 0em;
+    margin: .75rem 1rem 0em;
     justify-content: center;
     align-items: center;
     margin-bottom: -20px;
@@ -157,6 +157,17 @@ const Wrapper = styled.div`
   }
 `;
 
+const HashTag = styled.div`
+  float: left;
+  margin: auto .2rem .2rem;
+  padding: .2rem;
+  border: solid 1px;
+  border-radius: 5px;
+  background-color: ${props => props.backgroundColor};
+  color: ${props => props.textColor};
+  font-size: .7rem;
+`;
+
 // =====================================================================
 //                                TO DO
 // =====================================================================
@@ -173,6 +184,7 @@ const GetLikedSong = () => {
   const [CheckList, setCheckList] = useState([]);
   const [IdList, setIdList] = useState([]);
   const information = JSON.parse(localStorage.getItem('userinfo'));
+  const Hashtag = ['좋아요', '#인생곡인', '#가사가재밌는', '#몸이기억하는', '#눈물샘자극', '#노래방금지곡', '#영원한18번', '#추억소환'];
   const history = useHistory();
 
   useEffect(() => {
@@ -231,7 +243,7 @@ const GetLikedSong = () => {
     }
   };
 
-  console.log('checked song id: ' + CheckList);
+  // console.log('checked song id: ' + CheckList);
 
   // Song Detail 페이지로 연결
   const handleSongClicked = (song) => {
@@ -311,12 +323,17 @@ const GetLikedSong = () => {
                         {' '}{song.hashtagLike[0][1]}
                       </div>
                       <div className='hashtagBox'>
-                        {song.hashtagLike.map((el, idx) => {
+                        {song.userHashtagLikes && song.hashtagLike.map((tag, idx) => {
                           return (
-                            <div key={idx}>
-                              {el[0] === '좋아요'
+                            <div key={song + idx}>
+                              {tag[0] === '좋아요'
                                 ? null
-                                : <div className='hashtag' key={idx}>{el[0]} {el[1]}</div>}
+                                : <HashTag
+                                    backgroundColor={song.userHashtagLikes.includes(Hashtag.indexOf(tag[0]) + 1) ? Colors.darkGray : 'white'}
+                                    textColor={song.userHashtagLikes.includes(Hashtag.indexOf(tag[0]) + 1) ? 'white' : Colors.darkGray}
+                                  >
+                                  {tag[0]} {tag[1]}
+                                  </HashTag>}
                             </div>
                           );
                         })}

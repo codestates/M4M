@@ -15,9 +15,15 @@ const Wrapper = styled.div`
   }
   .mypage-container {
     width: 15rem;
-    margin: 2rem auto;
+    margin: 1rem 10rem;
+    /* background-color: yellow; */
   }
-  span {
+  .title {
+    margin-bottom: 3rem;
+    text-align: left;
+    font-size: 1.3rem;
+  }
+  .id-number {
     position: absolute;
     padding: .4rem .2rem;
     margin: .2rem;
@@ -310,6 +316,7 @@ const Mypage = () => {
       <div className='main'>
         <SideNav />
         <div className='mypage-container'>
+          <div className='title'>{information.nickname.split('#')[0]} 님, 반갑습니다!</div>
           <MyPageField>닉네임</MyPageField>
           <input
             type='text'

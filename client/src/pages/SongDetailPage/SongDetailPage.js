@@ -5,26 +5,15 @@ import styled from 'styled-components';
 import Comments from './Comments';
 import Hashtags from './HashtagLikes';
 import CustomizedInfo from './CustomizedInfo';
-import SideNav from '../../components/SideNav';
 import { Colors, Size, GlobalStyle } from '../../components/utils/_var';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faAngleDown,
-  faAngleUp
-} from '@fortawesome/free-solid-svg-icons';
+import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
+import { changeHeader } from '../../redux/action';
+import { useDispatch } from 'react-redux';
 axios.defaults.withCredentials = true;
 require('dotenv').config();
 
 const Wrapper = styled.div`
-  .main {
-    height: 100%;
-    display: flex;
-    /* background-color: #f7efe5; */
-    min-height: calc(100vh - 41px - 56px);
-  }
-  .song-container {
-    margin-left: 1rem;
-  }
   .top-container {
     display: grid;
     grid-template-columns: 31% 68%;
@@ -36,32 +25,33 @@ const Wrapper = styled.div`
   }
   .album_art {
     width: 13rem;
-    margin-bottom: -.28rem;
+    margin-bottom: -0.28rem;
     padding: 0;
     align-self: center;
     border-right: solid 1px ${Colors.borderColor};
   }
-  .title, .artist {
+  .title,
+  .artist {
     text-align: left;
     line-height: 1.3rem;
-    margin-left: .3rem;
+    margin-left: 0.3rem;
   }
   .title {
-    margin-top: .3rem;
+    margin-top: 0.3rem;
     font-size: 1.1rem;
   }
   .artist {
-    margin-bottom: .5rem;
-    font-size: .85rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
     color: ${Colors.darkGray};
   }
   .field-container {
     line-height: 1.3rem;
     display: flex;
-    font-size: .8rem;
+    font-size: 0.8rem;
   }
-  .field-container > .field{
-    margin-left: .3rem;
+  .field-container > .field {
+    margin-left: 0.3rem;
   }
   .field {
     text-align: left;
@@ -69,13 +59,13 @@ const Wrapper = styled.div`
     /* background-color: yellow; */
   }
   .lyrics-container > .field {
-    margin-bottom: .8rem;
+    margin-bottom: 0.8rem;
     /* color: red; */
-    font-size: .95rem;
+    font-size: 0.95rem;
   }
   .others {
     text-align: left;
-    font-size: .8rem;
+    font-size: 0.8rem;
     font-family: 'Arial';
     color: ${Colors.darkGray};
   }
@@ -84,29 +74,29 @@ const Wrapper = styled.div`
     grid-template-columns: 65% 34%;
     grid-column-gap: 8px;
     margin: 1rem auto 0em;
-    padding: .4rem .15rem;
+    padding: 0.4rem 0.15rem;
     width: ${Size.container};
     /* border: solid 1px; */
   }
   .lyrics {
     text-align: left;
     font-family: 'Arial';
-    font-size: .9rem;
+    font-size: 0.9rem;
     line-height: 1.3rem;
     color: ${Colors.darkGray};
   }
   .lyrics-button {
-    margin-top: .5rem;
+    margin-top: 0.5rem;
     grid-row: 2;
     grid-column: 1 / end;
     justify-self: center;
     width: 5rem;
-    word-spacing: .1rem;
+    word-spacing: 0.1rem;
     background-color: transparent;
     border: none;
     line-height: 1rem;
     font-family: 'Arial';
-    font-size: .75rem;
+    font-size: 0.75rem;
     color: ${Colors.gray};
   }
   .lyrics-button:hover {
@@ -114,13 +104,16 @@ const Wrapper = styled.div`
   }
 `;
 
-const SongDetail = () => {
+const SongDetail = ({ modal }) => {
   const information = JSON.parse(localStorage.getItem('userinfo'));
   const token = localStorage.getItem('accessToken');
   const location = useLocation();
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
   const [songInfo, setSongInfo] = useState([]);
+  const dispatch = useDispatch();
+
+  useEffect(() => dispatch(changeHeader([true, false])), [dispatch]);
 
   useEffect(() => {
     // console.log('song detail page');
@@ -169,7 +162,7 @@ const SongDetail = () => {
 
   const comments = songInfo.comments || [];
   if (comments) {
-    comments.map(comment => {
+    comments.map((comment) => {
       comment[2] = comment[2].replace('T', ' ').slice(0, 16);
     });
   }
@@ -195,49 +188,49 @@ const SongDetail = () => {
   return (
     <Wrapper>
       <GlobalStyle />
-      <div className='main'>
-        <SideNav />
-        <div className='song-container'>
-          <div className='top-container'>
-            <a href={songInfo.album_art} target='_blank' rel='noreferrer'><img src={songInfo.album_art} alt={songInfo.id} className='album_art' /></a>
-            <div className='song-info-container'>
-              <div className='title'>{songInfo.title}</div>
-              <div className='artist'>{songInfo.artist}</div>
-              <div className='field-container'>
-                <div className='field'>앨범</div>
-                <div className='others'>{songInfo.album}</div>
-              </div>
-              <div className='field-container'>
-                <div className='field'>발매일</div>
-                <div className='others'>{songInfo.date}</div>
-              </div>
-              <div className='field-container'>
-                <div className='field'>장르</div>
-                <div className='others'>{songInfo.genre}</div>
-              </div>
-              <Hashtags songInfo={songInfo} information={information} />
-            </div>
+      <div className='top-container'>
+        <a href={songInfo.album_art} target='_blank' rel='noreferrer'>
+          <img src={songInfo.album_art} alt={songInfo.id} className='album_art' />
+        </a>
+        <div className='song-info-container'>
+          <div className='title'>{songInfo.title}</div>
+          <div className='artist'>{songInfo.artist}</div>
+          <div className='field-container'>
+            <div className='field'>앨범</div>
+            <div className='others'>{songInfo.album}</div>
           </div>
-          <div className='bottom-container'>
-            <div className='lyrics-container'>
-              <div className='field'>가사</div>
-              {songInfo.lyrics && songInfo.lyrics.split('\n').map((line, idx) => {
-                return (
-                  idx < lineNum
-                    ? <div className='lyrics' key={idx}>{line}<br /></div>
-                    : null
-                );
-              })}
-            </div>
-            <button className='lyrics-button' onClick={handleLyricsClicked}>
-              {buttonContent}{' '}
-              <FontAwesomeIcon icon={icon} size='1x' color='#b2b2b2' />
-            </button>
-            <CustomizedInfo songInfo={songInfo} information={information || null} />
+          <div className='field-container'>
+            <div className='field'>발매일</div>
+            <div className='others'>{songInfo.date}</div>
           </div>
-          <Comments comments={comments} information={information} songId={songInfo.id} />
+          <div className='field-container'>
+            <div className='field'>장르</div>
+            <div className='others'>{songInfo.genre}</div>
+          </div>
+          <Hashtags songInfo={songInfo} information={information} modal={modal} />
         </div>
       </div>
+      <div className='bottom-container'>
+        <div className='lyrics-container'>
+          <div className='field'>가사</div>
+          {songInfo.lyrics &&
+            songInfo.lyrics.split('\n').map((line, idx) => {
+              return idx < lineNum
+                ? (
+                  <div className='lyrics' key={idx}>
+                    {line}
+                    <br />
+                  </div>
+                  )
+                : null;
+            })}
+        </div>
+        <button className='lyrics-button' onClick={handleLyricsClicked}>
+          {buttonContent} <FontAwesomeIcon icon={icon} size='1x' color='#b2b2b2' />
+        </button>
+        <CustomizedInfo songInfo={songInfo} information={information || null} />
+      </div>
+      <Comments comments={comments} information={information} songId={songInfo.id} modal={modal} />
     </Wrapper>
   );
 };

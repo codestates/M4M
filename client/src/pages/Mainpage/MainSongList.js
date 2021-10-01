@@ -190,6 +190,17 @@ const SongListWrapper = styled.div`
   }
 `;
 
+const HashTag = styled.div`
+  float: left;
+  margin: auto .2rem .2rem;
+  padding: .2rem;
+  border: solid 1px;
+  border-radius: 5px;
+  background-color: ${props => props.backgroundColor};
+  color: ${props => props.textColor};
+  font-size: .7rem;
+`;
+
 function SongList () {
   const information = JSON.parse(localStorage.getItem('userinfo'));
   const history = useHistory();
@@ -365,7 +376,7 @@ function SongList () {
     }
   };
   const handleSongDetail = (song) => history.push({ pathname: `/song:id=${song.id}` });
-  console.log(result);
+  console.log(result[0]);
   return (
     <SongListWrapper>
       <div className='songlist'>
@@ -399,7 +410,7 @@ function SongList () {
                         <div className='artist scrollable'>{song.artist}</div>
                         <div className='date'>{song.date}</div>
                         <div className='like'>
-                          {song.userLike
+                          {song.userHashtagLikes && song.userHashtagLikes.includes(1)
                             ? <FontAwesomeIcon icon={faHeart} size='xs' color='red' />
                             : <FontAwesomeIcon icon={farHeart} size='xs' color='red' />}
                           {' '}{song.hashtagLike[0][1]}
@@ -410,7 +421,13 @@ function SongList () {
                               <div key={idx}>
                                 {tag[0] === '좋아요' || tag[1] === 0
                                   ? null
-                                  : <div className='hashtag' key={idx}>{tag[0]} {tag[1]}</div>}
+                                  : <HashTag
+                                      backgroundColor={song.userHashtagLikes && song.userHashtagLikes.includes(idx + 1) ? Colors.darkGray : 'white'}
+                                      textColor={song.userHashtagLikes && song.userHashtagLikes.includes(idx + 1) ? 'white' : Colors.darkGray}
+                                      key={idx}
+                                    >
+                                    {tag[0]} {tag[1]}
+                                    </HashTag>}
                               </div>
                             );
                           })}

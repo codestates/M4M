@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
           id: accessTokenData.id
         }
       });
-      console.log(userInfo.nickname);
+      // console.log(userInfo.nickname);
       res.status(200).json({
         data: {
           nickname: userInfo.nickname,

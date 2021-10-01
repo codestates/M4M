@@ -114,7 +114,7 @@ function SideNav () {
             })}
         </div>
         {/* history 값이 mylike나 myinfo일 때, 다른 값 보여주기 */}
-        <div className={history.location.pathname === ('/mylike' || '/myinfo') ? 'main-active' : 'main-deactive'}>
+        <div className={history.location.pathname === '/mylike' || history.location.pathname === '/myinfo' ? 'main-active' : 'main-deactive'}>
           {mypageList
             .map((list, idx) => {
               return (
