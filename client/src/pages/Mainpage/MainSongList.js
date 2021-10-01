@@ -406,8 +406,8 @@ function SongList () {
               {result && result.map((song, idx) => {
                 if ((idx + 1) <= (isScrollCnt * songNumber)) {
                   return (
-                    <div className='song-container'>
-                      <div className='song-info-container' key={idx + 1} onClick={() => handleSongDetail(song)}>
+                    <div className='song-container' key={song.id}>
+                      <div className='song-info-container' onClick={() => handleSongDetail(song)}>
                         <img className='album_art' src={song.album_art} alt={song.title} loading='lazy' />
                         <div className='title scrollable'>{song.title}</div>
                         <div className='artist scrollable'>{song.artist}</div>
@@ -425,8 +425,8 @@ function SongList () {
                                 {tag[0] === '좋아요' || tag[1] === 0
                                   ? null
                                   : <HashTag
-                                      backgroundColor={song.userHashtagLikes.includes(idx + 1) ? Colors.darkGray : 'white'}
-                                      textColor={song.userHashtagLikes.includes(idx + 1) ? 'white' : Colors.darkGray}
+                                      backgroundColor={song.userHashtagLikes && song.userHashtagLikes.includes(idx + 1) ? Colors.darkGray : 'white'}
+                                      textColor={song.userHashtagLikes && song.userHashtagLikes.includes(idx + 1) ? 'white' : Colors.darkGray}
                                       key={idx}
                                     >
                                     {tag[0]} {tag[1]}
