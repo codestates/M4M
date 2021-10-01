@@ -72,7 +72,7 @@ export const Select = styled.select`
   font-size: 15px;
 `;
 
-function Signup({ handleModal }) {
+function Signup ({ handleModal }) {
   const [userInfo, setUserInfo] = useState({
     nickname: '',
     email: '',
@@ -201,14 +201,14 @@ function Signup({ handleModal }) {
           <SignupInput onChange={inputCheck('email')} />
           <CheckInfo>{checkEmail ? null : '올바른 이메일 주소를 입력해주세요'}</CheckInfo>
           <SignupInputValue>비밀번호</SignupInputValue>
-          <SignupInput type="password" onChange={inputCheck('password')} />
+          <SignupInput type='password' onChange={inputCheck('password')} />
           <CheckInfo>{checkPassword ? null : '올바른 비밀번호를 입력해주세요'}</CheckInfo>
           <SignupInputValue>비밀번호확인</SignupInputValue>
-          <SignupInput type="password" onChange={handleCheckPassword} />
+          <SignupInput type='password' onChange={handleCheckPassword} />
           <CheckInfo>{checkRetypePassword ? null : '비밀번호가 일치하지 않습니다'}</CheckInfo>
           <SignupInputValue>Birth Year</SignupInputValue>
           <Select onChange={handleInputValue('birthYear')}>
-            <option value="" selected disabled hidden>
+            <option value='' selected disabled hidden>
               선택
             </option>
             {yearList.map((el, idx) => {

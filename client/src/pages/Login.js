@@ -60,7 +60,7 @@ export const ButtonContainer = styled.div`
   margin: 10px;
 `;
 
-function Login({ handleModal, signup }) {
+function Login ({ handleModal, signup }) {
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: ''
@@ -183,7 +183,7 @@ function Login({ handleModal, signup }) {
           <LoginInput onChange={handleInputValue('email')} />
           <LoginInputValue>비밀번호</LoginInputValue>
           <LoginInput
-            type="password"
+            type='password'
             onChange={handleInputValue('password')}
             onKeyPress={(e) => {
               enter(e);
@@ -205,7 +205,8 @@ function Login({ handleModal, signup }) {
           <span style={{ fontSize: '13px', marginTop: '10px' }}>아직 회원이 아니신가요? </span>
           <span
             style={{ fontSize: '13px', marginTop: '10px', color: 'blue', cursor: 'pointer' }}
-            onClick={goSignup}>
+            onClick={goSignup}
+          >
             회원가입
           </span>
         </div>
