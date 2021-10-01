@@ -7,7 +7,7 @@ module.exports = async (req, res) => {
     const accessTokenData = isAuthorized(req);
 
     if (!accessTokenData) {
-      return res.status(401).json({ message: 'You\'re not logged in' });
+      return res.status(401).json({ message: "You're not logged in" });
     } else {
       const { songId, content } = req.body;
       const deleteContent = await comment.destroy({

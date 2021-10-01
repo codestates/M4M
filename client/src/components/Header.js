@@ -54,7 +54,7 @@ const HeaderWrapper = styled.div`
   }
 `;
 
-function Header ({ login, signup }) {
+function Header({ login, signup, modal }) {
   const isLogin = useSelector((state) => state.userReducer).token;
   const headerState = useSelector((state) => state.headerReducer);
   const dispatch = useDispatch();
@@ -72,8 +72,9 @@ function Header ({ login, signup }) {
       }
     };
     const logoutData = { data: null };
-    if (parseInt(accessTokenTime, 10) + expiredTime - (new Date()).getTime() < 0) {
-      alert('토큰이 만료되었습니다');
+    if (parseInt(accessTokenTime, 10) + expiredTime - new Date().getTime() < 0) {
+      // alert('토큰이 만료되었습니다');
+      modal();
     } else {
       axios
         .post(logoutUrl, logoutData, logoutConfig)

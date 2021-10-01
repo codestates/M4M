@@ -1,11 +1,5 @@
 const { isAuthorized } = require('../tokenFunctions');
-const {
-  user,
-  song,
-  hashtaglike,
-  songuserhashtaglike,
-  comment
-} = require('../../models');
+const { user, song, hashtaglike, songuserhashtaglike, comment } = require('../../models');
 const Sequelize = require('sequelize');
 
 module.exports = async (req, res) => {
@@ -24,22 +18,10 @@ module.exports = async (req, res) => {
       });
     } else {
       // replace('|', ',') => 최초 1개만 변경, replace(/[|]/g, ',') => 모든 occurrence를 변경
-      songList.dataValues.title = songList.dataValues.title.replace(
-        /[|]/g,
-        ','
-      );
-      songList.dataValues.artist = songList.dataValues.artist.replace(
-        /[|]/g,
-        ','
-      );
-      songList.dataValues.genre = songList.dataValues.genre.replace(
-        /[|]/g,
-        ','
-      );
-      songList.dataValues.album = songList.dataValues.album.replace(
-        /[|]/g,
-        ','
-      );
+      songList.dataValues.title = songList.dataValues.title.replace(/[|]/g, ',');
+      songList.dataValues.artist = songList.dataValues.artist.replace(/[|]/g, ',');
+      songList.dataValues.genre = songList.dataValues.genre.replace(/[|]/g, ',');
+      songList.dataValues.album = songList.dataValues.album.replace(/[|]/g, ',');
 
       let getHashtagName = await songuserhashtaglike.findAll({
         include: [
@@ -89,16 +71,10 @@ module.exports = async (req, res) => {
         return comments.map((comments) => [comments.userId]);
       });
       const getContent = getComments.map((comments) => {
-        return comments.map((comments) => [
-          comments.content,
-          comments.createdAt
-        ]);
+        return comments.map((comments) => [comments.content, comments.createdAt]);
       });
 
-      const flattenedUserId = getUserId.reduce(
-        (acc, val) => acc.concat(val),
-        []
-      );
+      const flattenedUserId = getUserId.reduce((acc, val) => acc.concat(val), []);
 
       const userNickname = [];
       for (let i = 0; i < flattenedUserId.length; i++) {
@@ -120,10 +96,7 @@ module.exports = async (req, res) => {
         getUserNickname.push(nickname.dataValues.nickname);
       }
 
-      const flattenedContent = getContent.reduce(
-        (acc, val) => acc.concat(val),
-        []
-      );
+      const flattenedContent = getContent.reduce((acc, val) => acc.concat(val), []);
 
       for (let i = 0; i < flattenedContent.length; i++) {
         if (flattenedContent[i][0] !== getUserNickname[i]) {

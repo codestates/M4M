@@ -18,5 +18,6 @@ module.exports = {
   myLike: require('./mypage/myLike'),
   deleteMyLike: require('./mypage/deleteMyLike'),
   recommendation: require('./recommendation/recommendation'),
-  mainpage: require('./mainpage/mainpage')
+  mainpage: require('./mainpage/mainpage'),
+  auth: require('./users/auth')
 };

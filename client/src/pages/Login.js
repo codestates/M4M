@@ -52,15 +52,15 @@ export const Alertbox = styled.div`
 
 export const Button = styled.button`
   margin: 0rem 0.4rem 0.1rem 0.4rem;
+  cursor: pointer;
+  font-family: 'NeoDunggeunmo';
 `;
 
 export const ButtonContainer = styled.div`
   margin: 10px;
 `;
 
-export const SignupBtn = styled.button``;
-
-function Login ({ handleModal, signup }) {
+function Login({ handleModal, signup }) {
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: ''
@@ -85,7 +85,7 @@ function Login ({ handleModal, signup }) {
         .then((res) => {
           dispatch(notify('로그인 성공!'));
           localStorage.setItem('accessToken', res.data.accessToken);
-          localStorage.setItem('accessTokenTime', (new Date()).getTime());
+          localStorage.setItem('accessTokenTime', new Date().getTime());
           history.push('/mainpage');
           handleModal();
           //   window.location.replace('/mainpage');
@@ -122,11 +122,6 @@ function Login ({ handleModal, signup }) {
     }
   };
 
-  const closeModal = () => {
-    handleModal();
-    history.goBack();
-  };
-
   const kakaoLogin = () => {
     Kakao.Auth.login({
       scope: 'profile_nickname, account_email',
@@ -148,7 +143,7 @@ function Login ({ handleModal, signup }) {
               })
               .then((res) => {
                 localStorage.setItem('accessToken', res.data.accessToken);
-                localStorage.setItem('accessTokenTime', (new Date()).getTime());
+                localStorage.setItem('accessTokenTime', new Date().getTime());
                 dispatch(notify('로그인 성공!'));
                 history.push('/mainpage');
                 handleModal();
@@ -188,7 +183,7 @@ function Login ({ handleModal, signup }) {
           <LoginInput onChange={handleInputValue('email')} />
           <LoginInputValue>비밀번호</LoginInputValue>
           <LoginInput
-            type='password'
+            type="password"
             onChange={handleInputValue('password')}
             onKeyPress={(e) => {
               enter(e);
@@ -197,14 +192,20 @@ function Login ({ handleModal, signup }) {
         </LoginInputContainer>
         <ButtonContainer>
           <Button onClick={handleLoginRequest}>로그인</Button>
-          <Button onClick={closeModal}>창닫기</Button>
+          <Button onClick={handleModal}>창닫기</Button>
         </ButtonContainer>
         <div>
-          <img src={kakaoImage} style={{ width: '140px' }} onClick={kakaoLogin} />
+          <img
+            src={kakaoImage}
+            style={{ width: '140px', cursor: 'pointer' }}
+            onClick={kakaoLogin}
+          />
         </div>
         <div style={{ marginTop: '5px' }}>
           <span style={{ fontSize: '13px', marginTop: '10px' }}>아직 회원이 아니신가요? </span>
-          <span style={{ fontSize: '13px', marginTop: '10px' }} onClick={goSignup}>
+          <span
+            style={{ fontSize: '13px', marginTop: '10px', color: 'blue', cursor: 'pointer' }}
+            onClick={goSignup}>
             회원가입
           </span>
         </div>
