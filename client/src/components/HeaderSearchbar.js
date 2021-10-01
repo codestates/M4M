@@ -19,6 +19,9 @@ const HeaderSearchbarWrapper = styled.div`
     display: flex;
     justify-content: center;
   }
+  .searchbar-dropbox, .searchbar-text {
+    font-family: 'NeoDunggeunmo';
+  }
   .searchbar-dropbox {
     font-size: 18px;
   }

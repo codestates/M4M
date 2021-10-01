@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-// import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
@@ -40,6 +39,7 @@ const HeaderWrapper = styled.div`
     font-weight: bold;
   }
   .btn {
+    font-family: 'NeoDunggeunmo';
     cursor: pointer;
     font-size: 18px;
   }
@@ -57,22 +57,8 @@ const HeaderWrapper = styled.div`
 function Header ({ login, signup }) {
   const isLogin = useSelector((state) => state.userReducer).token;
   const headerState = useSelector((state) => state.headerReducer);
-  // const [isRecommend, setIsRecommend] = useState(false);
-  // const handleIsRecommend = (status) => setIsRecommend(status);
   const dispatch = useDispatch();
   const history = useHistory();
-  // console.log('🤔', headerState);
-  // window.onpageshow = (e) => {
-  //   if (e.persisted) console.log('🤔🤔🤔 change!')
-  // }
-
-  // useEffect(() => {
-  //   if(history.location.pathname === '/recommendpage') {
-  //     setIsRecommend(true);
-  //   } else {
-  //     setIsRecommend(false);
-  //   }
-  // }, [isLogin, history])
 
   const handleLogoutRequest = () => {
     const token = localStorage.getItem('accessToken');
@@ -119,9 +105,7 @@ function Header ({ login, signup }) {
         </div>
         <div className='header-container-2'>
           <Link to='/recommendpage'>
-            <button
-              className={headerState.recommendBtn ? 'btn recommend-page': 'display-none'}
-            >
+            <button className={headerState.recommendBtn ? 'btn recommend-page': 'display-none'}>
               recommend page
             </button>
           </Link>
@@ -131,22 +115,18 @@ function Header ({ login, signup }) {
         </div>
         <div className='header-container-4'>
           {!isLogin ? (
-            <Link to='/login'>
               <button className='btn login' onClick={login}>
                 login
               </button>
-            </Link>
           ) : (
             <button className='btn logout' onClick={handleLogoutRequest}>
               logout
             </button>
           )}
           {!isLogin ? (
-            <Link to='/signup'>
               <button className='btn signup' onClick={signup}>
                 signup
               </button>
-            </Link>
           ) : (
             <Link to='/mylike'>
               <button className='btn mypage'>mypage</button>

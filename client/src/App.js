@@ -43,6 +43,7 @@ function App () {
   };
 
   const information = JSON.parse(localStorage.getItem('userinfo'));
+  console.log('⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️', information)
 
   return (
     <BrowserRouter>
@@ -55,23 +56,15 @@ function App () {
             <Route exact path="/" component={Landing} />
             <Route path="/mainpage" component={Main} />
             <Route path="/recommendpage" component={Recommendation} />
-          </Switch>
-          {openSignup ? <Signup handleModal={handleSignupModalClose} /> : null}
-          {openLogin
-            ? (
-              <Login handleModal={handleLoginModalClose} signup={handleSignupModalOpen} />
-              )
-            : null}
-          <Switch>
-            <Route path='/mylike'>
-              {information ? <GetLikedSong /> : <Redirect to='/mainpage' />}
-            </Route>
+            <Route path='/mylike'>{information ? <GetLikedSong /> : <Redirect to='/mainpage' />}</Route>
             <Route path='/myinfo'>{information ? <Mypage /> : <Redirect to='/mainpage' />}</Route>
             <Route path='/song:id' component={SongDetail} />
-          </Switch>
             <Redirect to='/' />
+          </Switch>
           <MoveTop />
           <Footer />
+          {openSignup ? <Signup handleModal={handleSignupModalClose} /> : null}
+          {openLogin ? <Login handleModal={handleLoginModalClose} signup={handleSignupModalOpen} /> : null}
         </div>
       </AppWrapper>
     </BrowserRouter>
