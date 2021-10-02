@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { changeType } from '../redux/action';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const SideNavWrapper = styled.div`
   .main-deactive {
@@ -14,24 +14,8 @@ const SideNavWrapper = styled.div`
     width: 20vw;
     min-width: 140px;
     min-height: 100%;
+    padding-top: .8rem;
   }
-  .item, .sub-item {
-    margin: 0px 12px;
-    padding: 8px 12px;
-    cursor: pointer;
-    text-decoration: underline;
-  }
-  .item {
-    font-size: 18px;
-  }
-  .sub-item {
-    font-size: 14px;
-    position: relative;
-    left: 30px;
-  }
-  .item:hover, .item:focus, .sub-item:hover, .sub-item:focus {
-    animation: rainbow 2000ms infinite;
-  } 
   .space, .arrow {
     animation: horizontal 1000ms ease-in-out infinite;
   }
@@ -55,6 +39,32 @@ const SideNavWrapper = styled.div`
     50% { margin-left: 11px; }
     100% { margin-left: 9px; }
   }
+`;
+
+const Item = styled.div`
+  margin: 0px 12px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 18px;
+  text-decoration: ${(props) => props.underline};
+
+  &:hover, &:focus {
+    animation: rainbow 2000ms infinite;
+  } 
+`;
+
+const SubItem = styled.div`
+  margin: 0px 12px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  position: relative;
+  left: 30px;
+  text-decoration: ${(props) => props.underline};
+
+  &:hover, &:focus {
+    animation: rainbow 2000ms infinite;
+  } 
 `;
 
 function SideNav () {
@@ -85,28 +95,44 @@ function SideNav () {
     });
   };
 
+  const navType = useSelector((state) => state.typeReducer).navType || null;
+
   return (
     <SideNavWrapper>
       <div className='sidenav'>
         {/* history 값이 mainpage일 때, 다른 값 보여주기 */}
-        <div className={history.location.pathname === '/mainpage' || history.location.pathname.split(':id=')[0] === '/song' ? 'main-active' : 'main-deactive'}>
+        <div className={history.location.pathname === '/mainpage' ? 'main-active' : 'main-deactive'}>
           {plainList
             .map((list, idx) => {
               return (
-                <div className='item' key={idx + 1} value={list} onClick={handleSelectChange}><span className='space' />{list}</div>
+                <Item
+                  key={idx + 1}
+                  value={list}
+                  onClick={handleSelectChange}
+                  underline={navType === list? 'underline' : 'none'}
+                >
+                  <span className='space' />{list}
+                </Item>
               );
             })}
           {accordionList
             .map((list, idx) => {
               return (
                 <div key={idx + 1}>
-                  <div className='item' value={list} onClick={handleIsOpen}>
+                  <Item value={list} onClick={handleIsOpen}>
                     <span className='arrow' />{list}
-                  </div>
+                  </Item>
                   {isOpen === list
                     ? accordionObj[list]
                       .map((el, idx) =>
-                        <div className='sub-item' key={idx + 1} value={el} onClick={handleSelectChange}>{el}</div>
+                        <SubItem
+                          key={idx + 1}
+                          value={el}
+                          onClick={handleSelectChange}
+                          underline={navType === el? 'underline' : 'none'}
+                        >
+                          {el}
+                        </SubItem>
                       )
                     : null}
                 </div>
@@ -118,7 +144,14 @@ function SideNav () {
           {mypageList
             .map((list, idx) => {
               return (
-                <div className='item' key={idx + 1} value={list} onClick={() => handleClicked(idx)}><span className='space' />{list}</div>
+                <Item
+                  key={idx + 1}
+                  value={list}
+                  onClick={() => handleClicked(idx)}
+                  underline={history.location.pathname === mypageEndpoint[idx] ? 'underline' : 'none'}
+                >
+                  <span className='space' />{list}
+                </Item>
               );
             })}
         </div>
