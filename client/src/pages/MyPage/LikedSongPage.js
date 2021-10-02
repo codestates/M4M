@@ -185,7 +185,6 @@ const GetLikedSong = ({ modal }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [CheckList, setCheckList] = useState([]);
   const [IdList, setIdList] = useState([]);
-  const information = JSON.parse(localStorage.getItem('userinfo'));
   const Hashtag = ['좋아요', '#인생곡인', '#가사가재밌는', '#몸이기억하는', '#눈물샘자극', '#노래방금지곡', '#영원한18번', '#추억소환'];
   const history = useHistory();
   const dispatch = useDispatch();

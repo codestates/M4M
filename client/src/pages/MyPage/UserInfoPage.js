@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import SideNav from '../../components/SideNav';
 import { Colors } from '../../components/utils/_var';
 import { changeHeader } from '../../redux/action';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 axios.defaults.withCredentials = true;
 require('dotenv').config();
 
@@ -88,8 +88,8 @@ const AlertMessage = styled.div`
 
 // const Mypage = ({ afterWithdrawal }) => {
 const Mypage = ({ modal }) => {
-  const information = JSON.parse(localStorage.getItem('userinfo'));
-  const token = localStorage.getItem('accessToken');
+  const token = useSelector((state) => state.userReducer).token;
+  const { nickname, email, birthYear, kakao } = useSelector((state) => state.userReducer).userInfo;
   const accessTokenTime = localStorage.getItem('accessTokenTime');
   const expiredTime = Number(process.env.REACT_APP_TOKEN_TIME);
   const [checkNickname, setCheckNickname] = useState('ok');
@@ -103,14 +103,14 @@ const Mypage = ({ modal }) => {
 
   const [myInfo, setMyInfo] = useState({
     nickname: '',
-    email: information.email,
+    email: email,
     password: '',
     passwordRetype: '',
-    birthYear: information.birthYear,
-    kakao: information.kakao
+    birthYear: birthYear,
+    kakao: kakao
   });
 
-  const id = information.nickname.split('#')[1];
+  const id = nickname.split('#')[1];
 
   const handleInputValue = (key) => (e) => {
     setMyInfo({ ...myInfo, [key]: e.target.value || '' });
@@ -236,15 +236,15 @@ const Mypage = ({ modal }) => {
     }
     // console.log(checkPassword, checkRetypePassword,checkNickname, checkBirthYear)
     if (
-      information.kakao &&
-      !information.birthYear &&
+      kakao &&
+      !birthYear &&
       !myInfo.birthYear &&
       myInfo.nickname === ''
     ) {
       setErrorMsg('변경할 정보를 입력해주세요.');
-    } else if (information.kakao && information.birthYear && myInfo.nickname === '') {
+    } else if (kakao && birthYear && myInfo.nickname === '') {
       setErrorMsg('변경할 정보를 입력해주세요.');
-    } else if (!information.kakao && myInfo.nickname === '' && myInfo.password === '') {
+    } else if (!kakao && myInfo.nickname === '' && myInfo.password === '') {
       setErrorMsg('변경할 정보를 입력해주세요.');
     } else if (
       checkPassword !== 'ok' ||
@@ -270,12 +270,12 @@ const Mypage = ({ modal }) => {
             if (res.status === 200) {
               alert('회원정보가 수정되었습니다.');
               if (myInfo.nickname === '') {
-                myInfo.nickname = information.nickname;
+                myInfo.nickname = nickname;
               } else {
                 myInfo.nickname = myInfo.nickname + `#${id}`;
               }
               if (myInfo.password === '') {
-                myInfo.password = information.password;
+                myInfo.password = '';
               }
               localStorage.setItem('userinfo', JSON.stringify(myInfo));
               window.location.replace('/myinfo');
@@ -306,8 +306,7 @@ const Mypage = ({ modal }) => {
           if (res.status === 200) {
             alert('회원탈퇴가 완료되었습니다.');
             // afterWithdrawal();
-
-            // JUST FOR TEST PURPOSES
+            
             history.push({
               pathname: '/mainpage'
             });
@@ -326,15 +325,15 @@ const Mypage = ({ modal }) => {
       <div className='main'>
         <SideNav />
         <div className='mypage-container'>
-          <div className='title'>{information.nickname.split('#')[0]} 님, 반갑습니다!</div>
+          <div className='title'>{nickname.split('#')[0]} 님, 반갑습니다!</div>
           <MyPageField>닉네임</MyPageField>
           <input
             type='text'
-            placeholder={information.nickname.split('#')[0]}
+            placeholder={nickname.split('#')[0]}
             onChange={inputCheck('nickname')}
           />
           <span className='id-number'>
-            #{information.nickname.split('#')[1]}
+            #{nickname.split('#')[1]}
           </span>
           <AlertMessage>
             {checkNickname === 'ok' ? null : checkNickname}
@@ -342,11 +341,11 @@ const Mypage = ({ modal }) => {
           <MyPageField>이메일</MyPageField>
           <input
             disabled
-            value={information.email}
+            value={email}
           />
           <MyPageField>비밀번호</MyPageField>
           <input
-            disabled={information.kakao ? 'disabled' : null}
+            disabled={kakao ? 'disabled' : null}
             type='password'
             placeholder='영문/숫자 조합 8~10글자'
             onChange={inputCheck('password')}
@@ -357,7 +356,7 @@ const Mypage = ({ modal }) => {
           </AlertMessage>
           <MyPageField>비밀번호 확인</MyPageField>
           <input
-            disabled={information.kakao ? 'disabled' : null}
+            disabled={kakao ? 'disabled' : null}
             type='password'
             onChange={inputCheck('passwordRetype')}
           />
@@ -365,7 +364,7 @@ const Mypage = ({ modal }) => {
             {checkRetypePassword ? null : '비밀번호가 일치하지 않습니다'}
           </AlertMessage>
           <MyPageField>출생년도</MyPageField>
-          {information.kakao && !information.birthYear
+          {kakao && !birthYear
             ? <>
               <input
                 onChange={inputCheck('birthYear')}
@@ -377,7 +376,7 @@ const Mypage = ({ modal }) => {
             </>
             : <input
                 disabled
-                value={information.birthYear}
+                value={birthYear}
               />}
           <button onClick={handleEditUserRequest}>
             정보수정

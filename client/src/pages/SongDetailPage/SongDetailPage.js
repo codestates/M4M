@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
@@ -10,7 +10,6 @@ import { Colors, Size, GlobalStyle } from '../../components/utils/_var';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 import { changeHeader } from '../../redux/action';
-import { useDispatch } from 'react-redux';
 axios.defaults.withCredentials = true;
 require('dotenv').config();
 
