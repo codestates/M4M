@@ -6,7 +6,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
 require('dotenv').config();
 
-// window.Kakao.init(process.env.REACT_APP_KAKAO_API_KEY);
+window.Kakao.init(process.env.REACT_APP_KAKAO_API_KEY);
 
 ReactDOM.render(
   <React.StrictMode>
