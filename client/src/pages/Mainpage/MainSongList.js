@@ -379,7 +379,7 @@ function SongList () {
     }
   };
   const handleSongDetail = (song) => history.push({ pathname: `/song:id=${song.id}` });
-  console.log(result[0]);
+
   return (
     <SongListWrapper>
       <div className='songlist'>
