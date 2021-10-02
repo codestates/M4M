@@ -186,6 +186,7 @@ function Login ({ handleModal, signup }) {
                 axios
                   .post(process.env.REACT_APP_API_URL + '/user-info', {
                     kakao: true,
+                    email: res.id.toString()
                   },
                   {
                     headers: {
