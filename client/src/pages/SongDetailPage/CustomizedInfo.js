@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import Chart from '../../database/Chart';
@@ -37,17 +38,20 @@ const AgeContainer = styled.div`
   cursor: ${props => props.cursor};
 `;
 
-const CustomizedInfo = ({ songInfo, information }) => {
+const CustomizedInfo = ({ songInfo }) => {
   const history = useHistory();
+  const token = useSelector((state) => state.userReducer).token;
+  const { birthYear, kakao } = useSelector((state) => state.userReducer).userInfo;
+
   let age = '?';
   const chartYear = songInfo.date ? songInfo.date.split('.')[0] : null;
   const topSongs = Chart[0][`${chartYear}년`];
   // console.log(topSongs);
 
-  if (information && information.birthYear && songInfo.year) {
+  if (token && birthYear && songInfo.year) {
     // VALID CODE NOT FOR TESTING
-    age = songInfo.year - information.birthYear + 1;
-    // console.log(information.birthYear);
+    age = songInfo.year - birthYear + 1;
+    // console.log(birthYear);
 
     // JUST FOR TEST PURPOSES
     // const fakeBY = 2000;
@@ -59,9 +63,9 @@ const CustomizedInfo = ({ songInfo, information }) => {
   }
 
   const handleYearClicked = () => {
-    if (!information) {
+    if (!token) {
       alert('로그인이 필요한 서비스입니다.');
-    } else if (information.kakao && age === '?') {
+    } else if (kakao && age === '?') {
       alert('출생년도 등록이 필요한 서비스입니다.');
       history.push({
         pathname: '/myinfo'

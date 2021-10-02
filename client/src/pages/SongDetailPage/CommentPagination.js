@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { Colors, Size, GlobalStyle } from '../../components/utils/_var';
+import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 axios.defaults.withCredentials = true;
@@ -101,10 +102,11 @@ const Wrapper = styled.div`
   }
 `;
 
-const CommentPagination = ({ information, songId, totalComments, modal }) => {
-  const token = localStorage.getItem('accessToken');
+const CommentPagination = ({ songId, totalComments, modal }) => {
+  const token = useSelector((state) => state.userReducer).token;
   const accessTokenTime = localStorage.getItem('accessTokenTime');
   const expiredTime = Number(process.env.REACT_APP_TOKEN_TIME);
+  const { nickname } = useSelector((state) => state.userReducer).userInfo;
 
   const [commentList, setCommentList] = useState({
     comments: [],
@@ -142,10 +144,10 @@ const CommentPagination = ({ information, songId, totalComments, modal }) => {
   }
 
   const handleDeleteClicked = (commentContent) => {
-    if (!information) {
+    if (!token) {
       alert('로그인이 필요한 서비스입니다.');
     } else {
-      // console.log('nickname: ', information.nickname, 'content: ', commentContent);
+      // console.log('nickname: ', nickname, 'content: ', commentContent);
       if (parseInt(accessTokenTime, 10) + expiredTime - new Date().getTime() < 0) {
         // alert('토큰이 만료되었습니다');
         modal();
@@ -157,7 +159,6 @@ const CommentPagination = ({ information, songId, totalComments, modal }) => {
               'Content-Type': 'application/json'
             },
             data: {
-              userId: information.id,
               songId: songId,
               content: commentContent
             }
@@ -180,7 +181,7 @@ const CommentPagination = ({ information, songId, totalComments, modal }) => {
       <GlobalStyle />
       <div className='comments-container-pagination'>
         {currentComments.map((comment, idx) => {
-          return information && comment[0] === information.nickname ? (
+          return token && comment[0] === nickname ? (
             <div className='comment-item' key={idx}>
               <div className='nickname'>{comment[0]}</div>
               <div className='date'>{comment[2]}</div>

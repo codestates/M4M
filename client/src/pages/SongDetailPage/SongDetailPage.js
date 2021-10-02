@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useLocation, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
@@ -105,8 +106,7 @@ const Wrapper = styled.div`
 `;
 
 const SongDetail = ({ modal }) => {
-  const information = JSON.parse(localStorage.getItem('userinfo'));
-  const token = localStorage.getItem('accessToken');
+  const token = useSelector((state) => state.userReducer).token;
   const location = useLocation();
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
@@ -126,7 +126,7 @@ const SongDetail = ({ modal }) => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        if (!information) {
+        if (!token) {
           const result = await axios.get(process.env.REACT_APP_API_URL + `/song?query=${songId}`);
           setSongInfo(result.data.data);
           setIsLoading(false);
@@ -207,7 +207,7 @@ const SongDetail = ({ modal }) => {
             <div className='field'>장르</div>
             <div className='others'>{songInfo.genre}</div>
           </div>
-          <Hashtags songInfo={songInfo} information={information} modal={modal} />
+          <Hashtags songInfo={songInfo} modal={modal} />
         </div>
       </div>
       <div className='bottom-container'>
@@ -228,9 +228,9 @@ const SongDetail = ({ modal }) => {
         <button className='lyrics-button' onClick={handleLyricsClicked}>
           {buttonContent} <FontAwesomeIcon icon={icon} size='1x' color='#b2b2b2' />
         </button>
-        <CustomizedInfo songInfo={songInfo} information={information || null} />
+        <CustomizedInfo songInfo={songInfo} />
       </div>
-      <Comments comments={comments} information={information} songId={songInfo.id} modal={modal} />
+      <Comments comments={comments} songId={songInfo.id} modal={modal} />
     </Wrapper>
   );
 };
