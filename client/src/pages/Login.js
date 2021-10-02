@@ -126,7 +126,7 @@ function Login ({ handleModal, signup }) {
         })
         .then((token) => {
           axios
-            .get(process.env.REACT_APP_API_URL + '/user-info', {
+            .post(process.env.REACT_APP_API_URL + '/user-info', { kakao: false },{
               headers: {
                 Authorization: `Bearer ${token}`,
                 'Content-Type': 'application/json'
