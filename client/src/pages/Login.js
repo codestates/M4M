@@ -9,6 +9,7 @@ import { notify, userLogin } from '../redux/action';
 import { media } from '../components/utils/_media-queries';
 require('dotenv').config();
 const { Kakao } = window;
+axios.defaults.withCredentials = true;
 
 export const LoginBackdrop = styled.div`
   position: fixed;
@@ -183,7 +184,10 @@ function Login ({ handleModal, signup }) {
               })
               .then((token) => {
                 axios
-                  .get(process.env.REACT_APP_API_URL + '/user-info', {
+                  .post(process.env.REACT_APP_API_URL + '/user-info', {
+                    kakao: true,
+                  },
+                  {
                     headers: {
                       Authorization: `Bearer ${token}`,
                       'Content-Type': 'application/json'
