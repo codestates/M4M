@@ -84,7 +84,7 @@ module.exports = async (req, res) => {
                 year: song.year,
                 hashtagLike: hashtaglikeCount
               };
-              
+
               let userHashtagLikes = await songuserhashtaglike.findAll(
                 {
                   where: {

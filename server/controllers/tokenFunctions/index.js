@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 
 module.exports = {
   generateAccessToken: (data) => {
-    return jwt.sign(data, process.env.ACCESS_SECRET, { expiresIn: '10s' });
+    return jwt.sign(data, process.env.ACCESS_SECRET, { expiresIn: '1h' });
   },
   generateRefreshToken: (data) => {
     return jwt.sign(data, process.env.REFRESH_SECRET, { expiresIn: '7d' });
@@ -28,10 +28,6 @@ module.exports = {
     try {
       return jwt.verify(token, process.env.ACCESS_SECRET);
     } catch (err) {
-      // console.log(err.message);
-      // if (err.message === 'jwt expired') {
-      //   return 'invalid token';
-      // }
       return null;
     }
   },
