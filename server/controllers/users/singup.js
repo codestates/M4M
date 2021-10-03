@@ -7,7 +7,10 @@ module.exports = async (req, res) => {
     const { nickname, email, password, birthYear, kakao } = req.body;
     if (kakao) {
       const members = await user.findAll({
-        order: [['createdAt', 'DESC']]
+        where: {
+          kakao: true,
+          email: email
+        }
       });
 
       const userNickname = `${nickname}#${members[0].dataValues.id + 1}`;
