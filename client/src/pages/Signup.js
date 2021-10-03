@@ -214,16 +214,14 @@ function Signup({ handleModal, handleNotice, handleMessage }) {
           { headers: { 'Content-Type': 'application/json' }, withCredentials: true }
         )
         .then((res) => {
-          console.log(typeof res.data);
           setCode(res.data);
         });
     } else {
       setErrorMsg('이메일 입력');
     }
   };
-  console.log('code:', code);
+
   const verifyCode = (e) => {
-    console.log(e.target.value);
     if (code === Number(e.target.value)) {
       setCheckCode(true);
     } else {
