@@ -1,6 +1,8 @@
 const crypto = require('crypto');
 const { user } = require('../../models');
 const { isAuthorized, generateAccessToken, generateRefreshToken } = require('../tokenFunctions');
+const Sequelize = require('sequelize');
+require('sequelize-values')(Sequelize);
 
 module.exports = async (req, res) => {
   try {
@@ -13,27 +15,40 @@ module.exports = async (req, res) => {
         }
       });
 
-      const userNickname = `${nickname}#${members[0].dataValues.id + 1}`;
-
       const dplctEmail = await user.findAll({
         where: {
           email: email
         }
       });
 
-      const accessToken = generateAccessToken(members[0].dataValues);
-      const refreshToken = generateRefreshToken(members[0].dataValues);
       const cookieOptions = {
         httpOnly: true,
         sameSite: 'None'
       };
 
       if (dplctEmail.length !== 0) {
+        const accessToken = generateAccessToken(members[0].dataValues);
+        const refreshToken = generateRefreshToken(members[0].dataValues);
+
         res.cookie('accessToken', accessToken, cookieOptions);
         res.cookie('refreshToken', refreshToken, cookieOptions);
         res.status(200).json({ accessToken, refreshToken, message: 'ok' });
       } else {
+        let allMembers = await user.findAll({
+          order: [['createdAt', 'DESC']]
+        });
+  
+        const userNickname = `${nickname}#${allMembers[0].dataValues.id + 1}`;
+
         user.create({ nickname: userNickname, email: email, kakao: kakao });
+
+        allMembers = await user.findAll({
+          order: [['createdAt', 'DESC']]
+        });
+
+        const accessToken = generateAccessToken(allMembers[0].dataValues);
+        const refreshToken = generateRefreshToken(allMembers[0].dataValues);
+        
         res.cookie('accessToken', accessToken, cookieOptions);
         res.cookie('refreshToken', refreshToken, cookieOptions);
         res.status(201).json({ accessToken, refreshToken, message: 'ok' });
