@@ -126,7 +126,7 @@ function Login ({ handleModal, signup }) {
         })
         .then((token) => {
           axios
-            .post(process.env.REACT_APP_API_URL + '/user-info', { kakao: false },{
+            .get(process.env.REACT_APP_API_URL + '/user-info', {
               headers: {
                 Authorization: `Bearer ${token}`,
                 'Content-Type': 'application/json'
@@ -184,11 +184,7 @@ function Login ({ handleModal, signup }) {
               })
               .then((token) => {
                 axios
-                  .post(process.env.REACT_APP_API_URL + '/user-info', {
-                    kakao: true,
-                    email: res.id.toString()
-                  },
-                  {
+                  .get(process.env.REACT_APP_API_URL + '/user-info', {
                     headers: {
                       Authorization: `Bearer ${token}`,
                       'Content-Type': 'application/json'
