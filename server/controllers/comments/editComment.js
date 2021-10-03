@@ -9,7 +9,7 @@ module.exports = async (req, res) => {
     const accessTokenData = isAuthorized(req);
 
     if (!accessTokenData) {
-      return res.status(403).json({ message: 'plz login first' });
+      return res.status(401).json({ message: 'You\'re not logged in' });
     } else {
       const userContent = await comment.findOne({
         where: { id: id }

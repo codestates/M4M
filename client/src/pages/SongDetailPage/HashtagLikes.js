@@ -44,7 +44,7 @@ const Like = styled.div`
   }
 `;
 
-const Hashtags = ({ songInfo, information, modal }) => {
+const Hashtags = ({ songInfo, information, modal, handleMessage, handleNotice }) => {
   const token = localStorage.getItem('accessToken');
   const accessTokenTime = localStorage.getItem('accessTokenTime');
   const expiredTime = Number(process.env.REACT_APP_TOKEN_TIME);
@@ -111,7 +111,9 @@ const Hashtags = ({ songInfo, information, modal }) => {
 
   const handleTagLikeCliked = (hashtagLikeName) => {
     if (!token) {
-      alert('로그인이 필요한 서비스입니다.');
+      // alert('로그인이 필요한 서비스입니다.');
+      handleNotice(true);
+      handleMessage('로그인이 필요한 서비스입니다.');
     } else {
       if (parseInt(accessTokenTime, 10) + expiredTime - new Date().getTime() < 0) {
         // alert('토큰이 만료되었습니다');

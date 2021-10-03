@@ -70,7 +70,7 @@ const Wrapper = styled.div`
 // 1.
 //
 
-const Comments = ({ comments, information, songId, modal }) => {
+const Comments = ({ comments, information, songId, modal, handleMessage, handleNotice }) => {
   const token = localStorage.getItem('accessToken');
   const accessTokenTime = localStorage.getItem('accessTokenTime');
   const expiredTime = Number(process.env.REACT_APP_TOKEN_TIME);
@@ -82,7 +82,9 @@ const Comments = ({ comments, information, songId, modal }) => {
 
   const handleCommentChange = (e) => {
     if (!token) {
-      alert('로그인이 필요한 서비스입니다.');
+      // alert('로그인이 필요한 서비스입니다.');
+      handleNotice(true);
+      handleMessage('로그인이 필요한 서비스입니다.');
     } else if (e.target.value.length > 300) {
       alert('댓글은 300자 이내로 입력해주세요.');
     } else {
@@ -99,7 +101,9 @@ const Comments = ({ comments, information, songId, modal }) => {
 
   const handlePostClicked = () => {
     if (!information) {
-      alert('로그인이 필요한 서비스입니다.');
+      // alert('로그인이 필요한 서비스입니다.');
+      handleNotice(true);
+      handleMessage('로그인이 필요한 서비스입니다.');
     }
     if (parseInt(accessTokenTime, 10) + expiredTime - new Date().getTime() < 0) {
       // alert('토큰이 만료되었습니다');
@@ -172,7 +176,12 @@ const Comments = ({ comments, information, songId, modal }) => {
           </button>
         </div>
       </div>
-      <CommentPagination information={information} songId={songId} totalComments={comments} />
+      <CommentPagination
+        information={information}
+        songId={songId}
+        totalComments={comments}
+        modal={modal}
+      />
     </Wrapper>
   );
 };

@@ -1,16 +1,19 @@
 const crypto = require('crypto');
 const { user } = require('../../models');
 const { isAuthorized, generateAccessToken, generateRefreshToken } = require('../tokenFunctions');
+const Sequelize = require('sequelize');
+require('sequelize-values')(Sequelize);
 
 module.exports = async (req, res) => {
   try {
     const { nickname, email, password, birthYear, kakao } = req.body;
     if (kakao) {
       const members = await user.findAll({
-        order: [['createdAt', 'DESC']]
+        where: {
+          kakao: true,
+          email: email
+        }
       });
-
-      const userNickname = `${nickname}#${members[0].dataValues.id + 1}`;
 
       const dplctEmail = await user.findAll({
         where: {
@@ -18,19 +21,34 @@ module.exports = async (req, res) => {
         }
       });
 
-      const accessToken = generateAccessToken(members[0].dataValues);
-      const refreshToken = generateRefreshToken(members[0].dataValues);
       const cookieOptions = {
         httpOnly: true,
         sameSite: 'None'
       };
 
       if (dplctEmail.length !== 0) {
+        const accessToken = generateAccessToken(members[0].dataValues);
+        const refreshToken = generateRefreshToken(members[0].dataValues);
+
         res.cookie('accessToken', accessToken, cookieOptions);
         res.cookie('refreshToken', refreshToken, cookieOptions);
         res.status(200).json({ accessToken, refreshToken, message: 'ok' });
       } else {
+        let allMembers = await user.findAll({
+          order: [['createdAt', 'DESC']]
+        });
+  
+        const userNickname = `${nickname}#${allMembers[0].dataValues.id + 1}`;
+
         user.create({ nickname: userNickname, email: email, kakao: kakao });
+
+        allMembers = await user.findAll({
+          order: [['createdAt', 'DESC']]
+        });
+
+        const accessToken = generateAccessToken(allMembers[0].dataValues);
+        const refreshToken = generateRefreshToken(allMembers[0].dataValues);
+        
         res.cookie('accessToken', accessToken, cookieOptions);
         res.cookie('refreshToken', refreshToken, cookieOptions);
         res.status(201).json({ accessToken, refreshToken, message: 'ok' });
@@ -45,7 +63,7 @@ module.exports = async (req, res) => {
 
       // 토큰정보가 있어 중복 유저인 경우
       if (accessTokenData) {
-        return res.status(403).json({ message: 'you are already a user' });
+        return res.status(406).json({ message: 'you are already a user' });
       }
 
       // 회원가입 양식을 다 채우지 않은 경우

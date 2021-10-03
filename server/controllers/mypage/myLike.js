@@ -74,16 +74,36 @@ module.exports = async (req, res) => {
 
               hashtaglikeCount = Object.entries(hashtaglikeCount);
 
-              return {
+              const payload = {
                 id: song.id,
                 title: song.title,
                 artist: song.artist,
+                genre: song.genre,
                 album_art: song.album_art,
                 date: song.date,
+                year: song.year,
                 hashtagLike: hashtaglikeCount
               };
-            } catch (error) {
-              console.log(error);
+
+              let userHashtagLikes = await songuserhashtaglike.findAll(
+                {
+                  where: {
+                    userId: accessTokenData.id,
+                    songId: song.id
+                  }
+                }
+              );
+
+              userHashtagLikes = Sequelize.getValues(userHashtagLikes);
+
+              if (userHashtagLikes) {
+                userHashtagLikes = userHashtagLikes.map((el) => el.hashtagId);
+                payload.userHashtagLikes = userHashtagLikes;
+              }
+
+              return payload;
+            } catch {
+              res.status(400).json({ message: 'error' });
             }
           });
 

@@ -15,7 +15,7 @@ export const NoticeBackdrop = styled.div`
 `;
 export const NoticeView = styled.div`
   box-sizing: border-box;
-  width: 40vh;
+  width: 35vh;
   height: 15vh;
   background-color: rgb(255, 255, 255);
   position: relative;
@@ -25,17 +25,37 @@ export const NoticeView = styled.div`
   box-shadow: 10px 10px grey;
 `;
 
-function Notice({ message }) {
+function Notice({ message, login, handleNotice }) {
   return (
     <NoticeBackdrop>
       <NoticeView>
-        <div>{message}</div>
-        <Button
-          onClick={() => {
-            window.location.replace('/mainpage');
-          }}>
-          메인화면으로
-        </Button>
+        <div style={{ marginTop: '35px' }}>{message}</div>
+        <ButtonContainer>
+          {message === '로그인이 필요한 서비스입니다.' ? (
+            <>
+              <Button
+                onClick={() => {
+                  handleNotice();
+                  login();
+                }}>
+                로그인
+              </Button>
+              <Button
+                onClick={() => {
+                  handleNotice();
+                }}>
+                창닫기
+              </Button>
+            </>
+          ) : (
+            <Button
+              onClick={() => {
+                window.location.replace('/mainpage');
+              }}>
+              메인화면으로
+            </Button>
+          )}
+        </ButtonContainer>
       </NoticeView>
     </NoticeBackdrop>
   );

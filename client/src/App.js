@@ -4,6 +4,7 @@ import { GlobalStyle } from './components/utils/_var';
 import { useState } from 'react';
 import Header from './components/Header';
 import Noti from './components/Notification';
+import Landing from './pages/Landing';
 import Main from './pages/Mainpage/Main';
 import Footer from './components/Footer';
 import Recommendation from './pages/RecommendationPage/Recommendation';
@@ -18,7 +19,6 @@ import Notice from './components/Notice';
 
 const AppWrapper = styled.div`
   * {
-    /* font-family: 'NeoDunggeunmo'; */
     box-sizing: border-box;
   }
   .App {
@@ -64,6 +64,7 @@ function App() {
   };
 
   const information = JSON.parse(localStorage.getItem('userinfo'));
+  console.log('⭐️⭐️⭐️⭐️⭐️', information);
 
   return (
     <BrowserRouter>
@@ -74,14 +75,38 @@ function App() {
             login={handleLoginModalOpen}
             signup={handleSignupModalOpen}
             modal={handleModalOpen}
+            handleMessage={handleMessage}
+            handleNotice={handleNotice}
           />
           {openModal ? <Modal handleModal={handleModalClose} login={handleLoginModalOpen} /> : null}
           <Noti />
           <Switch>
-            <Route exact path="/" />
+            <Route exact path="/" component={Landing} />
             <Route path="/mainpage" component={Main} />
             <Route path="/recommendpage" render={() => <Recommendation />} />
+            <Route path="/mylike">
+              {information ? <GetLikedSong modal={handleModalOpen} /> : <Redirect to="/mainpage" />}
+            </Route>
+            <Route path="/myinfo">
+              {information ? <Mypage modal={handleModalOpen} /> : <Redirect to="/mainpage" />}
+            </Route>
+            <Route
+              path="/song:id"
+              render={() => (
+                <SongDetail
+                  modal={handleModalOpen}
+                  handleMessage={handleMessage}
+                  handleNotice={handleNotice}
+                />
+              )}
+            />
+            <Redirect to="/" />
           </Switch>
+          {openNotice ? (
+            <Notice message={message} login={handleLoginModalOpen} handleNotice={handleNotice} />
+          ) : null}
+          <MoveTop />
+          <Footer />
           {openSignup ? (
             <Signup
               handleModal={handleSignupModalClose}
@@ -97,18 +122,6 @@ function App() {
               handleNotice={handleNotice}
             />
           ) : null}
-          <Switch>
-            <Route path="/mylike">
-              {information ? <GetLikedSong modal={handleModalOpen} /> : <Redirect to="/mainpage" />}
-            </Route>
-            <Route path="/myinfo">
-              {information ? <Mypage modal={handleModalOpen} /> : <Redirect to="/mainpage" />}
-            </Route>
-            <Route path="/song:id" render={() => <SongDetail modal={handleModalOpen} />} />
-          </Switch>
-          {openNotice ? <Notice message={message} /> : null}
-          <MoveTop />
-          <Footer />
         </div>
       </AppWrapper>
     </BrowserRouter>

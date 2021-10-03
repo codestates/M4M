@@ -25,7 +25,7 @@ export const ModalView = styled.div`
   box-shadow: 10px 10px grey;
 `;
 
-function Modal({ handleModal, login }) {
+function Modal ({ handleModal, login }) {
   const goLogin = () => {
     handleModal();
     login();
