@@ -34,14 +34,19 @@ export const LoginView = styled.div`
 
 export const LoginInputContainer = styled.div``;
 
-export const LoginHeading = styled.h2``;
+export const LoginHeading = styled.h2`
+  font-family: 'NeoDunggeunmo';
+`;
 
 export const LoginInputValue = styled.div`
   //   font-weight: bold;
   margin: 10px 0px 5px 0px;
+  font-family: 'NeoDunggeunmo';
 `;
 
-export const LoginInput = styled.input``;
+export const LoginInput = styled.input`
+  //   font-family: 'NeoDunggeunmo';
+`;
 
 export const Alertbox = styled.div`
   color: red;
@@ -54,13 +59,14 @@ export const Button = styled.button`
   margin: 0rem 0.4rem 0.1rem 0.4rem;
   cursor: pointer;
   font-family: 'NeoDunggeunmo';
+  font-size: 16px;
 `;
 
 export const ButtonContainer = styled.div`
   margin: 10px;
 `;
 
-function Login({ handleModal, signup }) {
+function Login({ handleModal, signup, handleMessage, handleNotice }) {
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: ''
@@ -83,12 +89,11 @@ function Login({ handleModal, signup }) {
           withCredentials: true
         })
         .then((res) => {
-          dispatch(notify('로그인 성공!'));
           localStorage.setItem('accessToken', res.data.accessToken);
           localStorage.setItem('accessTokenTime', new Date().getTime());
-          history.push('/mainpage');
           handleModal();
-          //   window.location.replace('/mainpage');
+          handleNotice(true);
+          handleMessage('로그인 성공!');
           return res.data.accessToken;
         })
         .then((token) => {
@@ -144,9 +149,9 @@ function Login({ handleModal, signup }) {
               .then((res) => {
                 localStorage.setItem('accessToken', res.data.accessToken);
                 localStorage.setItem('accessTokenTime', new Date().getTime());
-                dispatch(notify('로그인 성공!'));
-                history.push('/mainpage');
                 handleModal();
+                handleNotice(true);
+                handleMessage('로그인 성공!');
                 return res.data.accessToken;
               })
               .then((token) => {

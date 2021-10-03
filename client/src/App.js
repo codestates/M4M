@@ -14,6 +14,7 @@ import Mypage from './pages/MyPage/UserInfoPage';
 import MoveTop from './components/MoveTop';
 import SongDetail from './pages/SongDetailPage/SongDetailPage';
 import Modal from './components/Modal';
+import Notice from './components/Notice';
 
 const AppWrapper = styled.div`
   * {
@@ -30,6 +31,8 @@ function App() {
   const [openLogin, setOpenLogin] = useState(false);
   const [openSignup, setOpenSignup] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [message, setMessage] = useState('');
+  const [openNotice, setOpenNotice] = useState(false);
 
   const handleLoginModalOpen = () => {
     setOpenLogin(true);
@@ -52,6 +55,14 @@ function App() {
     setOpenModal(false);
   };
 
+  const handleMessage = (msg) => {
+    setMessage(msg);
+  };
+
+  const handleNotice = (boolean) => {
+    setOpenNotice(boolean);
+  };
+
   const information = JSON.parse(localStorage.getItem('userinfo'));
 
   return (
@@ -71,9 +82,20 @@ function App() {
             <Route path="/mainpage" component={Main} />
             <Route path="/recommendpage" render={() => <Recommendation />} />
           </Switch>
-          {openSignup ? <Signup handleModal={handleSignupModalClose} /> : null}
+          {openSignup ? (
+            <Signup
+              handleModal={handleSignupModalClose}
+              handleMessage={handleMessage}
+              handleNotice={handleNotice}
+            />
+          ) : null}
           {openLogin ? (
-            <Login handleModal={handleLoginModalClose} signup={handleSignupModalOpen} />
+            <Login
+              handleModal={handleLoginModalClose}
+              signup={handleSignupModalOpen}
+              handleMessage={handleMessage}
+              handleNotice={handleNotice}
+            />
           ) : null}
           <Switch>
             <Route path="/mylike">
@@ -84,6 +106,7 @@ function App() {
             </Route>
             <Route path="/song:id" render={() => <SongDetail modal={handleModalOpen} />} />
           </Switch>
+          {openNotice ? <Notice message={message} /> : null}
           <MoveTop />
           <Footer />
         </div>

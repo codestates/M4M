@@ -31,17 +31,23 @@ function Modal({ handleModal, login }) {
     login();
   };
 
+  const logout = () => {
+    localStorage.clear();
+    handleModal();
+    window.location.replace('/mainpage');
+  };
+
   return (
     <ModalBackdrop>
       <ModalView>
-        <div style={{ marginTop: '10px' }}>
+        <div style={{ marginTop: '25px', fontSize: '17px' }}>
           토큰이 만료되었습니다
           <br />
           다시 로그인 하시겠습니까?
         </div>
         <ButtonContainer>
           <Button onClick={goLogin}>로그인</Button>
-          <Button onClick={handleModal}>창닫기</Button>
+          <Button onClick={logout}>로그아웃</Button>
         </ButtonContainer>
       </ModalView>
     </ModalBackdrop>
