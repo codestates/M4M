@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import infoImg from '../intro_image.png';
+import infoImg from '../images/intro_image.png';
 import { changeHeader } from '../redux/action';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';

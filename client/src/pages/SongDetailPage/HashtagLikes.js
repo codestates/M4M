@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import axios from 'axios';
 import styled from 'styled-components';
 import { Colors } from '../../components/utils/_var';
@@ -44,8 +45,8 @@ const Like = styled.div`
   }
 `;
 
-const Hashtags = ({ songInfo, information, modal }) => {
-  const token = localStorage.getItem('accessToken');
+const Hashtags = ({ songInfo, modal }) => {
+  const token = useSelector((state) => state.userReducer).token;
   const accessTokenTime = localStorage.getItem('accessTokenTime');
   const expiredTime = Number(process.env.REACT_APP_TOKEN_TIME);
 

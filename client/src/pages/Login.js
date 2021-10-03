@@ -2,11 +2,14 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router';
-import kakaoImage from '../kakao_login_medium_narrow.png';
+// import kakaoImage from '../images/kakao_login_medium_narrow.png';
+import kakaoLogo from '../images/kakao_logo.png';
 import { useDispatch } from 'react-redux';
 import { notify, userLogin } from '../redux/action';
+import { media } from '../components/utils/_media-queries';
 require('dotenv').config();
 const { Kakao } = window;
+axios.defaults.withCredentials = true;
 
 export const LoginBackdrop = styled.div`
   position: fixed;
@@ -20,6 +23,7 @@ export const LoginBackdrop = styled.div`
   place-items: center;
   height: 100vh;
 `;
+
 export const LoginView = styled.div`
   box-sizing: border-box;
   width: 45vh;
@@ -58,6 +62,35 @@ export const Button = styled.button`
 
 export const ButtonContainer = styled.div`
   margin: 10px;
+`;
+
+export const KakaoButton = styled.div`
+  width: 11.5rem;
+  height: 2.5rem;
+  margin: .8rem auto;
+  padding: .7rem .2rem .7rem 0;
+  background-color: #FEE500;
+  border-radius: 7px;
+  border: none;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  img {
+    vertical-align: middle;
+    margin-right: 1.6rem;
+  }
+`;
+
+export const KakaoContent = styled.div`
+  display: inline-block;
+  vertical-align: middle;
+  margin: auto 1.8rem auto 0;
+  font-family: 'Arial';
+  font-size: .75rem;
+  ${media.tablet`font-size: .85rem;`}
+  color: #000000 85%;
 `;
 
 function Login ({ handleModal, signup }) {
@@ -194,13 +227,15 @@ function Login ({ handleModal, signup }) {
           <Button onClick={handleLoginRequest}>로그인</Button>
           <Button onClick={handleModal}>창닫기</Button>
         </ButtonContainer>
-        <div>
-          <img
+        <KakaoButton onClick={kakaoLogin}>
+          {/* <img
             src={kakaoImage}
             style={{ width: '140px', cursor: 'pointer' }}
             onClick={kakaoLogin}
-          />
-        </div>
+          /> */}
+          <img src={kakaoLogo} alt='kakao-logo' width='20px' />
+          <KakaoContent>카카오 로그인</KakaoContent>
+        </KakaoButton>
         <div style={{ marginTop: '5px' }}>
           <span style={{ fontSize: '13px', marginTop: '10px' }}>아직 회원이 아니신가요? </span>
           <span
