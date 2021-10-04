@@ -82,7 +82,7 @@ export const Select = styled.select`
   font-size: 15px;
 `;
 
-function Signup({ handleModal, handleNotice, handleMessage }) {
+function Signup ({ handleModal, handleNotice, handleMessage }) {
   const [userInfo, setUserInfo] = useState({
     nickname: '',
     email: '',
@@ -237,35 +237,36 @@ function Signup({ handleModal, handleNotice, handleMessage }) {
           <SignupInputValue>닉네임</SignupInputValue>
           <SignupInput
             onChange={inputCheck('nickname')}
-            placeholder="공백 / 특수문자 제외 2-15자"
+            placeholder='공백 / 특수문자 제외 2-15자'
           />
           <CheckInfo>{checkNickname === 'ok' ? null : checkNickname}</CheckInfo>
           <SignupInputValue>이메일</SignupInputValue>
           <span>
-            <SignupInput onChange={inputCheck('email')} placeholder="입력 후 인증을 눌러주세요" />
+            <SignupInput onChange={inputCheck('email')} placeholder='입력 후 인증을 눌러주세요' />
             <button
               onClick={emailRequest}
-              style={{ fontFamily: 'NeoDunggeunmo', fontSize: '15px' }}>
+              style={{ fontFamily: 'NeoDunggeunmo', fontSize: '15px' }}
+            >
               이메일 인증
             </button>
           </span>
           <CheckInfo>{checkEmail ? null : '올바른 이메일 주소를 입력해주세요'}</CheckInfo>
           <SignupInputValue>인증 코드</SignupInputValue>
-          <SignupInput onChange={verifyCode} placeholder="메일로 받은 코드를 입력해주세요" />
+          <SignupInput onChange={verifyCode} placeholder='메일로 받은 코드를 입력해주세요' />
           <CheckInfo>{checkCode ? null : '코드가 일치하지 않습니다'}</CheckInfo>
           <SignupInputValue>비밀번호</SignupInputValue>
           <SignupInput
-            type="password"
+            type='password'
             onChange={inputCheck('password')}
-            placeholder="영문 / 숫자 조합 8~10자"
+            placeholder='영문 / 숫자 조합 8~10자'
           />
           <CheckInfo>{checkPassword ? null : '올바른 비밀번호를 입력해주세요'}</CheckInfo>
           <SignupInputValue>비밀번호확인</SignupInputValue>
-          <SignupInput type="password" onChange={handleCheckPassword} />
+          <SignupInput type='password' onChange={handleCheckPassword} />
           <CheckInfo>{checkRetypePassword ? null : '비밀번호가 일치하지 않습니다'}</CheckInfo>
           <SignupInputValue>Birth Year</SignupInputValue>
           <Select onChange={handleInputValue('birthYear')}>
-            <option value="" selected disabled hidden>
+            <option value='' selected disabled hidden>
               선택
             </option>
             {yearList.map((el, idx) => {

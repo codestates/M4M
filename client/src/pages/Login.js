@@ -70,7 +70,6 @@ export const ButtonContainer = styled.div`
   margin: 10px;
 `;
 
-
 export const KakaoButton = styled.div`
   width: 11.5rem;
   height: 2.5rem;
@@ -100,7 +99,7 @@ export const KakaoContent = styled.div`
   color: #000000 85%;
 `;
 
-function Login({ handleModal, signup, handleMessage, handleNotice }) {
+function Login ({ handleModal, signup, handleMessage, handleNotice }) {
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: ''
@@ -222,7 +221,7 @@ function Login({ handleModal, signup, handleMessage, handleNotice }) {
           <LoginInput onChange={handleInputValue('email')} />
           <LoginInputValue>비밀번호</LoginInputValue>
           <LoginInput
-            type="password"
+            type='password'
             onChange={handleInputValue('password')}
             onKeyPress={(e) => {
               enter(e);
@@ -246,7 +245,8 @@ function Login({ handleModal, signup, handleMessage, handleNotice }) {
           <span style={{ fontSize: '13px', marginTop: '10px' }}>아직 회원이 아니신가요? </span>
           <span
             style={{ fontSize: '13px', marginTop: '10px', color: 'blue', cursor: 'pointer' }}
-            onClick={goSignup}>
+            onClick={goSignup}
+          >
             회원가입
           </span>
         </div>

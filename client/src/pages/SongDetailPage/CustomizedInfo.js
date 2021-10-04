@@ -79,14 +79,14 @@ const CustomizedInfo = ({ songInfo, handleMessage, handleNotice }) => {
   return (
     <Wrapper>
       <GlobalStyle />
-      <div className="year-info-container">
+      <div className='year-info-container'>
         <AgeContainer cursor={age !== '?' ? 'default' : 'pointer'} onClick={handleYearClicked}>
-          <div className="custom-field">{chartYear}년 당시 당신의 나이</div>
+          <div className='custom-field'>{chartYear}년 당시 당신의 나이</div>
           <div>{age !== -1 ? age : '아직 당신은 태어나기 전입니다.'}</div>
         </AgeContainer>
-        <div className="custom-field">{chartYear}년의 자장면 가격</div>
+        <div className='custom-field'>{chartYear}년의 자장면 가격</div>
         {JJM[0][`${chartYear}년`]}
-        <div className="custom-field">{chartYear}년의 Top 3</div>
+        <div className='custom-field'>{chartYear}년의 Top 3</div>
         <ol>
           {chartYear &&
             topSongs.map((song, idx) => {

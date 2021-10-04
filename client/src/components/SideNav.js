@@ -109,7 +109,7 @@ function SideNav () {
                   key={idx + 1}
                   value={list}
                   onClick={handleSelectChange}
-                  underline={navType === list? 'underline' : 'none'}
+                  underline={navType === list ? 'underline' : 'none'}
                 >
                   <span className='space' />{list}
                 </Item>
@@ -129,7 +129,7 @@ function SideNav () {
                           key={idx + 1}
                           value={el}
                           onClick={handleSelectChange}
-                          underline={navType === el? 'underline' : 'none'}
+                          underline={navType === el ? 'underline' : 'none'}
                         >
                           {el}
                         </SubItem>

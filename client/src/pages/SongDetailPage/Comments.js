@@ -163,7 +163,7 @@ const Comments = ({ comments, information, songId, modal, handleMessage, handleN
     } else {
       // alert('도배글 등을 방지하기 위해 1분간 사용이 제한됩니다.\n잠시 후 다시 시도해주세요.');
       handleNotice(true);
-      handleMessage(`도배글 방지를 위해 1분간 사용이 제한되니 잠시 후 다시 시도해주세요`);
+      handleMessage('도배글 방지를 위해 1분간 사용이 제한되니 잠시 후 다시 시도해주세요');
       setNewComment({
         ...newComment,
         newContent: ''
@@ -174,16 +174,16 @@ const Comments = ({ comments, information, songId, modal, handleMessage, handleN
   return (
     <Wrapper>
       <GlobalStyle />
-      <div className="counter">댓글 {comments.length}</div>
-      <div className="comments-container">
-        <div className="comments-input-container">
+      <div className='counter'>댓글 {comments.length}</div>
+      <div className='comments-container'>
+        <div className='comments-input-container'>
           <textarea
-            className="write-comment"
-            placeholder="300자 이내 입력 가능"
+            className='write-comment'
+            placeholder='300자 이내 입력 가능'
             onChange={handleCommentChange}
             value={newContent || ''}
           />
-          <button className="postButton" type="submit" onClick={handlePostClicked}>
+          <button className='postButton' type='submit' onClick={handlePostClicked}>
             등록
           </button>
         </div>

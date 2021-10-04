@@ -54,7 +54,7 @@ const HeaderWrapper = styled.div`
   }
 `;
 
-function Header({ login, signup, modal, handleMessage, handleNotice }) {
+function Header ({ login, signup, modal, handleMessage, handleNotice }) {
   const isLogin = useSelector((state) => state.userReducer).token;
   const headerState = useSelector((state) => state.headerReducer);
   const dispatch = useDispatch();
@@ -94,41 +94,45 @@ function Header({ login, signup, modal, handleMessage, handleNotice }) {
 
   return (
     <HeaderWrapper>
-      <div className="header">
-        <div className="header-container-1">
-          <Link to="/mainpage">
-            <div className="logo">M4M Logo</div>
+      <div className='header'>
+        <div className='header-container-1'>
+          <Link to='/mainpage'>
+            <div className='logo'>M4M Logo</div>
           </Link>
         </div>
-        <div className="header-container-2">
-          <Link to="/recommendpage">
+        <div className='header-container-2'>
+          <Link to='/recommendpage'>
             <button className={headerState.recommendBtn ? 'btn recommend-page' : 'display-none'}>
               recommend page
             </button>
           </Link>
         </div>
-        <div className="header-container-3">
+        <div className='header-container-3'>
           <HeaderSearchbar isRecommend={headerState.searchBar} />
         </div>
-        <div className="header-container-4">
-          {!isLogin ? (
-            <button className="btn login" onClick={login}>
-              login
-            </button>
-          ) : (
-            <button className="btn logout" onClick={handleLogoutRequest}>
-              logout
-            </button>
-          )}
-          {!isLogin ? (
-            <button className="btn signup" onClick={signup}>
-              signup
-            </button>
-          ) : (
-            <Link to="/mylike">
-              <button className="btn mypage">mypage</button>
-            </Link>
-          )}
+        <div className='header-container-4'>
+          {!isLogin
+            ? (
+              <button className='btn login' onClick={login}>
+                login
+              </button>
+              )
+            : (
+              <button className='btn logout' onClick={handleLogoutRequest}>
+                logout
+              </button>
+              )}
+          {!isLogin
+            ? (
+              <button className='btn signup' onClick={signup}>
+                signup
+              </button>
+              )
+            : (
+              <Link to='/mylike'>
+                <button className='btn mypage'>mypage</button>
+              </Link>
+              )}
         </div>
       </div>
     </HeaderWrapper>

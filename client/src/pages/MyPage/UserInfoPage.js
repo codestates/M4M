@@ -328,7 +328,7 @@ const Mypage = ({ modal, handleMessage, handleNotice }) => {
 
   return (
     <Wrapper>
-      <div className="main">
+      <div className='main'>
         <SideNav />
         <div className='mypage-container'>
           <div className='title'>{nickname.split('#')[0]} 님, 반갑습니다!</div>

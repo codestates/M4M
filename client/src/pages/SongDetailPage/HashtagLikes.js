@@ -214,27 +214,34 @@ const Hashtags = ({ songInfo, information, modal, handleMessage, handleNotice })
 
   return (
     <Wrapper>
-      {songInfo.hashtagLike ? (
-        <Like onClick={() => handleTagLikeCliked(songInfo.hashtagLike[0][0])}>
-          {hashtagLikes['좋아요'] ? (
-            <FontAwesomeIcon icon={faHeart} size="1x" color="red" />
-          ) : (
-            <FontAwesomeIcon icon={farHeart} size="1x" color="black" />
-          )}{' '}
-          {allTags['좋아요']}
-        </Like>
-      ) : null}
+      {songInfo.hashtagLike
+        ? (
+          <Like onClick={() => handleTagLikeCliked(songInfo.hashtagLike[0][0])}>
+            {hashtagLikes['좋아요']
+              ? (
+                <FontAwesomeIcon icon={faHeart} size='1x' color='red' />
+                )
+              : (
+                <FontAwesomeIcon icon={farHeart} size='1x' color='black' />
+                )}{' '}
+            {allTags['좋아요']}
+          </Like>
+          )
+        : null}
       {Object.entries(allTags).map((el, idx) => {
         return (
           <div key={idx}>
-            {el[0] === '좋아요' ? null : (
-              <HashTag
-                onClick={() => handleTagLikeCliked(el[0])}
-                backgroundColor={hashtagLikes[el[0]] ? Colors.darkGray : 'white'}
-                textColor={hashtagLikes[el[0]] ? 'white' : Colors.darkGray}>
-                {el[0]} {el[1]}
-              </HashTag>
-            )}
+            {el[0] === '좋아요'
+              ? null
+              : (
+                <HashTag
+                  onClick={() => handleTagLikeCliked(el[0])}
+                  backgroundColor={hashtagLikes[el[0]] ? Colors.darkGray : 'white'}
+                  textColor={hashtagLikes[el[0]] ? 'white' : Colors.darkGray}
+                >
+                  {el[0]} {el[1]}
+                </HashTag>
+                )}
           </div>
         );
       })}

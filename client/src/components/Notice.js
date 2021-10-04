@@ -25,60 +25,72 @@ export const NoticeView = styled.div`
   box-shadow: 10px 10px grey;
 `;
 
-function Notice({ message, login, handleNotice }) {
+function Notice ({ message, login, handleNotice }) {
   return (
     <NoticeBackdrop>
       <NoticeView>
         <div style={{ marginTop: '35px' }}>{message}</div>
         <ButtonContainer>
-          {message === '로그인이 필요한 서비스입니다.' ? (
-            <>
-              <Button
-                onClick={() => {
-                  handleNotice(false);
-                  login();
-                }}>
-                로그인
-              </Button>
-              <Button
-                onClick={() => {
-                  handleNotice(false);
-                }}>
-                창닫기
-              </Button>
-            </>
-          ) : message === '로그인 성공!' ||
+          {message === '로그인이 필요한 서비스입니다.'
+            ? (
+              <>
+                <Button
+                  onClick={() => {
+                    handleNotice(false);
+                    login();
+                  }}
+                >
+                  로그인
+                </Button>
+                <Button
+                  onClick={() => {
+                    handleNotice(false);
+                  }}
+                >
+                  창닫기
+                </Button>
+              </>
+              )
+            : message === '로그인 성공!' ||
             message === '로그아웃 성공!' ||
-            message === '회원탈퇴가 완료되었습니다.' ? (
-            <Button
-              onClick={() => {
-                window.location.replace('/mainpage');
-              }}>
-              메인화면으로
-            </Button>
-          ) : message === '출생년도 등록이 필요한 서비스입니다.' ? (
-            <>
-              <Button
-                onClick={() => {
-                  window.location.replace('/myinfo');
-                }}>
-                마이페이지로
-              </Button>
-              <Button
-                onClick={() => {
-                  handleNotice(false);
-                }}>
-                창닫기
-              </Button>
-            </>
-          ) : (
-            <Button
-              onClick={() => {
-                handleNotice(false);
-              }}>
-              창닫기
-            </Button>
-          )}
+            message === '회원탈퇴가 완료되었습니다.'
+              ? (
+                <Button
+                  onClick={() => {
+                    window.location.replace('/mainpage');
+                  }}
+                >
+                  메인화면으로
+                </Button>
+                )
+              : message === '출생년도 등록이 필요한 서비스입니다.'
+                ? (
+                  <>
+                    <Button
+                      onClick={() => {
+                        window.location.replace('/myinfo');
+                      }}
+                    >
+                      마이페이지로
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        handleNotice(false);
+                      }}
+                    >
+                      창닫기
+                    </Button>
+                  </>
+                  )
+                : (
+                  <Button
+                    onClick={() => {
+                      handleNotice(false);
+                    }}
+                  >
+                    창닫기
+                  </Button>
+                  )}
         </ButtonContainer>
       </NoticeView>
     </NoticeBackdrop>
