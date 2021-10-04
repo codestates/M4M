@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { GlobalStyle } from './components/utils/_var';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import Header from './components/Header';
 import Noti from './components/Notification';
 import Landing from './pages/Landing';
@@ -33,6 +34,7 @@ function App() {
   const [openModal, setOpenModal] = useState(false);
   const [message, setMessage] = useState('');
   const [openNotice, setOpenNotice] = useState(false);
+  const isLogin = useSelector((state) => state.userReducer).token;
 
   const handleLoginModalOpen = () => {
     setOpenLogin(true);
@@ -117,6 +119,7 @@ function App() {
               )}
             />
             <Redirect to="/" />
+
           </Switch>
           {openNotice ? (
             <Notice message={message} login={handleLoginModalOpen} handleNotice={handleNotice} />

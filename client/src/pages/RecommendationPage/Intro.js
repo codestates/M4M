@@ -29,12 +29,12 @@ const Wrapper = styled.div`
       border: 0;
       color: ${Colors.black};
       font-size: 1.2em;      
-      ${media.tabletMini`font-size: 1.3em`}
-      ${media.tablet`font-size: 1.4em`}
-      ${media.laptop`font-size: 1.5em`}
-      ${media.tabletMini`color: blue`}
-      ${media.tablet`color: red`}
-      ${media.laptop`color: green`}
+      ${media.tabletMini`font-size: 1.3em;`}
+      ${media.tablet`font-size: 1.4em;`}
+      ${media.laptop`font-size: 1.5em;`}
+      ${media.tabletMini`color: blue;`}
+      ${media.tablet`color: red;`}
+      ${media.laptop`color: green;`}
     }
   }
 `;

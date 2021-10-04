@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import SideNav from '../../components/SideNav';
 import { Colors } from '../../components/utils/_var';
 import { changeHeader } from '../../redux/action';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 axios.defaults.withCredentials = true;
 require('dotenv').config();
 
@@ -87,9 +87,10 @@ const AlertMessage = styled.div`
 `;
 
 // const Mypage = ({ afterWithdrawal }) => {
+
 const Mypage = ({ modal, handleMessage, handleNotice }) => {
-  const information = JSON.parse(localStorage.getItem('userinfo'));
-  const token = localStorage.getItem('accessToken');
+  const token = useSelector((state) => state.userReducer).token;
+  const { nickname, email, birthYear, kakao } = useSelector((state) => state.userReducer).userInfo;
   const accessTokenTime = localStorage.getItem('accessTokenTime');
   const expiredTime = Number(process.env.REACT_APP_TOKEN_TIME);
   const [checkNickname, setCheckNickname] = useState('ok');
@@ -103,14 +104,14 @@ const Mypage = ({ modal, handleMessage, handleNotice }) => {
 
   const [myInfo, setMyInfo] = useState({
     nickname: '',
-    email: information.email,
+    email: email,
     password: '',
     passwordRetype: '',
-    birthYear: information.birthYear,
-    kakao: information.kakao
+    birthYear: birthYear,
+    kakao: kakao
   });
 
-  const id = information.nickname.split('#')[1];
+  const id = nickname.split('#')[1];
 
   const handleInputValue = (key) => (e) => {
     setMyInfo({ ...myInfo, [key]: e.target.value || '' });
@@ -236,15 +237,15 @@ const Mypage = ({ modal, handleMessage, handleNotice }) => {
     }
     // console.log(checkPassword, checkRetypePassword,checkNickname, checkBirthYear)
     if (
-      information.kakao &&
-      !information.birthYear &&
+      kakao &&
+      !birthYear &&
       !myInfo.birthYear &&
       myInfo.nickname === ''
     ) {
       setErrorMsg('변경할 정보를 입력해주세요.');
-    } else if (information.kakao && information.birthYear && myInfo.nickname === '') {
+    } else if (kakao && birthYear && myInfo.nickname === '') {
       setErrorMsg('변경할 정보를 입력해주세요.');
-    } else if (!information.kakao && myInfo.nickname === '' && myInfo.password === '') {
+    } else if (!kakao && myInfo.nickname === '' && myInfo.password === '') {
       setErrorMsg('변경할 정보를 입력해주세요.');
     } else if (
       checkPassword !== 'ok' ||
@@ -271,12 +272,12 @@ const Mypage = ({ modal, handleMessage, handleNotice }) => {
               handleNotice(true);
               handleMessage('회원정보가 수정되었습니다.');
               if (myInfo.nickname === '') {
-                myInfo.nickname = information.nickname;
+                myInfo.nickname = nickname;
               } else {
                 myInfo.nickname = myInfo.nickname + `#${id}`;
               }
               if (myInfo.password === '') {
-                myInfo.password = information.password;
+                myInfo.password = '';
               }
               localStorage.setItem('userinfo', JSON.stringify(myInfo));
               // window.location.replace('/myinfo');
@@ -309,7 +310,6 @@ const Mypage = ({ modal, handleMessage, handleNotice }) => {
             handleNotice(true);
             handleMessage('회원탈퇴가 완료되었습니다.');
             // afterWithdrawal();
-
             // JUST FOR TEST PURPOSES
             // history.push({
             //   pathname: '/mainpage'
@@ -330,23 +330,30 @@ const Mypage = ({ modal, handleMessage, handleNotice }) => {
     <Wrapper>
       <div className="main">
         <SideNav />
-        <div className="mypage-container">
-          <div className="title">{information.nickname.split('#')[0]} 님, 반갑습니다!</div>
+        <div className='mypage-container'>
+          <div className='title'>{nickname.split('#')[0]} 님, 반갑습니다!</div>
           <MyPageField>닉네임</MyPageField>
           <input
-            type="text"
-            placeholder={information.nickname.split('#')[0]}
+            type='text'
+            placeholder={nickname.split('#')[0]}
             onChange={inputCheck('nickname')}
           />
-          <span className="id-number">#{information.nickname.split('#')[1]}</span>
-          <AlertMessage>{checkNickname === 'ok' ? null : checkNickname}</AlertMessage>
+          <span className='id-number'>
+            #{nickname.split('#')[1]}
+          </span>
+          <AlertMessage>
+            {checkNickname === 'ok' ? null : checkNickname}
+          </AlertMessage>
           <MyPageField>이메일</MyPageField>
-          <input disabled value={information.email} />
+          <input
+            disabled
+            value={email}
+          />
           <MyPageField>비밀번호</MyPageField>
           <input
-            disabled={information.kakao ? 'disabled' : null}
-            type="password"
-            placeholder="영문/숫자 조합 8~10글자"
+            disabled={kakao ? 'disabled' : null}
+            type='password'
+            placeholder='영문/숫자 조합 8~10글자'
             onChange={inputCheck('password')}
           />
           <AlertMessage>
@@ -355,25 +362,33 @@ const Mypage = ({ modal, handleMessage, handleNotice }) => {
           </AlertMessage>
           <MyPageField>비밀번호 확인</MyPageField>
           <input
-            disabled={information.kakao ? 'disabled' : null}
-            type="password"
+            disabled={kakao ? 'disabled' : null}
+            type='password'
             onChange={inputCheck('passwordRetype')}
           />
           <AlertMessage>{checkRetypePassword ? null : '비밀번호가 일치하지 않습니다'}</AlertMessage>
           <MyPageField>출생년도</MyPageField>
-          {information.kakao && !information.birthYear ? (
-            <>
-              <input onChange={inputCheck('birthYear')} />
+
+          {kakao && !birthYear
+            ? <>
+              <input
+                onChange={inputCheck('birthYear')}
+              />
               <AlertMessage>
                 {checkBirthYear === 'no' ? '올바른 범위내의 출생년도를 입력해주세요' : null}
                 {checkBirthYear === 'nan' ? '숫자만 입력해주세요' : null}
               </AlertMessage>
             </>
-          ) : (
-            <input disabled value={information.birthYear} />
-          )}
-          <button onClick={handleEditUserRequest}>정보수정</button>
-          <button onClick={handleWithdrawalRequest}>회원탈퇴</button>
+            : <input
+                disabled
+                value={birthYear}
+              />}
+          <button onClick={handleEditUserRequest}>
+            정보수정
+          </button>
+          <button onClick={handleWithdrawalRequest}>
+            회원탈퇴
+          </button>
           <AlertMessage>{errorMsg}</AlertMessage>
         </div>
       </div>

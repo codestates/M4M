@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import axios from 'axios';
 import styled from 'styled-components';
 import CommentPagination from './CommentPagination';
@@ -70,8 +71,9 @@ const Wrapper = styled.div`
 // 1.
 //
 
+
 const Comments = ({ comments, information, songId, modal, handleMessage, handleNotice }) => {
-  const token = localStorage.getItem('accessToken');
+  const token = useSelector((state) => state.userReducer).token;
   const accessTokenTime = localStorage.getItem('accessTokenTime');
   const expiredTime = Number(process.env.REACT_APP_TOKEN_TIME);
 
@@ -100,7 +102,7 @@ const Comments = ({ comments, information, songId, modal, handleMessage, handleN
   const initialTime = localStorage.getItem('initialTime');
 
   const handlePostClicked = () => {
-    if (!information) {
+    if (!token) {
       // alert('로그인이 필요한 서비스입니다.');
       handleNotice(true);
       handleMessage('로그인이 필요한 서비스입니다.');
@@ -119,7 +121,6 @@ const Comments = ({ comments, information, songId, modal, handleMessage, handleN
           .post(
             process.env.REACT_APP_API_URL + '/comment',
             {
-              userId: information.id,
               songId: songId,
               content: newContent
             },
@@ -176,12 +177,7 @@ const Comments = ({ comments, information, songId, modal, handleMessage, handleN
           </button>
         </div>
       </div>
-      <CommentPagination
-        information={information}
-        songId={songId}
-        totalComments={comments}
-        modal={modal}
-      />
+      <CommentPagination songId={songId} totalComments={comments} modal={modal} />
     </Wrapper>
   );
 };

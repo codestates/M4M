@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import { media } from '../../../components/utils/_media-queries';
+import kakaoLogo from '../../../images/kakao_logo.png';
+
 require('dotenv').config();
 
 const Wrapper = styled.div`
@@ -9,7 +11,7 @@ const Wrapper = styled.div`
   button:hover {
     cursor: pointer;
   }
-  .share-button {
+  .kakao-button {
     width: 9rem;
     ${media.tablet`width: 9.5rem;`}
     margin: .8rem auto 0;
@@ -18,7 +20,7 @@ const Wrapper = styled.div`
     border-radius: 7px;
     border: none;
   }
-  .share-content {
+  .kakao-content {
     display: inline-block;
     vertical-align: middle;
     margin-left: .3rem;
@@ -79,9 +81,9 @@ const KakaoShareButton = ({ songType, songList }) => {
 
   return (
     <Wrapper>
-      <button className='share-button' onClick={kakaoShare}>
-        <img src='https://img1.daumcdn.net/thumb/R720x0.q80/?scode=mtistory2&fname=http%3A%2F%2Fcfile2.uf.tistory.com%2Fimage%2F2315BC3453D9F98F03AA93' alt='kakao-logo' width='20px' />
-        <div className='share-content'>카카오톡 공유하기</div>
+      <button className='kakao-button' onClick={kakaoShare}>
+        <img src={kakaoLogo} alt='kakao-logo' width='20px' />
+        <div className='kakao-content'>카카오톡 공유하기</div>
       </button>
     </Wrapper>
   );
