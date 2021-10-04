@@ -85,10 +85,26 @@ function App() {
             <Route path="/mainpage" component={Main} />
             <Route path="/recommendpage" render={() => <Recommendation />} />
             <Route path="/mylike">
-              {information ? <GetLikedSong modal={handleModalOpen} /> : <Redirect to="/mainpage" />}
+              {information ? (
+                <GetLikedSong
+                  modal={handleModalOpen}
+                  handleMessage={handleMessage}
+                  handleNotice={handleNotice}
+                />
+              ) : (
+                <Redirect to="/mainpage" />
+              )}
             </Route>
             <Route path="/myinfo">
-              {information ? <Mypage modal={handleModalOpen} /> : <Redirect to="/mainpage" />}
+              {information ? (
+                <Mypage
+                  modal={handleModalOpen}
+                  handleMessage={handleMessage}
+                  handleNotice={handleNotice}
+                />
+              ) : (
+                <Redirect to="/mainpage" />
+              )}
             </Route>
             <Route
               path="/song:id"

@@ -35,24 +35,33 @@ function Notice({ message, login, handleNotice }) {
             <>
               <Button
                 onClick={() => {
-                  handleNotice();
+                  handleNotice(false);
                   login();
                 }}>
                 로그인
               </Button>
               <Button
                 onClick={() => {
-                  handleNotice();
+                  handleNotice(false);
                 }}>
                 창닫기
               </Button>
             </>
-          ) : (
+          ) : message === '로그인 성공!' ||
+            message === '로그아웃 성공!' ||
+            message === '회원탈퇴가 완료되었습니다.' ? (
             <Button
               onClick={() => {
                 window.location.replace('/mainpage');
               }}>
               메인화면으로
+            </Button>
+          ) : (
+            <Button
+              onClick={() => {
+                handleNotice(false);
+              }}>
+              창닫기
             </Button>
           )}
         </ButtonContainer>
