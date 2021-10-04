@@ -187,9 +187,9 @@ const SongDetail = ({ modal, handleMessage, handleNotice }) => {
   return (
     <Wrapper>
       <GlobalStyle />
-      <div className="top-container">
-        <a href={songInfo.album_art} target="_blank" rel="noreferrer">
-          <img src={songInfo.album_art} alt={songInfo.id} className="album_art" />
+      <div className='top-container'>
+        <a href={songInfo.album_art} target='_blank' rel='noreferrer'>
+          <img src={songInfo.album_art} alt={songInfo.id} className='album_art' />
         </a>
         <div className="song-info-container">
           <div className="title">{songInfo.title}</div>
