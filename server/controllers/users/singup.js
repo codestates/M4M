@@ -7,30 +7,46 @@ module.exports = async (req, res) => {
     const { nickname, email, password, birthYear, kakao } = req.body;
     if (kakao) {
       const members = await user.findAll({
-        order: [['createdAt', 'DESC']]
-      });
-
-      const userNickname = `${nickname}#${members[0].dataValues.id + 1}`;
-
-      const dplctEmail = await user.findAll({
         where: {
+          kakao: true,
           email: email
         }
       });
 
-      const accessToken = generateAccessToken(members[0].dataValues);
-      const refreshToken = generateRefreshToken(members[0].dataValues);
       const cookieOptions = {
         httpOnly: true,
         sameSite: 'None'
       };
 
-      if (dplctEmail.length !== 0) {
+      if (members.length !== 0) {
+        const accessToken = generateAccessToken(members[0].dataValues);
+        const refreshToken = generateRefreshToken(members[0].dataValues);
+
         res.cookie('accessToken', accessToken, cookieOptions);
         res.cookie('refreshToken', refreshToken, cookieOptions);
         res.status(200).json({ accessToken, refreshToken, message: 'ok' });
       } else {
-        user.create({ nickname: userNickname, email: email, kakao: kakao });
+        let allMembers = await user.findAll({
+          order: [['createdAt', 'DESC']]
+        });
+
+        const userNickname = `${nickname}#${allMembers[0].dataValues.id + 1}`;
+        
+        const payload = {
+          id: allMembers[0].dataValues.id + 1,
+          email: email,
+          nickname: userNickname,
+          salt: null,
+          password: null,
+          birthYear: null,
+          kakao: true
+        }
+
+        user.create(payload);
+
+        const accessToken = generateAccessToken(payload);
+        const refreshToken = generateRefreshToken(payload);
+        
         res.cookie('accessToken', accessToken, cookieOptions);
         res.cookie('refreshToken', refreshToken, cookieOptions);
         res.status(201).json({ accessToken, refreshToken, message: 'ok' });
