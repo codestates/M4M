@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import axios from 'axios';
 import styled from 'styled-components';
 import { Colors } from '../../components/utils/_var';
@@ -44,8 +45,8 @@ const Like = styled.div`
   }
 `;
 
-const Hashtags = ({ songInfo, information, modal }) => {
-  const token = localStorage.getItem('accessToken');
+const Hashtags = ({ songInfo, modal }) => {
+  const token = useSelector((state) => state.userReducer).token;
   const accessTokenTime = localStorage.getItem('accessTokenTime');
   const expiredTime = Number(process.env.REACT_APP_TOKEN_TIME);
 
@@ -209,27 +210,34 @@ const Hashtags = ({ songInfo, information, modal }) => {
 
   return (
     <Wrapper>
-      {songInfo.hashtagLike ? (
-        <Like onClick={() => handleTagLikeCliked(songInfo.hashtagLike[0][0])}>
-          {hashtagLikes['좋아요'] ? (
-            <FontAwesomeIcon icon={faHeart} size="1x" color="red" />
-          ) : (
-            <FontAwesomeIcon icon={farHeart} size="1x" color="black" />
-          )}{' '}
-          {allTags['좋아요']}
-        </Like>
-      ) : null}
+      {songInfo.hashtagLike
+        ? (
+          <Like onClick={() => handleTagLikeCliked(songInfo.hashtagLike[0][0])}>
+            {hashtagLikes['좋아요']
+              ? (
+                <FontAwesomeIcon icon={faHeart} size='1x' color='red' />
+                )
+              : (
+                <FontAwesomeIcon icon={farHeart} size='1x' color='black' />
+                )}{' '}
+            {allTags['좋아요']}
+          </Like>
+          )
+        : null}
       {Object.entries(allTags).map((el, idx) => {
         return (
           <div key={idx}>
-            {el[0] === '좋아요' ? null : (
-              <HashTag
-                onClick={() => handleTagLikeCliked(el[0])}
-                backgroundColor={hashtagLikes[el[0]] ? Colors.darkGray : 'white'}
-                textColor={hashtagLikes[el[0]] ? 'white' : Colors.darkGray}>
-                {el[0]} {el[1]}
-              </HashTag>
-            )}
+            {el[0] === '좋아요'
+              ? null
+              : (
+                <HashTag
+                  onClick={() => handleTagLikeCliked(el[0])}
+                  backgroundColor={hashtagLikes[el[0]] ? Colors.darkGray : 'white'}
+                  textColor={hashtagLikes[el[0]] ? 'white' : Colors.darkGray}
+                >
+                  {el[0]} {el[1]}
+                </HashTag>
+                )}
           </div>
         );
       })}

@@ -1,19 +1,22 @@
 import styled from 'styled-components';
-import separatorImg from '../separator_img.png';
+import separatorImg from '../images/Landing/separator_img.png';
 
 const SeparatorWrapper = styled.div`
   .separator {
-    height: 256px;
+    height: 512px;
     width: 1024px;
-    /* border: 10px solid purple; */
+    -ms-user-select: none; 
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
   }
   .separator-image {
     width: 128px;
     position: relative; 
     top: 50%;
     transform: translateY(-50%);
-    animation: sep_bit 3000ms steps(2) infinite;
-    /* border: 10px solid blue; */
+    animation: sep_bit 3000ms steps(2) infinite
   }
   @keyframes sep_bit {     
     10%, 30% { width: 141px }

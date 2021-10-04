@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import axios from 'axios';
 import styled from 'styled-components';
 import CommentPagination from './CommentPagination';
@@ -70,8 +71,8 @@ const Wrapper = styled.div`
 // 1.
 //
 
-const Comments = ({ comments, information, songId, modal }) => {
-  const token = localStorage.getItem('accessToken');
+const Comments = ({ comments, songId, modal }) => {
+  const token = useSelector((state) => state.userReducer).token;
   const accessTokenTime = localStorage.getItem('accessTokenTime');
   const expiredTime = Number(process.env.REACT_APP_TOKEN_TIME);
 
@@ -98,7 +99,7 @@ const Comments = ({ comments, information, songId, modal }) => {
   const initialTime = localStorage.getItem('initialTime');
 
   const handlePostClicked = () => {
-    if (!information) {
+    if (!token) {
       alert('로그인이 필요한 서비스입니다.');
     }
     if (parseInt(accessTokenTime, 10) + expiredTime - new Date().getTime() < 0) {
@@ -115,7 +116,6 @@ const Comments = ({ comments, information, songId, modal }) => {
           .post(
             process.env.REACT_APP_API_URL + '/comment',
             {
-              userId: information.id,
               songId: songId,
               content: newContent
             },
@@ -158,21 +158,21 @@ const Comments = ({ comments, information, songId, modal }) => {
   return (
     <Wrapper>
       <GlobalStyle />
-      <div className="counter">댓글 {comments.length}</div>
-      <div className="comments-container">
-        <div className="comments-input-container">
+      <div className='counter'>댓글 {comments.length}</div>
+      <div className='comments-container'>
+        <div className='comments-input-container'>
           <textarea
-            className="write-comment"
-            placeholder="300자 이내 입력 가능"
+            className='write-comment'
+            placeholder='300자 이내 입력 가능'
             onChange={handleCommentChange}
             value={newContent || ''}
           />
-          <button className="postButton" type="submit" onClick={handlePostClicked}>
+          <button className='postButton' type='submit' onClick={handlePostClicked}>
             등록
           </button>
         </div>
       </div>
-      <CommentPagination information={information} songId={songId} totalComments={comments} />
+      <CommentPagination songId={songId} totalComments={comments} />
     </Wrapper>
   );
 };

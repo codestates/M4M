@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { GlobalStyle } from './components/utils/_var';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import Header from './components/Header';
 import Noti from './components/Notification';
 import Landing from './pages/Landing';
@@ -26,10 +27,11 @@ const AppWrapper = styled.div`
   }
 `;
 
-function App() {
+function App () {
   const [openLogin, setOpenLogin] = useState(false);
   const [openSignup, setOpenSignup] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const isLogin = useSelector((state) => state.userReducer).token;
 
   const handleLoginModalOpen = () => {
     setOpenLogin(true);
@@ -53,13 +55,12 @@ function App() {
   };
 
   const information = JSON.parse(localStorage.getItem('userinfo'));
-  console.log('⭐️⭐️⭐️⭐️⭐️', information)
 
   return (
     <BrowserRouter>
       <AppWrapper>
         <GlobalStyle />
-        <div className="App">
+        <div className='App'>
           <Header
             login={handleLoginModalOpen}
             signup={handleSignupModalOpen}
@@ -68,11 +69,11 @@ function App() {
           {openModal ? <Modal handleModal={handleModalClose} login={handleLoginModalOpen} /> : null}
           <Noti />
           <Switch>
-            <Route exact path="/" component={Landing} />
-            <Route path="/mainpage" component={Main} />
-            <Route path="/recommendpage" render={() => <Recommendation />} />
-            <Route path='/mylike'>{information ? <GetLikedSong modal={handleModalOpen} /> : <Redirect to="/mainpage" />}</Route>
-            <Route path='/myinfo'>{information ? <Mypage modal={handleModalOpen} /> : <Redirect to="/mainpage" />}</Route>
+            <Route exact path='/' component={Landing} />
+            <Route path='/mainpage' component={Main} />
+            <Route path='/recommendpage' render={() => <Recommendation />} />
+            <Route path='/mylike'>{isLogin ? <GetLikedSong modal={handleModalOpen} /> : <Redirect to='/' />}</Route>
+            <Route path='/myinfo'>{isLogin ? <Mypage modal={handleModalOpen} /> : <Redirect to='/' />}</Route>
             <Route path='/song:id' render={() => <SongDetail modal={handleModalOpen} />} />
             <Redirect to='/' />
           </Switch>

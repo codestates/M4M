@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { changeType } from '../redux/action';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const SideNavWrapper = styled.div`
   .main-deactive {
@@ -14,24 +14,8 @@ const SideNavWrapper = styled.div`
     width: 20vw;
     min-width: 140px;
     min-height: 100%;
+    padding-top: .8rem;
   }
-  .item, .sub-item {
-    margin: 0px 12px;
-    padding: 8px 12px;
-    cursor: pointer;
-    text-decoration: underline;
-  }
-  .item {
-    font-size: 18px;
-  }
-  .sub-item {
-    font-size: 14px;
-    position: relative;
-    left: 30px;
-  }
-  .item:hover, .item:focus, .sub-item:hover, .sub-item:focus {
-    animation: rainbow 2000ms infinite;
-  } 
   .space, .arrow {
     animation: horizontal 1000ms ease-in-out infinite;
   }
@@ -57,6 +41,32 @@ const SideNavWrapper = styled.div`
   }
 `;
 
+const Item = styled.div`
+  margin: 0px 12px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 18px;
+  text-decoration: ${(props) => props.underline};
+
+  &:hover, &:focus {
+    animation: rainbow 2000ms infinite;
+  } 
+`;
+
+const SubItem = styled.div`
+  margin: 0px 12px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  position: relative;
+  left: 30px;
+  text-decoration: ${(props) => props.underline};
+
+  &:hover, &:focus {
+    animation: rainbow 2000ms infinite;
+  } 
+`;
+
 function SideNav () {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(null);
@@ -67,6 +77,8 @@ function SideNav () {
     Hashtag: ['#인생곡인', '#가사가재밌는', '#몸이기억하는', '#눈물샘자극', '#노래방금지곡', '#영원한18번', '#추억소환'],
     Year: new Array(18).fill(1992).map((el, idx) => String(el + idx))
   };
+  const mypageList = ['Liked Songs', 'My Info'];
+  const mypageEndpoint = ['/mylike', '/myinfo'];
   const history = useHistory();
   const handleSelectChange = (e) => dispatch(changeType(e.target.getAttribute('value')));
   const handleIsOpen = (e) => {
@@ -77,6 +89,13 @@ function SideNav () {
       setIsOpen(curValue);
     }
   };
+  const handleClicked = (idx) => {
+    history.push({
+      pathname: mypageEndpoint[idx]
+    });
+  };
+
+  const navType = useSelector((state) => state.typeReducer).navType || null;
 
   return (
     <SideNavWrapper>
@@ -86,23 +105,53 @@ function SideNav () {
           {plainList
             .map((list, idx) => {
               return (
-                <div className='item' key={idx + 1} value={list} onClick={handleSelectChange}><span className='space' />{list}</div>
+                <Item
+                  key={idx + 1}
+                  value={list}
+                  onClick={handleSelectChange}
+                  underline={navType === list? 'underline' : 'none'}
+                >
+                  <span className='space' />{list}
+                </Item>
               );
             })}
           {accordionList
             .map((list, idx) => {
               return (
                 <div key={idx + 1}>
-                  <div className='item' value={list} onClick={handleIsOpen}>
+                  <Item value={list} onClick={handleIsOpen}>
                     <span className='arrow' />{list}
-                  </div>
+                  </Item>
                   {isOpen === list
                     ? accordionObj[list]
                       .map((el, idx) =>
-                        <div className='sub-item' key={idx + 1} value={el} onClick={handleSelectChange}>{el}</div>
+                        <SubItem
+                          key={idx + 1}
+                          value={el}
+                          onClick={handleSelectChange}
+                          underline={navType === el? 'underline' : 'none'}
+                        >
+                          {el}
+                        </SubItem>
                       )
                     : null}
                 </div>
+              );
+            })}
+        </div>
+        {/* history 값이 mylike나 myinfo일 때, 다른 값 보여주기 */}
+        <div className={history.location.pathname === '/mylike' || history.location.pathname === '/myinfo' ? 'main-active' : 'main-deactive'}>
+          {mypageList
+            .map((list, idx) => {
+              return (
+                <Item
+                  key={idx + 1}
+                  value={list}
+                  onClick={() => handleClicked(idx)}
+                  underline={history.location.pathname === mypageEndpoint[idx] ? 'underline' : 'none'}
+                >
+                  <span className='space' />{list}
+                </Item>
               );
             })}
         </div>

@@ -4,6 +4,10 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
+import { Colors } from '../../components/utils/_var';
 
 axios.defaults.withCredentials = true;
 
@@ -12,36 +16,14 @@ const SongListWrapper = styled.div`
     margin: 10px;
   }
   .songlist {
-    width: 80vw;
-    justify-content: center;
-    align-items: center;
+    margin-left: 1rem;
   }
   .sort {
     display: flex;
     justify-content: center;
   }
   .box {
-    margin: 10px;
-    padding: 10px;
-    background-color: lightgray;
-    border: 10px solid purple;
-  }
-  .sub-sort {
-    width: 200px;
-    height: 60px;
-    cursor: pointer;
-  }
-  .none {
-    background-color: beige;
-    transition-duration: 500ms;
-  }
-  .for {
-    background-color: lightpink;
-    transition-duration: 500ms;
-  }
-  .back {
-    background-color: lightcoral;
-    transition-duration: 500ms;
+    margin: .5rem;
   }
   .span-none {
     display:inline-block; 
@@ -63,30 +45,6 @@ const SongListWrapper = styled.div`
     border: 8px solid transparent;
     border-top: 8px solid black; 
   }
-  .song { 
-    display: flex;
-    background-color: #fff0db;
-    cursor: pointer;
-  }
-  .song:nth-child(2n) { 
-    background-color: #ffe2bd;
-  }
-  .song:hover { 
-    background-color: #ffc67a;
-  }
-  .sub-container-1 {
-    display: flex;
-  }
-  .song-album_art {
-    width: 150px;
-    height: 150px;
-  }
-  .pressed {
-    background-color: red;
-  }
-  .unpressed {
-    background-color: pink;
-  }
   .loadingWrapper {
     display: flex;
     align-items: center;
@@ -107,6 +65,141 @@ const SongListWrapper = styled.div`
   @keyframes blink {
     50% { border-color: transparent }
   }
+
+  .scrollable::-webkit-scrollbar {
+    background: ${Colors.beige};
+    height: 10px;
+  }
+  .scrollable::-webkit-scrollbar-thumb {
+    visibility: hidden;
+  }
+  .scrollable::-webkit-scrollbar-thumb:hover {
+    /* visibility: visible; */
+    border-top: .5px solid;
+    border-bottom: .5px solid;
+    border-left: .5px solid;
+    border-right: 1px solid;
+    cursor: all-scroll;
+  }
+  .field-container {
+    display: flex;
+    margin: .75rem auto 0em;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: -5px;
+  }
+  .field-container > div, input {
+    margin: .5rem 0;
+  }
+  .field {
+    display: grid;
+    grid-template-columns: 15% 27% 27% 12% 12%;
+    grid-column-gap: 8px;
+    margin: .75rem auto 0em;
+    padding: .2rem .15rem;
+    width: 75vw;
+    border: solid 1px;
+    /* background-color: ${Colors.beige}; */
+    /* background-color: ${Colors.black}; */
+  }
+  .field .grid-item {
+    text-align: center;
+    color: ${Colors.black};
+    color: #fff;
+    color: ${Colors.black};
+    border: solid 1px black;
+    /* border: solid 1px white; */
+  }
+  .grid-item {
+    font-size: .8rem;
+  }
+  .field-album {
+    /* visibility: hidden; */
+  }
+  .song-container > div, input {
+    margin: .5rem 0;
+  }
+  .song-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .song-info-container {
+    display: grid;
+    grid-template-columns: 15% 27% 27% 12% 12%;
+    grid-column-gap: 8px;
+    margin: 0rem auto;
+    padding: .4rem .15rem;
+    width: 75vw;
+    border: solid 1px;
+    box-shadow: 5px 6px ${Colors.gray};
+    background-color: ${Colors.beige};
+  }
+  .song-info-container:hover {
+    cursor: pointer;
+  }
+  .song-info-container > div:nth-child(-n+5) {
+    border: solid 1px;
+    /* margin-top: .2rem; */
+  }
+  .scrollable {
+    overflow-x: auto;
+    white-space : nowrap;
+  }
+  .album_art {
+    margin: auto 1rem auto .5rem;
+    width: 7rem;
+    height: auto;
+    grid-row: 1 / 4;
+  }
+  .title {
+    width: 100%;
+    font-size: .8rem;
+    text-align: left;
+  }
+  .artist {
+    width: 100%;
+    font-size: .7rem;
+    text-align: left;
+  }
+  .date {
+    width: 100%;
+    font-size: .9rem;
+  }
+  .like {
+    width: 100%;
+    color: ${Colors.black};
+    font-size: .9rem;
+  }
+  .hashtagBox {
+    margin-top: .75rem;
+    grid-row: 2;
+    grid-column: 2 / end;
+  }
+  .hashtag {
+    float: left;
+    margin: auto .2rem .2rem;
+    padding: .2rem;
+    border: solid 1px;
+    border-radius: 5px;
+    background-color: white;
+    color: black;
+    font-size: .7rem;
+  }
+  .grid-item:not(:first-of-type):not(:last-of-type):hover {
+    cursor: pointer;
+  }
+`;
+
+const HashTag = styled.div`
+  float: left;
+  margin: auto .2rem .2rem;
+  padding: .2rem;
+  border: solid 1px;
+  border-radius: 5px;
+  background-color: ${props => props.backgroundColor};
+  color: ${props => props.textColor};
+  font-size: .7rem;
 `;
 
 function SongList () {
@@ -137,7 +230,7 @@ function SongList () {
   }, [searchState]);
 
   useEffect(() => {
-    dispatch(changeHeader([true, true]))
+    dispatch(changeHeader([true, true]));
     setIsSorted(songsBulkState);
   }, [songsBulkState]);
 
@@ -294,41 +387,53 @@ function SongList () {
           ? <div className='box no-result'>No Result</div>
           : <>
             <div className='box type'><h1>{typeState}</h1></div>
-            <div className='box sort'>
-              <div className={'box sub-sort ' + subSort.title} onClick={handleSubSort}>
-                title<span className={'span-' + subSort.title} />
-              </div>
-              <div className={'box sub-sort ' + subSort.artist} onClick={handleSubSort}>
-                artist<span className={'span-' + subSort.artist} />
-              </div>
-              <div className={'box sub-sort ' + subSort.date} onClick={handleSubSort}>
-                date<span className={'span-' + subSort.date} />
+            <div className='field-container'>
+              <div className='field'>
+                <div className='grid-item field-album'>앨범</div>
+                <div className={'grid-item field-title' + subSort.title} onClick={handleSubSort}>
+                  title<span className={'span-' + subSort.title} />
+                </div>
+                <div className={'grid-item field-artist' + subSort.artist} onClick={handleSubSort}>
+                  artist<span className={'span-' + subSort.artist} />
+                </div>
+                <div className='grid-item field-date' onClick={handleSubSort}>
+                  date<span className={'span-' + subSort.date} />
+                </div>
+                <div className='grid-item field-like'>좋아요</div>
               </div>
             </div>
-            <div className='box list'>
+            <div className='list'>
               {result && result.map((song, idx) => {
                 if ((idx + 1) <= (isScrollCnt * songNumber)) {
                   return (
-                    <div className='box song' key={idx + 1} onClick={() => handleSongDetail(song)}>
-                      <img className='song-album_art' src={song.album_art} alt={song.title} loading='lazy' />
-                      <div className='box container'>
-                        <div className='box sub-container-1'>
-                          <div className='box song-title'>{song.title}</div>
-                          <div className='box song-artist'>{song.artist}</div>
-                          <div className='box song-date'>{song.date}</div>
-                          <div className={song.userLike ? 'box pressed' : 'box unpressed'}>👍{song.hashtagLike[0][1]}</div>
+                    <div className='song-container' key={song.id}>
+                      <div className='song-info-container' onClick={() => handleSongDetail(song)}>
+                        <img className='album_art' src={song.album_art} alt={song.title} loading='lazy' />
+                        <div className='title scrollable'>{song.title}</div>
+                        <div className='artist scrollable'>{song.artist}</div>
+                        <div className='date'>{song.date}</div>
+                        <div className='like'>
+                          {song.userHashtagLikes && song.userHashtagLikes.includes(1)
+                            ? <FontAwesomeIcon icon={faHeart} size='xs' color='red' />
+                            : <FontAwesomeIcon icon={farHeart} size='xs' color='red' />}
+                          {' '}{song.hashtagLike[0][1]}
                         </div>
-                        <div className='box sub-container-2'>
-                          <div className='box song-hashtag'>#Hashtag
-                            {Hashtag.map((tag, idx) => {
-                              if (idx !== 0) {
-                                return (
-                                  <div key={idx + 1}>{tag}: {song.hashtagLike[idx] || 0}</div>
-                                );
-                              }
-                              return null;
-                            })}
-                          </div>
+                        <div className='hashtagBox'>
+                          {song.hashtagLike.map((tag, idx) => {
+                            return (
+                              <div key={idx}>
+                                {tag[0] === '좋아요' || tag[1] === 0
+                                  ? null
+                                  : <HashTag
+                                      backgroundColor={song.userHashtagLikes && song.userHashtagLikes.includes(idx + 1) ? Colors.darkGray : 'white'}
+                                      textColor={song.userHashtagLikes && song.userHashtagLikes.includes(idx + 1) ? 'white' : Colors.darkGray}
+                                      key={idx}
+                                    >
+                                    {tag[0]} {tag[1]}
+                                    </HashTag>}
+                              </div>
+                            );
+                          })}
                         </div>
                       </div>
                     </div>
