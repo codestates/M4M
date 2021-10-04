@@ -38,14 +38,19 @@ export const LoginView = styled.div`
 
 export const LoginInputContainer = styled.div``;
 
-export const LoginHeading = styled.h2``;
+export const LoginHeading = styled.h2`
+  font-family: 'NeoDunggeunmo';
+`;
 
 export const LoginInputValue = styled.div`
   //   font-weight: bold;
   margin: 10px 0px 5px 0px;
+  font-family: 'NeoDunggeunmo';
 `;
 
-export const LoginInput = styled.input``;
+export const LoginInput = styled.input`
+  //   font-family: 'NeoDunggeunmo';
+`;
 
 export const Alertbox = styled.div`
   color: red;
@@ -58,11 +63,13 @@ export const Button = styled.button`
   margin: 0rem 0.4rem 0.1rem 0.4rem;
   cursor: pointer;
   font-family: 'NeoDunggeunmo';
+  font-size: 16px;
 `;
 
 export const ButtonContainer = styled.div`
   margin: 10px;
 `;
+
 
 export const KakaoButton = styled.div`
   width: 11.5rem;
@@ -93,7 +100,7 @@ export const KakaoContent = styled.div`
   color: #000000 85%;
 `;
 
-function Login ({ handleModal, signup }) {
+function Login({ handleModal, signup, handleMessage, handleNotice }) {
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: ''
@@ -116,12 +123,11 @@ function Login ({ handleModal, signup }) {
           withCredentials: true
         })
         .then((res) => {
-          dispatch(notify('로그인 성공!'));
           localStorage.setItem('accessToken', res.data.accessToken);
           localStorage.setItem('accessTokenTime', new Date().getTime());
-          history.push('/mainpage');
           handleModal();
-          //   window.location.replace('/mainpage');
+          handleNotice(true);
+          handleMessage('로그인 성공!');
           return res.data.accessToken;
         })
         .then((token) => {
@@ -177,9 +183,9 @@ function Login ({ handleModal, signup }) {
               .then((res) => {
                 localStorage.setItem('accessToken', res.data.accessToken);
                 localStorage.setItem('accessTokenTime', new Date().getTime());
-                dispatch(notify('로그인 성공!'));
-                history.push('/mainpage');
                 handleModal();
+                handleNotice(true);
+                handleMessage('로그인 성공!');
                 return res.data.accessToken;
               })
               .then((token) => {
@@ -216,7 +222,7 @@ function Login ({ handleModal, signup }) {
           <LoginInput onChange={handleInputValue('email')} />
           <LoginInputValue>비밀번호</LoginInputValue>
           <LoginInput
-            type='password'
+            type="password"
             onChange={handleInputValue('password')}
             onKeyPress={(e) => {
               enter(e);
@@ -240,8 +246,7 @@ function Login ({ handleModal, signup }) {
           <span style={{ fontSize: '13px', marginTop: '10px' }}>아직 회원이 아니신가요? </span>
           <span
             style={{ fontSize: '13px', marginTop: '10px', color: 'blue', cursor: 'pointer' }}
-            onClick={goSignup}
-          >
+            onClick={goSignup}>
             회원가입
           </span>
         </div>

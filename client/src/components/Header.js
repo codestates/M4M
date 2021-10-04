@@ -54,11 +54,10 @@ const HeaderWrapper = styled.div`
   }
 `;
 
-function Header ({ login, signup, modal }) {
+function Header({ login, signup, modal, handleMessage, handleNotice }) {
   const isLogin = useSelector((state) => state.userReducer).token;
   const headerState = useSelector((state) => state.headerReducer);
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const handleLogoutRequest = () => {
     const token = localStorage.getItem('accessToken');
@@ -73,20 +72,19 @@ function Header ({ login, signup, modal }) {
     };
     const logoutData = { data: null };
     if (parseInt(accessTokenTime, 10) + expiredTime - new Date().getTime() < 0) {
-      // alert('토큰이 만료되었습니다');
       modal();
     } else {
       axios
         .post(logoutUrl, logoutData, logoutConfig)
         .then((res) => {
           dispatch(userLogout(res));
-          dispatch(notify('로그아웃되었습니다.'));
-          localStorage.removeItem('accessToken');
-          localStorage.removeItem('userinfo');
-          localStorage.removeItem('accesstokenTime');
-          localStorage.removeItem('initialTime');
-          history.push('/mainpage');
-          // window.location.replace('/mainpage');
+          // localStorage.removeItem('accessToken');
+          // localStorage.removeItem('userinfo');
+          // localStorage.removeItem('accessTokenTime');
+          // localStorage.removeItem('initialTime');
+          localStorage.clear();
+          handleNotice(true);
+          handleMessage('로그아웃 성공!');
         })
         .catch((error) => {
           console.log(error.response);
@@ -96,47 +94,41 @@ function Header ({ login, signup, modal }) {
 
   return (
     <HeaderWrapper>
-      <div className='header'>
-        <div className='header-container-1'>
-          <Link to='/mainpage'>
-            <div className='logo'>
-              M4M Logo
-            </div>
+      <div className="header">
+        <div className="header-container-1">
+          <Link to="/mainpage">
+            <div className="logo">M4M Logo</div>
           </Link>
         </div>
-        <div className='header-container-2'>
-          <Link to='/recommendpage'>
+        <div className="header-container-2">
+          <Link to="/recommendpage">
             <button className={headerState.recommendBtn ? 'btn recommend-page' : 'display-none'}>
               recommend page
             </button>
           </Link>
         </div>
-        <div className='header-container-3'>
+        <div className="header-container-3">
           <HeaderSearchbar isRecommend={headerState.searchBar} />
         </div>
-        <div className='header-container-4'>
-          {!isLogin
-            ? (
-              <button className='btn login' onClick={login}>
-                login
-              </button>
-              )
-            : (
-              <button className='btn logout' onClick={handleLogoutRequest}>
-                logout
-              </button>
-              )}
-          {!isLogin
-            ? (
-              <button className='btn signup' onClick={signup}>
-                signup
-              </button>
-              )
-            : (
-              <Link to='/mylike'>
-                <button className='btn mypage'>mypage</button>
-              </Link>
-              )}
+        <div className="header-container-4">
+          {!isLogin ? (
+            <button className="btn login" onClick={login}>
+              login
+            </button>
+          ) : (
+            <button className="btn logout" onClick={handleLogoutRequest}>
+              logout
+            </button>
+          )}
+          {!isLogin ? (
+            <button className="btn signup" onClick={signup}>
+              signup
+            </button>
+          ) : (
+            <Link to="/mylike">
+              <button className="btn mypage">mypage</button>
+            </Link>
+          )}
         </div>
       </div>
     </HeaderWrapper>

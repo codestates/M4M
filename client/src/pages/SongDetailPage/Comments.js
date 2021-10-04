@@ -71,7 +71,8 @@ const Wrapper = styled.div`
 // 1.
 //
 
-const Comments = ({ comments, songId, modal }) => {
+
+const Comments = ({ comments, information, songId, modal, handleMessage, handleNotice }) => {
   const token = useSelector((state) => state.userReducer).token;
   const accessTokenTime = localStorage.getItem('accessTokenTime');
   const expiredTime = Number(process.env.REACT_APP_TOKEN_TIME);
@@ -83,7 +84,9 @@ const Comments = ({ comments, songId, modal }) => {
 
   const handleCommentChange = (e) => {
     if (!token) {
-      alert('로그인이 필요한 서비스입니다.');
+      // alert('로그인이 필요한 서비스입니다.');
+      handleNotice(true);
+      handleMessage('로그인이 필요한 서비스입니다.');
     } else if (e.target.value.length > 300) {
       alert('댓글은 300자 이내로 입력해주세요.');
     } else {
@@ -100,7 +103,9 @@ const Comments = ({ comments, songId, modal }) => {
 
   const handlePostClicked = () => {
     if (!token) {
-      alert('로그인이 필요한 서비스입니다.');
+      // alert('로그인이 필요한 서비스입니다.');
+      handleNotice(true);
+      handleMessage('로그인이 필요한 서비스입니다.');
     }
     if (parseInt(accessTokenTime, 10) + expiredTime - new Date().getTime() < 0) {
       // alert('토큰이 만료되었습니다');
@@ -158,21 +163,21 @@ const Comments = ({ comments, songId, modal }) => {
   return (
     <Wrapper>
       <GlobalStyle />
-      <div className='counter'>댓글 {comments.length}</div>
-      <div className='comments-container'>
-        <div className='comments-input-container'>
+      <div className="counter">댓글 {comments.length}</div>
+      <div className="comments-container">
+        <div className="comments-input-container">
           <textarea
-            className='write-comment'
-            placeholder='300자 이내 입력 가능'
+            className="write-comment"
+            placeholder="300자 이내 입력 가능"
             onChange={handleCommentChange}
             value={newContent || ''}
           />
-          <button className='postButton' type='submit' onClick={handlePostClicked}>
+          <button className="postButton" type="submit" onClick={handlePostClicked}>
             등록
           </button>
         </div>
       </div>
-      <CommentPagination songId={songId} totalComments={comments} />
+      <CommentPagination songId={songId} totalComments={comments} modal={modal} />
     </Wrapper>
   );
 };

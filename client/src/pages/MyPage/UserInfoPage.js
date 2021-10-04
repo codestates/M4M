@@ -27,17 +27,17 @@ const Wrapper = styled.div`
   }
   .id-number {
     position: absolute;
-    padding: .4rem .2rem;
-    margin: .2rem;
+    padding: 0.4rem 0.2rem;
+    margin: 0.2rem;
     color: ${Colors.gray};
     font-family: 'Arial';
-    font-size: .9rem;
+    font-size: 0.9rem;
   }
   input {
     width: 15rem;
     height: 1.8rem;
-    margin: .2rem auto;
-    padding: .5rem;
+    margin: 0.2rem auto;
+    padding: 0.5rem;
     border-color: ${Colors.lightGray};
     border-width: 0.2px;
     font-family: 'Arial';
@@ -53,8 +53,8 @@ const Wrapper = styled.div`
     color: ${Colors.gray};
   }
   button {
-    margin: .8rem .1rem .6rem;
-    padding: .4rem;
+    margin: 0.8rem 0.1rem 0.6rem;
+    padding: 0.4rem;
   }
   button:hover {
     cursor: pointer;
@@ -62,11 +62,11 @@ const Wrapper = styled.div`
 `;
 
 const MyPageField = styled.div`
-  margin: 1rem auto .15rem;
+  margin: 1rem auto 0.15rem;
   text-align: left;
   color: ${Colors.black};
-  font-size: .95rem;
-  
+  font-size: 0.95rem;
+
   &:first-of-type {
     padding-top: 1rem;
   }
@@ -76,18 +76,19 @@ const AlertMessage = styled.div`
   color: red;
   font-family: 'Arial';
 
-  &:not(:last-of-type){
+  &:not(:last-of-type) {
     text-align: left;
-    font-size: .8rem;
+    font-size: 0.8rem;
   }
   &:last-of-type {
-    margin: 0 auto; 
-    font-size: .95rem;
+    margin: 0 auto;
+    font-size: 0.95rem;
   }
 `;
 
 // const Mypage = ({ afterWithdrawal }) => {
-const Mypage = ({ modal }) => {
+
+const Mypage = ({ modal, handleMessage, handleNotice }) => {
   const token = useSelector((state) => state.userReducer).token;
   const { nickname, email, birthYear, kakao } = useSelector((state) => state.userReducer).userInfo;
   const accessTokenTime = localStorage.getItem('accessTokenTime');
@@ -268,7 +269,8 @@ const Mypage = ({ modal }) => {
           })
           .then((res) => {
             if (res.status === 200) {
-              alert('회원정보가 수정되었습니다.');
+              handleNotice(true);
+              handleMessage('회원정보가 수정되었습니다.');
               if (myInfo.nickname === '') {
                 myInfo.nickname = nickname;
               } else {
@@ -278,7 +280,7 @@ const Mypage = ({ modal }) => {
                 myInfo.password = '';
               }
               localStorage.setItem('userinfo', JSON.stringify(myInfo));
-              window.location.replace('/myinfo');
+              // window.location.replace('/myinfo');
             }
           })
           .catch((err) => {
@@ -304,25 +306,29 @@ const Mypage = ({ modal }) => {
         })
         .then((res) => {
           if (res.status === 200) {
-            alert('회원탈퇴가 완료되었습니다.');
+            // alert('회원탈퇴가 완료되었습니다.');
+            handleNotice(true);
+            handleMessage('회원탈퇴가 완료되었습니다.');
             // afterWithdrawal();
-            
-            history.push({
-              pathname: '/mainpage'
-            });
+            // JUST FOR TEST PURPOSES
+            // history.push({
+            //   pathname: '/mainpage'
+            // });
           }
-          localStorage.removeItem('userinfo');
-          localStorage.removeItem('accessToken');
-          localStorage.removeItem('accesstokenTime');
-          localStorage.removeItem('kakaoToken');
-          localStorage.removeItem('initialTime');
+          // localStorage.removeItem('userinfo');
+          // localStorage.removeItem('accessToken');
+          // localStorage.removeItem('accesstokenTime');
+          // localStorage.removeItem('kakaoToken');
+          // localStorage.removeItem('initialTime');
+          localStorage.clear();
+          // window.location.replace('/mainpage');
         });
     }
   };
 
   return (
     <Wrapper>
-      <div className='main'>
+      <div className="main">
         <SideNav />
         <div className='mypage-container'>
           <div className='title'>{nickname.split('#')[0]} 님, 반갑습니다!</div>
@@ -360,10 +366,9 @@ const Mypage = ({ modal }) => {
             type='password'
             onChange={inputCheck('passwordRetype')}
           />
-          <AlertMessage>
-            {checkRetypePassword ? null : '비밀번호가 일치하지 않습니다'}
-          </AlertMessage>
+          <AlertMessage>{checkRetypePassword ? null : '비밀번호가 일치하지 않습니다'}</AlertMessage>
           <MyPageField>출생년도</MyPageField>
+
           {kakao && !birthYear
             ? <>
               <input
