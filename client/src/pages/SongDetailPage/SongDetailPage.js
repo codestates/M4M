@@ -104,7 +104,6 @@ const Wrapper = styled.div`
   }
 `;
 
-
 const SongDetail = ({ modal, handleMessage, handleNotice }) => {
   const token = useSelector((state) => state.userReducer).token;
   const location = useLocation();
@@ -188,13 +187,9 @@ const SongDetail = ({ modal, handleMessage, handleNotice }) => {
   return (
     <Wrapper>
       <GlobalStyle />
-
       <div className="top-container">
         <a href={songInfo.album_art} target="_blank" rel="noreferrer">
           <img src={songInfo.album_art} alt={songInfo.id} className="album_art" />
-      <div className='top-container'>
-        <a href={songInfo.album_art} target='_blank' rel='noreferrer'>
-          <img src={songInfo.album_art} alt={songInfo.id} className='album_art' />
         </a>
         <div className="song-info-container">
           <div className="title">{songInfo.title}</div>
@@ -235,7 +230,11 @@ const SongDetail = ({ modal, handleMessage, handleNotice }) => {
         <button className="lyrics-button" onClick={handleLyricsClicked}>
           {buttonContent} <FontAwesomeIcon icon={icon} size="1x" color="#b2b2b2" />
         </button>
-        <CustomizedInfo songInfo={songInfo} />
+        <CustomizedInfo
+          songInfo={songInfo}
+          handleMessage={handleMessage}
+          handleNotice={handleNotice}
+        />
       </div>
       <Comments
         comments={comments}

@@ -56,6 +56,21 @@ function Notice({ message, login, handleNotice }) {
               }}>
               메인화면으로
             </Button>
+          ) : message === '출생년도 등록이 필요한 서비스입니다.' ? (
+            <>
+              <Button
+                onClick={() => {
+                  window.location.replace('/myinfo');
+                }}>
+                마이페이지로
+              </Button>
+              <Button
+                onClick={() => {
+                  handleNotice(false);
+                }}>
+                창닫기
+              </Button>
+            </>
           ) : (
             <Button
               onClick={() => {

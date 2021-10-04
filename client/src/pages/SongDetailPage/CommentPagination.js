@@ -102,7 +102,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const CommentPagination = ({ songId, totalComments, modal }) => {
+const CommentPagination = ({ songId, totalComments, modal, handleMessage, handleNotice }) => {
   const token = useSelector((state) => state.userReducer).token;
   const accessTokenTime = localStorage.getItem('accessTokenTime');
   const expiredTime = Number(process.env.REACT_APP_TOKEN_TIME);
@@ -145,7 +145,9 @@ const CommentPagination = ({ songId, totalComments, modal }) => {
 
   const handleDeleteClicked = (commentContent) => {
     if (!token) {
-      alert('로그인이 필요한 서비스입니다.');
+      // alert('로그인이 필요한 서비스입니다.');
+      handleNotice(true);
+      handleMessage('로그인이 필요한 서비스입니다.');
     } else {
       // console.log('nickname: ', nickname, 'content: ', commentContent);
       if (parseInt(accessTokenTime, 10) + expiredTime - new Date().getTime() < 0) {
@@ -165,7 +167,7 @@ const CommentPagination = ({ songId, totalComments, modal }) => {
           })
           .then((res) => {
             if (res.status === 200) {
-              alert('댓글이 삭제되었습니다.');
+              // alert('댓글이 삭제되었습니다.');
               window.location.replace(`/song:id=${songId}`);
             }
           })
@@ -179,34 +181,33 @@ const CommentPagination = ({ songId, totalComments, modal }) => {
   return (
     <Wrapper>
       <GlobalStyle />
-      <div className='comments-container-pagination'>
+      <div className="comments-container-pagination">
         {currentComments.map((comment, idx) => {
           return token && comment[0] === nickname ? (
-            <div className='comment-item' key={idx}>
-              <div className='nickname'>{comment[0]}</div>
-              <div className='date'>{comment[2]}</div>
-              <div className='content'>{comment[1]}</div>
-              <button className='deleteButton' onClick={() => handleDeleteClicked(comment[1])}>
+            <div className="comment-item" key={idx}>
+              <div className="nickname">{comment[0]}</div>
+              <div className="date">{comment[2]}</div>
+              <div className="content">{comment[1]}</div>
+              <button className="deleteButton" onClick={() => handleDeleteClicked(comment[1])}>
                 {/* <FontAwesomeIcon icon={faTrash} size='1x' color={Colors.mediumGray} /> */}
                 삭제
               </button>
             </div>
           ) : (
-            <div className='comment-item' key={idx}>
-              <div className='nickname'>{comment[0]}</div>
-              <div className='date'>{comment[2]}</div>
-              <div className='content'>{comment[1]}</div>
+            <div className="comment-item" key={idx}>
+              <div className="nickname">{comment[0]}</div>
+              <div className="date">{comment[2]}</div>
+              <div className="content">{comment[1]}</div>
             </div>
           );
         })}
-        <ul className='page-numbers'>
+        <ul className="page-numbers">
           {pageNumbers.map((number, idx) => {
             return (
               <li
                 key={idx}
                 style={currentPage === idx + 1 ? { backgroundColor: Colors.lightGray } : null}
-                onClick={() => handleClick(number)}
-              >
+                onClick={() => handleClick(number)}>
                 {number}
               </li>
             );
