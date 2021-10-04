@@ -71,7 +71,6 @@ const Wrapper = styled.div`
 // 1.
 //
 
-
 const Comments = ({ comments, information, songId, modal, handleMessage, handleNotice }) => {
   const token = useSelector((state) => state.userReducer).token;
   const accessTokenTime = localStorage.getItem('accessTokenTime');
@@ -86,9 +85,11 @@ const Comments = ({ comments, information, songId, modal, handleMessage, handleN
     if (!token) {
       // alert('로그인이 필요한 서비스입니다.');
       handleNotice(true);
-      handleMessage('로그인이 필요한 서비스입니다.');
+      handleMessage('로그인이 필요한 서비스입니다');
     } else if (e.target.value.length > 300) {
-      alert('댓글은 300자 이내로 입력해주세요.');
+      // alert('댓글은 300자 이내로 입력해주세요.');
+      handleNotice(true);
+      handleMessage('댓글은 300자 이내로 입력해주세요');
     } else {
       setNewComment({
         ...newComment,
@@ -105,7 +106,7 @@ const Comments = ({ comments, information, songId, modal, handleMessage, handleN
     if (!token) {
       // alert('로그인이 필요한 서비스입니다.');
       handleNotice(true);
-      handleMessage('로그인이 필요한 서비스입니다.');
+      handleMessage('로그인이 필요한 서비스입니다');
     }
     if (parseInt(accessTokenTime, 10) + expiredTime - new Date().getTime() < 0) {
       // alert('토큰이 만료되었습니다');
@@ -113,9 +114,13 @@ const Comments = ({ comments, information, songId, modal, handleMessage, handleN
     } else if (!initialTime || parseInt(initialTime, 10) + waitTime - new Date().getTime() < 0) {
       // console.log('nickname: ', information.nickname, 'content: ', newComment);
       if (newContent.length > 300) {
-        alert('댓글은 300자 이내로 입력해주세요.');
+        // alert('댓글은 300자 이내로 입력해주세요.');
+        handleNotice(true);
+        handleMessage('댓글은 300자 이내로 입력해주세요');
       } else if (newContent.length === 0) {
-        alert('댓글을 입력해주세요');
+        // alert('댓글을 입력해주세요');
+        handleNotice(true);
+        handleMessage('댓글을 입력해주세요');
       } else {
         axios
           .post(
@@ -135,7 +140,7 @@ const Comments = ({ comments, information, songId, modal, handleMessage, handleN
             if (res.status === 200) {
               // 클라이언트쪽에서 댓글 시간 제한 처리
               localStorage.setItem('initialTime', new Date().getTime());
-              alert('댓글이 등록되었습니다.');
+              // alert('댓글이 등록되었습니다.');
               setNewComment({
                 newContent: ''
               });
@@ -145,14 +150,20 @@ const Comments = ({ comments, information, songId, modal, handleMessage, handleN
           .catch((err) => {
             console.log(err.response);
             if (err.response.status === 409) {
-              alert('댓글은 중복 입력하실 수 없습니다');
+              handleNotice(true);
+              handleMessage('댓글은 중복 입력하실 수 없습니다');
+              // alert('댓글은 중복 입력하실 수 없습니다');
             } else if (err.response.data.message === 'Already reached the limit') {
-              alert('댓글은 한 곡당 50개로 제한됩니다.');
+              // alert('댓글은 한 곡당 50개로 제한됩니다.');
+              handleNotice(true);
+              handleMessage('댓글은 한 곡당 50개로 제한됩니다');
             }
           });
       }
     } else {
-      alert('도배글 등을 방지하기 위해 1분간 사용이 제한됩니다.\n잠시 후 다시 시도해주세요.');
+      // alert('도배글 등을 방지하기 위해 1분간 사용이 제한됩니다.\n잠시 후 다시 시도해주세요.');
+      handleNotice(true);
+      handleMessage(`도배글 방지를 위해 1분간 사용이 제한되니 잠시 후 다시 시도해주세요`);
       setNewComment({
         ...newComment,
         newContent: ''
@@ -177,7 +188,13 @@ const Comments = ({ comments, information, songId, modal, handleMessage, handleN
           </button>
         </div>
       </div>
-      <CommentPagination songId={songId} totalComments={comments} modal={modal} />
+      <CommentPagination
+        songId={songId}
+        totalComments={comments}
+        modal={modal}
+        handleMessage={handleMessage}
+        handleNotice={handleNotice}
+      />
     </Wrapper>
   );
 };

@@ -104,7 +104,6 @@ const Wrapper = styled.div`
   }
 `;
 
-
 const SongDetail = ({ modal, handleMessage, handleNotice }) => {
   const token = useSelector((state) => state.userReducer).token;
   const location = useLocation();
@@ -231,7 +230,11 @@ const SongDetail = ({ modal, handleMessage, handleNotice }) => {
         <button className="lyrics-button" onClick={handleLyricsClicked}>
           {buttonContent} <FontAwesomeIcon icon={icon} size="1x" color="#b2b2b2" />
         </button>
-        <CustomizedInfo songInfo={songInfo} />
+        <CustomizedInfo
+          songInfo={songInfo}
+          handleMessage={handleMessage}
+          handleNotice={handleNotice}
+        />
       </div>
       <Comments
         comments={comments}

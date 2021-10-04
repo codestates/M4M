@@ -45,7 +45,6 @@ const Like = styled.div`
   }
 `;
 
-
 const Hashtags = ({ songInfo, information, modal, handleMessage, handleNotice }) => {
   const token = useSelector((state) => state.userReducer).token;
   const accessTokenTime = localStorage.getItem('accessTokenTime');
@@ -137,11 +136,11 @@ const Hashtags = ({ songInfo, information, modal, handleMessage, handleNotice })
           })
           .then((res) => {
             if (res.status === 200) {
-              if (hashtagLikeName === '좋아요') {
-                alert('좋아요가 취소되었습니다');
-              } else {
-                alert('해시태그가 취소되었습니다');
-              }
+              // if (hashtagLikeName === '좋아요') {
+              //   alert('좋아요가 취소되었습니다');
+              // } else {
+              //   alert('해시태그가 취소되었습니다');
+              // }
               setHashtagLikes({
                 ...hashtagLikes,
                 [hashtagLikeName]: false
@@ -178,11 +177,11 @@ const Hashtags = ({ songInfo, information, modal, handleMessage, handleNotice })
             )
             .then((res) => {
               if (res.status === 200) {
-                if (hashtagLikeName === '좋아요') {
-                  alert('좋아요가 반영되었습니다');
-                } else {
-                  alert('해시태그가 반영되었습니다');
-                }
+                // if (hashtagLikeName === '좋아요') {
+                //   alert('좋아요가 반영되었습니다');
+                // } else {
+                //   alert('해시태그가 반영되었습니다');
+                // }
                 setHashtagLikes({
                   ...hashtagLikes,
                   [hashtagLikeName]: true
@@ -197,7 +196,9 @@ const Hashtags = ({ songInfo, information, modal, handleMessage, handleNotice })
             .catch((err) => {
               // console.log('3개 초과');
               if (err.response.data.message === 'You cannot choose over 3 hashtags') {
-                alert('해시태그는 3개까지만 등록할 수 있습니다.');
+                // alert('해시태그는 3개까지만 등록할 수 있습니다.');
+                handleNotice(true);
+                handleMessage('해시태그는 3개까지만 등록할 수 있습니다.');
               } else {
                 console.log(err.response);
               }
