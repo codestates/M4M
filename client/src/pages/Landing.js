@@ -7,7 +7,7 @@ import Separator from '../components/Separator';
 import { changeHeader } from '../redux/action';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const LandingWrapper = styled.div`
   .landing {
@@ -80,20 +80,23 @@ const LandingWrapper = styled.div`
     min-width: 512px;
     min-height: 384px;
   }
+  .feature-deactive {
+    display: none;
+  }
   .intro-image, .faeture-image {
     animation: img-fadein 2000ms forwards;
     @keyframes img-fadein {
-    from { 
-      width: 60%; 
-      opacity: 0;
-      visibility: hidden;
+      from { 
+        width: 60%; 
+        opacity: 0;
+        visibility: hidden;
+      }
+      to { 
+        width: 80%; 
+        opacity: 1;
+        visibility: visible;
+      }
     }
-    to { 
-      width: 80%; 
-      opacity: 1;
-      visibility: visible;
-    }
-  }
   }
   .detail-gif,
   .lead-gif {
@@ -143,12 +146,26 @@ const LandingWrapper = styled.div`
 function Landing () {
   const dispatch = useDispatch();
   const history = useHistory();
-  useEffect(() => dispatch(changeHeader([false, false])), [dispatch]);
+  const [featureImgState, setFeatureImgState] = useState('feature-deactive');
 
   const handleSongDetail = (e) => {
     const target = e.target.getAttribute('value');
     history.push({ pathname: `${target}` });
   };
+
+  const handleFeatureImgState = () => {
+    if (window.scrollY > 2200) setFeatureImgState('feature-active');
+    if (window.scrollY < 2000) setFeatureImgState('feature-deactive');
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleFeatureImgState);
+    return () => { 
+      window.removeEventListener('scroll', handleFeatureImgState); 
+    };
+  });
+
+  useEffect(() => dispatch(changeHeader([false, false])), [dispatch]);
 
   return (
     <LandingWrapper>
@@ -271,7 +288,7 @@ function Landing () {
               </div>
             </div>
             <div className='box sub-empty' />
-            <div className='box feature-image-container'>
+            <div className={`box feature-image-container ${featureImgState}`}>
               <img className='test faeture-image' src={feature_example} alt='feature_example'/>
             </div>
           </div>
