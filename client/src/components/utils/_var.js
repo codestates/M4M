@@ -1,14 +1,17 @@
 import { createGlobalStyle } from 'styled-components';
 
 const Colors = {
-  black: '#1c180d',
+  black: '#303030',
   darkGray: '#575757',
   gray: '#7a7a7a',
   mediumGray: '#a7a7a7',
   lightGray: '#e0e2e3',
+  shadowColor: '',
   borderColor: '#ccc',
   textColor: '#1c180d',
-  beige: '#f7efe5'
+  beige: '#f7efe5',
+  pastelPurple: '#caa6fe',
+  purple: '#a020f0'
 };
 
 const Size = {
@@ -52,18 +55,15 @@ const GlobalStyle = createGlobalStyle`
     font-weight: 400;
     src: local('Pixolde'), url('./fonts/Pixolde.ttf') format('woff');
   }
-  
-  body {
-    background: ${Colors.beigeColor};
-  }
+
   .app-frame {
-    background: ${Colors.beige};
+    /* background: ${Colors.pastelPurple}; */
     overflow-y: scroll;
-    height: 80vh;
-    max-width: 525px;
+    padding-top: 1.5rem;
+    max-width: 515px;
     min-width: 259px;    
     min-height: calc(100vh - 41px - 56px);
-    box-shadow: 0 0 0 1px ${Colors.black} inset; 
+    /* box-shadow: 0 0 0 1px ${Colors.black} inset;  */
     margin: 0 auto;
   }
 `;
