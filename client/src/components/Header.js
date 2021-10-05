@@ -5,49 +5,75 @@ import { useHistory } from 'react-router';
 import HeaderSearchbar from './HeaderSearchbar';
 import { notify, userLogout } from '../redux/action';
 import axios from 'axios';
+import { media } from './utils/_media-queries';
+import { Colors } from '../components/utils/_var';
 
 axios.defaults.headers.withCredentials = true;
 
 const HeaderWrapper = styled.div`
   .header {
-    padding: 8px 12px;
+    height: 3.9rem;
     width: 100vw;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: burlywood;
+    border-bottom: 1px solid rgba(150, 150, 150, 0.2);
   }
   .header-container-1 {
-    width: 15vw;
-    min-width: 110px;
+    max-width: 6rem;
+    background-color: burlywood;
+    margin-left: .8rem;
+    ${media.tabletMini`background-color: lime; margin-left: 1rem;`}
+    ${media.tablet`background-color: cyan;`}
+    ${media.laptop`background-color: green;`}
   }
   .header-container-2 {
-    width: 20vw;
-    min-width: 145px;
+    /* width: 20vw; */
+    max-width: 12rem;
+    background-color: salmon;
   }
   .header-container-3 {
-    width: 45vw;
-    min-width: 340px;
+    /* width: 45vw; */
+    max-width: 22rem;
   }
   .header-container-4 {
-    width: 20vw;
-    min-width: 180px;
+    /* width: 20vw; */
+    max-width: 15rem;
+  }
+  a {
+    text-decoration: none;
   }
   .logo {
-    background-color: beige;
-    font-size: 24px;
-    font-weight: bold;
+    /* background-color: beige; */
+    font-size: 1.2rem;
   }
   .btn {
-    font-family: 'NeoDunggeunmo';
+    background-color: transparent;
+    border: none;
     cursor: pointer;
-    font-size: 18px;
+    /* background-color: red; */
+  }
+  .recommend-page {
+    color: ${Colors.darkGray};
+    font-size: .6rem;
+    ${media.tabletMini`font-size: .9rem`}
+    ${media.tablet`font-size: .9rem`}
+    ${media.laptop`font-size: .9rem`}
+    /* background-color: red; */
   }
   .login,
   .logout,
   .signup,
   .mypage {
-    margin: 0px 8px;
+    margin: 0 .5rem;
+    font-size: .5rem;
+    ${media.tabletMini`font-size: .8rem;`}
+    ${media.tablet`font-size: .8rem;`}
+    ${media.laptop`font-size: .8rem;`}
+    color: ${Colors.gray};
+  }
+  button:hover {
+    color: ${Colors.pastelPurple};
   }
   .display-none {
     display: none;
@@ -58,6 +84,7 @@ function Header ({ login, signup, modal, handleMessage, handleNotice }) {
   const isLogin = useSelector((state) => state.userReducer).token;
   const headerState = useSelector((state) => state.headerReducer);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleLogoutRequest = () => {
     const token = localStorage.getItem('accessToken');
@@ -78,10 +105,6 @@ function Header ({ login, signup, modal, handleMessage, handleNotice }) {
         .post(logoutUrl, logoutData, logoutConfig)
         .then((res) => {
           dispatch(userLogout(res));
-          // localStorage.removeItem('accessToken');
-          // localStorage.removeItem('userinfo');
-          // localStorage.removeItem('accessTokenTime');
-          // localStorage.removeItem('initialTime');
           localStorage.clear();
           handleNotice(true);
           handleMessage('로그아웃 성공!');
@@ -97,13 +120,15 @@ function Header ({ login, signup, modal, handleMessage, handleNotice }) {
       <div className='header'>
         <div className='header-container-1'>
           <Link to='/mainpage'>
-            <div className='logo'>M4M Logo</div>
+            <div className='logo'>
+              M4M
+            </div>
           </Link>
         </div>
         <div className='header-container-2'>
           <Link to='/recommendpage'>
             <button className={headerState.recommendBtn ? 'btn recommend-page' : 'display-none'}>
-              recommend page
+              노래 추천
             </button>
           </Link>
         </div>
@@ -114,23 +139,25 @@ function Header ({ login, signup, modal, handleMessage, handleNotice }) {
           {!isLogin
             ? (
               <button className='btn login' onClick={login}>
-                login
+                로그인
               </button>
               )
             : (
               <button className='btn logout' onClick={handleLogoutRequest}>
-                logout
+                로그아웃
               </button>
               )}
           {!isLogin
             ? (
               <button className='btn signup' onClick={signup}>
-                signup
+                회원가입
               </button>
               )
             : (
-              <Link to='/mylike'>
-                <button className='btn mypage'>mypage</button>
+              <Link to='/myinfo'>
+                <button className='btn mypage'>
+                  마이페이지
+                </button>
               </Link>
               )}
         </div>
