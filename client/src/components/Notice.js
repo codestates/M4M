@@ -123,18 +123,22 @@ function Notice({ message, login, handleNotice, handleMessage }) {
             </NoticeButton>
           ) : message === '출생년도 등록이 필요한 서비스입니다.' ? (
             <>
-              <NoticeButton
-                onClick={() => {
-                  window.location.replace('/myinfo');
-                }}>
-                마이페이지로
-              </NoticeButton>
-              <NoticeClose
-                onClick={() => {
-                  handleNotice(false);
-                }}>
-                창닫기
-              </NoticeClose>
+              <div>
+                <NoticeButton
+                  onClick={() => {
+                    window.location.replace('/myinfo');
+                  }}>
+                  마이페이지로
+                </NoticeButton>
+              </div>
+              <div>
+                <NoticeClose
+                  onClick={() => {
+                    handleNotice(false);
+                  }}>
+                  창닫기
+                </NoticeClose>
+              </div>
             </>
           ) : message === '회원정보가 수정되었습니다.' ? (
             <NoticeClose
