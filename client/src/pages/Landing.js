@@ -74,23 +74,17 @@ const LandingWrapper = styled.div`
   }
   .intro-image-container,
   .feature-image-container {
-    position: relative;
-    /* text-align: right; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
     min-width: 512px;
-    min-height: 400px;
-  }
-  .intro-image, .faeture-image{
-    max-width: 490px;
-    display: block;
-    margin: auto;
-    
+    min-height: 384px;
   }
   .intro-image, .faeture-image {
-    animation: img-fadein 2500ms forwards;
+    animation: img-fadein 2000ms forwards;
     @keyframes img-fadein {
     from { 
-      transform: translateY(25%);
-      width: 50%; 
+      width: 60%; 
       opacity: 0;
       visibility: hidden;
     }
