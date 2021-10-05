@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import separatorImg from '../images/Landing/separator_img.png';
+import separator_img from '../images/Landing/separator_img.png';
 
 const SeparatorWrapper = styled.div`
   .separator {
@@ -31,7 +31,7 @@ function Separator () {
   return (
     <SeparatorWrapper>
       <div className='separator'>
-        <img className='separator-image' src={separatorImg}/>
+        <img className='separator-image' src={separator_img} alt='separator_img'/>
       </div>
     </SeparatorWrapper>
   );
