@@ -1,5 +1,7 @@
 import styled from 'styled-components';
-import { Button, ButtonContainer } from '../pages/Login';
+import { ButtonContainer } from '../pages/Login';
+import { NoticeButton, NoticeClose } from './Notice';
+import m4mlogo from '../images/m4mlogo4.png';
 
 export const ModalBackdrop = styled.div`
   position: fixed;
@@ -16,7 +18,7 @@ export const ModalBackdrop = styled.div`
 export const ModalView = styled.div`
   box-sizing: border-box;
   width: 40vh;
-  height: 15vh;
+  height: 18vh;
   background-color: rgb(255, 255, 255);
   position: relative;
   text-align: center;
@@ -25,7 +27,7 @@ export const ModalView = styled.div`
   box-shadow: 10px 10px grey;
 `;
 
-function Modal ({ handleModal, login }) {
+function Modal({ handleModal, login }) {
   const goLogin = () => {
     handleModal();
     login();
@@ -40,15 +42,15 @@ function Modal ({ handleModal, login }) {
   return (
     <ModalBackdrop>
       <ModalView>
-        <div style={{ marginTop: '25px', fontSize: '17px' }}>
-          토큰이 만료되었습니다
-          <br />
-          다시 로그인 하시겠습니까?
+        <img src={m4mlogo} style={{ width: '90px' }} />
+        <div
+          style={{ marginTop: '5px', fontSize: '17px', fontFamily: 'Arial', fontWeight: 'bold' }}>
+          [토큰 만료] 다시 로그인 하시겠습니까?
         </div>
         <ButtonContainer>
-          <Button onClick={goLogin}>로그인</Button>
-          <Button onClick={logout}>로그아웃</Button>
+          <NoticeButton onClick={goLogin}>로그인</NoticeButton>
         </ButtonContainer>
+        <NoticeClose onClick={logout}>로그아웃</NoticeClose>
       </ModalView>
     </ModalBackdrop>
   );
