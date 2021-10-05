@@ -24,12 +24,12 @@ module.exports = async (req, res) => {
     }
   });
 
-  const mailOptions = await transporter.sendMail({
+  const mailOptions = {
     from: 'test',
     to: req.body.email,
     subject: '회원가입을 위한 인증번호를 입력해주세요.',
     html: emailTemplete
-  });
+  };
 
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {

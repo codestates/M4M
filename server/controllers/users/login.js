@@ -9,7 +9,7 @@ module.exports = async (req, res) => {
 
     // 토큰정보가 있어 로그인 한 유저인 경우
     if (accessTokenData) {
-      return res.status(406).json({ message: 'you are already logged in' });
+      return res.status(403).json({ message: 'you are already logged in' });
     }
 
     // 로그인 양식을 다 채우지 않은 경우
