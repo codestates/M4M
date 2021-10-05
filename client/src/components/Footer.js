@@ -1,29 +1,53 @@
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import { Colors } from '../components/utils/_var';
 
 const FooterWrapper = styled.div`
   .footer {
-    padding: 4px 12px;
-    background-color: #3f3f3f;
+    padding: .8rem 0 .5rem 0;
+    background-color: ${Colors.darkGray};
     width: 100vw;
+    font-family: 'Arial';
   }
   .sub-container {
     display: flex;
+    margin-left: 1rem;
+  }
+  .link, .copyright {
+    color: ${Colors.lightGray};
   }
   .link {
     cursor: pointer;
+    padding: 0 .4rem .5rem;
+    text-decoration: none;
   }
   .copyright {
     position: absolute;
     right: 0;
-  }
-  .link, .copyright {
-    padding: 4px 12px;
+    padding: 0 1rem .5rem; 
     text-decoration: none;
-    color: #e9e9e9;
   }
 `;
 
 function Footer () {
+  const team = [{
+    name: '김무현',
+    repository: 'https://github.com/moo9205'
+  },
+  {
+    name: '김용우',
+    repository: 'https://github.com/magababo'
+  },
+  {
+    name: '김태호',
+    repository: 'https://github.com/TAETAEHO'
+  },
+  {
+    name: '하경주',
+    repository: 'https://github.com/TTurbo0824'
+  }
+  ];
   return (
     <FooterWrapper>
       <div className='footer'>
@@ -34,15 +58,18 @@ function Footer () {
             target='_blank'
             rel='noopener noreferrer'
           >
-            Project Repository Link
+            M4M Repository Link
           </a>
         </div>
         <div className='sub-container'>
-          <a className='link' href='https://github.com/moo9205' target='_blank' rel='noopener noreferrer'>김무현</a>
-          <a className='link' href='https://github.com/magababo' target='_blank' rel='noopener noreferrer'>김용우</a>
-          <a className='link' href='https://github.com/TAETAEHO' target='_blank' rel='noopener noreferrer'>김태호</a>
-          <a className='link' href='https://github.com/TTurbo0824' target='_blank' rel='noopener noreferrer'>하경주</a>
-          <span className='copyright'>copyright &copy; {new Date().getFullYear()} MGs All rights reserved.</span>
+          <div className='link'>Developed by</div>
+          {team.map((member, idx) =>
+            <a className='link' key={idx} href={member.repository} target='_blank' rel='noopener noreferrer'>
+              <FontAwesomeIcon icon={faGithub} size='1x' color={Colors.lightGray} />
+              {' '}{member.name}
+            </a>
+          )}
+          <span className='copyright'>Copyright &copy; {new Date().getFullYear()} MGs All Rights Reserved.</span>
         </div>
       </div>
     </FooterWrapper>
