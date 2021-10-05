@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { media } from '../components/utils/_media-queries';
 import { useState, useEffect } from 'react';
 
 const MoveTopWrapper = styled.div`
@@ -15,10 +16,11 @@ const MoveTopWrapper = styled.div`
   .move-top {
     position: fixed;
     left: 95%;
-    bottom: calc(54px + 0px);
+    bottom: calc(112px + 10px);
     animation: vertical 1000ms ease-in-out infinite;
     cursor: pointer;
     z-index: 99;
+    ${media.tablet`bottom: calc(54px + 10px);`}
   }
   .arrow {
     width: 24px;
