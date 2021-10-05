@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import { LoginButton, ButtonContainer, CloseButton } from '../pages/Login';
 import m4mlogo from '../images/m4mlogo4.png';
+import axios from 'axios';
+import { changeHeader, userEdit } from '../redux/action';
+import { useSelector, useDispatch } from 'react-redux';
+require('dotenv').config();
 
 export const NoticeBackdrop = styled.div`
   position: fixed;
@@ -25,7 +29,6 @@ export const NoticeView = styled.div`
   padding-top: 10px;
   box-shadow: 10px 10px grey;
 `;
-
 
 export const NoticeButton = styled.button`
   margin-top: 0.4rem;
@@ -58,7 +61,27 @@ export const NoticeClose = styled.button`
   }
 `;
 
-function Notice({ message, login, handleNotice }) {
+function Notice({ message, login, handleNotice, handleMessage }) {
+  const token = useSelector((state) => state.userReducer).token;
+
+  const withdrawalRequest = () => {
+    axios
+      .delete(process.env.REACT_APP_API_URL + '/withdrawal', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        withCredentials: true
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          handleNotice(true);
+          handleMessage('회원탈퇴가 완료되었습니다');
+          localStorage.clear();
+        }
+      });
+  };
+
   return (
     <NoticeBackdrop>
       <NoticeView>
@@ -91,7 +114,7 @@ function Notice({ message, login, handleNotice }) {
           ) : message === '로그인 성공!' ||
             message === '로그아웃 성공!' ||
             message === '회원가입 성공!' ||
-            message === '회원탈퇴가 완료되었습니다.' ? (
+            message === '회원탈퇴가 완료되었습니다' ? (
             <NoticeButton
               onClick={() => {
                 window.location.replace('/mainpage');
@@ -113,6 +136,27 @@ function Notice({ message, login, handleNotice }) {
                 창닫기
               </NoticeClose>
             </>
+          ) : message === '회원정보가 수정되었습니다.' ? (
+            <NoticeClose
+              onClick={() => {
+                window.location.replace('/myinfo');
+              }}>
+              확인
+            </NoticeClose>
+          ) : message === '정말 회원탈퇴 하시겠습니까...?' ? (
+            <div>
+              <div>
+                <NoticeButton onClick={withdrawalRequest}>탈퇴하기</NoticeButton>
+              </div>
+              <div>
+                <NoticeClose
+                  onClick={() => {
+                    handleNotice(false);
+                  }}>
+                  창닫기
+                </NoticeClose>
+              </div>
+            </div>
           ) : (
             <NoticeClose
               onClick={() => {
