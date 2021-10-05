@@ -102,7 +102,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const CommentPagination = ({ songId, totalComments, modal }) => {
+const CommentPagination = ({ songId, totalComments, modal, handleMessage, handleNotice }) => {
   const token = useSelector((state) => state.userReducer).token;
   const accessTokenTime = localStorage.getItem('accessTokenTime');
   const expiredTime = Number(process.env.REACT_APP_TOKEN_TIME);
@@ -145,7 +145,9 @@ const CommentPagination = ({ songId, totalComments, modal }) => {
 
   const handleDeleteClicked = (commentContent) => {
     if (!token) {
-      alert('로그인이 필요한 서비스입니다.');
+      // alert('로그인이 필요한 서비스입니다.');
+      handleNotice(true);
+      handleMessage('로그인이 필요한 서비스입니다.');
     } else {
       // console.log('nickname: ', nickname, 'content: ', commentContent);
       if (parseInt(accessTokenTime, 10) + expiredTime - new Date().getTime() < 0) {
@@ -165,7 +167,7 @@ const CommentPagination = ({ songId, totalComments, modal }) => {
           })
           .then((res) => {
             if (res.status === 200) {
-              alert('댓글이 삭제되었습니다.');
+              // alert('댓글이 삭제되었습니다.');
               window.location.replace(`/song:id=${songId}`);
             }
           })

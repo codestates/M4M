@@ -45,7 +45,7 @@ const Like = styled.div`
   }
 `;
 
-const Hashtags = ({ songInfo, modal }) => {
+const Hashtags = ({ songInfo, information, modal, handleMessage, handleNotice }) => {
   const token = useSelector((state) => state.userReducer).token;
   const accessTokenTime = localStorage.getItem('accessTokenTime');
   const expiredTime = Number(process.env.REACT_APP_TOKEN_TIME);
@@ -112,7 +112,9 @@ const Hashtags = ({ songInfo, modal }) => {
 
   const handleTagLikeCliked = (hashtagLikeName) => {
     if (!token) {
-      alert('로그인이 필요한 서비스입니다.');
+      // alert('로그인이 필요한 서비스입니다.');
+      handleNotice(true);
+      handleMessage('로그인이 필요한 서비스입니다.');
     } else {
       if (parseInt(accessTokenTime, 10) + expiredTime - new Date().getTime() < 0) {
         // alert('토큰이 만료되었습니다');
@@ -134,11 +136,11 @@ const Hashtags = ({ songInfo, modal }) => {
           })
           .then((res) => {
             if (res.status === 200) {
-              if (hashtagLikeName === '좋아요') {
-                alert('좋아요가 취소되었습니다');
-              } else {
-                alert('해시태그가 취소되었습니다');
-              }
+              // if (hashtagLikeName === '좋아요') {
+              //   alert('좋아요가 취소되었습니다');
+              // } else {
+              //   alert('해시태그가 취소되었습니다');
+              // }
               setHashtagLikes({
                 ...hashtagLikes,
                 [hashtagLikeName]: false
@@ -175,11 +177,11 @@ const Hashtags = ({ songInfo, modal }) => {
             )
             .then((res) => {
               if (res.status === 200) {
-                if (hashtagLikeName === '좋아요') {
-                  alert('좋아요가 반영되었습니다');
-                } else {
-                  alert('해시태그가 반영되었습니다');
-                }
+                // if (hashtagLikeName === '좋아요') {
+                //   alert('좋아요가 반영되었습니다');
+                // } else {
+                //   alert('해시태그가 반영되었습니다');
+                // }
                 setHashtagLikes({
                   ...hashtagLikes,
                   [hashtagLikeName]: true
@@ -194,7 +196,9 @@ const Hashtags = ({ songInfo, modal }) => {
             .catch((err) => {
               // console.log('3개 초과');
               if (err.response.data.message === 'You cannot choose over 3 hashtags') {
-                alert('해시태그는 3개까지만 등록할 수 있습니다.');
+                // alert('해시태그는 3개까지만 등록할 수 있습니다.');
+                handleNotice(true);
+                handleMessage('해시태그는 3개까지만 등록할 수 있습니다.');
               } else {
                 console.log(err.response);
               }

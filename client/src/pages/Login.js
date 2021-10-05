@@ -1,9 +1,10 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router';
 // import kakaoImage from '../images/kakao_login_medium_narrow.png';
 import kakaoLogo from '../images/kakao_logo.png';
+import m4mlogo from '../images/m4mlogo4.png';
 import { useDispatch } from 'react-redux';
 import { notify, userLogin } from '../redux/action';
 import { media } from '../components/utils/_media-queries';
@@ -21,13 +22,13 @@ export const LoginBackdrop = styled.div`
   background-color: rgba(0, 0, 0, 0.7);
   display: grid;
   place-items: center;
-  height: 100vh;
+  height: 100%;
 `;
 
 export const LoginView = styled.div`
   box-sizing: border-box;
   width: 45vh;
-  height: 45vh;
+  height: 47vh;
   background-color: rgb(255, 255, 255);
   position: relative;
   text-align: center;
@@ -36,45 +37,94 @@ export const LoginView = styled.div`
   box-shadow: 10px 10px grey;
 `;
 
-export const LoginInputContainer = styled.div``;
-
-export const LoginHeading = styled.h2``;
-
-export const LoginInputValue = styled.div`
-  //   font-weight: bold;
-  margin: 10px 0px 5px 0px;
+export const LoginInputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  // border: 1px solid black;
+  height: 30%;
 `;
 
-export const LoginInput = styled.input``;
+export const LoginInput = styled.input`
+  //   font-family: 'NeoDunggeunmo';
+  background-color: #f2f2f2;
+  border: none;
+  border-radius: 10px;
+  width: 70%;
+  height: 30%;
+  padding: 10px;
+  font-weight: bold;
+  :focus {
+    outline: none;
+  }
+`;
+
+function blinkEffect() {
+  return keyframes`
+  50% {
+    opacity:0;
+  }
+  `;
+}
 
 export const Alertbox = styled.div`
   color: red;
-  font-family: 'NeoDunggeunmo';
-  font-size: 15px;
-  margin-top: 10px;
+  font-family: 'Arial';
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 5px;
+  animation: ${blinkEffect} 1s step-end infinite;
 `;
 
-export const Button = styled.button`
+export const LoginButton = styled.button`
   margin: 0rem 0.4rem 0.1rem 0.4rem;
   cursor: pointer;
-  font-family: 'NeoDunggeunmo';
+  font-family: 'Arial';
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #caa6fe;
+  width: 11.5rem;
+  height: 2.5rem;
+  border-radius: 7px;
+  border: none;
+  color: white;
+  :hover {
+    background-color: #9c57ff;
+  }
 `;
 
+export const CloseButton = styled.button`
+  background-color: white;
+  border: none;
+  margin-top: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: grey;
+  :hover {
+    color: black;
+  }
+`;
+
+
 export const ButtonContainer = styled.div`
-  margin: 10px;
+  // margin: 10px;
+  // border: 1px solid black;
 `;
 
 export const KakaoButton = styled.div`
   width: 11.5rem;
   height: 2.5rem;
-  margin: .8rem auto;
-  padding: .7rem .2rem .7rem 0;
-  background-color: #FEE500;
+  margin: 0.8rem auto;
+  padding: 0.7rem 0.2rem 0.7rem 0;
+  background-color: #fee500;
   border-radius: 7px;
   border: none;
 
   &:hover {
     cursor: pointer;
+    background-color: #ffd500;
   }
 
   img {
@@ -88,12 +138,25 @@ export const KakaoContent = styled.div`
   vertical-align: middle;
   margin: auto 1.8rem auto 0;
   font-family: 'Arial';
-  font-size: .75rem;
+  font-size: 0.75rem;
+  font-weight: bold;
   ${media.tablet`font-size: .85rem;`}
   color: #000000 85%;
 `;
 
-function Login ({ handleModal, signup }) {
+export const SignupSpan = styled.span`
+  font-size: 13px;
+  margin-top: 10px;
+  color: #9c57ff;
+  cursor: pointer;
+  font-family: 'Arial';
+  font-weight: bold;
+  :hover {
+    color: #7b3cd6;
+  }
+`;
+
+function Login({ handleModal, signup, handleMessage, handleNotice }) {
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: ''
@@ -116,12 +179,11 @@ function Login ({ handleModal, signup }) {
           withCredentials: true
         })
         .then((res) => {
-          dispatch(notify('로그인 성공!'));
           localStorage.setItem('accessToken', res.data.accessToken);
           localStorage.setItem('accessTokenTime', new Date().getTime());
-          history.push('/mainpage');
           handleModal();
-          //   window.location.replace('/mainpage');
+          handleNotice(true);
+          handleMessage('로그인 성공!');
           return res.data.accessToken;
         })
         .then((token) => {
@@ -177,9 +239,9 @@ function Login ({ handleModal, signup }) {
               .then((res) => {
                 localStorage.setItem('accessToken', res.data.accessToken);
                 localStorage.setItem('accessTokenTime', new Date().getTime());
-                dispatch(notify('로그인 성공!'));
-                history.push('/mainpage');
                 handleModal();
+                handleNotice(true);
+                handleMessage('로그인 성공!');
                 return res.data.accessToken;
               })
               .then((token) => {
@@ -210,41 +272,38 @@ function Login ({ handleModal, signup }) {
   return (
     <LoginBackdrop>
       <LoginView>
-        <LoginHeading>로그인</LoginHeading>
+        <img src={m4mlogo} style={{ width: '200px' }} />
         <LoginInputContainer>
-          <LoginInputValue>이메일</LoginInputValue>
-          <LoginInput onChange={handleInputValue('email')} />
-          <LoginInputValue>비밀번호</LoginInputValue>
+          <LoginInput onChange={handleInputValue('email')} placeholder="이메일" />
           <LoginInput
             type='password'
             onChange={handleInputValue('password')}
             onKeyPress={(e) => {
               enter(e);
             }}
+            placeholder="비밀번호"
           />
         </LoginInputContainer>
         <ButtonContainer>
-          <Button onClick={handleLoginRequest}>로그인</Button>
-          <Button onClick={handleModal}>창닫기</Button>
+          <LoginButton onClick={handleLoginRequest}>로그인</LoginButton>
         </ButtonContainer>
         <KakaoButton onClick={kakaoLogin}>
-          {/* <img
-            src={kakaoImage}
-            style={{ width: '140px', cursor: 'pointer' }}
-            onClick={kakaoLogin}
-          /> */}
-          <img src={kakaoLogo} alt='kakao-logo' width='20px' />
+          <img src={kakaoLogo} alt="kakao-logo" width="20px" />
           <KakaoContent>카카오 로그인</KakaoContent>
         </KakaoButton>
         <div style={{ marginTop: '5px' }}>
-          <span style={{ fontSize: '13px', marginTop: '10px' }}>아직 회원이 아니신가요? </span>
           <span
-            style={{ fontSize: '13px', marginTop: '10px', color: 'blue', cursor: 'pointer' }}
-            onClick={goSignup}
-          >
-            회원가입
+            style={{
+              fontSize: '13px',
+              margin: '10px 6px 0px 0px',
+              fontFamily: 'Arial',
+              fontWeight: 'bold'
+            }}>
+            아직 회원이 아니신가요?
           </span>
+          <SignupSpan onClick={goSignup}>회원가입</SignupSpan>
         </div>
+        <CloseButton onClick={handleModal}>창닫기</CloseButton>
         <Alertbox>{errorMsg}</Alertbox>
       </LoginView>
     </LoginBackdrop>

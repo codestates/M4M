@@ -104,7 +104,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const SongDetail = ({ modal }) => {
+const SongDetail = ({ modal, handleMessage, handleNotice }) => {
   const token = useSelector((state) => state.userReducer).token;
   const location = useLocation();
   const history = useHistory();
@@ -206,7 +206,12 @@ const SongDetail = ({ modal }) => {
             <div className='field'>장르</div>
             <div className='others'>{songInfo.genre}</div>
           </div>
-          <Hashtags songInfo={songInfo} modal={modal} />
+          <Hashtags
+            songInfo={songInfo}
+            modal={modal}
+            handleMessage={handleMessage}
+            handleNotice={handleNotice}
+          />
         </div>
       </div>
       <div className='bottom-container'>
@@ -227,9 +232,19 @@ const SongDetail = ({ modal }) => {
         <button className='lyrics-button' onClick={handleLyricsClicked}>
           {buttonContent} <FontAwesomeIcon icon={icon} size='1x' color='#b2b2b2' />
         </button>
-        <CustomizedInfo songInfo={songInfo} />
+        <CustomizedInfo
+          songInfo={songInfo}
+          handleMessage={handleMessage}
+          handleNotice={handleNotice}
+        />
       </div>
-      <Comments comments={comments} songId={songInfo.id} modal={modal} />
+      <Comments
+        comments={comments}
+        songId={songInfo.id}
+        modal={modal}
+        handleMessage={handleMessage}
+        handleNotice={handleNotice}
+      />
     </Wrapper>
   );
 };
