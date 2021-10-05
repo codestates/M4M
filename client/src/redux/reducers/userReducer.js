@@ -1,4 +1,4 @@
-import { LOG_IN, LOG_OUT } from '../action';
+import { LOG_IN, LOG_OUT, EDIT_INFO } from '../action';
 import { initUserState } from './initialState';
 
 const userReducer = (state = initUserState, action) => {
@@ -21,6 +21,16 @@ const userReducer = (state = initUserState, action) => {
           email: null,
           kakao: null,
           nickname: null
+        }
+      });
+    case EDIT_INFO:
+      return Object.assign({}, state, {
+        token: action.token,
+        userInfo: {
+          birthYear: action.payload.birthYear,
+          email: action.payload.email,
+          kakao: action.payload.kakao,
+          nickname: action.payload.nickname
         }
       });
     default: return state;

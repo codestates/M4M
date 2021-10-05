@@ -292,81 +292,86 @@ const GetLikedSong = ({ modal, handleMessage, handleNotice }) => {
   return (
     <Wrapper>
       <GlobalStyle />
-      <div className="main">
+      <div className='main'>
         <SideNav />
         <div>
-          <div className="button-container">
+          <div className='button-container'>
             <button onClick={handleSongDelete}>선택 항목 삭제</button>
           </div>
-          <div className="field-container">
+          <div className='field-container'>
             <input
-              type="checkbox"
-              className="select-all"
+              type='checkbox'
+              className='select-all'
               onChange={onChangeAll}
               checked={CheckList.length === IdList.length}
             />
-            <div className="field">
-              <div className="grid-item field-album">앨범</div>
-              <div className="grid-item field-title">제목</div>
-              <div className="grid-item field-artist">가수</div>
-              <div className="grid-item field-date">발매일</div>
-              <div className="grid-item field-like">좋아요</div>
+            <div className='field'>
+              <div className='grid-item field-album'>앨범</div>
+              <div className='grid-item field-title'>제목</div>
+              <div className='grid-item field-artist'>가수</div>
+              <div className='grid-item field-date'>발매일</div>
+              <div className='grid-item field-like'>좋아요</div>
             </div>
           </div>
           <br />
-          {songList.length !== 0 ? (
-            songList.map((song, idx) => {
-              return (
-                <div key={idx}>
-                  <div className="song-container">
-                    <input
-                      type="checkbox"
-                      className="select-one"
-                      onChange={(e) => onChangeEach(e, song.id)}
-                      checked={CheckList.includes(song.id)}
-                    />
-                    <div className="song-info-container" onClick={() => handleSongClicked(song)}>
-                      <img src={song.album_art} alt={song.id} className="album_art" />
-                      <div className="title scrollable">{song.title}</div>
-                      <div className="artist scrollable">{song.artist}</div>
-                      <div className="date">{song.date}</div>
-                      <div className="like">
-                        <FontAwesomeIcon icon={faHeart} size="xs" color="red" />{' '}
-                        {song.hashtagLike[0][1]}
-                      </div>
-                      <div className="hashtagBox">
-                        {song.userHashtagLikes &&
+          {songList.length !== 0
+            ? (
+                songList.map((song, idx) => {
+                  return (
+                    <div key={idx}>
+                      <div className='song-container'>
+                        <input
+                          type='checkbox'
+                          className='select-one'
+                          onChange={(e) => onChangeEach(e, song.id)}
+                          checked={CheckList.includes(song.id)}
+                        />
+                        <div className='song-info-container' onClick={() => handleSongClicked(song)}>
+                          <img src={song.album_art} alt={song.id} className='album_art' />
+                          <div className='title scrollable'>{song.title}</div>
+                          <div className='artist scrollable'>{song.artist}</div>
+                          <div className='date'>{song.date}</div>
+                          <div className='like'>
+                            <FontAwesomeIcon icon={faHeart} size='xs' color='red' />{' '}
+                            {song.hashtagLike[0][1]}
+                          </div>
+                          <div className='hashtagBox'>
+                            {song.userHashtagLikes &&
                           song.hashtagLike.map((tag, idx) => {
                             return (
                               <div key={song + idx}>
-                                {tag[0] === '좋아요' ? null : (
-                                  <HashTag
-                                    backgroundColor={
+                                {tag[0] === '좋아요'
+                                  ? null
+                                  : (
+                                    <HashTag
+                                      backgroundColor={
                                       song.userHashtagLikes.includes(Hashtag.indexOf(tag[0]) + 1)
                                         ? Colors.darkGray
                                         : 'white'
                                     }
-                                    textColor={
+                                      textColor={
                                       song.userHashtagLikes.includes(Hashtag.indexOf(tag[0]) + 1)
                                         ? 'white'
                                         : Colors.darkGray
-                                    }>
-                                    {tag[0]} {tag[1]}
-                                  </HashTag>
-                                )}
+                                    }
+                                    >
+                                      {tag[0]} {tag[1]}
+                                    </HashTag>
+                                    )}
                               </div>
                             );
                           })}
+                          </div>
+                        </div>
+                        <br />
                       </div>
                     </div>
-                    <br />
-                  </div>
-                </div>
-              );
-            })
-          ) : (
-            <div className="message">현재 좋아요를 선택한 곡이 없습니다.</div>
-          )}
+                  );
+                })
+              )
+            : (
+              <div className='message'>현재 좋아요를 선택한 곡이 없습니다.</div>
+              )}
         </div>
       </div>
     </Wrapper>

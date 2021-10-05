@@ -26,6 +26,7 @@ export const NoticeView = styled.div`
   box-shadow: 10px 10px grey;
 `;
 
+
 export const NoticeButton = styled.button`
   margin-top: 0.4rem;
   background-color: #caa6fe;

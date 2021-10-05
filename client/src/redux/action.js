@@ -5,6 +5,7 @@ export const GET_SONGS_BULK = 'GET_SONGS_BULK';
 export const GET_SEARCH_RESULT = 'GET_SEARCH_RESULT';
 export const LOG_IN = 'LOG_IN';
 export const LOG_OUT = 'LOG_OUT';
+export const EDIT_INFO = 'EDIT_INFO';
 export const HEADER_CHANGE = 'HEADER_CHANGE';
 
 export const notify = (message, duration = 3000) => dispatch => {
@@ -59,6 +60,14 @@ export const userLogin = (loginData, token) => {
 export const userLogout = () => {
   return {
     type: LOG_OUT
+  };
+};
+
+export const userEdit = (editedData, token) => {
+  return {
+    type: EDIT_INFO,
+    payload: editedData,
+    token: token
   };
 };
 

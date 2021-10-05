@@ -107,6 +107,7 @@ export const CloseButton = styled.button`
   }
 `;
 
+
 export const ButtonContainer = styled.div`
   // margin: 10px;
   // border: 1px solid black;
@@ -275,7 +276,7 @@ function Login({ handleModal, signup, handleMessage, handleNotice }) {
         <LoginInputContainer>
           <LoginInput onChange={handleInputValue('email')} placeholder="이메일" />
           <LoginInput
-            type="password"
+            type='password'
             onChange={handleInputValue('password')}
             onKeyPress={(e) => {
               enter(e);

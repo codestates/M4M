@@ -187,24 +187,24 @@ const SongDetail = ({ modal, handleMessage, handleNotice }) => {
   return (
     <Wrapper>
       <GlobalStyle />
-      <div className="top-container">
-        <a href={songInfo.album_art} target="_blank" rel="noreferrer">
-          <img src={songInfo.album_art} alt={songInfo.id} className="album_art" />
+      <div className='top-container'>
+        <a href={songInfo.album_art} target='_blank' rel='noreferrer'>
+          <img src={songInfo.album_art} alt={songInfo.id} className='album_art' />
         </a>
-        <div className="song-info-container">
-          <div className="title">{songInfo.title}</div>
-          <div className="artist">{songInfo.artist}</div>
-          <div className="field-container">
-            <div className="field">앨범</div>
-            <div className="others">{songInfo.album}</div>
+        <div className='song-info-container'>
+          <div className='title'>{songInfo.title}</div>
+          <div className='artist'>{songInfo.artist}</div>
+          <div className='field-container'>
+            <div className='field'>앨범</div>
+            <div className='others'>{songInfo.album}</div>
           </div>
-          <div className="field-container">
-            <div className="field">발매일</div>
-            <div className="others">{songInfo.date}</div>
+          <div className='field-container'>
+            <div className='field'>발매일</div>
+            <div className='others'>{songInfo.date}</div>
           </div>
-          <div className="field-container">
-            <div className="field">장르</div>
-            <div className="others">{songInfo.genre}</div>
+          <div className='field-container'>
+            <div className='field'>장르</div>
+            <div className='others'>{songInfo.genre}</div>
           </div>
           <Hashtags
             songInfo={songInfo}
@@ -214,21 +214,23 @@ const SongDetail = ({ modal, handleMessage, handleNotice }) => {
           />
         </div>
       </div>
-      <div className="bottom-container">
-        <div className="lyrics-container">
-          <div className="field">가사</div>
+      <div className='bottom-container'>
+        <div className='lyrics-container'>
+          <div className='field'>가사</div>
           {songInfo.lyrics &&
             songInfo.lyrics.split('\n').map((line, idx) => {
-              return idx < lineNum ? (
-                <div className="lyrics" key={idx}>
-                  {line}
-                  <br />
-                </div>
-              ) : null;
+              return idx < lineNum
+                ? (
+                  <div className='lyrics' key={idx}>
+                    {line}
+                    <br />
+                  </div>
+                  )
+                : null;
             })}
         </div>
-        <button className="lyrics-button" onClick={handleLyricsClicked}>
-          {buttonContent} <FontAwesomeIcon icon={icon} size="1x" color="#b2b2b2" />
+        <button className='lyrics-button' onClick={handleLyricsClicked}>
+          {buttonContent} <FontAwesomeIcon icon={icon} size='1x' color='#b2b2b2' />
         </button>
         <CustomizedInfo
           songInfo={songInfo}

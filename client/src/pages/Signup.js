@@ -147,7 +147,7 @@ export const VerifyButton = styled.button`
   }
 `;
 
-function Signup({ handleModal, handleNotice, handleMessage }) {
+function Signup ({ handleModal, handleNotice, handleMessage }) {
   const [userInfo, setUserInfo] = useState({
     nickname: '',
     email: '',

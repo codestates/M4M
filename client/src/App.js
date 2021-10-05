@@ -28,7 +28,7 @@ const AppWrapper = styled.div`
   }
 `;
 
-function App() {
+function App () {
   const [openLogin, setOpenLogin] = useState(false);
   const [openSignup, setOpenSignup] = useState(false);
   const [openModal, setOpenModal] = useState(false);
@@ -72,7 +72,7 @@ function App() {
     <BrowserRouter>
       <AppWrapper>
         <GlobalStyle />
-        <div className="App">
+        <div className='App'>
           <Header
             login={handleLoginModalOpen}
             signup={handleSignupModalOpen}
@@ -83,33 +83,37 @@ function App() {
           {openModal ? <Modal handleModal={handleModalClose} login={handleLoginModalOpen} /> : null}
           <Noti />
           <Switch>
-            <Route exact path="/" component={Landing} />
-            <Route path="/mainpage" component={Main} />
-            <Route path="/recommendpage" render={() => <Recommendation />} />
-            <Route path="/mylike">
-              {information ? (
-                <GetLikedSong
-                  modal={handleModalOpen}
-                  handleMessage={handleMessage}
-                  handleNotice={handleNotice}
-                />
-              ) : (
-                <Redirect to="/mainpage" />
-              )}
+            <Route exact path='/' component={Landing} />
+            <Route path='/mainpage' component={Main} />
+            <Route path='/recommendpage' render={() => <Recommendation />} />
+            <Route path='/mylike'>
+              {information
+                ? (
+                  <GetLikedSong
+                    modal={handleModalOpen}
+                    handleMessage={handleMessage}
+                    handleNotice={handleNotice}
+                  />
+                  )
+                : (
+                  <Redirect to='/mainpage' />
+                  )}
             </Route>
-            <Route path="/myinfo">
-              {information ? (
-                <Mypage
-                  modal={handleModalOpen}
-                  handleMessage={handleMessage}
-                  handleNotice={handleNotice}
-                />
-              ) : (
-                <Redirect to="/mainpage" />
-              )}
+            <Route path='/myinfo'>
+              {information
+                ? (
+                  <Mypage
+                    modal={handleModalOpen}
+                    handleMessage={handleMessage}
+                    handleNotice={handleNotice}
+                  />
+                  )
+                : (
+                  <Redirect to='/mainpage' />
+                  )}
             </Route>
             <Route
-              path="/song:id"
+              path='/song:id'
               render={() => (
                 <SongDetail
                   modal={handleModalOpen}
@@ -118,29 +122,35 @@ function App() {
                 />
               )}
             />
-            <Redirect to="/" />
+            <Redirect to='/' />
 
           </Switch>
-          {openNotice ? (
-            <Notice message={message} login={handleLoginModalOpen} handleNotice={handleNotice} />
-          ) : null}
+          {openNotice
+            ? (
+              <Notice message={message} login={handleLoginModalOpen} handleNotice={handleNotice} />
+              )
+            : null}
           <MoveTop />
           <Footer />
-          {openSignup ? (
-            <Signup
-              handleModal={handleSignupModalClose}
-              handleMessage={handleMessage}
-              handleNotice={handleNotice}
-            />
-          ) : null}
-          {openLogin ? (
-            <Login
-              handleModal={handleLoginModalClose}
-              signup={handleSignupModalOpen}
-              handleMessage={handleMessage}
-              handleNotice={handleNotice}
-            />
-          ) : null}
+          {openSignup
+            ? (
+              <Signup
+                handleModal={handleSignupModalClose}
+                handleMessage={handleMessage}
+                handleNotice={handleNotice}
+              />
+              )
+            : null}
+          {openLogin
+            ? (
+              <Login
+                handleModal={handleLoginModalClose}
+                signup={handleSignupModalOpen}
+                handleMessage={handleMessage}
+                handleNotice={handleNotice}
+              />
+              )
+            : null}
         </div>
       </AppWrapper>
     </BrowserRouter>

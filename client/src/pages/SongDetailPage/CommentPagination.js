@@ -181,33 +181,34 @@ const CommentPagination = ({ songId, totalComments, modal, handleMessage, handle
   return (
     <Wrapper>
       <GlobalStyle />
-      <div className="comments-container-pagination">
+      <div className='comments-container-pagination'>
         {currentComments.map((comment, idx) => {
           return token && comment[0] === nickname ? (
-            <div className="comment-item" key={idx}>
-              <div className="nickname">{comment[0]}</div>
-              <div className="date">{comment[2]}</div>
-              <div className="content">{comment[1]}</div>
-              <button className="deleteButton" onClick={() => handleDeleteClicked(comment[1])}>
+            <div className='comment-item' key={idx}>
+              <div className='nickname'>{comment[0]}</div>
+              <div className='date'>{comment[2]}</div>
+              <div className='content'>{comment[1]}</div>
+              <button className='deleteButton' onClick={() => handleDeleteClicked(comment[1])}>
                 {/* <FontAwesomeIcon icon={faTrash} size='1x' color={Colors.mediumGray} /> */}
                 삭제
               </button>
             </div>
           ) : (
-            <div className="comment-item" key={idx}>
-              <div className="nickname">{comment[0]}</div>
-              <div className="date">{comment[2]}</div>
-              <div className="content">{comment[1]}</div>
+            <div className='comment-item' key={idx}>
+              <div className='nickname'>{comment[0]}</div>
+              <div className='date'>{comment[2]}</div>
+              <div className='content'>{comment[1]}</div>
             </div>
           );
         })}
-        <ul className="page-numbers">
+        <ul className='page-numbers'>
           {pageNumbers.map((number, idx) => {
             return (
               <li
                 key={idx}
                 style={currentPage === idx + 1 ? { backgroundColor: Colors.lightGray } : null}
-                onClick={() => handleClick(number)}>
+                onClick={() => handleClick(number)}
+              >
                 {number}
               </li>
             );
