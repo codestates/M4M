@@ -65,7 +65,7 @@ const quizQuestions = [
     question: '더운 여름날, 친구랑 어떤 아이스크림을 먹으러 갈까?',
     answers: [{
       type: 'L',
-      content: '편의점에서 메로나나 사먹을까?'
+      content: '그냥 편의점에서 메로나나 사먹을까?'
     },
     {
       type: 'W',
