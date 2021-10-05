@@ -14,11 +14,11 @@ const FooterWrapper = styled.div`
   }
   .sub-container {
     display: inline;
-    ${media.tablet`display: flex;`}
+    ${media.laptop`display: flex;`}
   }
-  .link, .copyright {
+  .link-label, .link, .copyright {
     color: ${Colors.lightGray};
-    min-width: 72px;
+    min-width: 86px;
     padding: 4px 12px;
   }
   .link {
@@ -29,14 +29,20 @@ const FooterWrapper = styled.div`
       color: #caa6fe;
     }
   }
+  .link-label {
+    min-width: 128px;
+  } 
   .copyright {
     min-width: 352px;
   }
   .link-container {
-    display: flex;
+    display: inline-block;
+    padding: 12px 0px;
     justify-content: center;
     align-items: center;
     min-height: 56px;
+    ${media.tabletMini`display: flex;`}
+    ${media.tabletMini`padding: 0px 0px;`}
     ${media.tablet`min-height: 0px;`}
   }
   .container-empty {
@@ -77,7 +83,7 @@ function Footer () {
         </div>
         <div className='sub-container'>
           <div className='link-container'>
-            <div className='link'>Developed by</div>
+            <div className='link-label'>Developed by</div>
             {team.map((member, idx) =>
               <a className='link' key={idx} href={member.repository} target='_blank' rel='noopener noreferrer'>
                 <FontAwesomeIcon icon={faGithub} size='1x' color={Colors.lightGray} />
