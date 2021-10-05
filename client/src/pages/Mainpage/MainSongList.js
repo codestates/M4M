@@ -232,7 +232,7 @@ function SongList () {
   useEffect(() => {
     dispatch(changeHeader([true, true]));
     setIsSorted(songsBulkState);
-  }, [songsBulkState]);
+  }, [songsBulkState, dispatch]);
 
   useEffect(() => {
     setResult(isSorted);
