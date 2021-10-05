@@ -18,10 +18,10 @@ const MainWrapper = styled.div`
 
 function Main () {
   const dispatch = useDispatch();
-  const information = JSON.parse(localStorage.getItem('userinfo'));
-  const token = localStorage.getItem('accessToken');
-
+  
   useEffect(() => {
+    const information = JSON.parse(localStorage.getItem('userinfo'));
+    const token = localStorage.getItem('accessToken');
     dispatch(changeType('All'));
     const headersContent = { 'Content-Type': 'application/json' };
     if (information) headersContent.Authorization = `Bearer ${token}`;

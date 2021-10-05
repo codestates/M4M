@@ -232,7 +232,7 @@ function SongList () {
   useEffect(() => {
     dispatch(changeHeader([true, true]));
     setIsSorted(songsBulkState);
-  }, [songsBulkState]);
+  }, [songsBulkState, dispatch]);
 
   useEffect(() => {
     setResult(isSorted);
@@ -309,7 +309,6 @@ function SongList () {
           date: 'none'
         });
         setResult(isSorted.slice().sort((a, b) => a.title.localeCompare(b.title)));
-        console.log('🔴 handleSubSort: title(for)');
       } else if (subSort.title === 'for') {
         setSubSort({
           title: 'back',
@@ -317,7 +316,6 @@ function SongList () {
           date: 'none'
         });
         setResult(isSorted.slice().sort((a, b) => b.title.localeCompare(a.title)));
-        console.log('🔴 handleSubSort: title(back)');
       } else {
         setSubSort({
           title: 'none',
@@ -334,7 +332,6 @@ function SongList () {
           date: 'none'
         });
         setResult(isSorted.slice().sort((a, b) => a.artist.localeCompare(b.artist)));
-        console.log('🟠 handleSubSort: artist(for)');
       } else if (subSort.artist === 'for') {
         setSubSort({
           title: 'none',
@@ -342,7 +339,6 @@ function SongList () {
           date: 'none'
         });
         setResult(isSorted.slice().sort((a, b) => b.artist.localeCompare(a.artist)));
-        console.log('🟠 handleSubSort: artist(back)');
       } else {
         setSubSort({
           title: 'none',
@@ -359,7 +355,6 @@ function SongList () {
           date: 'for'
         });
         setResult(isSorted.slice().sort((a, b) => a.date.replace('.', '') - b.date.replace('.', '')));
-        console.log('🟡 handleSubSort: date(for)');
       } else if (subSort.date === 'for') {
         setSubSort({
           title: 'none',
@@ -367,7 +362,6 @@ function SongList () {
           date: 'back'
         });
         setResult(isSorted.slice().sort((a, b) => b.date.replace('.', '') - a.date.replace('.', '')));
-        console.log('🟡 handleSubSort: date(back)');
       } else {
         setSubSort({
           title: 'none',

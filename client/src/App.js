@@ -66,7 +66,6 @@ function App () {
   };
 
   const information = JSON.parse(localStorage.getItem('userinfo'));
-  console.log('⭐️⭐️⭐️⭐️⭐️', information);
 
   return (
     <BrowserRouter>
