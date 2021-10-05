@@ -54,8 +54,6 @@ function App () {
     setOpenModal(false);
   };
 
-  const information = JSON.parse(localStorage.getItem('userinfo'));
-
   return (
     <BrowserRouter>
       <AppWrapper>
