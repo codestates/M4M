@@ -4,24 +4,29 @@ import axios from 'axios';
 import styled from 'styled-components';
 import SideNav from '../../components/SideNav';
 import { Colors } from '../../components/utils/_var';
-import { changeHeader } from '../../redux/action';
+import { changeHeader, userEdit } from '../../redux/action';
 import { useSelector, useDispatch } from 'react-redux';
+import Typewriter from 'typewriter-effect';
 axios.defaults.withCredentials = true;
 require('dotenv').config();
 
 const Wrapper = styled.div`
   .main {
     display: flex;
-    /* background-color: #f7efe5; */
     min-height: calc(100vh - 41px - 56px);
   }
-  .mypage-container {
-    width: 15rem;
-    margin: 1rem 10rem;
+  .container {
+    width: 30rem;
+    margin: 1rem 7rem;
     /* background-color: yellow; */
   }
-  .title {
-    margin-bottom: 3rem;
+  .mypage-container {
+    width: 17rem;
+    margin: 1rem 0;
+  }
+  .greeting {
+    font-family: 'Arial';
+    margin: 1rem auto 1rem;
     text-align: left;
     font-size: 1.3rem;
   }
@@ -34,7 +39,7 @@ const Wrapper = styled.div`
     font-size: .9rem;
   }
   input {
-    width: 15rem;
+    width: 17rem;
     height: 1.8rem;
     margin: .2rem auto;
     padding: .5rem;
@@ -53,19 +58,37 @@ const Wrapper = styled.div`
     color: ${Colors.gray};
   }
   button {
-    margin: .8rem .1rem .6rem;
-    padding: .4rem;
+    /* width: 8rem; */
+    margin: 1.5rem .2rem;
+    padding: .4rem 1.5rem;
+    /* border: 1px solid ${Colors.black}; */
+    border: 1px solid ${Colors.pastelPurple};
+    background-color: ${Colors.pastelPurple};
   }
   button:hover {
     cursor: pointer;
+    background-color: ${Colors.purple};
+    border-color: ${Colors.purple};
+    color: white;
+  }
+  button:last-of-type {
+    border: 1px solid ${Colors.black};
+    background-color: ${Colors.black};
+    color: white;
+  }
+  button:last-of-type:hover {
+    background-color: white;
+    color: ${Colors.black};
+    border: 1px solid ${Colors.black};
   }
 `;
 
 const MyPageField = styled.div`
-  margin: 1rem auto .15rem;
+  margin: .7rem auto .15rem;
   text-align: left;
   color: ${Colors.black};
   font-size: .95rem;
+  font-family: 'Arial';
   
   &:first-of-type {
     padding-top: 1rem;
@@ -87,7 +110,7 @@ const AlertMessage = styled.div`
 `;
 
 // const Mypage = ({ afterWithdrawal }) => {
-const Mypage = ({ modal }) => {
+const Mypage = ({ modal, handleMessage, handleNotice }) => {
   const token = useSelector((state) => state.userReducer).token;
   const { nickname, email, birthYear, kakao } = useSelector((state) => state.userReducer).userInfo;
   const accessTokenTime = localStorage.getItem('accessTokenTime');
@@ -99,7 +122,8 @@ const Mypage = ({ modal }) => {
   const [errorMsg, setErrorMsg] = useState('');
   const dispatch = useDispatch();
 
-  useEffect(() => dispatch(changeHeader([true, false])), [dispatch]);
+  // useEffect(() => dispatch(changeHeader([true, false])), [dispatch]);
+  useEffect(() => dispatch(changeHeader([false, false])), [dispatch]);
 
   const [myInfo, setMyInfo] = useState({
     nickname: '',
@@ -268,7 +292,9 @@ const Mypage = ({ modal }) => {
           })
           .then((res) => {
             if (res.status === 200) {
-              alert('회원정보가 수정되었습니다.');
+              // alert('회원정보가 수정되었습니다.');
+              handleNotice(true);
+              handleMessage('회원정보가 수정되었습니다.');
               if (myInfo.nickname === '') {
                 myInfo.nickname = nickname;
               } else {
@@ -277,9 +303,10 @@ const Mypage = ({ modal }) => {
               if (myInfo.password === '') {
                 myInfo.password = '';
               }
+              dispatch(userEdit(myInfo, token));
               localStorage.setItem('userinfo', JSON.stringify(myInfo));
-              window.location.replace('/myinfo');
             }
+            window.location.replace('/myinfo');
           })
           .catch((err) => {
             console.log(err.response);
@@ -304,18 +331,16 @@ const Mypage = ({ modal }) => {
         })
         .then((res) => {
           if (res.status === 200) {
-            alert('회원탈퇴가 완료되었습니다.');
+            // alert('회원탈퇴가 완료되었습니다.');
+            handleNotice(true);
+            handleMessage('회원탈퇴가 완료되었습니다.');
             // afterWithdrawal();
-            
+
             history.push({
               pathname: '/mainpage'
             });
           }
-          localStorage.removeItem('userinfo');
-          localStorage.removeItem('accessToken');
-          localStorage.removeItem('accesstokenTime');
-          localStorage.removeItem('kakaoToken');
-          localStorage.removeItem('initialTime');
+          localStorage.clear();
         });
     }
   };
@@ -324,69 +349,82 @@ const Mypage = ({ modal }) => {
     <Wrapper>
       <div className='main'>
         <SideNav />
-        <div className='mypage-container'>
-          <div className='title'>{nickname.split('#')[0]} 님, 반갑습니다!</div>
-          <MyPageField>닉네임</MyPageField>
-          <input
-            type='text'
-            placeholder={nickname.split('#')[0]}
-            onChange={inputCheck('nickname')}
-          />
-          <span className='id-number'>
-            #{nickname.split('#')[1]}
-          </span>
-          <AlertMessage>
-            {checkNickname === 'ok' ? null : checkNickname}
-          </AlertMessage>
-          <MyPageField>이메일</MyPageField>
-          <input
-            disabled
-            value={email}
-          />
-          <MyPageField>비밀번호</MyPageField>
-          <input
-            disabled={kakao ? 'disabled' : null}
-            type='password'
-            placeholder='영문/숫자 조합 8~10글자'
-            onChange={inputCheck('password')}
-          />
-          <AlertMessage>
-            {checkPassword === 'no' ? '올바른 비밀번호 형식이 아닙니다.' : null}
-            {checkPassword === 'empty' ? '비밀번호를 입력해주세요.' : null}
-          </AlertMessage>
-          <MyPageField>비밀번호 확인</MyPageField>
-          <input
-            disabled={kakao ? 'disabled' : null}
-            type='password'
-            onChange={inputCheck('passwordRetype')}
-          />
-          <AlertMessage>
-            {checkRetypePassword ? null : '비밀번호가 일치하지 않습니다'}
-          </AlertMessage>
-          <MyPageField>출생년도</MyPageField>
-          {kakao && !birthYear
-            ? <>
-              <input
-                onChange={inputCheck('birthYear')}
-              />
-              <AlertMessage>
-                {checkBirthYear === 'no' ? '올바른 범위내의 출생년도를 입력해주세요' : null}
-                {checkBirthYear === 'nan' ? '숫자만 입력해주세요' : null}
-              </AlertMessage>
-            </>
-            : <input
-                disabled
-                value={birthYear}
-              />}
-          <button onClick={handleEditUserRequest}>
-            정보수정
-          </button>
-          <button onClick={handleWithdrawalRequest}>
-            회원탈퇴
-          </button>
-          <AlertMessage>{errorMsg}</AlertMessage>
+        <div className='container'>
+          <div className='greeting'>
+            {/* {nickname.split('#')[0]} 님, 반갑습니다! */}
+            <Typewriter
+              onInit={(typewriter) => {
+                typewriter
+                  .typeString(`${nickname.split('#')[0]} 님, 반갑습니다!`)
+                  .pauseFor(1000)
+                  .start();
+              }}
+            />
+          </div>
+          <div className='mypage-container'>
+            <MyPageField>닉네임</MyPageField>
+            <input
+              type='text'
+              placeholder={nickname.split('#')[0]}
+              onChange={inputCheck('nickname')}
+            />
+            <span className='id-number'>
+              #{nickname.split('#')[1]}
+            </span>
+            <AlertMessage>
+              {checkNickname === 'ok' ? null : checkNickname}
+            </AlertMessage>
+            <MyPageField>이메일</MyPageField>
+            <input
+              disabled
+              value={email}
+            />
+            <MyPageField>비밀번호</MyPageField>
+            <input
+              disabled={kakao ? 'disabled' : null}
+              type='password'
+              placeholder='영문/숫자 조합 8~10글자'
+              onChange={inputCheck('password')}
+            />
+            <AlertMessage>
+              {checkPassword === 'no' ? '올바른 비밀번호 형식이 아닙니다.' : null}
+              {checkPassword === 'empty' ? '비밀번호를 입력해주세요.' : null}
+            </AlertMessage>
+            <MyPageField>비밀번호 확인</MyPageField>
+            <input
+              disabled={kakao ? 'disabled' : null}
+              type='password'
+              onChange={inputCheck('passwordRetype')}
+            />
+            <AlertMessage>
+              {checkRetypePassword ? null : '비밀번호가 일치하지 않습니다'}
+            </AlertMessage>
+            <MyPageField>출생년도</MyPageField>
+            {kakao && !birthYear
+              ? <>
+                <input
+                  onChange={inputCheck('birthYear')}
+                />
+                <AlertMessage>
+                  {checkBirthYear === 'no' ? '올바른 범위내의 출생년도를 입력해주세요' : null}
+                  {checkBirthYear === 'nan' ? '숫자만 입력해주세요' : null}
+                </AlertMessage>
+                </>
+              : <input
+                  disabled
+                  value={birthYear}
+                />}
+            <button onClick={handleEditUserRequest}>
+              정보수정
+            </button>
+            <button onClick={handleWithdrawalRequest}>
+              회원탈퇴
+            </button>
+            <AlertMessage>{errorMsg}</AlertMessage>
+          </div>
         </div>
       </div>
+
     </Wrapper>
   );
 };

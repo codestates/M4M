@@ -21,7 +21,7 @@ export const SignupBackdrop = styled.div`
 export const SignupView = styled.div`
   box-sizing: border-box;
   width: 45vh;
-  height: 55vh;
+  height: 65vh;
   background-color: rgb(255, 255, 255);
   position: relative;
   text-align: center;
@@ -34,12 +34,20 @@ export const SignupHeading = styled.h2``;
 
 export const SignupInputContainer = styled.div`
   // border: 1px solid black;
-  //   text-align: left;
+  text-align: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 export const SignupInputValue = styled.div`
   // font-weight: bold;
   margin: 10px 0px 5px 0px;
+  // border: 1px solid black;
+  width: 184px;
+  position: relative;
+  text-align: left;
 `;
 
 export const SignupInput = styled.input``;
@@ -47,6 +55,8 @@ export const SignupInput = styled.input``;
 export const Button = styled.button`
   margin: 0.4rem 0.4rem 0.1rem 0.4rem;
   cursor: pointer;
+  font-family: 'NeoDunggeunmo';
+  font-size: 15px;
 `;
 
 export const Alertbox = styled.div`
@@ -67,12 +77,12 @@ export const ButtonContainer = styled.div`
 `;
 
 export const Select = styled.select`
-  width: 141px;
+  width: 185px;
   text-align: center;
   font-size: 15px;
 `;
 
-function Signup ({ handleModal }) {
+function Signup ({ handleModal, handleNotice, handleMessage }) {
   const [userInfo, setUserInfo] = useState({
     nickname: '',
     email: '',
@@ -86,6 +96,8 @@ function Signup ({ handleModal }) {
   const [checkRetypePassword, setCheckRetypePassword] = useState(true);
   const [checkEmail, setCheckEmail] = useState(true);
   const [errorMsg, setErrorMsg] = useState('');
+  const [code, setCode] = useState('');
+  const [checkCode, setCheckCode] = useState(true);
   const notiState = useSelector((state) => state.notiReducer).notifications;
   const dispatch = useDispatch();
   const history = useHistory();
@@ -149,12 +161,15 @@ function Signup ({ handleModal }) {
       userInfo.email === '' ||
       userInfo.password === '' ||
       userInfo.birthYear === '' ||
+      code === '' ||
       checkNickname !== 'ok' ||
       checkEmail !== true ||
       checkPassword !== true ||
       checkRetypePassword !== true
     ) {
       setErrorMsg('모든 항목을 바르게 작성해주세요');
+    } else if (checkCode !== true) {
+      setErrorMsg('인증코드를 확인해주세요');
     } else {
       axios
         .post(`${process.env.REACT_APP_API_URL}/signup`, userInfo, {
@@ -164,12 +179,13 @@ function Signup ({ handleModal }) {
         .then((res) => {
           if (res.status === 201) {
             handleModal();
-            dispatch(notify('회원가입이 완료되었습니다'));
-            history.push('/mainpage');
+            handleNotice(true);
+            handleMessage('회원가입 성공!');
           }
         })
         .catch((error) => {
-          if (error.response.message === 'conflict: email') {
+          console.log(error.response);
+          if (error.response.data.message === 'conflict: email') {
             setErrorMsg('이미 가입된 이메일입니다');
           }
         });
@@ -189,19 +205,61 @@ function Signup ({ handleModal }) {
     }
   };
 
+  const emailRequest = () => {
+    if (userInfo.email !== '') {
+      axios
+        .post(
+          process.env.REACT_APP_API_URL + '/auth',
+          { email: userInfo.email },
+          { headers: { 'Content-Type': 'application/json' }, withCredentials: true }
+        )
+        .then((res) => {
+          setCode(res.data);
+        });
+    } else {
+      setErrorMsg('이메일 입력');
+    }
+  };
+
+  const verifyCode = (e) => {
+    if (code === Number(e.target.value)) {
+      setCheckCode(true);
+    } else {
+      setCheckCode(false);
+    }
+  };
+
   return (
     <SignupBackdrop>
       <SignupView>
         <SignupHeading>회원가입</SignupHeading>
         <SignupInputContainer>
           <SignupInputValue>닉네임</SignupInputValue>
-          <SignupInput onChange={inputCheck('nickname')} />
+          <SignupInput
+            onChange={inputCheck('nickname')}
+            placeholder='공백 / 특수문자 제외 2-15자'
+          />
           <CheckInfo>{checkNickname === 'ok' ? null : checkNickname}</CheckInfo>
           <SignupInputValue>이메일</SignupInputValue>
-          <SignupInput onChange={inputCheck('email')} />
+          <span>
+            <SignupInput onChange={inputCheck('email')} placeholder='입력 후 인증을 눌러주세요' />
+            <button
+              onClick={emailRequest}
+              style={{ fontFamily: 'NeoDunggeunmo', fontSize: '15px' }}
+            >
+              이메일 인증
+            </button>
+          </span>
           <CheckInfo>{checkEmail ? null : '올바른 이메일 주소를 입력해주세요'}</CheckInfo>
+          <SignupInputValue>인증 코드</SignupInputValue>
+          <SignupInput onChange={verifyCode} placeholder='메일로 받은 코드를 입력해주세요' />
+          <CheckInfo>{checkCode ? null : '코드가 일치하지 않습니다'}</CheckInfo>
           <SignupInputValue>비밀번호</SignupInputValue>
-          <SignupInput type='password' onChange={inputCheck('password')} />
+          <SignupInput
+            type='password'
+            onChange={inputCheck('password')}
+            placeholder='영문 / 숫자 조합 8~10자'
+          />
           <CheckInfo>{checkPassword ? null : '올바른 비밀번호를 입력해주세요'}</CheckInfo>
           <SignupInputValue>비밀번호확인</SignupInputValue>
           <SignupInput type='password' onChange={handleCheckPassword} />

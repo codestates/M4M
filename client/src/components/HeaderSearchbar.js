@@ -4,30 +4,68 @@ import { useState } from 'react';
 import { notify, changeType, getResult } from '../redux/action';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
+import { media } from './utils/_media-queries';
+import { Colors } from './utils/_var';
 
 axios.defaults.headers.withCredentials = true;
 
 const HeaderSearchbarWrapper = styled.div`
-  .btn {
-    cursor: pointer;
-    font-size: 18px;
-  }
   .searchbar-none {
     display: none;
   }
   .searchbar {
     display: flex;
     justify-content: center;
+    background-color: red;
+    margin-left: -1rem;
   }
-  .searchbar-dropbox, .searchbar-text {
-    font-family: 'NeoDunggeunmo';
+  .searchbar-container {
+    width: 12rem;
+    height: 1.5rem;
+    padding-top: .2rem;
+    /* ${media.tabletMini`width: 12rem; height: 1.5rem;`} */
+    background-color: yellow;
+    ${media.tablet`width: 20rem; height: 1.9rem;`}
+    ${media.laptop`width: 22rem; height: 1.9rem; background-color: salmon;`}
+    border: 1px solid ${Colors.mediumGray};
+    border-radius: 15px;
   }
-  .searchbar-dropbox {
-    font-size: 18px;
+  .search-icon {
+    width: 1rem;
+    margin-left: 0;
+    padding-bottom: 0;
+    /* ${media.tabletMini`width: 1.3rem; margin-left: -1.2rem; padding-bottom: .25rem;`} */
+    ${media.tablet`width: 1.3rem; margin-left: -3rem; padding-bottom: .25rem;`}
+    ${media.laptop`width: 1.3rem; margin-left: -1.2rem; padding-bottom: .25rem;`}
+    vertical-align: middle;
+    align-items: left;
   }
   .searchbar-text {
-    width: 30vw;
-    font-size: 14px;
+    border: none;
+    margin-left: .2rem;
+    width: 10rem;
+    font-size: .7rem;
+    /* ${media.tabletMini`width: 15rem; font-size: .85rem;`} */
+    ${media.tablet`width: 12rem; font-size: .85rem;`}
+    ${media.laptop`width: 14rem; font-size: .85rem;`}
+    color: ${Colors.black};
+  }
+  .searchbar-dropbox {
+    font-size: .85rem;
+    margin-right: .8rem;
+    color: ${Colors.darkGray};
+    border: none;
+    cursor: pointer;
+  }
+  .searchbar-dropbox:focus, input:focus {
+    outline: none;
+  }
+  input::-webkit-input-placeholder {
+    color: ${Colors.mediumGray};
+    font-size: .7rem;
+    /* ${media.tabletMini`font-size: 82rem;`} */
+    ${media.tablet`font-size: .8rem;`}
+    ${media.laptop`font-size: .8rem;`}
   }
   .display-none {
     display: none;
@@ -38,15 +76,16 @@ function HeaderSearchbar (isRecommend) {
   const songsBulkState = useSelector(state => state.songsBulkReducer).songsBulk;
   const notiState = useSelector(state => state.notiReducer).notifications;
   const dispatch = useDispatch();
-  const searchTypeList = ['title', 'artist'];
+  const searchTypeList = ['제목', '아티스트'];
+  const searchTypeName = ['title', 'artist'];
   const keyword = document.getElementsByClassName('searchbar-text');
-  const [searchType, setSearchType] = useState(searchTypeList[0]);
+  const [searchType, setSearchType] = useState(searchTypeName[0]);
 
   const getSearchResult = (reqSearchType, reqKeyword) => {
     if (reqKeyword.length !== 0) {
       const result = songsBulkState.filter((song) => getRegExp(reqKeyword).test(song[reqSearchType]));
       if (result.length !== 0) {
-        dispatch(changeType(`검색 결과: ${reqSearchType} - ${reqKeyword}`));
+        dispatch(changeType(`검색 결과: ${searchTypeList[searchTypeName.indexOf(reqSearchType)]} - ${reqKeyword}`));
         dispatch(getResult(result));
       } else {
         dispatch(changeType('No Result'));
@@ -59,12 +98,13 @@ function HeaderSearchbar (isRecommend) {
   };
 
   const handleSearchTypeChange = (e) => setSearchType(e.target.value);
-  const handleClick = () => {
-    getSearchResult(searchType, keyword[0].value);
+  const handleClick = (e) => {
+    // getSearchResult(searchType, e.target.value);
+    console.log(e);
   };
   const handleKeyboard = (e) => {
     if (e.key === 'Enter') {
-      getSearchResult(searchType, keyword[0].value);
+      getSearchResult(searchType, e.target.value);
     }
   };
 
@@ -72,15 +112,18 @@ function HeaderSearchbar (isRecommend) {
     <HeaderSearchbarWrapper>
       <div className={isRecommend.isRecommend ? 'searchbar' : 'display-none'}>
         <select className='searchbar-dropbox' onChange={handleSearchTypeChange}>
-          {searchTypeList.map((searchType, idx) => <option value={searchType} key={idx + 1}>{searchType}</option>)}
+          {searchTypeList.map((searchType, idx) => <option value={searchTypeName[idx]} key={idx + 1}>{searchType}</option>)}
         </select>
-        <input
-          className='searchbar-text'
-          type='text'
-          placeholder='Enter title or artist name'
-          onKeyPress={handleKeyboard}
-        />
-        <button className='btn searchbar-button' onClick={handleClick}>search</button>
+        <div className='searchbar-container'>
+          <img className='search-icon' src='/image/Search_Icon.svg' alt='search-icon' />
+          <input
+            className='searchbar-text'
+            type='text'
+            placeholder='제목 또는 아티스트명을 입력해주세요.'
+            onKeyPress={handleKeyboard}
+          />
+        </div>
+        {/* <button className='bnt searchbar-button' onClick={handleClick}>검색</button> */}
       </div>
     </HeaderSearchbarWrapper>
   );
