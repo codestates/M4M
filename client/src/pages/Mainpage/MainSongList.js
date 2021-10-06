@@ -383,8 +383,8 @@ function SongList () {
           date: 'none',
           like: 'for'
         });
-        setResult(isSorted.slice().sort((a, b) => a.hashtagLike[0][1] - b.hashtagLike[0][1]));
-        console.log('🟡 handleSubSort: date(for)');
+        setResult(isSorted.slice().sort((a, b) => b.hashtagLike[0][1] - a.hashtagLike[0][1]));
+        console.log('🟡 handleSubSort: like(for)');
       } else if (subSort.like === 'for') {
         setSubSort({
           title: 'none',
@@ -392,8 +392,8 @@ function SongList () {
           date: 'none',
           like: 'back'
         });
-        setResult(isSorted.slice().sort((a, b) => b.hashtagLike[0][1] - a.hashtagLike[0][1]));
-        console.log('🟡 handleSubSort: date(back)');
+        setResult(isSorted.slice().sort((a, b) => a.hashtagLike[0][1] - b.hashtagLike[0][1]));
+        console.log('🟡 handleSubSort: like(back)');
       } else {
         setSubSort({
           title: 'none',
