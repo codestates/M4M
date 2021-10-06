@@ -35,17 +35,17 @@ const Wrapper = styled.div`
   }
   .id-number {
     position: absolute;
-    padding: .4rem .2rem;
-    margin: .2rem;
+    padding: 0.4rem 0.2rem;
+    margin: 0.2rem;
     color: ${Colors.gray};
     font-family: 'Arial';
-    font-size: .9rem;
+    font-size: 0.9rem;
   }
   input {
     width: 17rem;
     height: 1.8rem;
-    margin: .2rem auto;
-    padding: .5rem;
+    margin: 0.2rem auto;
+    padding: 0.5rem;
     border-color: ${Colors.lightGray};
     border-width: 0.2px;
     font-family: 'Arial';
@@ -62,8 +62,8 @@ const Wrapper = styled.div`
   }
   button {
     /* width: 8rem; */
-    margin: 1.5rem .2rem;
-    padding: .4rem 1.5rem;
+    margin: 1.5rem 0.2rem;
+    padding: 0.4rem 1.5rem;
     /* border: 1px solid ${Colors.black}; */
     border: 1px solid ${Colors.pastelPurple};
     background-color: ${Colors.pastelPurple};
@@ -87,12 +87,12 @@ const Wrapper = styled.div`
 `;
 
 const MyPageField = styled.div`
-  margin: .7rem auto .15rem;
+  margin: 0.7rem auto 0.15rem;
   text-align: left;
   color: ${Colors.black};
-  font-size: .95rem;
+  font-size: 0.95rem;
   font-family: 'Arial';
-  
+
   &:first-of-type {
     padding-top: 1rem;
   }
@@ -102,13 +102,13 @@ const AlertMessage = styled.div`
   color: red;
   font-family: 'Arial';
 
-  &:not(:last-of-type){
+  &:not(:last-of-type) {
     text-align: left;
-    font-size: .8rem;
+    font-size: 0.8rem;
   }
   &:last-of-type {
-    margin: 0 auto; 
-    font-size: .95rem;
+    margin: 0 auto;
+    font-size: 0.95rem;
   }
 `;
 
@@ -262,12 +262,7 @@ const Mypage = ({ modal, handleMessage, handleNotice }) => {
       setCheckRetypePassword(false);
     }
     // console.log(checkPassword, checkRetypePassword,checkNickname, checkBirthYear)
-    if (
-      kakao &&
-      !birthYear &&
-      !myInfo.birthYear &&
-      myInfo.nickname === ''
-    ) {
+    if (kakao && !birthYear && !myInfo.birthYear && myInfo.nickname === '') {
       setErrorMsg('변경할 정보를 입력해주세요.');
     } else if (kakao && birthYear && myInfo.nickname === '') {
       setErrorMsg('변경할 정보를 입력해주세요.');
@@ -309,7 +304,7 @@ const Mypage = ({ modal, handleMessage, handleNotice }) => {
               dispatch(userEdit(myInfo, token));
               localStorage.setItem('userinfo', JSON.stringify(myInfo));
             }
-            window.location.replace('/myinfo');
+            // window.location.replace('/myinfo');
           })
           .catch((err) => {
             console.log(err.response);
@@ -325,26 +320,28 @@ const Mypage = ({ modal, handleMessage, handleNotice }) => {
       // alert('토큰이 만료되었습니다');
       modal();
     } else {
-      axios
-        .delete(process.env.REACT_APP_API_URL + '/withdrawal', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          }
-        })
-        .then((res) => {
-          if (res.status === 200) {
-            // alert('회원탈퇴가 완료되었습니다.');
-            handleNotice(true);
-            handleMessage('회원탈퇴가 완료되었습니다.');
-            // afterWithdrawal();
+      handleNotice(true);
+      handleMessage('정말 회원탈퇴 하시겠습니까...?');
+      // axios
+      //   .delete(process.env.REACT_APP_API_URL + '/withdrawal', {
+      //     headers: {
+      //       Authorization: `Bearer ${token}`,
+      //       'Content-Type': 'application/json'
+      //     }
+      //   })
+      //   .then((res) => {
+      //     if (res.status === 200) {
+      //       // alert('회원탈퇴가 완료되었습니다.');
+      //       handleNotice(true);
+      //       handleMessage('회원탈퇴가 완료되었습니다.');
+      //       // afterWithdrawal();
 
-            history.push({
-              pathname: '/mainpage'
-            });
-          }
-          localStorage.clear();
-        });
+      //       history.push({
+      //         pathname: '/mainpage'
+      //       });
+      //     }
+      //     localStorage.clear();
+      //   });
     }
   };
 
@@ -371,17 +368,10 @@ const Mypage = ({ modal, handleMessage, handleNotice }) => {
               placeholder={nickname.split('#')[0]}
               onChange={inputCheck('nickname')}
             />
-            <span className='id-number'>
-              #{nickname.split('#')[1]}
-            </span>
-            <AlertMessage>
-              {checkNickname === 'ok' ? null : checkNickname}
-            </AlertMessage>
+            <span className='id-number'>#{nickname.split('#')[1]}</span>
+            <AlertMessage>{checkNickname === 'ok' ? null : checkNickname}</AlertMessage>
             <MyPageField>이메일</MyPageField>
-            <input
-              disabled
-              value={email}
-            />
+            <input disabled value={email} />
             <MyPageField>비밀번호</MyPageField>
             <input
               disabled={kakao ? 'disabled' : null}
@@ -404,30 +394,24 @@ const Mypage = ({ modal, handleMessage, handleNotice }) => {
             </AlertMessage>
             <MyPageField>출생년도</MyPageField>
             {kakao && !birthYear
-              ? <>
-                <input
-                  onChange={inputCheck('birthYear')}
-                />
-                <AlertMessage>
-                  {checkBirthYear === 'no' ? '올바른 범위내의 출생년도를 입력해주세요' : null}
-                  {checkBirthYear === 'nan' ? '숫자만 입력해주세요' : null}
-                </AlertMessage>
+              ? (
+                <>
+                  <input onChange={inputCheck('birthYear')} />
+                  <AlertMessage>
+                    {checkBirthYear === 'no' ? '올바른 범위내의 출생년도를 입력해주세요' : null}
+                    {checkBirthYear === 'nan' ? '숫자만 입력해주세요' : null}
+                  </AlertMessage>
                 </>
-              : <input
-                  disabled
-                  value={birthYear}
-                />}
-            <button onClick={handleEditUserRequest}>
-              정보수정
-            </button>
-            <button onClick={handleWithdrawalRequest}>
-              회원탈퇴
-            </button>
+                )
+              : (
+                <input disabled value={birthYear} />
+                )}
+            <button onClick={handleEditUserRequest}>정보수정</button>
+            <button onClick={handleWithdrawalRequest}>회원탈퇴</button>
             <AlertMessage>{errorMsg}</AlertMessage>
           </div>
         </div>
       </div>
-
     </Wrapper>
   );
 };

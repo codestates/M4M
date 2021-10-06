@@ -1,20 +1,26 @@
 import styled from 'styled-components';
 import { media } from '../../../components/utils/_media-queries';
+import { Colors } from '../../../components/utils/_var';
 
 const Button = styled.div`
   width: 9rem;
   margin: .6rem auto 1.7rem;
   padding: .8rem 1rem;
-  background-color: #553830;
+  /* background-color: #553830; */
+  color: ${Colors.black};
+  background-color: ${Colors.pastelPurple};
+  color: white;
+  background-color: ${Colors.purple};
   border-radius: 7px;
   border: none;
   font-family: 'Arial';
   font-size: .75rem;
   ${media.tablet`font-size: .8em; width: 9.5rem;`}
-  color: white;
 
   &:hover {
     cursor: pointer;
+    color: white;
+    background-color: ${Colors.purple};
   }    
 `;
 
