@@ -7,12 +7,15 @@ import { Colors } from '../../components/utils/_var';
 import { changeHeader, userEdit } from '../../redux/action';
 import { useSelector, useDispatch } from 'react-redux';
 import Typewriter from 'typewriter-effect';
+import { media } from '../../components/utils/_media-queries';
 axios.defaults.withCredentials = true;
 require('dotenv').config();
 
 const Wrapper = styled.div`
   .main {
-    display: flex;
+    /* display: flex; */
+    display: inline-block;
+    ${media.tablet`display: flex`};
     min-height: calc(100vh - 41px - 56px);
   }
   .container {
