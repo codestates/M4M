@@ -39,7 +39,7 @@ const Wrapper = styled.div`
   .space {
     height: 1rem;
     ${media.tabletMini`height: .2rem;`}
-    ${media.tablet`height: 1rem;`}
+    ${media.tablet`height: .5rem;`}
     margin-bottom: 1rem;
   }
   .top-container {
@@ -226,8 +226,7 @@ const SongDetail = ({ modal, handleMessage, handleNotice }) => {
       <GlobalStyle />
       <div className='space' />
       {isLoading
-        ?
-        <div className='main'>
+        ? <div className='main'>
           <div className='loading-container'>
             <Typewriter
               options={{
