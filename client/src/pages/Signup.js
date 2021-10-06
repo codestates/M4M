@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useHistory } from 'react-router';
 import { notify } from '../redux/action';
 import { useSelector, useDispatch } from 'react-redux';
+import { media } from '../components/utils/_media-queries';
 import { Colors } from '../components/utils/_var';
 // import m4mlogo from '../images/m4mlogo4.png';
 import m4mlogo from '../images/logo.png';
@@ -25,26 +26,26 @@ export const SignupBackdrop = styled.div`
 `;
 export const SignupView = styled.div`
   box-sizing: border-box;
-  width: 48vh;
-  height: 65vh;
+  width: 20rem;
+  height: 25rem;
+  ${media.tabletMini`width: 22rem; height: 27rem;`}
   background-color: rgb(255, 255, 255);
   position: relative;
   text-align: center;
-  // font-size: 20px;
-  padding-top: 10px;
+  padding-top: .7rem;
   box-shadow: 10px 10px grey;
 
   .logo {
-    width: 90px;
-    margin: 10px auto;
+    width: 6rem;
+    margin: .5rem auto;
   }
 `;
 
 export const CloseIcon = styled.div`
   display: flex;
   justify-content: right;
-  padding-right: 15px;
-  font-size: 20px;
+  padding-right: 1rem;
+  font-size: 1.1rem;
   cursor: pointer;
 `;
 
@@ -63,24 +64,22 @@ export const SignupInput = styled.input`
   border-radius: 15px;
   width: 70%;
   height: 11%;
-  padding: 10px;
-  /* font-weight: bold; */
+  padding: .7rem;
   color: ${Colors.darkGray};
   :focus {
     outline: none;
   }
   &::-webkit-input-placeholder {
     color: ${Colors.gray};
-    font-size: 12px;
+    font-size: .75rem;
   }
 `;
 
 export const SignupButton = styled.button`
-  margin: 0rem 0.4rem 0.1rem 0.4rem;
+  margin: 0rem .4rem .1rem .4rem;
   cursor: pointer;
   font-family: 'Arial';
-  font-size: 14px;
-  /* font-weight: bold; */
+  font-size: .9rem;
   background-color: #caa6fe;
   width: 11.5rem;
   height: 2.2rem;
@@ -89,19 +88,6 @@ export const SignupButton = styled.button`
   color: white;
   :hover {
     background-color: #9c57ff;
-  }
-`;
-
-export const CloseButton = styled.button`
-  background-color: white;
-  border: none;
-  margin-top: 10px;
-  cursor: pointer;
-  /* font-weight: bold; */
-  letter-spacing: 1px;
-  color: grey;
-  :hover {
-    color: black;
   }
 `;
 
@@ -115,37 +101,33 @@ function blinkEffect () {
 
 export const Alertbox = styled.div`
   color: red;
+  margin-top: .5rem;
   font-family: 'Arial';
-  font-size: 14px;
-  /* font-weight: bold; */
-  margin-top: 5px;
-  animation: ${blinkEffect} 1s step-end infinite;
+  font-size: .85rem;
+  /* animation: ${blinkEffect} 1s step-end infinite; */
 `;
 
 export const CheckInfo = styled.div`
   color: red;
   font-size: 11px;
-  // margin-top: 2px;
   font-family: 'Arial';
-  /* font-weight: bold; */
-  opacity: 0.7;
+  opacity: .7;
 `;
 
 export const ButtonContainer = styled.div`
-  margin: 10px 0px 0px 0px;
+  margin: .8rem 0 0;
 `;
 
 export const Select = styled.select`
   width: 70%;
   height: 11%;
-  padding: 7px;
+  padding-left: .4rem;
   text-align: left;
   font-size: 12.5px;
-  /* font-weight: bold; */
   background-color: #f2f2f2;
   border: none;
   border-radius: 15px;
-  opacity: 0.5;
+  opacity: .5;
   cursor: pointer;
   :focus {
     outline: none;
@@ -153,25 +135,19 @@ export const Select = styled.select`
 `;
 
 export const VerifyButton = styled.button`
-  margin: 0rem 0.4rem 0.1rem 0.4rem;
+  margin: 0rem .4rem .1rem .4rem;
   cursor: pointer;
   font-family: 'Arial';
   font-size: 14px;
-  /* font-weight: bold; */
   background-color: #caa6fe;
   background-color: transparent;
-  /* width: 11.5rem;
-  height: 2.2rem;
-  border-radius: 7px; */
   border: none;
   color: white;
-  font-size: 12px;
+  font-size: .75rem;
   padding: 0;
   text-decoration: underline;
-  /* border-bottom: 1px solid ${Colors.gray}; */
   color: ${Colors.gray};
   :hover {
-    /* background-color: #9c57ff; */
     color: ${Colors.purple};
     border-color: ${Colors.purple};
   }
@@ -279,7 +255,6 @@ function Signup ({ handleModal, handleNotice, handleMessage }) {
           }
         })
         .catch((error) => {
-          console.log(error.response);
           if (error.response.data.message === 'conflict: email') {
             setErrorMsg('이미 가입된 이메일입니다');
           }
@@ -311,7 +286,13 @@ function Signup ({ handleModal, handleNotice, handleMessage }) {
         .then((res) => {
           setCode(res.data);
           setErrorMsg('메일이 오지 않았다면 스팸메일함을 확인해주세요');
-        });
+        })
+        .catch((error) => {
+          console.log(error.response)
+          if (error.response.data.message === 'conflict: email') {
+            setErrorMsg('이미 가입된 이메일입니다');
+          }
+        })
     } else {
       setErrorMsg('올바른 이메일을 입력해주세요');
     }
@@ -368,7 +349,6 @@ function Signup ({ handleModal, handleNotice, handleMessage }) {
         <ButtonContainer>
           <SignupButton onClick={handleSignupRequest}>회원가입</SignupButton>
         </ButtonContainer>
-        {/* <CloseButton onClick={handleModal}>창닫기</CloseButton> */}
         <Alertbox>{errorMsg}</Alertbox>
       </SignupView>
     </SignupBackdrop>

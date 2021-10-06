@@ -78,7 +78,7 @@ const SubItem = styled.div`
 function SideNav () {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(null);
-  const plainList = ['All', 'Like'];
+  const plainList = {All: '모든 노래', Like: '좋아요'};
   const accordionList = ['장르', '해시태그', '연도'];
   const accordionObj = {
     장르: ['발라드', '댄스', '랩/힙합', 'R&B/Soul', '인디음악', '록/메탈', '트로트', '포크/블루스'],
@@ -110,7 +110,7 @@ function SideNav () {
       <div className='sidenav'>
         {/* history 값이 mainpage일 때, 다른 값 보여주기 */}
         <div className={history.location.pathname === '/mainpage' ? 'main-active' : 'main-deactive'}>
-          {plainList
+          {Object.keys(plainList)
             .map((list, idx) => {
               return (
                 <Item
@@ -119,7 +119,7 @@ function SideNav () {
                   onClick={handleSelectChange}
                   underline={navType === list ? 'underline' : 'none'}
                 >
-                  <span className='space' />{list}
+                  <span className='space' />{plainList[list]}
                 </Item>
               );
             })}

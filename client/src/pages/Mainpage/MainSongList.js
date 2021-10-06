@@ -21,23 +21,6 @@ const LoadingWrpper = styled.div`
   font-size: 1.75rem;
   font-family: 'Arial';
   padding: .5rem;
-
-  /* .loading {
-    width: 200px;
-    animation: typing 1500ms steps(10), blink 500ms step-end infinite alternate;
-    overflow: hidden;
-    border-right: 4px solid;
-    font-size: 36px;
-  }
-
-  @keyframes typing {
-    from { width: 0 }
-  }
-      
-  @keyframes blink {
-    50% { border-color: transparent }
-  } */
-
 `;
 const SongListWrapper = styled.div`
   .no-result {
@@ -229,6 +212,7 @@ function SongList () {
     date: 'none',
     like: 'none'
   });
+  const plainList = {All: '모든 노래', Like: '좋아요'};
   console.log('🎶', result, '\n🚦', subSort, '\n📌', typeState, '\n🧲', searchState, '\nℹ️', information);
 
   useEffect(() => {
@@ -429,7 +413,9 @@ function SongList () {
         {typeState === 'No Result' || result.length === 0
           ? <div className='box no-result'>검색 결과가 존재하지 않습니다.</div>
           : <>
-            <div className='type'>{typeState}</div>
+            {Object.keys(plainList).includes(typeState) 
+            ? <div className='type'>{plainList[typeState]}</div>
+            : <div className='type'>{typeState}</div>}
             <div className='field-container'>
               <div className='field'>
                 <div className='grid-item field-album' />

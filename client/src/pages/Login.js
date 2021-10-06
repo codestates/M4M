@@ -32,26 +32,33 @@ export const LoginBackdrop = styled.div`
 
 export const LoginView = styled.div`
   box-sizing: border-box;
-  width: 45vh;
-  height: 52vh;
+  width: 19rem;
+  height: 21rem;
+  ${media.tabletMini`width: 20rem; height: 22.5rem;`}
   background-color: rgb(255, 255, 255);
   position: relative;
   text-align: center;
-  // font-size: 20px;
-  padding-top: 10px;
+  padding-top: .7rem;
   box-shadow: 10px 10px grey;
 
   .logo {
-    width: 90px;
-    margin: 10px auto;
+    width: 6rem;
+    margin: .7rem auto;
+  }
+
+  .signup {
+    font-size: .85rem;
+    margin: .9rem .4rem 0 0;
+    font-family: 'Arial';
+    color: ${Colors.gray};
   }
 `;
 
 export const CloseIcon = styled.div`
   display: flex;
   justify-content: right;
-  padding-right: 15px;
-  font-size: 20px;
+  padding-right: 1rem;
+  font-size: 1.1rem;
   cursor: pointer;
 `;
 
@@ -60,20 +67,17 @@ export const LoginInputContainer = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  // border: 1px solid black;
   height: 30%;
 `;
 
 export const LoginInput = styled.input`
-  // font-family: 'NeoDunggeunmo';
   background-color: #f2f2f2;
   border: none;
   border-radius: 15px;
   width: 70%;
   height: 32%;
-  padding: 10px;
+  padding: .8rem;
   color: ${Colors.darkGray};
-  /* font-weight: bold; */
   :focus {
     outline: none;
   }
@@ -94,20 +98,18 @@ function blinkEffect () {
 export const Alertbox = styled.div`
   color: red;
   font-family: 'Arial';
-  font-size: 14px;
-  font-weight: bold;
-  margin-top: 5px;
-  animation: ${blinkEffect} 1s step-end infinite;
+  font-size: .9rem;
+  margin-top: .8rem;
 `;
 
 export const LoginButton = styled.button`
-  margin: 0.2rem 0.4rem 0;
+  margin: .2rem .4rem 0;
   cursor: pointer;
   font-family: 'Arial';
-  font-size: 15px;
-  /* font-weight: bold; */
+  font-size: .9rem;
+  ${media.tablet`font-size: .9rem;`}
   background-color: #caa6fe;
-  width: 11.5rem;
+  width: 12.2rem;
   height: 2.5rem;
   border-radius: 7px;
   border: none;
@@ -117,29 +119,16 @@ export const LoginButton = styled.button`
   }
 `;
 
-export const CloseButton = styled.button`
-  background-color: white;
-  border: none;
-  margin-top: 10px;
-  cursor: pointer;
-  /* font-weight: bold; */
-  letter-spacing: 1px;
-  color: grey;
-  :hover {
-    color: black;
-  }
-`;
-
 export const ButtonContainer = styled.div`
   // margin: 10px;
   // border: 1px solid black;
 `;
 
 export const KakaoButton = styled.div`
-  width: 11.5rem;
+  width: 12.2rem;
   height: 2.5rem;
-  margin: 0.6rem auto;
-  padding: 0.7rem 0.2rem 0.7rem 0;
+  margin: .6rem auto;
+  padding: .7rem .2rem .7rem 0;
   background-color: #fee500;
   border-radius: 7px;
   border: none;
@@ -160,15 +149,13 @@ export const KakaoContent = styled.div`
   vertical-align: middle;
   margin: auto 1.8rem auto 0;
   font-family: 'Arial';
-  font-size: 15px;
-  /* font-weight: bold; */
-  ${media.tablet`font-size: .85rem;`}
+  font-size: .9rem;
+  ${media.tablet`font-size: .9rem;`}
   color: #000000 85%;
 `;
 
 export const SignupSpan = styled.span`
-  font-size: 13px;
-  margin-top: 10px;
+  font-size: .85rem;
   color: #9c57ff;
   cursor: pointer;
   font-family: 'Arial';
@@ -317,21 +304,10 @@ function Login ({ handleModal, signup, handleMessage, handleNotice }) {
           <img src={kakaoLogo} alt='kakao-logo' width='20px' />
           <KakaoContent>카카오 로그인</KakaoContent>
         </KakaoButton>
-        <div style={{ marginTop: '5px' }}>
-          <span
-            style={{
-              fontSize: '13px',
-              margin: '10px 6px 0px 0px',
-              fontFamily: 'Arial',
-              color: Colors.gray
-              // fontWeight: 'bold'
-            }}
-          >
-            아직 회원이 아니신가요?
-          </span>
-          <SignupSpan onClick={goSignup}>회원가입</SignupSpan>
-        </div>
-        {/* <CloseButton onClick={handleModal}>창닫기</CloseButton> */}
+        <span className='signup'>
+          아직 회원이 아니신가요?
+        </span>
+        <SignupSpan onClick={goSignup}>회원가입</SignupSpan>
         <Alertbox>{errorMsg}</Alertbox>
       </LoginView>
     </LoginBackdrop>

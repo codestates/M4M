@@ -44,7 +44,7 @@ function Main () {
   return (
     <MainWrapper>
       <div className='main'>
-        <SideNav />
+        {/* <SideNav /> */}
         {isLoading
           ? <div className='loading-container'>
             로딩 중입니다...

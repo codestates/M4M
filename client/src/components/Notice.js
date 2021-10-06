@@ -6,6 +6,7 @@ import { changeHeader, userEdit } from '../redux/action';
 import { useSelector, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { media } from '../components/utils/_media-queries';
 import { Colors } from '../components/utils/_var';
 require('dotenv').config();
 
@@ -23,14 +24,16 @@ export const NoticeBackdrop = styled.div`
 `;
 export const NoticeView = styled.div`
   box-sizing: border-box;
-  width: 35vh;
-  height: 19vh;
-  background-color: rgb(255, 255, 255);
   position: relative;
   text-align: center;
+  width: 15.5rem;
+  height: 9.2rem;
+  ${media.tabletMini`width: 16rem; height: 9.5rem;`}
+  ${media.tablet`width: 16.5rem; height: 9.5rem;`}
+  background-color: rgb(255, 255, 255);
   color: ${Colors.darkGray};
-  padding-top: 6px;
   box-shadow: 10px 10px grey;
+  padding: .8rem;
 `;
 
 export const NoticeButton = styled.button`
@@ -38,11 +41,11 @@ export const NoticeButton = styled.button`
   background-color: #caa6fe;
   border: none;
   border-radius: 10px;
-  width: 7rem;
+  width: 6.5rem;
   height: 1.7rem;
-  font-size: 14px;
+  font-size: .85rem;
+  ${media.tabletMini`font-size: 1rem; width: 7rem;`}
   font-family: 'Arial';
-  /* font-weight: bold; */
   color: white;
   cursor: pointer;
   :hover {
@@ -51,25 +54,26 @@ export const NoticeButton = styled.button`
 `;
 
 export const NoticeClose = styled.button`
-  background-color: white;
+  margin-top: 1rem;
+  background-color: #caa6fe;
   border: none;
-  margin-top: 0.4rem;
+  border-radius: 10px;
+  width: 7rem;
+  height: 1.7rem;
+  font-size: 1rem;
+  font-family: 'Arial';
+  color: white;
   cursor: pointer;
-  font-size: 14px;
-  /* font-weight: bold; */
-  letter-spacing: 1px;
-  color: grey;
   :hover {
-    color: black;
+    background-color: #9c57ff;
   }
 `;
 
 export const CloseIcon = styled.div`
   display: flex;
   justify-content: right;
-  padding-right: 10px;
-  padding-bottom: 5px;
-  font-size: 20px;
+  padding-bottom: .5rem;
+  font-size: 1.2rem;
   cursor: pointer;
 `;
 
@@ -123,14 +127,6 @@ function Notice({ message, login, handleNotice, handleMessage }) {
                   로그인
                 </NoticeButton>
               </div>
-              <div>
-                {/* <NoticeClose
-                  onClick={() => {
-                    handleNotice(false);
-                  }}>
-                  창닫기
-                </NoticeClose> */}
-              </div>
             </div>
           ) : message === '로그인 성공!' ||
             message === '로그아웃 성공!' ||
@@ -153,12 +149,12 @@ function Notice({ message, login, handleNotice, handleMessage }) {
                 </NoticeButton>
               </div>
               <div>
-                <NoticeClose
+                {/* <NoticeClose
                   onClick={() => {
                     handleNotice(false);
                   }}>
                   창닫기
-                </NoticeClose>
+                </NoticeClose> */}
               </div>
             </>
           ) : message === '회원정보가 수정되었습니다.' ? (
@@ -168,27 +164,20 @@ function Notice({ message, login, handleNotice, handleMessage }) {
               }}>
               확인
             </NoticeClose>
-          ) : message === '정말 회원탈퇴 하시겠습니까...?' ? (
+          ) : message === '정말 탈퇴 하시겠습니까?' ? (
             <div>
               <div>
                 <NoticeButton onClick={withdrawalRequest}>탈퇴하기</NoticeButton>
               </div>
-              <div>
-                <NoticeClose
-                  onClick={() => {
-                    handleNotice(false);
-                  }}>
-                  창닫기
-                </NoticeClose>
-              </div>
             </div>
           ) : (
-            <NoticeClose
-              onClick={() => {
-                handleNotice(false);
-              }}>
-              창닫기
-            </NoticeClose>
+            null
+            // <NoticeClose
+            //   onClick={() => {
+            //     handleNotice(false);
+            //   }}>
+            //   창닫기
+            // </NoticeClose>
           )}
         </ButtonContainer>
       </NoticeView>

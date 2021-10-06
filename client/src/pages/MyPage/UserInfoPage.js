@@ -336,7 +336,7 @@ const Mypage = ({ modal, handleMessage, handleNotice }) => {
       modal();
     } else {
       handleNotice(true);
-      handleMessage('정말 회원탈퇴 하시겠습니까...?');
+      handleMessage('정말 탈퇴 하시겠습니까?');
       // axios
       //   .delete(process.env.REACT_APP_API_URL + '/withdrawal', {
       //     headers: {
