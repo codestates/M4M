@@ -1,11 +1,31 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { changeType } from '../redux/action';
 import { useDispatch, useSelector } from 'react-redux';
 import { Colors } from '../components/utils/_var';
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { media } from '../components/utils/_media-queries';
 
 const SideNavWrapper = styled.div`
+  .contents-container {
+    min-width: 52px;
+    min-height: 100%;
+    background-color: beige;
+  }
+  .menu-container {
+    background-color: lightgray;
+    min-width: 12rem;
+    ${media.tablet`display: none;`};
+    &:hover {
+      background-color: #caa6fe;
+    }
+  }
+  .menu {
+    margin: 8px 12px;
+    color: gray;
+  }
   .main-deactive {
     display: none;
   }
@@ -15,6 +35,14 @@ const SideNavWrapper = styled.div`
     max-width: 13rem;
     min-height: 100%;
     padding-top: 2rem;
+    padding-bottom: 2rem;
+    ${media.tablet`display: flex;`} */
+    &.active {
+      display: flex;
+    }
+    &.deactive {
+      display: none;
+    }
   }
   @keyframes rainbow {     
     0% { color: #ff2a2a; }
@@ -77,6 +105,7 @@ const SubItem = styled.div`
 
 function SideNav () {
   const dispatch = useDispatch();
+  const [navState, setNavState] = useState('active');
   const [isOpen, setIsOpen] = useState(null);
   const plainList = {All: '모든 노래', Like: '좋아요'};
   const accordionList = ['장르', '해시태그', '연도'];
@@ -88,7 +117,11 @@ function SideNav () {
   const mypageList = ['회원정보', '관심노래'];
   const mypageEndpoint = ['/myinfo', '/mylike'];
   const history = useHistory();
-  const handleSelectChange = (e) => dispatch(changeType(e.target.getAttribute('value')));
+
+  const handleSelectChange = (e) => {
+    dispatch(changeType(e.target.getAttribute('value')));
+    resNavState();
+  }
   const handleIsOpen = (e) => {
     const curValue = e.target.getAttribute('value');
     if (isOpen === curValue) {
@@ -105,63 +138,90 @@ function SideNav () {
 
   const navType = useSelector((state) => state.typeReducer).navType || null;
 
+  const handleNavState = () => {
+    if (navState === 'active') setNavState('deactive');
+    if (navState === 'deactive') setNavState('active');
+  }
+
+  const resNavState = () => {
+    if (window.innerWidth < 768) setNavState('deactive');
+  }
+
+  const maintainNavState = () => {
+    if (768 <= window.innerWidth ) {
+      if(navState === 'active') setNavState('active');
+    } 
+    else setNavState('deactive');
+  };
+
+  useEffect(() => window.addEventListener('resize', maintainNavState));
+  
+  useEffect(() => {
+    if (window.innerWidth < 768) setNavState('deactive');
+  }, []);
+
   return (
     <SideNavWrapper>
-      <div className='sidenav'>
-        {/* history 값이 mainpage일 때, 다른 값 보여주기 */}
-        <div className={history.location.pathname === '/mainpage' ? 'main-active' : 'main-deactive'}>
-          {Object.keys(plainList)
-            .map((list, idx) => {
-              return (
-                <Item
-                  key={idx + 1}
-                  value={list}
-                  onClick={handleSelectChange}
-                  underline={navType === list ? 'underline' : 'none'}
-                >
-                  <span className='space' />{plainList[list]}
-                </Item>
-              );
-            })}
-          {accordionList
-            .map((list, idx) => {
-              return (
-                <div key={idx + 1}>
-                  <Item value={list} onClick={handleIsOpen}>
-                    <span className='arrow' />{list}
-                  </Item>
-                  {isOpen === list
-                    ? accordionObj[list]
-                      .map((el, idx) =>
-                        <SubItem
-                          key={idx + 1}
-                          value={el}
-                          onClick={handleSelectChange}
-                          underline={navType === el ? 'underline' : 'none'}
-                        >
-                          {el}
-                        </SubItem>
-                      )
-                    : null}
-                </div>
-              );
-            })}
+      <div className='contents-container'>
+        <div className='menu-container' onClick={handleNavState} >
+          <FontAwesomeIcon className='menu' icon={faBars} size='2x'/>
         </div>
-        {/* history 값이 mylike나 myinfo일 때, 다른 값 보여주기 */}
-        <div className={history.location.pathname === '/mylike' || history.location.pathname === '/myinfo' ? 'main-active' : 'main-deactive'}>
-          {mypageList
-            .map((list, idx) => {
-              return (
-                <Item
-                  key={idx + 1}
-                  value={list}
-                  onClick={() => handleClicked(idx)}
-                  underline={history.location.pathname === mypageEndpoint[idx] ? 'underline' : 'none'}
-                >
-                  <span className='space' />{list}
-                </Item>
-              );
-            })}
+        <div className={`sidenav ${navState}`}>
+          {/* history 값이 mainpage일 때, 다른 값 보여주기 */}
+          <div className={history.location.pathname === '/mainpage' ? 'main-active' : 'main-deactive'}>
+            {Object.keys(plainList)
+              .map((list, idx) => {
+                return (
+                  <Item
+                    key={idx + 1}
+                    value={list}
+                    onClick={handleSelectChange}
+                    underline={navType === list ? 'underline' : 'none'}
+                  >
+                    <span className='space' />{plainList[list]}
+                  </Item>
+                );
+              })}
+            {accordionList
+              .map((list, idx) => {
+                return (
+                  <div key={idx + 1}>
+                    <Item value={list} onClick={handleIsOpen}>
+                      <span className='arrow' />{list}
+                    </Item>
+                    {isOpen === list
+                      ? accordionObj[list]
+                        .map((el, idx) =>
+                          <SubItem
+                            key={idx + 1}
+                            value={el}
+                            onClick={handleSelectChange}
+                            underline={navType === el ? 'underline' : 'none'}
+                          >
+                            {el}
+                          </SubItem>
+                        )
+                      : null}
+                  </div>
+                );
+              })}
+          </div>
+          {/* history 값이 mylike나 myinfo일 때, 다른 값 보여주기 */}
+          <div className={history.location.pathname === '/mylike' || history.location.pathname === '/myinfo' ? 'main-active' : 'main-deactive'}>
+            {mypageList
+              .map((list, idx) => {
+                return (
+                  <Item
+                    key={idx + 1}
+                    value={list}
+                    onClick={() => handleClicked(idx)}
+                    underline={history.location.pathname === mypageEndpoint[idx] ? 'underline' : 'none'}
+                  >
+                    <span className='space' />{list}
+                  </Item>
+                );
+              })}
+          </div>
         </div>
       </div>
     </SideNavWrapper>

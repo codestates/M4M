@@ -13,7 +13,8 @@ require('dotenv').config();
 
 const Wrapper = styled.div`
   .main {
-    display: flex;
+    display: inline-block;
+    ${media.tablet`display: flex`};
     min-height: calc(100vh - 41px - 56px);
   }
   .container {

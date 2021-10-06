@@ -4,15 +4,16 @@ import SongList from './MainSongList';
 import { changeType, getSongsBulk } from '../../redux/action';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { media } from '../../components/utils/_media-queries';
 import axios from 'axios';
 
 axios.defaults.headers.withCredentials = true;
 
 const MainWrapper = styled.div`
   .main {
-    display: flex;
-    /* background-color: #f7efe5; */
+    display: inline-block;
     min-height: calc(100vh - 41px - 56px);
+    ${media.tablet`display: flex`};
   }
   .loading-container {
     padding-top: 2rem;
