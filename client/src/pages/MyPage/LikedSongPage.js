@@ -8,12 +8,15 @@ import { Colors, GlobalStyle } from '../../components/utils/_var';
 import SideNav from '../../components/SideNav';
 import { changeHeader } from '../../redux/action';
 import { useDispatch } from 'react-redux';
+import { media } from '../../components/utils/_media-queries';
 axios.defaults.withCredentials = true;
 require('dotenv').config();
 
 const Wrapper = styled.div`
   .main {
-    display: flex;
+    /* display: flex; */
+    display: inline-block;
+    ${media.tablet`display: flex`};
     /* background-color: #f7efe5; */
     min-height: calc(100vh - 41px - 56px);
   }

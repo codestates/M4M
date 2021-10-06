@@ -15,11 +15,12 @@ const MoveTopWrapper = styled.div`
   }
   .move-top {
     position: fixed;
-    left: 95%;
+    left: 90%;
     bottom: calc(112px + 10px);
     animation: vertical 1000ms ease-in-out infinite;
     cursor: pointer;
     z-index: 99;
+    ${media.tablet`left: 95%;`}
     ${media.tablet`bottom: calc(54px + 10px);`}
   }
   .arrow {

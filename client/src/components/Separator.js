@@ -4,17 +4,16 @@ import { media } from '../components/utils/_media-queries';
 
 const SeparatorWrapper = styled.div`
   .separator {
-    height: 64px;
+    height: 128px;
     width: 100%;
     -ms-user-select: none; 
     -moz-user-select: -moz-none;
     -khtml-user-select: none;
     -webkit-user-select: none;
     user-select: none;
-    ${media.tabletMini`height: 128px;`}
-    ${media.tabletMini`height: 480px;`}
-    ${media.tablet`height: 256px;`}
-    ${media.tablet`height: 768px;`}
+    ${media.tabletMini`height: 256px;`}
+    ${media.tabletMini`width: 480px;`}
+    ${media.tablet`width: 768px;`}
     ${media.laptop`height: 512px;`}
     ${media.laptop`width: 1024px;`}
   }
