@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import SideNav from '../../components/SideNav';
+import { media } from '../../components/utils/_media-queries';
 import { Colors } from '../../components/utils/_var';
 import { changeHeader, userEdit } from '../../redux/action';
 import { useSelector, useDispatch } from 'react-redux';
@@ -16,35 +17,50 @@ const Wrapper = styled.div`
     min-height: calc(100vh - 41px - 56px);
   }
   .container {
-    width: 30rem;
-    margin: 1rem 7rem;
+    width: 25rem;
+    margin: 2rem auto;
+    ${media.tabletMini`margin: 1rem auto; width: 28rem;`}
+    ${media.tablet`margin: 1rem 7rem; width: 30rem;`} 
+    /* margin: 2rem auto;
+    ${media.tabletMini`width: margin: 1rem 5rem;`}
+    ${media.tablet`width: margin: 1rem 7rem;`} */
     /* background-color: yellow; */
-  }
-  .mypage-container {
-    width: 17rem;
-    margin: 1rem 0;
   }
   .greeting {
     font-family: 'Arial';
-    margin: 1rem auto 1rem;
-    text-align: left;
+    margin: 1rem auto;
+    padding-left: .5rem;
+    text-align: center;
+    ${media.tabletMini`margin: 1rem 5rem; text-align: left; padding-left: 0;`}
+    ${media.tablet`margin: 1rem 5rem; text-align: left;`}
+    ${media.tablet`margin: 1rem 5rem; text-align: left;`}
     font-size: 1.3rem;
+  }
+  .mypage-container {
+    width: 17rem;
+    margin: 1rem auto;
+    ${media.tabletMini`margin: 1rem 5rem;`}
+    /* background-color: pink; */
   }
   .id-number {
     position: absolute;
-    padding: 0.4rem 0.2rem;
-    margin: 0.2rem;
+    padding: .4rem .2rem;
+    margin: .2rem;
     color: ${Colors.gray};
     font-family: 'Arial';
-    font-size: 0.9rem;
+    font-size: .9rem;
   }
   input {
     width: 17rem;
-    height: 1.8rem;
-    margin: 0.2rem auto;
-    padding: 0.5rem;
-    border-color: ${Colors.lightGray};
-    border-width: 0.2px;
+    height: 2rem;
+    margin: .2rem auto;
+    padding: .5rem;
+    padding-left: 1rem;
+    /* border-color: ${Colors.lightGray}; */
+    /* border-width: 0.2px; */
+    background-color: #f2f2f2;
+    border: none;
+    border-radius: 15px;
     font-family: 'Arial';
   }
   input::-webkit-input-placeholder {
@@ -58,12 +74,12 @@ const Wrapper = styled.div`
     color: ${Colors.gray};
   }
   button {
-    /* width: 8rem; */
-    margin: 1.5rem 0.2rem;
-    padding: 0.4rem 1.5rem;
-    /* border: 1px solid ${Colors.black}; */
-    border: 1px solid ${Colors.pastelPurple};
+    margin: 1.5rem .8rem;
+    padding: .5rem 1.2rem;
+    border: 2px solid ${Colors.pastelPurple};
     background-color: ${Colors.pastelPurple};
+    color: white;
+    transition: 0.5s ease-in-out;
   }
   button:hover {
     cursor: pointer;
@@ -72,24 +88,25 @@ const Wrapper = styled.div`
     color: white;
   }
   button:last-of-type {
-    border: 1px solid ${Colors.black};
+    border: 2px solid ${Colors.black};
     background-color: ${Colors.black};
     color: white;
   }
   button:last-of-type:hover {
     background-color: white;
     color: ${Colors.black};
-    border: 1px solid ${Colors.black};
+    border: 2px solid ${Colors.black};
   }
 `;
 
 const MyPageField = styled.div`
-  margin: 0.7rem auto 0.15rem;
+  margin: .7rem auto .15rem;
+  padding-left: .2rem;
   text-align: left;
-  color: ${Colors.black};
-  font-size: 0.95rem;
+  color: ${Colors.darkGray};
+  font-size: .9rem;
   font-family: 'Arial';
-
+  
   &:first-of-type {
     padding-top: 1rem;
   }
@@ -98,14 +115,15 @@ const MyPageField = styled.div`
 const AlertMessage = styled.div`
   color: red;
   font-family: 'Arial';
+  padding-left: .9rem;
 
-  &:not(:last-of-type) {
+  &:not(:last-of-type){
     text-align: left;
-    font-size: 0.8rem;
+    font-size: .8rem;
   }
   &:last-of-type {
-    margin: 0 auto;
-    font-size: 0.95rem;
+    margin: 0 auto; 
+    font-size: .95rem;
   }
 `;
 

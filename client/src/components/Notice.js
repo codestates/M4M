@@ -4,6 +4,9 @@ import m4mlogo from '../images/m4mlogo4.png';
 import axios from 'axios';
 import { changeHeader, userEdit } from '../redux/action';
 import { useSelector, useDispatch } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { Colors } from '../components/utils/_var';
 require('dotenv').config();
 
 export const NoticeBackdrop = styled.div`
@@ -21,25 +24,25 @@ export const NoticeBackdrop = styled.div`
 export const NoticeView = styled.div`
   box-sizing: border-box;
   width: 35vh;
-  height: 18vh;
+  height: 19vh;
   background-color: rgb(255, 255, 255);
   position: relative;
   text-align: center;
-  //   font-size: 20px;
-  padding-top: 10px;
+  color: ${Colors.darkGray};
+  padding-top: 6px;
   box-shadow: 10px 10px grey;
 `;
 
 export const NoticeButton = styled.button`
-  margin-top: 0.4rem;
+  margin-top: 1rem;
   background-color: #caa6fe;
   border: none;
   border-radius: 10px;
   width: 7rem;
   height: 1.7rem;
-  font-size: 15px;
+  font-size: 14px;
   font-family: 'Arial';
-  font-weight: bold;
+  /* font-weight: bold; */
   color: white;
   cursor: pointer;
   :hover {
@@ -53,12 +56,21 @@ export const NoticeClose = styled.button`
   margin-top: 0.4rem;
   cursor: pointer;
   font-size: 14px;
-  font-weight: bold;
+  /* font-weight: bold; */
   letter-spacing: 1px;
   color: grey;
   :hover {
     color: black;
   }
+`;
+
+export const CloseIcon = styled.div`
+  display: flex;
+  justify-content: right;
+  padding-right: 10px;
+  padding-bottom: 5px;
+  font-size: 20px;
+  cursor: pointer;
 `;
 
 function Notice({ message, login, handleNotice, handleMessage }) {
@@ -85,9 +97,18 @@ function Notice({ message, login, handleNotice, handleMessage }) {
   return (
     <NoticeBackdrop>
       <NoticeView>
-        <img src={m4mlogo} style={{ width: '90px' }} />
+          <CloseIcon>
+            <FontAwesomeIcon
+              icon={faTimes}
+              color={Colors.gray}
+              onClick={() => {
+                handleNotice(false);
+              }}
+            />
+          </CloseIcon>
+        {/* <img src={m4mlogo} style={{ width: '90px' }} /> */}
         <div
-          style={{ marginTop: '5px', fontFamily: 'Arial', fontWeight: 'bold', fontSize: '18px' }}>
+          style={{ marginTop: '5px', fontFamily: 'Arial', fontSize: '16px' }}>
           {message}
         </div>
         <ButtonContainer>
@@ -103,12 +124,12 @@ function Notice({ message, login, handleNotice, handleMessage }) {
                 </NoticeButton>
               </div>
               <div>
-                <NoticeClose
+                {/* <NoticeClose
                   onClick={() => {
                     handleNotice(false);
                   }}>
                   창닫기
-                </NoticeClose>
+                </NoticeClose> */}
               </div>
             </div>
           ) : message === '로그인 성공!' ||

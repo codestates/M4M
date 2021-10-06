@@ -4,7 +4,11 @@ import axios from 'axios';
 import { useHistory } from 'react-router';
 import { notify } from '../redux/action';
 import { useSelector, useDispatch } from 'react-redux';
-import m4mlogo from '../images/m4mlogo4.png';
+import { Colors } from '../components/utils/_var';
+// import m4mlogo from '../images/m4mlogo4.png';
+import m4mlogo from '../images/logo.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 require('dotenv').config();
 
 export const SignupBackdrop = styled.div`
@@ -21,7 +25,7 @@ export const SignupBackdrop = styled.div`
 `;
 export const SignupView = styled.div`
   box-sizing: border-box;
-  width: 45vh;
+  width: 48vh;
   height: 65vh;
   background-color: rgb(255, 255, 255);
   position: relative;
@@ -29,6 +33,19 @@ export const SignupView = styled.div`
   // font-size: 20px;
   padding-top: 10px;
   box-shadow: 10px 10px grey;
+
+  .logo {
+    width: 90px;
+    margin: 10px auto;
+  }
+`;
+
+export const CloseIcon = styled.div`
+  display: flex;
+  justify-content: right;
+  padding-right: 15px;
+  font-size: 20px;
+  cursor: pointer;
 `;
 
 export const SignupInputContainer = styled.div`
@@ -43,13 +60,18 @@ export const SignupInputContainer = styled.div`
 export const SignupInput = styled.input`
   background-color: #f2f2f2;
   border: none;
-  border-radius: 10px;
+  border-radius: 15px;
   width: 70%;
   height: 11%;
   padding: 10px;
-  font-weight: bold;
+  /* font-weight: bold; */
+  color: ${Colors.darkGray};
   :focus {
     outline: none;
+  }
+  &::-webkit-input-placeholder {
+    color: ${Colors.gray};
+    font-size: 12px;
   }
 `;
 
@@ -57,11 +79,11 @@ export const SignupButton = styled.button`
   margin: 0rem 0.4rem 0.1rem 0.4rem;
   cursor: pointer;
   font-family: 'Arial';
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 14px;
+  /* font-weight: bold; */
   background-color: #caa6fe;
   width: 11.5rem;
-  height: 2.5rem;
+  height: 2.2rem;
   border-radius: 7px;
   border: none;
   color: white;
@@ -75,7 +97,7 @@ export const CloseButton = styled.button`
   border: none;
   margin-top: 10px;
   cursor: pointer;
-  font-weight: bold;
+  /* font-weight: bold; */
   letter-spacing: 1px;
   color: grey;
   :hover {
@@ -95,7 +117,7 @@ export const Alertbox = styled.div`
   color: red;
   font-family: 'Arial';
   font-size: 14px;
-  font-weight: bold;
+  /* font-weight: bold; */
   margin-top: 5px;
   animation: ${blinkEffect} 1s step-end infinite;
 `;
@@ -105,7 +127,7 @@ export const CheckInfo = styled.div`
   font-size: 11px;
   // margin-top: 2px;
   font-family: 'Arial';
-  font-weight: bold;
+  /* font-weight: bold; */
   opacity: 0.7;
 `;
 
@@ -118,11 +140,11 @@ export const Select = styled.select`
   height: 11%;
   padding: 7px;
   text-align: left;
-  font-size: 13.5px;
-  font-weight: bold;
+  font-size: 12.5px;
+  /* font-weight: bold; */
   background-color: #f2f2f2;
   border: none;
-  border-radius: 10px;
+  border-radius: 15px;
   opacity: 0.5;
   cursor: pointer;
   :focus {
@@ -134,16 +156,24 @@ export const VerifyButton = styled.button`
   margin: 0rem 0.4rem 0.1rem 0.4rem;
   cursor: pointer;
   font-family: 'Arial';
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 14px;
+  /* font-weight: bold; */
   background-color: #caa6fe;
-  width: 11.5rem;
-  height: 2.5rem;
-  border-radius: 7px;
+  background-color: transparent;
+  /* width: 11.5rem;
+  height: 2.2rem;
+  border-radius: 7px; */
   border: none;
   color: white;
+  font-size: 12px;
+  padding: 0;
+  text-decoration: underline;
+  /* border-bottom: 1px solid ${Colors.gray}; */
+  color: ${Colors.gray};
   :hover {
-    background-color: #9c57ff;
+    /* background-color: #9c57ff; */
+    color: ${Colors.purple};
+    border-color: ${Colors.purple};
   }
 `;
 
@@ -298,7 +328,10 @@ function Signup ({ handleModal, handleNotice, handleMessage }) {
   return (
     <SignupBackdrop>
       <SignupView>
-        <img src={m4mlogo} style={{ width: '200px' }} />
+        <CloseIcon>
+          <FontAwesomeIcon icon={faTimes} color={Colors.gray} onClick={handleModal} />
+        </CloseIcon>
+        <img className='logo' src={m4mlogo} alt='logo' />        
         <SignupInputContainer>
           <SignupInput onChange={inputCheck('nickname')} placeholder='닉네임' />
           <CheckInfo>{checkNickname === 'ok' ? null : checkNickname}</CheckInfo>
@@ -335,7 +368,7 @@ function Signup ({ handleModal, handleNotice, handleMessage }) {
         <ButtonContainer>
           <SignupButton onClick={handleSignupRequest}>회원가입</SignupButton>
         </ButtonContainer>
-        <CloseButton onClick={handleModal}>창닫기</CloseButton>
+        {/* <CloseButton onClick={handleModal}>창닫기</CloseButton> */}
         <Alertbox>{errorMsg}</Alertbox>
       </SignupView>
     </SignupBackdrop>

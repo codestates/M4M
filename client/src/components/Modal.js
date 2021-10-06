@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { ButtonContainer } from '../pages/Login';
 import { NoticeButton, NoticeClose } from './Notice';
+import { Colors } from '../components/utils/_var';
 import m4mlogo from '../images/m4mlogo4.png';
 
 export const ModalBackdrop = styled.div`
@@ -23,7 +24,8 @@ export const ModalView = styled.div`
   position: relative;
   text-align: center;
   //   font-size: 20px;
-  padding-top: 10px;
+  color: ${Colors.darkGray};
+  padding-top: 20px;
   box-shadow: 10px 10px grey;
 `;
 
@@ -42,7 +44,7 @@ function Modal({ handleModal, login }) {
   return (
     <ModalBackdrop>
       <ModalView>
-        <img src={m4mlogo} style={{ width: '90px' }} />
+        {/* <img src={m4mlogo} style={{ width: '90px' }} /> */}
         <div
           style={{ marginTop: '5px', fontSize: '17px', fontFamily: 'Arial', fontWeight: 'bold' }}>
           [토큰 만료] 다시 로그인 하시겠습니까?

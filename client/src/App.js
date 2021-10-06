@@ -86,7 +86,7 @@ function App() {
             <Route path="/mainpage" component={Main} />
             <Route path="/recommendpage" render={() => <Recommendation />} />
             <Route path="/mylike">
-              {information ? (
+              {isLogin ? (
                 <GetLikedSong
                   modal={handleModalOpen}
                   handleMessage={handleMessage}
@@ -97,7 +97,7 @@ function App() {
               )}
             </Route>
             <Route path="/myinfo">
-              {information ? (
+              {isLogin ? (
                 <Mypage
                   modal={handleModalOpen}
                   handleMessage={handleMessage}

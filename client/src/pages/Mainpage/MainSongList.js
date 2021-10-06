@@ -7,50 +7,22 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
+import { media } from '../../components/utils/_media-queries';
 import { Colors } from '../../components/utils/_var';
+import TypeWriterEffect from 'typewriter-effect';
 
 axios.defaults.withCredentials = true;
 
-const SongListWrapper = styled.div`
-  button {
-    margin: 10px;
-  }
-  .songlist {
-    margin-left: 1rem;
-  }
-  .sort {
-    display: flex;
-    justify-content: center;
-  }
-  .box {
-    margin: .5rem;
-  }
-  .span-none {
-    display:inline-block; 
-    width: 12px;
-    height: 12px;
-    border: 8px solid transparent;
-  }
-  .span-for {
-    display:inline-block; 
-    width: 12px;
-    height: 12px;
-    border: 8px solid transparent;
-    border-bottom: 8px solid black; 
-  }
-  .span-back {
-    display:inline-block; 
-    width: 12px;
-    height: 12px;
-    border: 8px solid transparent;
-    border-top: 8px solid black; 
-  }
-  .loadingWrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .loading {
+const LoadingWrpper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: ${Colors.darkGray};
+  font-size: 1.75rem;
+  font-family: 'Arial';
+  padding: .5rem;
+
+  /* .loading {
     width: 200px;
     animation: typing 1500ms steps(10), blink 500ms step-end infinite alternate;
     overflow: hidden;
@@ -64,17 +36,55 @@ const SongListWrapper = styled.div`
       
   @keyframes blink {
     50% { border-color: transparent }
+  } */
+
+`;
+const SongListWrapper = styled.div`
+  .no-result {
+    color: ${Colors.black};
+    font-family: 'Arial';
+    font-size: .9rem;
+    padding-top: 2rem;
+  }
+  .arrow-image {
+    height: .9rem;
+    vertical-align: middle;
+    margin-left: .5rem;
+    padding-bottom: .2rem;
+  }
+  button {
+    margin: 10px;
+  }
+  .songlist {
+    margin-left: 0;
+    /* background-color: pink; */
+    ${media.tabletMini`margin-left: .75rem;`}
+  }
+  .sort {
+    display: flex;
+    justify-content: center;
+  }
+  .box {
+    margin: .5rem;
+  }
+  .type {
+    margin: 2.5rem auto .6rem;
+    /* padding-right: 1rem; */
+    ${media.tabletMini`padding-right: 0;`}
+    text-align: right;
+    color: ${Colors.darkGray};
+    font-family: 'Arial';
+    font-size: 1.1rem;
+    /* background-color: yellow; */
   }
 
   .scrollable::-webkit-scrollbar {
-    background: ${Colors.beige};
     height: 10px;
   }
   .scrollable::-webkit-scrollbar-thumb {
     visibility: hidden;
   }
   .scrollable::-webkit-scrollbar-thumb:hover {
-    /* visibility: visible; */
     border-top: .5px solid;
     border-bottom: .5px solid;
     border-left: .5px solid;
@@ -83,41 +93,49 @@ const SongListWrapper = styled.div`
   }
   .field-container {
     display: flex;
-    margin: .75rem auto 0em;
+    margin: 0 auto 0em;
     justify-content: center;
     align-items: center;
     margin-bottom: -5px;
+    /* background-color: yellow; */
   }
-  .field-container > div, input {
-    margin: .5rem 0;
+  .field-container > div {
+    margin: 0 0 .3rem;
   }
   .field {
     display: grid;
-    grid-template-columns: 15% 27% 27% 12% 12%;
+    grid-template-columns: 11% 30% 30% 12% 12%;
     grid-column-gap: 8px;
-    margin: .75rem auto 0em;
-    padding: .2rem .15rem;
-    width: 75vw;
-    border: solid 1px;
-    /* background-color: ${Colors.beige}; */
-    /* background-color: ${Colors.black}; */
+    margin: .75rem 1rem 0;
+    padding: .15rem .15rem;
+    min-width: 320px;
+    width: 95%;
+    ${media.tabletMini`min-width: 100%; max-width: 750px;`}
+    ${media.tablet`min-width: 44rem; max-width: 48rem;`}
+    ${media.laptop`width: 50rem;`}
+    border: solid 1px ${Colors.lightGray};
+    border-left: none;
+    border-right: none;
   }
   .field .grid-item {
-    text-align: center;
-    color: ${Colors.black};
-    color: #fff;
-    color: ${Colors.black};
-    border: solid 1px black;
-    /* border: solid 1px white; */
+    text-align: left;
+    font-family: 'Arial';
+    color: ${Colors.gray};
   }
   .grid-item {
     font-size: .8rem;
+    align-self: center;
   }
-  .field-album {
-    /* visibility: hidden; */
+  .grid-item:hover {
+    cursor: pointer;
   }
-  .song-container > div, input {
-    margin: .5rem 0;
+  .field-title {
+    padding: auto;
+    margin-left: .5rem;
+  }
+  .song-container > div {
+    /* margin: .5rem 0; */
+    margin: 0;
   }
   .song-container {
     display: flex;
@@ -126,68 +144,53 @@ const SongListWrapper = styled.div`
   }
   .song-info-container {
     display: grid;
-    grid-template-columns: 15% 27% 27% 12% 12%;
+    grid-template-columns: 11% 30% 30% 12% 12%;
     grid-column-gap: 8px;
-    margin: 0rem auto;
+    margin: 0 auto;
     padding: .4rem .15rem;
-    width: 75vw;
-    border: solid 1px;
-    box-shadow: 5px 6px ${Colors.gray};
-    background-color: ${Colors.beige};
+    min-width: 320px;
+    width: 95%;
+    /* ${media.tabletMini`width: 470px; max-width: 750px;`} */
+    ${media.tabletMini`width: 100%; max-width: 750px;`}
+    ${media.tablet`min-width: 44rem; max-width: 48rem;`}
+    ${media.laptop`width: 50rem;`}
+
+    border-bottom: solid 1px ${Colors.lightGray};
   }
   .song-info-container:hover {
     cursor: pointer;
   }
   .song-info-container > div:nth-child(-n+5) {
-    border: solid 1px;
-    /* margin-top: .2rem; */
+    margin-top: .3rem;
   }
   .scrollable {
     overflow-x: auto;
     white-space : nowrap;
   }
   .album_art {
-    margin: auto 1rem auto .5rem;
-    width: 7rem;
+    margin: auto .25rem;
+    width: 6rem;
     height: auto;
     grid-row: 1 / 4;
   }
-  .title {
+  .info {
     width: 100%;
+    font-family: 'Arial';
     font-size: .8rem;
     text-align: left;
-  }
-  .artist {
-    width: 100%;
-    font-size: .7rem;
-    text-align: left;
-  }
-  .date {
-    width: 100%;
-    font-size: .9rem;
-  }
-  .like {
-    width: 100%;
     color: ${Colors.black};
-    font-size: .9rem;
+  }
+  .title {
+    margin-left: .5rem;
+  }
+  .date, .like {
+    color: ${Colors.gray};
   }
   .hashtagBox {
-    margin-top: .75rem;
+    margin-top: 1rem;
+    margin-left: .4rem;
     grid-row: 2;
     grid-column: 2 / end;
-  }
-  .hashtag {
-    float: left;
-    margin: auto .2rem .2rem;
-    padding: .2rem;
-    border: solid 1px;
-    border-radius: 5px;
-    background-color: white;
-    color: black;
-    font-size: .7rem;
-  }
-  .grid-item:not(:first-of-type):not(:last-of-type):hover {
-    cursor: pointer;
   }
 `;
 
@@ -196,9 +199,11 @@ const HashTag = styled.div`
   margin: auto .2rem .2rem;
   padding: .2rem;
   border: solid 1px;
-  border-radius: 5px;
+  border-color: ${props => props.borderColor};
+  border-radius: 10px;
   background-color: ${props => props.backgroundColor};
   color: ${props => props.textColor};
+  font-family: 'Arial';
   font-size: .7rem;
 `;
 
@@ -221,7 +226,8 @@ function SongList () {
   const [subSort, setSubSort] = useState({
     title: 'none',
     artist: 'none',
-    date: 'none'
+    date: 'none',
+    like: 'none'
   });
   console.log('🎶', result, '\n🚦', subSort, '\n📌', typeState, '\n🧲', searchState, '\nℹ️', information);
 
@@ -232,7 +238,7 @@ function SongList () {
   useEffect(() => {
     dispatch(changeHeader([true, true]));
     setIsSorted(songsBulkState);
-  }, [songsBulkState, dispatch]);
+  }, [songsBulkState]);
 
   useEffect(() => {
     setResult(isSorted);
@@ -282,7 +288,8 @@ function SongList () {
     setSubSort({
       title: 'none',
       artist: 'none',
-      date: 'none'
+      date: 'none',
+      like: 'none'
     });
   }, [typeState]);
 
@@ -298,75 +305,117 @@ function SongList () {
       }, loadingTime);
     }
   };
-
   const handleSubSort = (e) => {
     const standard = e.target.innerText;
-    if (standard === 'title') {
+    if (standard === '제목') {
       if (subSort.title === 'none') {
         setSubSort({
           title: 'for',
           artist: 'none',
-          date: 'none'
+          date: 'none',
+          like: 'none'
         });
         setResult(isSorted.slice().sort((a, b) => a.title.localeCompare(b.title)));
+        console.log('🔴 handleSubSort: title(for)');
       } else if (subSort.title === 'for') {
         setSubSort({
           title: 'back',
           artist: 'none',
-          date: 'none'
+          date: 'none',
+          like: 'none'
         });
         setResult(isSorted.slice().sort((a, b) => b.title.localeCompare(a.title)));
+        console.log('🔴 handleSubSort: title(back)');
       } else {
         setSubSort({
           title: 'none',
           artist: 'none',
-          date: 'none'
+          date: 'none',
+          like: 'none'
         });
         setResult(isSorted);
       }
-    } else if (standard === 'artist') {
+    } else if (standard === '아티스트') {
       if (subSort.artist === 'none') {
         setSubSort({
           title: 'none',
           artist: 'for',
-          date: 'none'
+          date: 'none',
+          like: 'none'
         });
         setResult(isSorted.slice().sort((a, b) => a.artist.localeCompare(b.artist)));
+        console.log('🟠 handleSubSort: artist(for)');
       } else if (subSort.artist === 'for') {
         setSubSort({
           title: 'none',
           artist: 'back',
-          date: 'none'
+          date: 'none',
+          like: 'none'
         });
         setResult(isSorted.slice().sort((a, b) => b.artist.localeCompare(a.artist)));
+        console.log('🟠 handleSubSort: artist(back)');
       } else {
         setSubSort({
           title: 'none',
           artist: 'none',
-          date: 'none'
+          date: 'none',
+          like: 'none'
         });
         setResult(isSorted);
       }
-    } else if (standard === 'date') {
+    } else if (standard === '발매일') {
       if (subSort.date === 'none') {
         setSubSort({
           title: 'none',
           artist: 'none',
-          date: 'for'
+          date: 'for',
+          like: 'none'
         });
         setResult(isSorted.slice().sort((a, b) => a.date.replace('.', '') - b.date.replace('.', '')));
+        console.log('🟡 handleSubSort: date(for)');
       } else if (subSort.date === 'for') {
         setSubSort({
           title: 'none',
           artist: 'none',
-          date: 'back'
+          date: 'back',
+          like: 'none'
         });
         setResult(isSorted.slice().sort((a, b) => b.date.replace('.', '') - a.date.replace('.', '')));
+        console.log('🟡 handleSubSort: date(back)');
       } else {
         setSubSort({
           title: 'none',
           artist: 'none',
-          date: 'none'
+          date: 'none',
+          like: 'none'
+        });
+        setResult(isSorted);
+      }
+    } else if (standard === '좋아요') {
+      if (subSort.like === 'none') {
+        setSubSort({
+          title: 'none',
+          artist: 'none',
+          date: 'none',
+          like: 'for'
+        });
+        setResult(isSorted.slice().sort((a, b) => a.hashtagLike[0][1] - b.hashtagLike[0][1]));
+        console.log('🟡 handleSubSort: date(for)');
+      } else if (subSort.like === 'for') {
+        setSubSort({
+          title: 'none',
+          artist: 'none',
+          date: 'none',
+          like: 'back'
+        });
+        setResult(isSorted.slice().sort((a, b) => b.hashtagLike[0][1] - a.hashtagLike[0][1]));
+        console.log('🟡 handleSubSort: date(back)');
+      } else {
+        setSubSort({
+          title: 'none',
+          artist: 'none',
+          date: 'none',
+          like: 'none'
         });
         setResult(isSorted);
       }
@@ -378,22 +427,28 @@ function SongList () {
     <SongListWrapper>
       <div className='songlist'>
         {typeState === 'No Result' || result.length === 0
-          ? <div className='box no-result'>No Result</div>
+          ? <div className='box no-result'>검색 결과가 존재하지 않습니다.</div>
           : <>
-            <div className='box type'><h1>{typeState}</h1></div>
+            <div className='type'>{typeState}</div>
             <div className='field-container'>
               <div className='field'>
-                <div className='grid-item field-album'>앨범</div>
-                <div className={'grid-item field-title' + subSort.title} onClick={handleSubSort}>
-                  title<span className={'span-' + subSort.title} />
+                <div className='grid-item field-album' />
+                <div className='grid-item field-title' onClick={handleSubSort}>
+                  제목
+                  <img className='arrow-image' src={`/image/arrow${subSort.title}.png`} />
                 </div>
-                <div className={'grid-item field-artist' + subSort.artist} onClick={handleSubSort}>
-                  artist<span className={'span-' + subSort.artist} />
+                <div className='grid-item field-artist' onClick={handleSubSort}>
+                  아티스트
+                  <img className='arrow-image' src={`/image/arrow${subSort.artist}.png`} />
                 </div>
                 <div className='grid-item field-date' onClick={handleSubSort}>
-                  date<span className={'span-' + subSort.date} />
+                  발매일
+                  <img className='arrow-image' src={`/image/arrow${subSort.date}.png`} />
                 </div>
-                <div className='grid-item field-like'>좋아요</div>
+                <div className='grid-item field-like' onClick={handleSubSort}>
+                  좋아요
+                  <img className='arrow-image' src={`/image/arrow${subSort.like}.png`} />
+                </div>
               </div>
             </div>
             <div className='list'>
@@ -402,11 +457,11 @@ function SongList () {
                   return (
                     <div className='song-container' key={song.id}>
                       <div className='song-info-container' onClick={() => handleSongDetail(song)}>
-                        <img className='album_art' src={song.album_art} alt={song.title} loading='lazy' />
-                        <div className='title scrollable'>{song.title}</div>
-                        <div className='artist scrollable'>{song.artist}</div>
-                        <div className='date'>{song.date}</div>
-                        <div className='like'>
+                        <img className='info album_art' src={song.album_art} alt={song.title} loading='lazy' />
+                        <div className='info title scrollable'>{song.title}</div>
+                        <div className='info artist scrollable'>{song.artist}</div>
+                        <div className='info date'>{song.date}</div>
+                        <div className='info like'>
                           {song.userHashtagLikes && song.userHashtagLikes.includes(1)
                             ? <FontAwesomeIcon icon={faHeart} size='xs' color='red' />
                             : <FontAwesomeIcon icon={farHeart} size='xs' color='red' />}
@@ -419,6 +474,7 @@ function SongList () {
                                 {tag[0] === '좋아요' || tag[1] === 0
                                   ? null
                                   : <HashTag
+                                      borderColor={song.userHashtagLikes && song.userHashtagLikes.includes(idx + 1) ? 'none' : Colors.mediumGray}
                                       backgroundColor={song.userHashtagLikes && song.userHashtagLikes.includes(idx + 1) ? Colors.darkGray : 'white'}
                                       textColor={song.userHashtagLikes && song.userHashtagLikes.includes(idx + 1) ? 'white' : Colors.darkGray}
                                       key={idx}
@@ -436,9 +492,18 @@ function SongList () {
                 return null;
               })}
               {isLoading &&
-                <div className='loadingWrapper'>
-                  <div className='loading'>Loading...</div>
-                </div>}
+                <LoadingWrpper>
+                  <TypeWriterEffect
+                    onInit={(typewriter) => {
+                      typewriter
+                        .typeString('로딩 중입니다...')
+                        .pauseFor(1000)
+                        .start();
+                    }}
+                  />
+                  {/* <div className='loading'>Loading...</div> */}
+                </LoadingWrpper>
+              }
             </div>
           </>}
       </div>
