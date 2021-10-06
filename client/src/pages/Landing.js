@@ -208,7 +208,11 @@ function Landing () {
   };
 
   const handleFeatureImgState = () => {
-    if (1024 <= window.innerWidth) {
+    if (1401 <= window.innerWidth) {
+      if (window.scrollY > 2200) setFeatureImgState('feature-active');
+      if (window.scrollY < 1200) setFeatureImgState('feature-deactive');
+    }
+    if (1024 <= window.innerWidth && window.innerWidth < 1401) {
       if (window.scrollY > 2500) setFeatureImgState('feature-active');
       if (window.scrollY < 2100) setFeatureImgState('feature-deactive');
     }
