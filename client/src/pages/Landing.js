@@ -226,12 +226,7 @@ function Landing () {
     }
   };
 
-  useEffect(() => {
-    window.addEventListener('scroll', handleFeatureImgState);
-    return () => { 
-      window.removeEventListener('scroll', handleFeatureImgState); 
-    };
-  });
+  useEffect(() => window.addEventListener('scroll', handleFeatureImgState));
 
   useEffect(() => dispatch(changeHeader([false, false])), [dispatch]);
 
