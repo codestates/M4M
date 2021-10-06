@@ -7,6 +7,7 @@ require('dotenv').config();
 const Wrapper = styled.div`
   img {
     vertical-align: middle;
+    width: 1.15rem;
   }
   button:hover {
     cursor: pointer;
@@ -82,7 +83,7 @@ const KakaoShareButton = ({ songType, songList }) => {
   return (
     <Wrapper>
       <button className='kakao-button' onClick={kakaoShare}>
-        <img src={kakaoLogo} alt='kakao-logo' width='20px' />
+        <img src={kakaoLogo} alt='kakao-logo' />
         <div className='kakao-content'>카카오톡 공유하기</div>
       </button>
     </Wrapper>

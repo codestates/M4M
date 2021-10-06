@@ -8,12 +8,13 @@ import { Colors, GlobalStyle } from '../../components/utils/_var';
 
 const Wrapper = styled.div`
   .year-info-container {
-    width: 100%;
-    padding: .8rem 0 .7rem;
+    display: inline-block;
+    width: 99%;
     font-size: .85rem;
-    border: none;
-    display: none;
-    ${media.tabletMini`display: inline-block; border: 1px solid ${Colors.lightGray};`}    
+    border: 1px solid ${Colors.lightGray};
+    margin: .2rem auto 1.2rem;
+    padding-bottom: .9rem;
+    ${media.tabletMini`display: none; border: none;`}
   }
   .custom-field {
     margin: 1rem auto .5rem;
@@ -25,7 +26,7 @@ const Wrapper = styled.div`
     border-bottom: solid 1px ${Colors.borderColor};
   }
   .custom-field:first-child {
-    margin: 0 auto .4rem;
+    margin: .8rem auto .4rem;
   }
   .content {
     text-align: center;
@@ -65,13 +66,8 @@ const CustomizedInfo = ({ songInfo, handleMessage, handleNotice }) => {
   // console.log(topSongs);
 
   if (token && birthYear && songInfo.year) {
-    // VALID CODE NOT FOR TESTING
     age = songInfo.year - birthYear + 1;
     // console.log(birthYear);
-
-    // JUST FOR TEST PURPOSES
-    // const fakeBY = 2000;
-    // age = songInfo.year - fakeBY + 1;
 
     if (age < 1) {
       age = -1;
@@ -94,7 +90,7 @@ const CustomizedInfo = ({ songInfo, handleMessage, handleNotice }) => {
       <div className='year-info-container'>
         <AgeContainer cursor={age !== '?' ? 'default' : 'pointer'} onClick={handleYearClicked}>
           <div className='custom-field'>{chartYear}년 당시 당신의 나이</div>
-          <div className='content'>{age !== -1 ? `${age}세` : '아직 당신은 태어나기 전입니다.'}</div>
+          <div className='content'>{age !== -1 ? age : '아직 당신은 태어나기 전입니다.'}</div>
         </AgeContainer>
         <div className='custom-field'>{chartYear}년의 자장면 가격</div>
         <div className='content'>{JJM[0][`${chartYear}년`]}</div>

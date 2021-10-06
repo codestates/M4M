@@ -60,7 +60,7 @@ export const LoginInput = styled.input`
   }
 `;
 
-function blinkEffect() {
+function blinkEffect () {
   return keyframes`
   50% {
     opacity:0;
@@ -106,7 +106,6 @@ export const CloseButton = styled.button`
     color: black;
   }
 `;
-
 
 export const ButtonContainer = styled.div`
   // margin: 10px;
@@ -156,7 +155,7 @@ export const SignupSpan = styled.span`
   }
 `;
 
-function Login({ handleModal, signup, handleMessage, handleNotice }) {
+function Login ({ handleModal, signup, handleMessage, handleNotice }) {
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: ''
@@ -274,21 +273,21 @@ function Login({ handleModal, signup, handleMessage, handleNotice }) {
       <LoginView>
         <img src={m4mlogo} style={{ width: '200px' }} />
         <LoginInputContainer>
-          <LoginInput onChange={handleInputValue('email')} placeholder="이메일" />
+          <LoginInput onChange={handleInputValue('email')} placeholder='이메일' />
           <LoginInput
             type='password'
             onChange={handleInputValue('password')}
             onKeyPress={(e) => {
               enter(e);
             }}
-            placeholder="비밀번호"
+            placeholder='비밀번호'
           />
         </LoginInputContainer>
         <ButtonContainer>
           <LoginButton onClick={handleLoginRequest}>로그인</LoginButton>
         </ButtonContainer>
         <KakaoButton onClick={kakaoLogin}>
-          <img src={kakaoLogo} alt="kakao-logo" width="20px" />
+          <img src={kakaoLogo} alt='kakao-logo' width='20px' />
           <KakaoContent>카카오 로그인</KakaoContent>
         </KakaoButton>
         <div style={{ marginTop: '5px' }}>
@@ -298,7 +297,8 @@ function Login({ handleModal, signup, handleMessage, handleNotice }) {
               margin: '10px 6px 0px 0px',
               fontFamily: 'Arial',
               fontWeight: 'bold'
-            }}>
+            }}
+          >
             아직 회원이 아니신가요?
           </span>
           <SignupSpan onClick={goSignup}>회원가입</SignupSpan>

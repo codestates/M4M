@@ -83,7 +83,7 @@ export const CloseButton = styled.button`
   }
 `;
 
-function blinkEffect() {
+function blinkEffect () {
   return keyframes`
   50% {
     opacity:0;
@@ -300,26 +300,27 @@ function Signup ({ handleModal, handleNotice, handleMessage }) {
       <SignupView>
         <img src={m4mlogo} style={{ width: '200px' }} />
         <SignupInputContainer>
-          <SignupInput onChange={inputCheck('nickname')} placeholder="닉네임" />
+          <SignupInput onChange={inputCheck('nickname')} placeholder='닉네임' />
           <CheckInfo>{checkNickname === 'ok' ? null : checkNickname}</CheckInfo>
-          <SignupInput onChange={inputCheck('email')} placeholder="이메일" />
+          <SignupInput onChange={inputCheck('email')} placeholder='이메일' />
           {/* <ButtonContainer> */}
-          <CheckInfo>{checkEmail ? `  ` : '올바른 이메일 주소를 입력해주세요'}</CheckInfo>
+          <CheckInfo>{checkEmail ? '  ' : '올바른 이메일 주소를 입력해주세요'}</CheckInfo>
           <VerifyButton onClick={emailRequest}>이메일 인증</VerifyButton>
           {/* </ButtonContainer> */}
-          <SignupInput onChange={verifyCode} placeholder="이메일 인증 코드" />
+          <SignupInput onChange={verifyCode} placeholder='이메일 인증 코드' />
           <CheckInfo>{checkCode ? null : '코드가 일치하지 않습니다'}</CheckInfo>
-          <SignupInput type="password" onChange={inputCheck('password')} placeholder="비밀번호" />
+          <SignupInput type='password' onChange={inputCheck('password')} placeholder='비밀번호' />
           <CheckInfo>{checkPassword ? null : '올바른 비밀번호를 입력해주세요'}</CheckInfo>
-          <SignupInput type="password" onChange={handleCheckPassword} placeholder="비밀번호 확인" />
+          <SignupInput type='password' onChange={handleCheckPassword} placeholder='비밀번호 확인' />
           <CheckInfo>{checkRetypePassword ? null : '비밀번호가 일치하지 않습니다'}</CheckInfo>
           <Select onChange={handleInputValue('birthYear')}>
             <option
-              value=""
+              value=''
               selected
               disabled
               hidden
-              style={{ fontWeight: 'bold', borderRadius: '10px' }}>
+              style={{ fontWeight: 'bold', borderRadius: '10px' }}
+            >
               출생년도
             </option>
             {yearList.map((el, idx) => {
