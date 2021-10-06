@@ -1,4 +1,6 @@
 # M4M (Music for Millennials) Service Intro
+<br>
+<img width="250" alt="logo" src="https://user-images.githubusercontent.com/29108753/136206315-137f518a-20c5-45a6-8468-bc72c2f92ae5.png">
 
 ### **밀레니얼 세대를 위한 세대공감 음악 추천 및 검색 서비스 M4M.**  
 밀레니얼 세대의 감성을 촉촉히 해줄 1992년부터 2009년까지의 노래들을 준비했습니다!  
@@ -41,7 +43,7 @@
 ![](https://img.shields.io/badge/BACK-OAUTH_2.0-000000?style=for-the-badge&logo=oauth-2.0)  
 
 ## DISTRIBUTION
-![](https://img.shields.io/badge/BACK-AMAZON_AWS-232F3E?style=for-the-badge&logo=amazon-aws)  
+![](https://img.shields.io/badge/DIST-AMAZON_AWS-232F3E?style=for-the-badge&logo=amazon-aws)  
 
 ## Detailed chart
 | Fields                              | Stacks                     |
