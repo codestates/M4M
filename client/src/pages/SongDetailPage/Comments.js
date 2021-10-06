@@ -3,20 +3,29 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import styled from 'styled-components';
 import CommentPagination from './CommentPagination';
-import { Colors, Size, GlobalStyle } from '../../components/utils/_var';
+import { media } from '../../components/utils/_media-queries'
+import { Colors, GlobalStyle } from '../../components/utils/_var';
 axios.defaults.withCredentials = true;
 require('dotenv').config();
 
 const Wrapper = styled.div`
   .counter {
-    width: ${Size.container};
-    margin: 0.5rem auto;
+    min-width: 320px;
+    max-width: 479px;
+    margin: .5rem auto;
+    ${media.tabletMini`min-width: 470px; max-width: 750px;`}
+    ${media.tablet`width: 41.7rem; max-width: 1024px;`}
     text-align: left;
-    font-size: 0.9rem;
+    font-family: 'Arial';
+    font-size: .9rem;
+    color: ${Colors.darkGray};
   }
   .comments-container {
     margin: auto auto 1.2rem;
-    width: ${Size.container};
+    min-width: 320px;
+    max-width: 479px;
+    ${media.tabletMini`min-width: 470px; max-width: 750px;`}
+    ${media.tablet`width: 41.7rem; max-width: 1024px;`}
     background-color: #ededed;
     border: solid 1px ${Colors.lightGray};
   }
@@ -24,15 +33,18 @@ const Wrapper = styled.div`
     display: grid;
     grid-template-columns: 85% 10%;
     grid-column-gap: 8px;
-    margin: 1rem auto;
-    width: ${Size.container};
+    margin: .5rem auto;
+    min-width: 320px;
+    max-width: 479px;
+    ${media.tabletMini`min-width: 470px; max-width: 750px; margin: 1rem auto;`}
+    ${media.tablet`width: 41.7rem; max-width: 1024px;`}
+    ${media.laptop`width: 41.7rem;`}
     justify-content: center;
   }
-  input {
-    height: 4rem;
-  }
   .postButton {
-    height: 4rem;
+    height: 3.5rem;
+    margin-left: -1rem;
+    ${media.tabletMini`margin-left: 0; height: 4rem;`}
     color: #606060;
     border: solid 1px ${Colors.lightGray};
     background: #fff;
@@ -57,21 +69,23 @@ const Wrapper = styled.div`
   }
   textarea {
     border: solid 1px ${Colors.lightGray};
-    padding: 0.4rem;
+    padding: .6rem;
     font-family: 'Arial';
     resize: none;
     height: auto;
+    margin-right: 1rem;
+    ${media.tabletMini`margin-right: 0;`}
+  }
+  textarea:focus {
+    outline: none;
+  }
+  textarea::-webkit-input-placeholder {
+    color: ${Colors.gray};
+    font-size: .8rem;
   }
 `;
 
-// =====================================================================
-//                                TO DO
-// =====================================================================
-//
-// 1.
-//
-
-const Comments = ({ comments, information, songId, modal, handleMessage, handleNotice }) => {
+const Comments = ({ comments, songId, modal, handleMessage, handleNotice }) => {
   const token = useSelector((state) => state.userReducer).token;
   const accessTokenTime = localStorage.getItem('accessTokenTime');
   const expiredTime = Number(process.env.REACT_APP_TOKEN_TIME);
