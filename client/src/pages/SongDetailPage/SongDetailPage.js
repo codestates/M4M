@@ -224,8 +224,7 @@ const SongDetail = ({ modal, handleMessage, handleNotice }) => {
       <GlobalStyle />
       <div className='space' />
       {isLoading
-        ?
-        <div className='main'>
+        ? <div className='main'>
           <div className='loading-container'>
             <Typewriter
               options={{

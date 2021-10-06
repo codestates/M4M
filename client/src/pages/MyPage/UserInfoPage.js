@@ -344,10 +344,10 @@ const Mypage = ({ modal, handleMessage, handleNotice }) => {
 
   return (
     <Wrapper>
-      <div className="main">
+      <div className='main'>
         <SideNav />
-        <div className="container">
-          <div className="greeting">
+        <div className='container'>
+          <div className='greeting'>
             {/* {nickname.split('#')[0]} 님, 반갑습니다! */}
             <Typewriter
               onInit={(typewriter) => {
@@ -358,22 +358,22 @@ const Mypage = ({ modal, handleMessage, handleNotice }) => {
               }}
             />
           </div>
-          <div className="mypage-container">
+          <div className='mypage-container'>
             <MyPageField>닉네임</MyPageField>
             <input
-              type="text"
+              type='text'
               placeholder={nickname.split('#')[0]}
               onChange={inputCheck('nickname')}
             />
-            <span className="id-number">#{nickname.split('#')[1]}</span>
+            <span className='id-number'>#{nickname.split('#')[1]}</span>
             <AlertMessage>{checkNickname === 'ok' ? null : checkNickname}</AlertMessage>
             <MyPageField>이메일</MyPageField>
             <input disabled value={email} />
             <MyPageField>비밀번호</MyPageField>
             <input
               disabled={kakao ? 'disabled' : null}
-              type="password"
-              placeholder="영문/숫자 조합 8~10글자"
+              type='password'
+              placeholder='영문/숫자 조합 8~10글자'
               onChange={inputCheck('password')}
             />
             <AlertMessage>
@@ -383,24 +383,26 @@ const Mypage = ({ modal, handleMessage, handleNotice }) => {
             <MyPageField>비밀번호 확인</MyPageField>
             <input
               disabled={kakao ? 'disabled' : null}
-              type="password"
+              type='password'
               onChange={inputCheck('passwordRetype')}
             />
             <AlertMessage>
               {checkRetypePassword ? null : '비밀번호가 일치하지 않습니다'}
             </AlertMessage>
             <MyPageField>출생년도</MyPageField>
-            {kakao && !birthYear ? (
-              <>
-                <input onChange={inputCheck('birthYear')} />
-                <AlertMessage>
-                  {checkBirthYear === 'no' ? '올바른 범위내의 출생년도를 입력해주세요' : null}
-                  {checkBirthYear === 'nan' ? '숫자만 입력해주세요' : null}
-                </AlertMessage>
-              </>
-            ) : (
-              <input disabled value={birthYear} />
-            )}
+            {kakao && !birthYear
+              ? (
+                <>
+                  <input onChange={inputCheck('birthYear')} />
+                  <AlertMessage>
+                    {checkBirthYear === 'no' ? '올바른 범위내의 출생년도를 입력해주세요' : null}
+                    {checkBirthYear === 'nan' ? '숫자만 입력해주세요' : null}
+                  </AlertMessage>
+                </>
+                )
+              : (
+                <input disabled value={birthYear} />
+                )}
             <button onClick={handleEditUserRequest}>정보수정</button>
             <button onClick={handleWithdrawalRequest}>회원탈퇴</button>
             <AlertMessage>{errorMsg}</AlertMessage>

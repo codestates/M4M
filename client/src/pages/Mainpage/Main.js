@@ -18,7 +18,7 @@ const MainWrapper = styled.div`
 
 function Main () {
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     const information = JSON.parse(localStorage.getItem('userinfo'));
     const token = localStorage.getItem('accessToken');

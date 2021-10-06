@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import styled from 'styled-components';
 import CommentPagination from './CommentPagination';
-import { media } from '../../components/utils/_media-queries'
+import { media } from '../../components/utils/_media-queries';
 import { Colors, GlobalStyle } from '../../components/utils/_var';
 axios.defaults.withCredentials = true;
 require('dotenv').config();
