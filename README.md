@@ -1,4 +1,4 @@
-# M4M (Music for Millennials) Service Intro
+# M4M (Music for Millennials)
 <br>
 <img width="250" alt="logo" src="https://user-images.githubusercontent.com/29108753/136206315-137f518a-20c5-45a6-8468-bc72c2f92ae5.png">
 
@@ -70,8 +70,8 @@
 # UI Design
 - [Full UI Design Link](https://github.com/codestates/M4M/wiki/UI-Design)
 
-# 기능소개 Brief
-- [기능소개 Detail Link](https://github.com/codestates/M4M/wiki/UI-Design)
+# Highlighted Features
+- [기능 소개 Detail Link](https://github.com/codestates/M4M/wiki/UI-Design)
 
 **Login**
 
