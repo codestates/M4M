@@ -37,6 +37,7 @@ const Wrapper = styled.div`
     ${media.laptop`width: 43rem; margin: 0 auto;`}
   }
   .space {
+    height: 1rem;
     ${media.tabletMini`height: .2rem;`}
     ${media.tablet`height: 1rem;`}
     margin-bottom: 1rem;
@@ -51,7 +52,8 @@ const Wrapper = styled.div`
     width: 100%;
     align-self: center;
     margin-bottom: -.28rem;
-    ${media.tabletMini`padding-top: .5rem;`}
+    margin-top: .5rem;
+    ${media.tabletMini`padding-top: .5rem; margin-top: 0;`}
     padding-top: 0;
   }
   .title,
@@ -179,7 +181,7 @@ const SongDetail = ({ modal, handleMessage, handleNotice }) => {
         console.log(error);
         if (error.response.data.message === 'No songs are found') {
           history.push({
-            pathname: '/mainpage'
+            pathname: '/'
           });
         }
       }
@@ -224,7 +226,8 @@ const SongDetail = ({ modal, handleMessage, handleNotice }) => {
       <GlobalStyle />
       <div className='space' />
       {isLoading
-        ? <div className='main'>
+        ?
+        <div className='main'>
           <div className='loading-container'>
             <Typewriter
               options={{
