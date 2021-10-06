@@ -49,6 +49,7 @@ module.exports = async (req, res) => {
         console.log(error);
       }
       console.log('Finish sending email : ' + info.response);
+      console.log(authNum);
       res.send(authNum);
       transporter.close();
     });

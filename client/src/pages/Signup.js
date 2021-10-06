@@ -288,7 +288,7 @@ function Signup ({ handleModal, handleNotice, handleMessage }) {
           setErrorMsg('메일이 오지 않았다면 스팸메일함을 확인해주세요');
         })
         .catch((error) => {
-          console.log(error.response)
+          console.log(error.response);
           if (error.response.data.message === 'conflict: email') {
             setErrorMsg('이미 가입된 이메일입니다');
           }
@@ -299,6 +299,7 @@ function Signup ({ handleModal, handleNotice, handleMessage }) {
   };
 
   const verifyCode = (e) => {
+    console.log(code === Number(e.target.value))
     if (code === Number(e.target.value)) {
       setCheckCode(true);
     } else {
