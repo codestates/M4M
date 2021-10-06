@@ -70,5 +70,24 @@
 # UI Design
 - [Full UI Design Link](https://github.com/codestates/M4M/wiki/UI-Design)
 
+# 기능소개 Brief
+- [기능소개 Detail Link](https://github.com/codestates/M4M/wiki/UI-Design)
+
+**Login**
+
+<img src = "https://user-images.githubusercontent.com/29108753/136241112-320a8e43-9563-4aef-b234-e40f723f2eee.gif" width="650px">
+
+**Music Search**
+
+<img src = "https://user-images.githubusercontent.com/29108753/136244044-abb7ecd1-958d-4e75-b279-2c7f408ae132.gif" width="650px">
+
+**Music Filtering**
+
+<img src = "https://user-images.githubusercontent.com/29108753/136294353-71a7660f-1716-4879-8745-3fb541e6e517.gif" width="650px">
+
+**Music Recommendation**
+
+<img src = "https://user-images.githubusercontent.com/29108753/136246300-d58e748f-546b-4e43-87cc-f24af0dbab2f.gif" width="650px">
+
 # Need More Information?
 - [Check out M4M wiki page!](https://github.com/codestates/M4M/wiki)
