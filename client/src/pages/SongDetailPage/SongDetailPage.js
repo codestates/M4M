@@ -179,7 +179,7 @@ const SongDetail = ({ modal, handleMessage, handleNotice }) => {
         console.log(error);
         if (error.response.data.message === 'No songs are found') {
           history.push({
-            pathname: '/'
+            pathname: '/mainpage'
           });
         }
       }
