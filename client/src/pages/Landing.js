@@ -18,9 +18,9 @@ const LandingWrapper = styled.div`
     align-items: center;
   }
   .main-empty {
+    /* border: 1px solid purple; */
     height: 128px;
     width: 100%;
-    /* border: 1px solid purple; */
     ${media.tabletMini`width: 480px;`}
     ${media.tablet`width: 768px;`}
     ${media.laptop`width: 1024px;`}
@@ -41,17 +41,17 @@ const LandingWrapper = styled.div`
   }
   .content,
   .section {
+    /* border: 1px solid purple; */
     margin: 8px 12px;
     width: 100%;
-    /* border: 1px solid purple; */
     ${media.tabletMini`width: 480px;`}
     ${media.tablet`width: 768px;`}
     ${media.laptop`width: 1024px;`}
   }
   .box {
+    /* border: 1px solid blue; */
     margin: 4px 6px;
     position: relative;
-    /* border: 1px solid blue; */
   }
   .btn {
     background-color: #fffefa;
@@ -208,13 +208,17 @@ function Landing () {
   };
 
   const handleFeatureImgState = () => {
-    if (window.innerWidth >= 1024) {
-      if (window.scrollY > 2200) setFeatureImgState('feature-active');
-      if (window.scrollY < 2000) setFeatureImgState('feature-deactive');
+    if (1024 <= window.innerWidth) {
+      if (window.scrollY > 2500) setFeatureImgState('feature-active');
+      if (window.scrollY < 2100) setFeatureImgState('feature-deactive');
     }
-    if (window.innerWidth < 1024) {
-      if (window.scrollY > 3900) setFeatureImgState('feature-active');
-      if (window.scrollY < 3500) setFeatureImgState('feature-deactive');
+    if (768 <= window.innerWidth && window.innerWidth < 1024) {
+      if (window.scrollY > 4200) setFeatureImgState('feature-active');
+      if (window.scrollY < 3800) setFeatureImgState('feature-deactive');
+    }
+    if (window.innerWidth < 768) {
+      if (window.scrollY > 3700) setFeatureImgState('feature-active');
+      if (window.scrollY < 3300) setFeatureImgState('feature-deactive');
     }
   };
 
@@ -343,8 +347,8 @@ function Landing () {
               </div>
             </div>
             <div className='box content-main-empty' />
-            <div className={`box feature-image-container ${featureImgState}`}>
-              <img className='test faeture-image' src={feature_example} alt='feature_example'/>
+            <div className='box feature-image-container'>
+              <img className={`test faeture-image ${featureImgState}`} src={feature_example} alt='feature_example'/>
             </div>
           </div>
         </div>
