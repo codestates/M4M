@@ -12,7 +12,7 @@ const SideNavWrapper = styled.div`
   .contents-container {
     min-width: 52px;
     min-height: 100%;
-    background-color: beige;
+    /* background-color: beige; */
   }
   .menu-container {
     background-color: lightgray;
