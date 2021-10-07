@@ -50,7 +50,7 @@ module.exports = async (req, res) => {
       }
       console.log('Finish sending email : ' + info.response);
       console.log(authNum);
-      res.send(authNum);
+      res.status(200).send(authNum);
       transporter.close();
     });
   }
