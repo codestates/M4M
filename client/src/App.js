@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { GlobalStyle } from './components/utils/_var';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Header from './components/Header';
 import Noti from './components/Notification';
@@ -26,15 +26,42 @@ const AppWrapper = styled.div`
     font-family: 'NeoDunggeunmo';
     text-align: center;
   }
+  .fixed-container {
+    position: fixed;
+    top: 0;
+    z-index: 10;
+    height: 3.9rem;
+    background-color: white;
+  }
+  .space {
+    margin-bottom: 3rem;
+  }
 `;
 
-function App() {
+function App () {
   const [openLogin, setOpenLogin] = useState(false);
   const [openSignup, setOpenSignup] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [message, setMessage] = useState('');
   const [openNotice, setOpenNotice] = useState(false);
   const isLogin = useSelector((state) => state.userReducer).token;
+
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScrolled = () => {
+      if (!scrolled && window.scrollY > 30) {
+        setScrolled(true);
+      } else if (scrolled && window.scrollY <= 30) {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScrolled);
+    return () => {
+      window.removeEventListener('scroll', handleScrolled);
+    };
+  }, [scrolled]);
 
   const handleLoginModalOpen = () => {
     setOpenLogin(true);
@@ -66,50 +93,49 @@ function App() {
   };
 
   const information = JSON.parse(localStorage.getItem('userinfo'));
+  console.log('⭐️⭐️⭐️⭐️⭐️', information);
 
   return (
     <BrowserRouter>
       <AppWrapper>
         <GlobalStyle />
-        <div className="App">
-          <Header
-            login={handleLoginModalOpen}
-            signup={handleSignupModalOpen}
-            modal={handleModalOpen}
-            handleMessage={handleMessage}
-            handleNotice={handleNotice}
-          />
+        <div className='App'>
+          <div className='fixed-container'>
+            <Header
+              login={handleLoginModalOpen}
+              signup={handleSignupModalOpen}
+              modal={handleModalOpen}
+              handleMessage={handleMessage}
+              handleNotice={handleNotice}
+            />
+          </div>
+          <div className='space' />
           {openModal ? <Modal handleModal={handleModalClose} login={handleLoginModalOpen} /> : null}
           <Noti />
           <Switch>
-            <Route exact path="/" component={Landing} />
-            <Route path="/mainpage" component={Main} />
-            <Route path="/recommendpage" render={() => <Recommendation />} />
-            <Route path="/mylike">
-              {isLogin ? (
-                <GetLikedSong
-                  modal={handleModalOpen}
-                  handleMessage={handleMessage}
-                  handleNotice={handleNotice}
-                />
-              ) : (
-                <Redirect to="/mainpage" />
-              )}
+            <Route exact path='/' component={Landing} />
+            <Route path='/mainpage' component={Main} />
+            <Route path='/recommendpage' render={() => <Recommendation />} />
+            <Route path='/mylike'>
+              {isLogin
+                ? <GetLikedSong
+                    modal={handleModalOpen}
+                    handleMessage={handleMessage}
+                    handleNotice={handleNotice}
+                  />
+                : <Redirect to='/' />}
             </Route>
-            <Route path="/myinfo">
-              {isLogin ? (
-                <Mypage
-                  modal={handleModalOpen}
-                  handleMessage={handleMessage}
-                  handleNotice={handleNotice}
-                />
-              ) : (
-                <Redirect to="/mainpage" />
-              )}
+            <Route path='/myinfo'>
+              {isLogin
+                ? <Mypage
+                    modal={handleModalOpen}
+                    handleMessage={handleMessage}
+                    handleNotice={handleNotice}
+                  />
+                : <Redirect to='/' />}
             </Route>
             <Route
-              path="/song:id"
-              render={() => (
+              path='/song:id' render={() => (
                 <SongDetail
                   modal={handleModalOpen}
                   handleMessage={handleMessage}
@@ -117,33 +143,34 @@ function App() {
                 />
               )}
             />
-            <Redirect to="/" />
+            <Redirect to='/' />
           </Switch>
-          {openNotice ? (
-            <Notice
-              message={message}
-              login={handleLoginModalOpen}
-              handleNotice={handleNotice}
-              handleMessage={handleMessage}
-            />
-          ) : null}
+          {openNotice
+            ? (
+              <Notice message={message} login={handleLoginModalOpen} handleNotice={handleNotice} />
+              )
+            : null}
           <MoveTop />
           <Footer />
-          {openSignup ? (
-            <Signup
-              handleModal={handleSignupModalClose}
-              handleMessage={handleMessage}
-              handleNotice={handleNotice}
-            />
-          ) : null}
-          {openLogin ? (
-            <Login
-              handleModal={handleLoginModalClose}
-              signup={handleSignupModalOpen}
-              handleMessage={handleMessage}
-              handleNotice={handleNotice}
-            />
-          ) : null}
+          {openSignup
+            ? (
+              <Signup
+                handleModal={handleSignupModalClose}
+                handleMessage={handleMessage}
+                handleNotice={handleNotice}
+              />
+              )
+            : null}
+          {openLogin
+            ? (
+              <Login
+                handleModal={handleLoginModalClose}
+                signup={handleSignupModalOpen}
+                handleMessage={handleMessage}
+                handleNotice={handleNotice}
+              />
+              )
+            : null}
         </div>
       </AppWrapper>
     </BrowserRouter>
