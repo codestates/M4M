@@ -3,7 +3,7 @@ import SideNav from '../../components/SideNav';
 import SongList from './MainSongList';
 import { changeType, getSongsBulk } from '../../redux/action';
 import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { media } from '../../components/utils/_media-queries';
 import axios from 'axios';
 
@@ -12,19 +12,24 @@ axios.defaults.headers.withCredentials = true;
 const MainWrapper = styled.div`
   .main {
     display: inline-block;
-    background-color: #f7efe5;
     min-height: calc(100vh - 41px - 56px);
     ${media.tablet`display: flex`};
+  }
+  .loading-container {
+    padding-top: 2rem;
+    font-family: 'Arial';
   }
 `;
 
 function Main () {
   const dispatch = useDispatch();
+  const information = JSON.parse(localStorage.getItem('userinfo'));
+  const token = localStorage.getItem('accessToken');
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const information = JSON.parse(localStorage.getItem('userinfo'));
-    const token = localStorage.getItem('accessToken');
     dispatch(changeType('All'));
+    setIsLoading(true);
     const headersContent = { 'Content-Type': 'application/json' };
     if (information) headersContent.Authorization = `Bearer ${token}`;
     axios
@@ -32,6 +37,7 @@ function Main () {
       .then((res) => {
         console.log('✅ songs update');
         dispatch(getSongsBulk(res.data.data));
+        setIsLoading(false);
       })
       .catch(console.log);
   }, [dispatch]);
@@ -40,7 +46,11 @@ function Main () {
     <MainWrapper>
       <div className='main'>
         <SideNav />
-        <SongList />
+        {isLoading
+          ? <div className='loading-container'>
+              로딩 중입니다...
+            </div>
+          : <SongList />}
       </div>
     </MainWrapper>
   );

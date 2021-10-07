@@ -42,7 +42,7 @@ module.exports = async (req, res) => {
           kakao: true
         }
 
-        user.create(payload);
+        await user.create(payload);
 
         const accessToken = generateAccessToken(payload);
         const refreshToken = generateRefreshToken(payload);

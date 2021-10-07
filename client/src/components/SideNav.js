@@ -12,12 +12,12 @@ const SideNavWrapper = styled.div`
   .contents-container {
     min-width: 52px;
     min-height: 100%;
-    background-color: beige;
+    /* background-color: beige; */
   }
   .menu-container {
     background-color: lightgray;
     min-width: 12rem;
-    ${media.tablet`display: none`};
+    ${media.tablet`display: none;`};
     &:hover {
       background-color: #caa6fe;
     }
@@ -36,7 +36,7 @@ const SideNavWrapper = styled.div`
     min-height: 100%;
     padding-top: 2rem;
     padding-bottom: 2rem;
-    ${media.tablet`display: flex`}; */
+    ${media.tablet`display: flex;`} */
     &.active {
       display: flex;
     }
@@ -107,7 +107,7 @@ function SideNav () {
   const dispatch = useDispatch();
   const [navState, setNavState] = useState('active');
   const [isOpen, setIsOpen] = useState(null);
-  const plainList = ['All', 'Like'];
+  const plainList = {All: '모든 노래', Like: '좋아요'};
   const accordionList = ['장르', '해시태그', '연도'];
   const accordionObj = {
     장르: ['발라드', '댄스', '랩/힙합', 'R&B/Soul', '인디음악', '록/메탈', '트로트', '포크/블루스'],
@@ -169,7 +169,7 @@ function SideNav () {
         <div className={`sidenav ${navState}`}>
           {/* history 값이 mainpage일 때, 다른 값 보여주기 */}
           <div className={history.location.pathname === '/mainpage' ? 'main-active' : 'main-deactive'}>
-            {plainList
+            {Object.keys(plainList)
               .map((list, idx) => {
                 return (
                   <Item
@@ -178,7 +178,7 @@ function SideNav () {
                     onClick={handleSelectChange}
                     underline={navType === list ? 'underline' : 'none'}
                   >
-                    <span className='space' />{list}
+                    <span className='space' />{plainList[list]}
                   </Item>
                 );
               })}
