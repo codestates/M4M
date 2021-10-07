@@ -65,7 +65,7 @@
 
 **Server-Side**
 
-<img width="750" alt="system-architecture" src="https://user-images.githubusercontent.com/29108753/135020930-681e1801-a7fa-48b7-87e0-82d2733a474b.png">
+<img width="750" alt="system-architecture" src="https://user-images.githubusercontent.com/29108753/136301752-3715769e-5c7f-4e04-a123-c3c5fb4dc126.png">
 
 # UI Design
 - [Full UI Design Link](https://github.com/codestates/M4M/wiki/UI-Design)
