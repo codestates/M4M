@@ -13,7 +13,7 @@ const MainWrapper = styled.div`
   .main {
     display: inline-block;
     min-height: calc(100vh - 41px - 56px);
-    ${media.tablet`display: flex`};
+    ${media.tablet`display: flex;`}
   }
   .loading-container {
     padding-top: 2rem;
