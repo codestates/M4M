@@ -8,7 +8,7 @@ import { Colors } from '../../components/utils/_var';
 import { changeHeader, userEdit } from '../../redux/action';
 import { useSelector, useDispatch } from 'react-redux';
 import Typewriter from 'typewriter-effect';
-import { media } from '../../components/utils/_media-queries';
+
 axios.defaults.withCredentials = true;
 require('dotenv').config();
 
@@ -19,14 +19,17 @@ const Wrapper = styled.div`
     min-height: calc(100vh - 41px - 56px);
   }
   .container {
-    width: 25rem;
+    /* width: 20.5rem; */
+    display: flex;
     margin: 2rem auto;
-    ${media.tabletMini`margin: 1rem auto; width: 28rem;`}
+    width: 95%;
+    /* ${media.tabletMini`margin: 1rem auto; width: 28rem;`} */
+    ${media.tabletMini`max-width: 750px;`}
     ${media.tablet`margin: 1rem 7rem; width: 30rem;`} 
     /* margin: 2rem auto;
     ${media.tabletMini`width: margin: 1rem 5rem;`}
     ${media.tablet`width: margin: 1rem 7rem;`} */
-    /* background-color: yellow; */
+    background-color: yellow;
   }
   .greeting {
     font-family: 'Arial';

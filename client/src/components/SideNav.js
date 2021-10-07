@@ -12,10 +12,10 @@ const SideNavWrapper = styled.div`
   .contents-container {
     min-width: 52px;
     min-height: 100%;
-    /* background-color: beige; */
   }
   .menu-container {
-    background-color: lightgray;
+    margin-top: .8rem;
+    background-color: ${Colors.lightGray};
     min-width: 12rem;
     ${media.tablet`display: none;`};
     &:hover {
@@ -75,9 +75,7 @@ const Item = styled.div`
   &:hover, &:focus {
     animation: rainbow 2000ms infinite;
   } 
-  /* .space, .arrow {
-    animation: horizontal 1000ms ease-in-out infinite;
-  } */
+
   .arrow {
     display: inline-flex;
     border: 6px solid transparent;
