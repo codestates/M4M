@@ -26,12 +26,12 @@ module.exports = async (req, res) => {
         res.cookie('refreshToken', refreshToken, cookieOptions);
         res.status(200).json({ accessToken, refreshToken, message: 'ok' });
       } else {
-        let allMembers = await user.findAll({
+        const allMembers = await user.findAll({
           order: [['createdAt', 'DESC']]
         });
 
         const userNickname = `${nickname}#${allMembers[0].dataValues.id + 1}`;
-        
+
         const payload = {
           id: allMembers[0].dataValues.id + 1,
           email: email,
@@ -40,13 +40,13 @@ module.exports = async (req, res) => {
           password: null,
           birthYear: null,
           kakao: true
-        }
+        };
 
         await user.create(payload);
 
         const accessToken = generateAccessToken(payload);
         const refreshToken = generateRefreshToken(payload);
-        
+
         res.cookie('accessToken', accessToken, cookieOptions);
         res.cookie('refreshToken', refreshToken, cookieOptions);
         res.status(201).json({ accessToken, refreshToken, message: 'ok' });

@@ -57,7 +57,7 @@ export const LogOutButton = styled.button`
   }
 `;
 
-function Modal({ handleModal, login }) {
+function Modal ({ handleModal, login }) {
   const goLogin = () => {
     handleModal();
     login();

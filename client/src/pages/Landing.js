@@ -218,15 +218,15 @@ function Landing () {
   };
 
   const handleFeatureImgState = () => {
-    if (1401 <= window.innerWidth) {
+    if (window.innerWidth >= 1401) {
       if (window.scrollY > 2200) setFeatureImgState('feature-active');
       if (window.scrollY < 1200) setFeatureImgState('feature-deactive');
     }
-    if (1024 <= window.innerWidth && window.innerWidth < 1401) {
+    if (window.innerWidth >= 1024 && window.innerWidth < 1401) {
       if (window.scrollY > 2500) setFeatureImgState('feature-active');
       if (window.scrollY < 2100) setFeatureImgState('feature-deactive');
     }
-    if (768 <= window.innerWidth && window.innerWidth < 1024) {
+    if (window.innerWidth >= 768 && window.innerWidth < 1024) {
       if (window.scrollY > 4200) setFeatureImgState('feature-active');
       if (window.scrollY < 3800) setFeatureImgState('feature-deactive');
     }
@@ -361,7 +361,7 @@ function Landing () {
             <div className='box content-main-empty' />
             <div className='box feature-image-container'>
               {/* <img className={`test faeture-image ${featureImgState}`} src={feature_example} alt='feature_example'/> */}
-              <img className={`test faeture-image ${featureImgState}`} src={feature} alt='feature_example'/>
+              <img className={`test faeture-image ${featureImgState}`} src={feature} alt='feature_example' />
             </div>
           </div>
         </div>

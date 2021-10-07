@@ -4,8 +4,8 @@ import { useHistory } from 'react-router-dom';
 import { changeType } from '../redux/action';
 import { useDispatch, useSelector } from 'react-redux';
 import { Colors } from '../components/utils/_var';
-import { faBars } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { media } from '../components/utils/_media-queries';
 
 const SideNavWrapper = styled.div`
@@ -107,7 +107,7 @@ function SideNav () {
   const dispatch = useDispatch();
   const [navState, setNavState] = useState('active');
   const [isOpen, setIsOpen] = useState(null);
-  const plainList = {All: '모든 노래', Like: '좋아요'};
+  const plainList = { All: '모든 노래', Like: '좋아요' };
   const accordionList = ['장르', '해시태그', '연도'];
   const accordionObj = {
     장르: ['발라드', '댄스', '랩/힙합', 'R&B/Soul', '인디음악', '록/메탈', '트로트', '포크/블루스'],
@@ -121,7 +121,7 @@ function SideNav () {
   const handleSelectChange = (e) => {
     dispatch(changeType(e.target.getAttribute('value')));
     resNavState();
-  }
+  };
   const handleIsOpen = (e) => {
     const curValue = e.target.getAttribute('value');
     if (isOpen === curValue) {
@@ -141,21 +141,20 @@ function SideNav () {
   const handleNavState = () => {
     if (navState === 'active') setNavState('deactive');
     if (navState === 'deactive') setNavState('active');
-  }
+  };
 
   const resNavState = () => {
     if (window.innerWidth < 768) setNavState('deactive');
-  }
+  };
 
   const maintainNavState = () => {
-    if (768 <= window.innerWidth ) {
-      if(navState === 'active') setNavState('active');
-    } 
-    else setNavState('deactive');
+    if (window.innerWidth >= 768) {
+      if (navState === 'active') setNavState('active');
+    } else setNavState('deactive');
   };
 
   useEffect(() => window.addEventListener('resize', maintainNavState));
-  
+
   useEffect(() => {
     if (window.innerWidth < 768) setNavState('deactive');
   }, []);
@@ -163,8 +162,8 @@ function SideNav () {
   return (
     <SideNavWrapper>
       <div className='contents-container'>
-        <div className='menu-container' onClick={handleNavState} >
-          <FontAwesomeIcon className='menu' icon={faBars} size='2x'/>
+        <div className='menu-container' onClick={handleNavState}>
+          <FontAwesomeIcon className='menu' icon={faBars} size='2x' />
         </div>
         <div className={`sidenav ${navState}`}>
           {/* history 값이 mainpage일 때, 다른 값 보여주기 */}

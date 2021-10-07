@@ -6,7 +6,7 @@ const { user } = require('../../models');
 
 module.exports = async (req, res) => {
   const { email } = req.body;
-  
+
   // 이미 가입된 유저인 경우
   const dplctEmail = await user.findAll({
     where: {

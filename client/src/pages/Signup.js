@@ -292,14 +292,14 @@ function Signup ({ handleModal, handleNotice, handleMessage }) {
           if (error.response.data.message === 'conflict: email') {
             setErrorMsg('이미 가입된 이메일입니다');
           }
-        })
+        });
     } else {
       setErrorMsg('올바른 이메일을 입력해주세요');
     }
   };
 
   const verifyCode = (e) => {
-    console.log(code === Number(e.target.value))
+    console.log(code === Number(e.target.value));
     if (code === Number(e.target.value)) {
       setCheckCode(true);
     } else {
@@ -313,7 +313,7 @@ function Signup ({ handleModal, handleNotice, handleMessage }) {
         <CloseIcon>
           <FontAwesomeIcon icon={faTimes} color={Colors.gray} onClick={handleModal} />
         </CloseIcon>
-        <img className='logo' src={m4mlogo} alt='logo' />        
+        <img className='logo' src={m4mlogo} alt='logo' />
         <SignupInputContainer>
           <SignupInput onChange={inputCheck('nickname')} placeholder='닉네임' />
           <CheckInfo>{checkNickname === 'ok' ? null : checkNickname}</CheckInfo>

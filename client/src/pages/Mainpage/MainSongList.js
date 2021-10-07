@@ -212,7 +212,7 @@ function SongList () {
     date: 'none',
     like: 'none'
   });
-  const plainList = {All: '모든 노래', Like: '좋아요'};
+  const plainList = { All: '모든 노래', Like: '좋아요' };
   console.log('🎶', result, '\n🚦', subSort, '\n📌', typeState, '\n🧲', searchState, '\nℹ️', information);
 
   useEffect(() => {
@@ -413,9 +413,9 @@ function SongList () {
         {typeState === 'No Result' || result.length === 0
           ? <div className='box no-result'>검색 결과가 존재하지 않습니다.</div>
           : <>
-            {Object.keys(plainList).includes(typeState) 
-            ? <div className='type'>{plainList[typeState]}</div>
-            : <div className='type'>{typeState}</div>}
+            {Object.keys(plainList).includes(typeState)
+              ? <div className='type'>{plainList[typeState]}</div>
+              : <div className='type'>{typeState}</div>}
             <div className='field-container'>
               <div className='field'>
                 <div className='grid-item field-album' />
@@ -488,8 +488,7 @@ function SongList () {
                     }}
                   />
                   {/* <div className='loading'>Loading...</div> */}
-                </LoadingWrpper>
-              }
+                </LoadingWrpper>}
             </div>
           </>}
       </div>
