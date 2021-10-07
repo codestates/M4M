@@ -8,6 +8,7 @@ import { Colors } from '../../components/utils/_var';
 import { changeHeader, userEdit } from '../../redux/action';
 import { useSelector, useDispatch } from 'react-redux';
 import Typewriter from 'typewriter-effect';
+import { media } from '../../components/utils/_media-queries';
 axios.defaults.withCredentials = true;
 require('dotenv').config();
 
