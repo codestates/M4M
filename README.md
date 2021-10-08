@@ -73,13 +73,13 @@
 # Highlighted Features
 - [기능 소개 Detail Link](https://github.com/codestates/M4M/wiki/UI-Design)
 
-**Login**
+**Sign Up**
 
-<img src = "https://user-images.githubusercontent.com/29108753/136241112-320a8e43-9563-4aef-b234-e40f723f2eee.gif" width="650px">
+<img src = "https://user-images.githubusercontent.com/29108753/136321201-8dbe176e-291c-4071-87eb-8a35c86ad4a6.gif" width="650px">
 
-**Music Search**
+**Kakao Login**
 
-<img src = "https://user-images.githubusercontent.com/29108753/136244044-abb7ecd1-958d-4e75-b279-2c7f408ae132.gif" width="650px">
+<img src = "https://user-images.githubusercontent.com/29108753/136247778-bda25f9d-0442-4de0-b911-4e3ea3fae90f.gif" width="650px">
 
 **Music Filtering**
 
