@@ -3,7 +3,6 @@ import { ButtonContainer } from '../pages/Login';
 import { NoticeButton } from './Notice';
 import { media } from '../components/utils/_media-queries';
 import { Colors } from '../components/utils/_var';
-import m4mlogo from '../images/m4mlogo4.png';
 
 export const ModalBackdrop = styled.div`
   position: fixed;

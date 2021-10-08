@@ -79,7 +79,7 @@ const HeaderSearchbarWrapper = styled.div`
   }
 `;
 
-function HeaderSearchbar (isRecommend) {
+const HeaderSearchbar = ({ isRecommend, handleMessage, handleNotice }) => {
   const songsBulkState = useSelector(state => state.songsBulkReducer).songsBulk;
   const notiState = useSelector(state => state.notiReducer).notifications;
   const dispatch = useDispatch();
@@ -99,7 +99,9 @@ function HeaderSearchbar (isRecommend) {
       }
     } else {
       if (notiState.message === '') {
-        dispatch(notify('검색창이 비었습니다. 추억을 입력해주세요! ᕕ( ᐛ )ᕗ'));
+        // dispatch(notify('검색창이 비었습니다. 추억을 입력해주세요! ᕕ( ᐛ )ᕗ'));
+        handleNotice(true);
+        handleMessage('검색창이 비었습니다. 추억을 입력해주세요! ᕕ( ᐛ )ᕗ');
       }
     }
   };
@@ -117,7 +119,7 @@ function HeaderSearchbar (isRecommend) {
 
   return (
     <HeaderSearchbarWrapper>
-      <div className={isRecommend.isRecommend ? 'searchbar' : 'display-none'}>
+      <div className={isRecommend ? 'searchbar' : 'display-none'}>
         <select className='searchbar-dropbox' onChange={handleSearchTypeChange}>
           {searchTypeList.map((searchType, idx) => <option value={searchTypeName[idx]} key={idx + 1}>{searchType}</option>)}
         </select>

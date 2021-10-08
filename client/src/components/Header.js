@@ -138,7 +138,11 @@ function Header ({ login, signup, modal, handleMessage, handleNotice }) {
           </Link>
         </div>
         <div className='header-container-3'>
-          <HeaderSearchbar isRecommend={headerState.searchBar} />
+          <HeaderSearchbar
+            isRecommend={headerState.searchBar}
+            handleMessage={handleMessage}
+            handleNotice={handleNotice}
+          />
         </div>
         <div className='header-container-4'>
           {!isLogin

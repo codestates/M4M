@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { media } from '../components/utils/_media-queries';
 import { Colors } from '../components/utils/_var';
+import { useEffect } from 'react';
 require('dotenv').config();
 
 export const NoticeBackdrop = styled.div`
@@ -22,6 +23,7 @@ export const NoticeBackdrop = styled.div`
   place-items: center;
   height: 100vh;
 `;
+
 export const NoticeView = styled.div`
   box-sizing: border-box;
   position: relative;
@@ -34,6 +36,13 @@ export const NoticeView = styled.div`
   color: ${Colors.darkGray};
   box-shadow: 10px 10px grey;
   padding: .8rem;
+`;
+
+
+export const Message = styled.div`
+  margin-top: ${props => props.topMargin};
+  font-family: 'Arial';
+  font-size: 1rem;
 `;
 
 export const NoticeButton = styled.button`
@@ -78,6 +87,16 @@ export const CloseIcon = styled.div`
 `;
 
 function Notice ({ message, login, handleNotice, handleMessage }) {
+  useEffect(() => {
+    const closeModal = (e) => {
+      if(e.keyCode === 27){
+        handleNotice(false);
+      }
+    }
+    window.addEventListener('keydown', closeModal)
+    return () => window.removeEventListener('keydown', closeModal)
+  }, [])
+
   const token = useSelector((state) => state.userReducer).token;
 
   const withdrawalRequest = () => {
@@ -110,12 +129,9 @@ function Notice ({ message, login, handleNotice, handleMessage }) {
             }}
           />
         </CloseIcon>
-        {/* <img src={m4mlogo} style={{ width: '90px' }} /> */}
-        <div
-          style={{ marginTop: '5px', fontFamily: 'Arial', fontSize: '16px' }}
-        >
+        <Message topMargin={message === '정말 탈퇴 하시겠습니까?' ? '.5rem' : '1rem'}>
           {message}
-        </div>
+        </Message>
         <ButtonContainer>
           {message === '로그인이 필요한 서비스입니다.' ? (
             <div>
@@ -152,14 +168,6 @@ function Notice ({ message, login, handleNotice, handleMessage }) {
                       마이페이지로
                     </NoticeButton>
                   </div>
-                  <div>
-                    {/* <NoticeClose
-                  onClick={() => {
-                    handleNotice(false);
-                  }}>
-                  창닫기
-                </NoticeClose> */}
-                  </div>
                 </>
               ) : message === '회원정보가 수정되었습니다.' ? (
                 <NoticeClose
@@ -177,12 +185,6 @@ function Notice ({ message, login, handleNotice, handleMessage }) {
                 </div>
               ) : (
                 null
-              // <NoticeClose
-              //   onClick={() => {
-              //     handleNotice(false);
-              //   }}>
-              //   창닫기
-              // </NoticeClose>
               )}
         </ButtonContainer>
       </NoticeView>
