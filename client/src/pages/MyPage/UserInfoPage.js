@@ -14,31 +14,27 @@ require('dotenv').config();
 const Wrapper = styled.div`
   .main {
     display: inline-block;
-    ${media.tablet`display: flex`};
-    min-height: calc(100vh - 41px - 56px);
+    min-height: calc(100vh - 62.39px - 129px);
+    ${media.tablet`display: flex;`}
+    ${media.tabletMini`min-height: calc(100vh - 62.39px - 116px);`}
+    ${media.tablet`min-height: calc(100vh - 62.39px - 71px);`}
+    ${media.laptop`min-height: calc(100vh - 62.39px - 61px);`}
   }
   .container {
-    /* width: 20.5rem; */
-    display: flex;
-    margin: 2rem auto;
-    width: 95%;
-    /* ${media.tabletMini`margin: 1rem auto; width: 28rem;`} */
-    ${media.tabletMini`max-width: 750px;`}
-    ${media.tablet`margin: 1rem 7rem; width: 30rem;`} 
-    /* margin: 2rem auto;
-    ${media.tabletMini`width: margin: 1rem 5rem;`}
-    ${media.tablet`width: margin: 1rem 7rem;`} */
-    background-color: yellow;
+    width: 100%;
+    margin: auto 5rem auto 0;
+    padding-top: 2rem;
+    ${media.tabletMini`max-width: 750px; margin: auto;`}
+    ${media.tablet`margin: 1rem 3rem; width: 30rem;`} 
   }
   .greeting {
     font-family: 'Arial';
     margin: 1rem auto;
-    padding-left: .5rem;
+    /* padding-left: 2.4rem; */
     text-align: center;
-    ${media.tabletMini`margin: 1rem 5rem; text-align: left; padding-left: 0;`}
-    ${media.tablet`margin: 1rem 5rem; text-align: left;`}
-    ${media.tablet`margin: 1rem 5rem; text-align: left;`}
-    font-size: 1.3rem;
+    font-size: 1.1rem;
+    ${media.tabletMini`margin: 1rem 5rem;`}
+    ${media.tablet`text-align: left; font-size: 1.3rem;`}
   }
   .mypage-container {
     width: 17rem;
@@ -48,20 +44,20 @@ const Wrapper = styled.div`
   }
   .id-number {
     position: absolute;
-    padding: .4rem .2rem;
+    padding: .4rem .1rem;
     margin: .2rem;
     color: ${Colors.gray};
     font-family: 'Arial';
-    font-size: .9rem;
+    font-size: .8rem;
+    ${media.tabletMini`font-size: .9rem; padding: .4rem .2rem;`}
   }
   input {
-    width: 17rem;
+    width: 14rem;
+    /* margin-left: -2.2rem; */
+    ${media.tabletMini`width: 17rem; margin: .2rem auto;`}
     height: 2rem;
-    margin: .2rem auto;
     padding: .5rem;
     padding-left: 1rem;
-    /* border-color: ${Colors.lightGray}; */
-    /* border-width: 0.2px; */
     background-color: #f2f2f2;
     border: none;
     border-radius: 15px;
@@ -110,7 +106,9 @@ const MyPageField = styled.div`
   color: ${Colors.darkGray};
   font-size: .9rem;
   font-family: 'Arial';
-  
+  margin: .7rem 1.5rem .15rem;
+  ${media.tabletMini`margin: .7rem auto .15rem;`}
+
   &:first-of-type {
     padding-top: 1rem;
   }
@@ -239,7 +237,6 @@ const Mypage = ({ modal, handleMessage, handleNotice }) => {
   const isValidBirthYear = (e) => {
     const today = new Date();
     const year = today.getFullYear();
-    // console.log(e.target.value === '');
 
     if (checkBirthYear === 'ok' && checkNickname === '닉네임을 입력해주세요.') {
       setCheckNickname('ok');
@@ -345,15 +342,22 @@ const Mypage = ({ modal, handleMessage, handleNotice }) => {
         <SideNav />
         <div className='container'>
           <div className='greeting'>
-            {/* {nickname.split('#')[0]} 님, 반갑습니다! */}
-            <Typewriter
+            {/* <Typewriter
               onInit={(typewriter) => {
                 typewriter
                   .typeString(`${nickname.split('#')[0]} 님, 반갑습니다!`)
                   .pauseFor(1000)
                   .start();
               }}
-            />
+            /> */}
+            {/* <Typewriter
+              onInit={(typewriter) => {
+                typewriter
+                  .typeString(`닉네임여덟글자임 님, 반갑습니다!`)
+                  .pauseFor(1000)
+                  .start();
+              }}
+            /> */}
           </div>
           <div className='mypage-container'>
             <MyPageField>닉네임</MyPageField>

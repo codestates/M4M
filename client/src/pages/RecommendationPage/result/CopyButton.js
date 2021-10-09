@@ -10,7 +10,7 @@ const Button = styled.div`
   color: ${Colors.black};
   background-color: ${Colors.pastelPurple};
   color: white;
-  background-color: ${Colors.purple};
+  /* background-color: ${Colors.purple}; */
   border-radius: 7px;
   border: none;
   font-family: 'Arial';

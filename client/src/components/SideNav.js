@@ -4,8 +4,9 @@ import { useHistory } from 'react-router-dom';
 import { changeType } from '../redux/action';
 import { useDispatch, useSelector } from 'react-redux';
 import { Colors } from '../components/utils/_var';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { media } from '../components/utils/_media-queries';
 
 const SideNavWrapper = styled.div`
@@ -14,12 +15,12 @@ const SideNavWrapper = styled.div`
     min-height: 100%;
   }
   .menu-container {
-    margin-top: .8rem;
-    background-color: ${Colors.lightGray};
+    margin: .8rem auto -1rem;
+    /* background-color: ${Colors.lightGray}; */
     min-width: 12rem;
     ${media.tablet`display: none;`};
     &:hover {
-      background-color: #caa6fe;
+      /* background-color: #caa6fe; */
     }
   }
   .menu {
@@ -162,7 +163,10 @@ function SideNav () {
     <SideNavWrapper>
       <div className='contents-container'>
         <div className='menu-container' onClick={handleNavState}>
-          <FontAwesomeIcon className='menu' icon={faBars} size='2x' />
+          {navState === 'deactive'
+            ? <FontAwesomeIcon className='menu' icon={faBars} size='2x' />
+            : <FontAwesomeIcon className='menu' icon={faTimes} size='2x' />
+          }
         </div>
         <div className={`sidenav ${navState}`}>
           {/* history 값이 mainpage일 때, 다른 값 보여주기 */}

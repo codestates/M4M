@@ -6,7 +6,8 @@ import { useHistory } from 'react-router';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
-import { faHeart as farHeart, faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
+import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
+import { faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
 import { media } from '../../components/utils/_media-queries';
 import { Colors, GlobalStyle } from '../../components/utils/_var';
 import TypeWriterEffect from 'typewriter-effect';
@@ -81,55 +82,54 @@ const SongListWrapper = styled.div`
     cursor: all-scroll;
   }
   .field-container {
-    /* display: flex; */
-    flex-shrink: 0;
-    flex-grow: 1;
+    display: flex;
     margin: 0 auto;
     justify-content: center;
     align-items: center;
     margin-bottom: -5px;
     width: 100%;
-    /* background-color: lavender; */
   }
-  .field-container > div {
+  .field-container > div, input {
     margin: 0 0 .3rem;
   }
   .field {
     display: grid;
-    grid-template-columns: 13% 22% 22% 17% 17%;
-    ${media.tabletMini`grid-template-columns: 11% 30% 30% 12% 12%;`}
-    grid-gap: 8px;
-    margin: .75rem 1rem 0;
-    width: 95%;
-    ${media.tabletMini`width: 98%;`}
-    ${media.tablet`min-width: 36rem;`}
-    ${media.laptop`width: 50rem;`}
+    width: 92%;
+    grid-template-columns: 15% 25% 23% 16% 16%;
+    ${media.tabletMini`grid-template-columns: 11% 32% 30% 12% 8%; width: 100%;`}
+    /* grid-gap: 8px; */
+    margin: .75rem auto 0;
     padding: .15rem .15rem;
     border: solid 1px ${Colors.lightGray};
     border-left: none;
     border-right: none;
+    ${media.tabletMini`width: 98%;`}
+    ${media.tablet`width: 36rem;`}
+    ${media.laptop`width: 50rem;`}
+    /* background-color: salmon; */
   }
+
   .field .grid-item {
     text-align: left;
     font-family: 'Arial';
     color: ${Colors.gray};
   }
   .grid-item {
-    width: 100%;
     font-size: .8rem;
     align-self: center;
   }
   .grid-item:not(:first-of-type){
     padding-left: .2rem;
   }
-  .grid-item:hover {
-    cursor: pointer;
+  .field-album {
+    /* visibility: hidden; */
   }
   .field-title {
     padding: auto;
-    margin-left: .5rem;
+    margin-left: .4rem;
+    width: 100%;
   }
-  .song-container > div {
+  .song-container > div, input {
     margin: 0;
   }
   .song-container {
@@ -139,17 +139,18 @@ const SongListWrapper = styled.div`
   }
   .song-info-container {
     display: grid;
-    grid-template-columns: 13% 22% 22% 17% 17%;
-    ${media.tabletMini`grid-template-columns: 11% 30% 30% 12% 12%;`}
-    grid-gap: 8px;
+    width: 92%;
+    grid-template-columns: 15% 25% 23% 16% 16%;
+    ${media.tabletMini`grid-template-columns: 11% 32% 30% 12% 8%; width: 100%;`}
+    /* grid-gap: 8px; */
     margin: 0 auto;
     padding: .4rem .15rem;
-    width: 95%;
-    ${media.tabletMini`width: 98%;`}
-    ${media.tablet`min-width: 36rem;`}
-    ${media.laptop`width: 50rem;`}
     border-bottom: solid 1px ${Colors.lightGray};
     cursor: pointer;
+    ${media.tabletMini`width: 98%;`}
+    ${media.tablet`width: 36rem;`}
+    ${media.laptop`width: 50rem;`}
+    /* background-color: lavender; */
   }
   .song-info-container > div:nth-child(-n+5) {
     margin-top: .3rem;
@@ -170,13 +171,13 @@ const SongListWrapper = styled.div`
     font-size: .8rem;
     text-align: left;
     color: ${Colors.black};
-    /* background-color: pink; */
   }
   .info:not(:first-of-type){
     padding-left: .2rem;
   }
   .title {
     margin-left: .5rem;
+    /* background-color: pink; */
   }
   .date, .like {
     color: ${Colors.gray};
@@ -213,7 +214,7 @@ const YearContainer = styled.div`
   font-size: 1.1rem;
   width: 95%;
   ${media.tabletMini`width: 98%;`}
-`;
+`
 const YearType = styled.div`
   display: inline;
   margin-left: .3rem;
@@ -254,7 +255,7 @@ function SongList () {
     like: 'none'
   });
   const plainList = { All: '모든 노래', Like: '좋아요' };
-  // console.log('🎶', result, '\n🚦', subSort, '\n📌', typeState, '\n🧲', searchState, '\nℹ️', information);
+  console.log('🎶', result, '\n🚦', subSort, '\n📌', typeState, '\n🧲', searchState, '\nℹ️', information);
 
   useEffect(() => {
     setIsSorted(searchState);
@@ -341,7 +342,7 @@ function SongList () {
           like: 'none'
         });
         setResult(isSorted.slice().sort((a, b) => a.title.localeCompare(b.title)));
-        // console.log('🔴 handleSubSort: title(for)');
+        console.log('🔴 handleSubSort: title(for)');
       } else if (subSort.title === 'for') {
         setSubSort({
           title: 'back',
@@ -350,7 +351,7 @@ function SongList () {
           like: 'none'
         });
         setResult(isSorted.slice().sort((a, b) => b.title.localeCompare(a.title)));
-        // console.log('🔴 handleSubSort: title(back)');
+        console.log('🔴 handleSubSort: title(back)');
       } else {
         setSubSort({
           title: 'none',
@@ -369,7 +370,7 @@ function SongList () {
           like: 'none'
         });
         setResult(isSorted.slice().sort((a, b) => a.artist.localeCompare(b.artist)));
-        // console.log('🟠 handleSubSort: artist(for)');
+        console.log('🟠 handleSubSort: artist(for)');
       } else if (subSort.artist === 'for') {
         setSubSort({
           title: 'none',
@@ -378,7 +379,7 @@ function SongList () {
           like: 'none'
         });
         setResult(isSorted.slice().sort((a, b) => b.artist.localeCompare(a.artist)));
-        // console.log('🟠 handleSubSort: artist(back)');
+        console.log('🟠 handleSubSort: artist(back)');
       } else {
         setSubSort({
           title: 'none',
@@ -397,7 +398,7 @@ function SongList () {
           like: 'none'
         });
         setResult(isSorted.slice().sort((a, b) => a.date.replace('.', '') - b.date.replace('.', '')));
-        // console.log('🟡 handleSubSort: date(for)');
+        console.log('🟡 handleSubSort: date(for)');
       } else if (subSort.date === 'for') {
         setSubSort({
           title: 'none',
@@ -406,7 +407,7 @@ function SongList () {
           like: 'none'
         });
         setResult(isSorted.slice().sort((a, b) => b.date.replace('.', '') - a.date.replace('.', '')));
-        // console.log('🟡 handleSubSort: date(back)');
+        console.log('🟡 handleSubSort: date(back)');
       } else {
         setSubSort({
           title: 'none',
@@ -425,7 +426,7 @@ function SongList () {
           like: 'for'
         });
         setResult(isSorted.slice().sort((a, b) => b.hashtagLike[0][1] - a.hashtagLike[0][1]));
-        // console.log('🟡 handleSubSort: like(for)');
+        console.log('🟡 handleSubSort: like(for)');
       } else if (subSort.like === 'for') {
         setSubSort({
           title: 'none',
@@ -434,7 +435,7 @@ function SongList () {
           like: 'back'
         });
         setResult(isSorted.slice().sort((a, b) => a.hashtagLike[0][1] - b.hashtagLike[0][1]));
-        // console.log('🟡 handleSubSort: like(back)');
+        console.log('🟡 handleSubSort: like(back)');
       } else {
         setSubSort({
           title: 'none',
@@ -457,15 +458,16 @@ function SongList () {
           : <>
             {Object.keys(plainList).includes(typeState)
               ? <div className='type'>{plainList[typeState]}</div>
-              : (Number(typeState) >= 1992 && Number(typeState) <= 2009
-                  ? <YearContainer>
-                    <MessageContainer
-                      show={Colors.mediumGray}
-                    >
-                      <div className='message'>해당 연도 인기곡 Top 30을 선보입니다.</div>
-                      <FontAwesomeIcon icon={faQuestionCircle} size='xs' color={Colors.mediumGray} />
-                    </MessageContainer>
-                    <YearType>{typeState}</YearType>
+              : ( 1992 <= Number(typeState) && Number(typeState) <= 2009 
+                  ? 
+                    <YearContainer>
+                      <MessageContainer
+                        show={Colors.mediumGray}
+                      >
+                        <div className='message'>해당 연도 인기곡 Top 30을 선보입니다.</div>
+                        <FontAwesomeIcon icon={faQuestionCircle} size='xs' color={Colors.mediumGray} />
+                      </MessageContainer>
+                      <YearType>{typeState}</YearType>
                     </YearContainer>
                   : <div className='type'>{typeState}</div>
                 )}
@@ -477,7 +479,7 @@ function SongList () {
                   <img className='arrow-image' src={`/image/arrow${subSort.title}.png`} />
                 </div>
                 <div className='grid-item field-artist' onClick={handleSubSort}>
-                  아티스트
+                  &nbsp;&nbsp;아티스트
                   <img className='arrow-image' src={`/image/arrow${subSort.artist}.png`} />
                 </div>
                 <div className='grid-item field-date' onClick={handleSubSort}>
@@ -498,7 +500,7 @@ function SongList () {
                       <div className='song-info-container' onClick={() => handleSongDetail(song)}>
                         <img className='info album_art' src={song.album_art} alt={song.title} loading='lazy' />
                         <div className='info title scrollable'>{song.title}</div>
-                        <div className='info artist scrollable'>{song.artist}</div>
+                        <div className='info artist scrollable'>&nbsp;&nbsp;{song.artist}</div>
                         <div className='info date'>{song.date}</div>
                         <div className='info like'>
                           {song.userHashtagLikes && song.userHashtagLikes.includes(1)

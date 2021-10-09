@@ -6,61 +6,44 @@ import { Colors } from '../components/utils/_var';
 
 const FooterWrapper = styled.div`
   .footer {
-    padding: 1rem 0;
+    padding: 12px 0px;
     background-color: ${Colors.darkGray};
     width: 100vw;
     font-family: 'Arial';
-    ${media.laptop`padding: 0 12px 4px;`}
+    ${media.tablet`padding: 4px 12px;`}
   }
   .sub-container {
     display: inline;
     ${media.laptop`display: flex;`}
   }
-  .repository, .link-label, .link, .copyright {
+  .link-label, .link, .copyright {
     color: ${Colors.lightGray};
-    vertical-align: middle;
-    margin-bottom: .2rem;
-  }
-  .repository {
-    cursor: pointer;
-    text-decoration: none;
-    margin-top: 1rem;
-    border-bottom: 2px solid transparent;
-    transition-duration: 0.5s;
-    &:hover {
-      border-bottom-color: ${Colors.pastelPurple};
-    }
+    min-width: 86px;
+    padding: 4px 12px;
   }
   .link {
     cursor: pointer;
-    display: flex;
-    align-items: center;
     text-decoration: none;
-  }
-  .name {
-    padding: .3rem 0 0;
-    margin: 0 .8rem 0 .2rem;
-    border-bottom: 2px solid transparent;
-    transition-duration: 0.5s;
-    min-width: 48px;
     &:hover {
-      border-bottom-color: ${Colors.pastelPurple};
+      text-decoration: underline;
+      color: #caa6fe;
     }
   }
   .link-label {
-    min-width: 112px;
-    padding-right: 0;
-    ${media.tablet`text-align: left; min-width: 108px;`}
+    min-width: 128px;
   } 
   .copyright {
     min-width: 352px;
-    text-align: right;
   }
   .link-container {
     display: inline-block;
+    padding: 12px 0px;
     justify-content: center;
     align-items: center;
-    ${media.tabletMini`display: flex; padding: 0px 0px; line-height: 1.2rem;`}
+    min-height: 56px;
+    ${media.tabletMini`display: flex;`}
+    ${media.tabletMini`padding: 0px 0px;`}
+    ${media.tablet`min-height: 0px;`}
   }
   .container-empty {
     width: 100%;
@@ -90,7 +73,7 @@ function Footer () {
       <div className='footer'>
         <div className='sub-container'>
           <a
-            className='repository'
+            className='link'
             href='https://github.com/codestates/M4M'
             target='_blank'
             rel='noopener noreferrer'
@@ -104,7 +87,7 @@ function Footer () {
             {team.map((member, idx) =>
               <a className='link' key={idx} href={member.repository} target='_blank' rel='noopener noreferrer'>
                 <FontAwesomeIcon icon={faGithub} size='1x' color={Colors.lightGray} />
-                <div className='name'>{' '}{member.name}</div>
+                {' '}{member.name}
               </a>
             )}
           </div>
