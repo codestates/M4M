@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
 import HeaderSearchbar from './HeaderSearchbar';
-import { notify, userLogout } from '../redux/action';
+import { userLogout } from '../redux/action';
 import axios from 'axios';
 import { media } from './utils/_media-queries';
 import { Colors } from '../components/utils/_var';
@@ -84,11 +83,10 @@ const HeaderWrapper = styled.div`
   }
 `;
 
-function Header ({ login, signup, modal, handleMessage, handleNotice }) {
+function Header({ login, signup, modal, handleMessage, handleNotice, handleMediaState, barState, handleBarState, resBarState }) {
   const isLogin = useSelector((state) => state.userReducer).token;
   const headerState = useSelector((state) => state.headerReducer);
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const handleLogoutRequest = () => {
     const token = localStorage.getItem('accessToken');
@@ -140,6 +138,10 @@ function Header ({ login, signup, modal, handleMessage, handleNotice }) {
         <div className='header-container-3'>
           <HeaderSearchbar
             isRecommend={headerState.searchBar}
+            handleMediaState={handleMediaState}
+            barState={barState}
+            handleBarState={handleBarState}
+            resBarState={resBarState}
             handleMessage={handleMessage}
             handleNotice={handleNotice}
           />
@@ -150,25 +152,25 @@ function Header ({ login, signup, modal, handleMessage, handleNotice }) {
               <button className='btn login' onClick={login}>
                 로그인
               </button>
-              )
+            )
             : (
               <button className='btn logout' onClick={handleLogoutRequest}>
                 로그아웃
               </button>
-              )}
+            )}
           {!isLogin
             ? (
               <button className='btn signup' onClick={signup}>
                 회원가입
               </button>
-              )
+            )
             : (
               <Link to='/myinfo'>
                 <button className='btn mypage'>
                   마이페이지
                 </button>
               </Link>
-              )}
+            )}
         </div>
       </div>
     </HeaderWrapper>

@@ -17,6 +17,7 @@ import MoveTop from './components/MoveTop';
 import SongDetail from './pages/SongDetailPage/SongDetailPage';
 import Modal from './components/Modal';
 import Notice from './components/Notice';
+import MediaSearchbar from './components/MediaSearchbar';
 
 const AppWrapper = styled.div`
   * {
@@ -38,14 +39,15 @@ const AppWrapper = styled.div`
   }
 `;
 
-function App () {
+function App() {
   const [openLogin, setOpenLogin] = useState(false);
   const [openSignup, setOpenSignup] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [message, setMessage] = useState('');
   const [openNotice, setOpenNotice] = useState(false);
+  const [mediaState, setMediaState] = useState('deactive');
+  const [barState, setBarState] = useState('bar-active');
   const isLogin = useSelector((state) => state.userReducer).token;
-
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -92,14 +94,43 @@ function App () {
     setOpenNotice(boolean);
   };
 
-  const information = JSON.parse(localStorage.getItem('userinfo'));
-  console.log('⭐️⭐️⭐️⭐️⭐️', information);
+  const maintainMediaState = () => {
+    if (768 <= window.innerWidth) setMediaState('deactive');
+  };
+
+  useEffect(() => window.addEventListener('resize', maintainMediaState));
+
+  const handleMediaState = () => {
+    if (mediaState === 'active') setMediaState('deactive');
+    if (mediaState === 'deactive') setMediaState('active');
+  }
+
+  const handleBarState = () => {
+    if (barState === 'bar-active') setBarState('bar-deactive');
+    if (barState === 'bar-deactive' && mediaState === 'deactive') setBarState('bar-active');
+  }
+
+  const resBarState = () => {
+    if (window.innerWidth < 768) setBarState('bar-deactive');
+  }
+
+  const maintainBarState = () => {
+    if (768 <= window.innerWidth) setBarState('bar-active');
+    else setBarState('bar-deactive');
+  };
+
+  useEffect(() => window.addEventListener('resize', maintainBarState));
+
+  useEffect(() => {
+    if (window.innerWidth < 768) setBarState('bar-deactive');
+  }, []);
 
   return (
     <BrowserRouter>
       <AppWrapper>
         <GlobalStyle />
         <div className='App'>
+          <MediaSearchbar mediaState={mediaState} handleMediaState={handleMediaState} handleBarState={handleBarState} />
           <div className='fixed-container'>
             <Header
               login={handleLoginModalOpen}
@@ -107,6 +138,10 @@ function App () {
               modal={handleModalOpen}
               handleMessage={handleMessage}
               handleNotice={handleNotice}
+              handleMediaState={handleMediaState}
+              barState={barState}
+              handleBarState={handleBarState}
+              resBarState={resBarState}
             />
           </div>
           <div className='space' />
@@ -148,7 +183,7 @@ function App () {
           {openNotice
             ? (
               <Notice message={message} login={handleLoginModalOpen} handleNotice={handleNotice} />
-              )
+            )
             : null}
           <MoveTop />
           <Footer />
@@ -159,7 +194,7 @@ function App () {
                 handleMessage={handleMessage}
                 handleNotice={handleNotice}
               />
-              )
+            )
             : null}
           {openLogin
             ? (
@@ -169,7 +204,7 @@ function App () {
                 handleMessage={handleMessage}
                 handleNotice={handleNotice}
               />
-              )
+            )
             : null}
         </div>
       </AppWrapper>

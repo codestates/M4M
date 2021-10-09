@@ -233,7 +233,6 @@ const MessageContainer = styled.div`
 `;
 
 function SongList () {
-  const information = JSON.parse(localStorage.getItem('userinfo'));
   const dispatch = useDispatch();
   const history = useHistory();
   const searchState = useSelector(state => state.searchReducer).searchResult;
@@ -255,7 +254,6 @@ function SongList () {
     like: 'none'
   });
   const plainList = { All: '모든 노래', Like: '좋아요' };
-  console.log('🎶', result, '\n🚦', subSort, '\n📌', typeState, '\n🧲', searchState, '\nℹ️', information);
 
   useEffect(() => {
     setIsSorted(searchState);
@@ -521,7 +519,7 @@ function SongList () {
                                       key={idx}
                                     >
                                     {tag[0]} {tag[1]}
-                                    </HashTag>}
+                                  </HashTag>}
                               </div>
                             );
                           })}
