@@ -33,7 +33,6 @@ function Main() {
     axios
       .get(process.env.REACT_APP_API_URL + '/mainpage', { headers: headersContent })
       .then((res) => {
-        console.log('✅ songs update');
         dispatch(getSongsBulk(res.data.data));
       })
       .catch(console.log);

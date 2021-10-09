@@ -202,8 +202,7 @@ const HashTag = styled.div`
   font-size: .7rem;
 `;
 
-function SongList () {
-  const information = JSON.parse(localStorage.getItem('userinfo'));
+function SongList() {
   const dispatch = useDispatch();
   const history = useHistory();
   const searchState = useSelector(state => state.searchReducer).searchResult;
@@ -223,7 +222,6 @@ function SongList () {
     artist: 'none',
     date: 'none'
   });
-  console.log('🎶', result, '\n🚦', subSort, '\n📌', typeState, '\n🧲', searchState, '\nℹ️', information);
 
   useEffect(() => {
     setIsSorted(searchState);
@@ -419,12 +417,12 @@ function SongList () {
                                 {tag[0] === '좋아요' || tag[1] === 0
                                   ? null
                                   : <HashTag
-                                      backgroundColor={song.userHashtagLikes && song.userHashtagLikes.includes(idx + 1) ? Colors.darkGray : 'white'}
-                                      textColor={song.userHashtagLikes && song.userHashtagLikes.includes(idx + 1) ? 'white' : Colors.darkGray}
-                                      key={idx}
-                                    >
+                                    backgroundColor={song.userHashtagLikes && song.userHashtagLikes.includes(idx + 1) ? Colors.darkGray : 'white'}
+                                    textColor={song.userHashtagLikes && song.userHashtagLikes.includes(idx + 1) ? 'white' : Colors.darkGray}
+                                    key={idx}
+                                  >
                                     {tag[0]} {tag[1]}
-                                    </HashTag>}
+                                  </HashTag>}
                               </div>
                             );
                           })}
