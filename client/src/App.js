@@ -17,6 +17,7 @@ import MoveTop from './components/MoveTop';
 import SongDetail from './pages/SongDetailPage/SongDetailPage';
 import Modal from './components/Modal';
 import Notice from './components/Notice';
+import MediaSearchbar from './components/MediaSearchbar';
 
 const AppWrapper = styled.div`
   * {
@@ -45,8 +46,40 @@ function App () {
   const [message, setMessage] = useState('');
   const [openNotice, setOpenNotice] = useState(false);
   const isLogin = useSelector((state) => state.userReducer).token;
-
+  const [mediaState, setMediaState] = useState('deactive');
+  const [barState, setBarState] = useState('bar-active');
   const [scrolled, setScrolled] = useState(false);
+
+  const maintainMediaState = () => {
+    if (768 <= window.innerWidth) setMediaState('deactive');
+  };
+
+  useEffect(() => window.addEventListener('resize', maintainMediaState));
+
+  const handleMediaState = () => {
+    if (mediaState === 'active') setMediaState('deactive');
+    if (mediaState === 'deactive') setMediaState('active');
+  }
+
+  const handleBarState = () => {
+    if (barState === 'bar-active') setBarState('bar-deactive');
+    if (barState === 'bar-deactive' && mediaState === 'deactive') setBarState('bar-active');
+  }
+
+  const resBarState = () => {
+    if (window.innerWidth < 768) setBarState('bar-deactive');
+  }
+
+  const maintainBarState = () => {
+    if (768 <= window.innerWidth) setBarState('bar-active');
+    else setBarState('bar-deactive');
+  };
+
+  useEffect(() => window.addEventListener('resize', maintainBarState));
+
+  useEffect(() => {
+    if (window.innerWidth < 768) setBarState('bar-deactive');
+  }, []);
 
   useEffect(() => {
     const handleScrolled = () => {
@@ -98,12 +131,17 @@ function App () {
         <GlobalStyle />
         <div className='App'>
           <div className='fixed-container'>
+            <MediaSearchbar mediaState={mediaState} handleMediaState={handleMediaState} handleBarState={handleBarState} />
             <Header
               login={handleLoginModalOpen}
               signup={handleSignupModalOpen}
               modal={handleModalOpen}
               handleMessage={handleMessage}
               handleNotice={handleNotice}
+              handleMediaState={handleMediaState}
+              barState={barState}
+              handleBarState={handleBarState}
+              resBarState={resBarState}
             />
           </div>
           <div className='space' />

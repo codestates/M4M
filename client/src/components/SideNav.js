@@ -151,6 +151,8 @@ function SideNav () {
     if (window.innerWidth >= 768) {
       if (navState === 'active') setNavState('active');
     } else setNavState('deactive');
+    if (768 <= window.innerWidth ) setNavState('active');
+    else setNavState('deactive');
   };
 
   useEffect(() => window.addEventListener('resize', maintainNavState));

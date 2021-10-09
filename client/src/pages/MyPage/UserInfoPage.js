@@ -15,10 +15,10 @@ const Wrapper = styled.div`
   .main {
     display: inline-block;
     min-height: calc(100vh - 62.39px - 129px);
-    ${media.tablet`display: flex;`}
-    ${media.tabletMini`min-height: calc(100vh - 62.39px - 116px);`}
-    ${media.tablet`min-height: calc(100vh - 62.39px - 71px);`}
-    ${media.laptop`min-height: calc(100vh - 62.39px - 61px);`}
+    ${media.tablet`display: flex`};
+    ${media.tabletMini`min-height: calc(100vh - 62.39px - 116px)`};
+    ${media.tablet`min-height: calc(100vh - 62.39px - 71px)`};
+    ${media.laptop`min-height: calc(100vh - 62.39px - 61px)`};
   }
   .container {
     width: 100%;

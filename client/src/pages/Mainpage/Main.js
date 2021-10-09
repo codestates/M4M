@@ -12,8 +12,12 @@ axios.defaults.headers.withCredentials = true;
 const MainWrapper = styled.div`
   .main {
     display: inline-block;
-    ${media.tablet`display: flex;`}
-    min-height: calc(100vh - 41px - 56px);
+    /* background-color: #f7efe5; */
+    min-height: calc(100vh - 62.39px - 129px);
+    ${media.tablet`display: flex`};
+    ${media.tabletMini`min-height: calc(100vh - 62.39px - 116px)`};
+    ${media.tablet`min-height: calc(100vh - 62.39px - 71px)`};
+    ${media.laptop`min-height: calc(100vh - 62.39px - 61px)`};
   }
   .loading-container {
     padding-top: 2rem;
