@@ -148,9 +148,7 @@ function SideNav () {
   }
 
   const maintainNavState = () => {
-    if (768 <= window.innerWidth ) {
-      if(navState === 'active') setNavState('active');
-    } 
+    if (768 <= window.innerWidth ) setNavState('active');
     else setNavState('deactive');
   };
 
