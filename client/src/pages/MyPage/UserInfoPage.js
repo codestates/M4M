@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import SideNav from '../../components/SideNav';
@@ -132,7 +131,6 @@ const AlertMessage = styled.div`
   }
 `;
 
-// const Mypage = ({ afterWithdrawal }) => {
 const Mypage = ({ modal, handleMessage, handleNotice }) => {
   const token = useSelector((state) => state.userReducer).token;
   const { nickname, email, birthYear, kakao } = useSelector((state) => state.userReducer).userInfo;
@@ -145,7 +143,6 @@ const Mypage = ({ modal, handleMessage, handleNotice }) => {
   const [errorMsg, setErrorMsg] = useState('');
   const dispatch = useDispatch();
 
-  // useEffect(() => dispatch(changeHeader([true, false])), [dispatch]);
   useEffect(() => dispatch(changeHeader([false, false])), [dispatch]);
 
   const [myInfo, setMyInfo] = useState({
@@ -179,8 +176,8 @@ const Mypage = ({ modal, handleMessage, handleNotice }) => {
       setCheckNickname('특수문자를 포함하면 안됩니다.');
     } else if (e.target.value.search(/\s/) !== -1) {
       setCheckNickname('공백을 포함하면 안됩니다');
-    } else if (e.target.value.length < 2 || e.target.value.length > 15) {
-      setCheckNickname('닉네임은 2-15자입니다');
+    } else if (e.target.value.length < 2 || e.target.value.length > 8) {
+      setCheckNickname('닉네임은 2-8자입니다');
     } else {
       setCheckNickname('ok');
 
@@ -333,35 +330,12 @@ const Mypage = ({ modal, handleMessage, handleNotice }) => {
     }
   };
 
-  const history = useHistory();
-
   const handleWithdrawalRequest = () => {
     if (parseInt(accessTokenTime, 10) + expiredTime - new Date().getTime() < 0) {
-      // alert('토큰이 만료되었습니다');
       modal();
     } else {
       handleNotice(true);
       handleMessage('정말 탈퇴 하시겠습니까?');
-      // axios
-      //   .delete(process.env.REACT_APP_API_URL + '/withdrawal', {
-      //     headers: {
-      //       Authorization: `Bearer ${token}`,
-      //       'Content-Type': 'application/json'
-      //     }
-      //   })
-      //   .then((res) => {
-      //     if (res.status === 200) {
-      //       // alert('회원탈퇴가 완료되었습니다.');
-      //       handleNotice(true);
-      //       handleMessage('회원탈퇴가 완료되었습니다.');
-      //       // afterWithdrawal();
-
-      //       history.push({
-      //         pathname: '/mainpage'
-      //       });
-      //     }
-      //     localStorage.clear();
-      //   });
     }
   };
 

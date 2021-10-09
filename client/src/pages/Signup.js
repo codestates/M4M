@@ -186,8 +186,8 @@ function Signup ({ handleModal, handleNotice, handleMessage }) {
       setCheckNickname('올바른 한글 형식을 따라주세요');
     } else if (regExpSpec.test(e.target.value)) {
       setCheckNickname('특수문자를 포함하면 안됩니다.');
-    } else if (e.target.value.length < 2 || e.target.value.length > 15) {
-      setCheckNickname('닉네임은 2-15자입니다');
+    } else if (e.target.value.length < 2 || e.target.value.length > 8) {
+      setCheckNickname('닉네임은 2-8자입니다');
     } else {
       setCheckNickname('ok');
     }
