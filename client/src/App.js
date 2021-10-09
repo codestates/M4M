@@ -130,8 +130,8 @@ function App() {
       <AppWrapper>
         <GlobalStyle />
         <div className='App'>
-          <MediaSearchbar mediaState={mediaState} handleMediaState={handleMediaState} handleBarState={handleBarState} />
           <div className='fixed-container'>
+            <MediaSearchbar mediaState={mediaState} handleMediaState={handleMediaState} handleBarState={handleBarState} />
             <Header
               login={handleLoginModalOpen}
               signup={handleSignupModalOpen}
@@ -154,19 +154,19 @@ function App() {
             <Route path='/mylike'>
               {isLogin
                 ? <GetLikedSong
-                    modal={handleModalOpen}
-                    handleMessage={handleMessage}
-                    handleNotice={handleNotice}
-                  />
+                  modal={handleModalOpen}
+                  handleMessage={handleMessage}
+                  handleNotice={handleNotice}
+                />
                 : <Redirect to='/' />}
             </Route>
             <Route path='/myinfo'>
               {isLogin
                 ? <Mypage
-                    modal={handleModalOpen}
-                    handleMessage={handleMessage}
-                    handleNotice={handleNotice}
-                  />
+                  modal={handleModalOpen}
+                  handleMessage={handleMessage}
+                  handleNotice={handleNotice}
+                />
                 : <Redirect to='/' />}
             </Route>
             <Route

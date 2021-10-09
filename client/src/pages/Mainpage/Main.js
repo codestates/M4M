@@ -51,8 +51,8 @@ function Main() {
         <SideNav />
         {isLoading
           ? <div className='loading-container'>
-              로딩 중입니다...
-            </div>
+            로딩 중입니다...
+          </div>
           : <SongList />}
       </div>
     </MainWrapper>
