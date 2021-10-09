@@ -13,10 +13,12 @@ require('dotenv').config();
 
 const Wrapper = styled.div`
   .main {
-    /* display: flex; */
     display: inline-block;
+    min-height: calc(100vh - 62.39px - 129px);
     ${media.tablet`display: flex`};
-    min-height: calc(100vh - 41px - 56px);
+    ${media.tabletMini`min-height: calc(100vh - 62.39px - 116px)`};
+    ${media.tablet`min-height: calc(100vh - 62.39px - 71px)`};
+    ${media.laptop`min-height: calc(100vh - 62.39px - 61px)`};
   }
   .container {
     width: 30rem;
@@ -412,11 +414,11 @@ const Mypage = ({ modal, handleMessage, handleNotice }) => {
                   {checkBirthYear === 'no' ? '올바른 범위내의 출생년도를 입력해주세요' : null}
                   {checkBirthYear === 'nan' ? '숫자만 입력해주세요' : null}
                 </AlertMessage>
-                </>
+              </>
               : <input
-                  disabled
-                  value={birthYear}
-                />}
+                disabled
+                value={birthYear}
+              />}
             <button onClick={handleEditUserRequest}>
               정보수정
             </button>

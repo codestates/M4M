@@ -14,11 +14,12 @@ require('dotenv').config();
 
 const Wrapper = styled.div`
   .main {
-    /* display: flex; */
     display: inline-block;
     ${media.tablet`display: flex`};
-    /* background-color: #f7efe5; */
-    min-height: calc(100vh - 41px - 56px);
+    min-height: calc(100vh - 62.39px - 129px);
+    ${media.tabletMini`min-height: calc(100vh - 62.39px - 116px)`};
+    ${media.tablet`min-height: calc(100vh - 62.39px - 71px)`};
+    ${media.laptop`min-height: calc(100vh - 62.39px - 61px)`};
   }
   .scrollable::-webkit-scrollbar {
     background: ${Colors.beige};
@@ -319,62 +320,62 @@ const GetLikedSong = ({ modal, handleMessage, handleNotice }) => {
           <br />
           {songList.length !== 0
             ? (
-                songList.map((song, idx) => {
-                  return (
-                    <div key={idx}>
-                      <div className='song-container'>
-                        <input
-                          type='checkbox'
-                          className='select-one'
-                          onChange={(e) => onChangeEach(e, song.id)}
-                          checked={CheckList.includes(song.id)}
-                        />
-                        <div className='song-info-container' onClick={() => handleSongClicked(song)}>
-                          <img src={song.album_art} alt={song.id} className='album_art' />
-                          <div className='title scrollable'>{song.title}</div>
-                          <div className='artist scrollable'>{song.artist}</div>
-                          <div className='date'>{song.date}</div>
-                          <div className='like'>
-                            <FontAwesomeIcon icon={faHeart} size='xs' color='red' />{' '}
-                            {song.hashtagLike[0][1]}
-                          </div>
-                          <div className='hashtagBox'>
-                            {song.userHashtagLikes &&
-                          song.hashtagLike.map((tag, idx) => {
-                            return (
-                              <div key={song + idx}>
-                                {tag[0] === '좋아요'
-                                  ? null
-                                  : (
-                                    <HashTag
-                                      backgroundColor={
-                                      song.userHashtagLikes.includes(Hashtag.indexOf(tag[0]) + 1)
-                                        ? Colors.darkGray
-                                        : 'white'
-                                    }
-                                      textColor={
-                                      song.userHashtagLikes.includes(Hashtag.indexOf(tag[0]) + 1)
-                                        ? 'white'
-                                        : Colors.darkGray
-                                    }
-                                    >
-                                      {tag[0]} {tag[1]}
-                                    </HashTag>
-                                    )}
-                              </div>
-                            );
-                          })}
-                          </div>
+              songList.map((song, idx) => {
+                return (
+                  <div key={idx}>
+                    <div className='song-container'>
+                      <input
+                        type='checkbox'
+                        className='select-one'
+                        onChange={(e) => onChangeEach(e, song.id)}
+                        checked={CheckList.includes(song.id)}
+                      />
+                      <div className='song-info-container' onClick={() => handleSongClicked(song)}>
+                        <img src={song.album_art} alt={song.id} className='album_art' />
+                        <div className='title scrollable'>{song.title}</div>
+                        <div className='artist scrollable'>{song.artist}</div>
+                        <div className='date'>{song.date}</div>
+                        <div className='like'>
+                          <FontAwesomeIcon icon={faHeart} size='xs' color='red' />{' '}
+                          {song.hashtagLike[0][1]}
                         </div>
-                        <br />
+                        <div className='hashtagBox'>
+                          {song.userHashtagLikes &&
+                            song.hashtagLike.map((tag, idx) => {
+                              return (
+                                <div key={song + idx}>
+                                  {tag[0] === '좋아요'
+                                    ? null
+                                    : (
+                                      <HashTag
+                                        backgroundColor={
+                                          song.userHashtagLikes.includes(Hashtag.indexOf(tag[0]) + 1)
+                                            ? Colors.darkGray
+                                            : 'white'
+                                        }
+                                        textColor={
+                                          song.userHashtagLikes.includes(Hashtag.indexOf(tag[0]) + 1)
+                                            ? 'white'
+                                            : Colors.darkGray
+                                        }
+                                      >
+                                        {tag[0]} {tag[1]}
+                                      </HashTag>
+                                    )}
+                                </div>
+                              );
+                            })}
+                        </div>
                       </div>
+                      <br />
                     </div>
-                  );
-                })
-              )
+                  </div>
+                );
+              })
+            )
             : (
               <div className='message'>현재 좋아요를 선택한 곡이 없습니다.</div>
-              )}
+            )}
         </div>
       </div>
     </Wrapper>
