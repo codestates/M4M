@@ -12,8 +12,8 @@ axios.defaults.headers.withCredentials = true;
 const MainWrapper = styled.div`
   .main {
     display: inline-block;
-    min-height: calc(100vh - 41px - 56px);
     ${media.tablet`display: flex;`}
+    min-height: calc(100vh - 41px - 56px);
   }
   .loading-container {
     padding-top: 2rem;
@@ -48,8 +48,8 @@ function Main () {
         <SideNav />
         {isLoading
           ? <div className='loading-container'>
-            로딩 중입니다...
-          </div>
+              로딩 중입니다...
+            </div>
           : <SongList />}
       </div>
     </MainWrapper>

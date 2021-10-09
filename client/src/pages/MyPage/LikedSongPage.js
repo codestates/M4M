@@ -13,9 +13,12 @@ axios.defaults.withCredentials = true;
 require('dotenv').config();
 
 const Wrapper = styled.div`
+  * {
+    box-sizing: border-box;
+  }
   .main {
     display: inline-block;
-    ${media.tablet`display: flex`};
+    ${media.tablet`display: flex;`}
     min-height: calc(100vh - 41px - 56px);
   }
   .loading-container {
@@ -23,7 +26,11 @@ const Wrapper = styled.div`
     font-family: 'Arial';
   }
   .songlist {
-    margin-left: 0;
+    margin: 0 auto;
+    width: 98%;
+    max-width: 60rem;
+    ${media.tabletMini`padding-right: 0rem; width: 100%;`}
+    ${media.tablet`padding-right: 2rem;`}   
   }
   .scrollable::-webkit-scrollbar {
     height: 10px;
@@ -40,10 +47,15 @@ const Wrapper = styled.div`
   }
   .button-container {
     display: flex;
-    width: 46.5rem;
-    margin: .6rem 1rem .4rem;
-    padding-top: 1.2rem;
+    padding-top: .7rem;
+    margin: 0 1rem .2rem;
+    ${media.tabletMini`padding-top: 2rem; margin: -1rem 0 2rem;`}
+    ${media.tablet`margin: 0 1rem .2rem;`}
     justify-content: right;
+    width: 96%;
+    max-width: 60rem;
+    text-align: right;
+    /* background-color: lime; */
   }
   button {
     margin-left: auto;
@@ -52,11 +64,9 @@ const Wrapper = styled.div`
     color: ${Colors.darkGray};
     background: none;
     border: none;
-    /* text-decoration: underline; */
   }
   button:hover {
     cursor: pointer;
-    /* color: #caa6fe; */
     color: ${Colors.purple};
   }
   .field-container {
@@ -65,20 +75,23 @@ const Wrapper = styled.div`
     justify-content: center;
     align-items: center;
     margin-bottom: -22px;
+    width: 100%;
   }
   .field-container > div, input {
     margin: 0 0 .3rem;
   }
   .field {
     display: grid;
-    width: 45rem;
-    grid-template-columns: 11% 32% 30% 12% 8%;
-    grid-column-gap: 8px;
+    width: 92%;
+    grid-template-columns: 15% 25% 23% 14% 12%;
+    ${media.tabletMini`grid-template-columns: 11% 32% 30% 12% 8%; width: 100%;`}
+    grid-gap: 8px;
     margin: .75rem auto 0;
     padding: .15rem .15rem;
     border: solid 1px ${Colors.lightGray};
     border-left: none;
     border-right: none;
+    /* background-color: salmon; */
   }
   .select-all,
   .select-one {
@@ -93,12 +106,16 @@ const Wrapper = styled.div`
     font-size: .8rem;
     align-self: center;
   }
+  .grid-item:not(:first-of-type){
+    padding-left: .2rem;
+  }
   .field-album {
     /* visibility: hidden; */
   }
   .field-title {
     padding: auto;
-    margin-left: .6rem;
+    margin-left: .4rem;
+    width: 100%;
   }
   .song-container > div, input {
     margin: 0;
@@ -110,15 +127,15 @@ const Wrapper = styled.div`
   }
   .song-info-container {
     display: grid;
-    grid-template-columns: 11% 32% 30% 12% 8%;
-    grid-column-gap: 8px;
-    margin: 0rem auto;
+    width: 92%;
+    grid-template-columns: 15% 25% 23% 14% 12%;
+    ${media.tabletMini`grid-template-columns: 11% 32% 30% 12% 8%; width: 100%;`}
+    grid-gap: 8px;
+    margin: 0 auto;
     padding: .4rem .15rem;
-    width: 45rem;
     border-bottom: solid 1px ${Colors.lightGray};
-  }
-  .song-info-container:hover {
     cursor: pointer;
+    /* background-color: lavender; */
   }
   .song-info-container > div:nth-child(-n+5) {
     margin-top: .3rem;
@@ -140,8 +157,12 @@ const Wrapper = styled.div`
     text-align: left;
     color: ${Colors.black};
   }
+  .info:not(:first-of-type){
+    padding-left: .2rem;
+  }
   .title {
     margin-left: .5rem;
+    /* background-color: pink; */
   }
   .date, .like {
     color: ${Colors.gray};
@@ -172,13 +193,6 @@ const HashTag = styled.div`
   font-family: 'Arial';
   font-size: .7rem;
 `;
-
-// =====================================================================
-//                                TO DO
-// =====================================================================
-//
-// 1. CSS 개선
-//
 
 const GetLikedSong = ({ modal, handleMessage, handleNotice }) => {
   const token = localStorage.getItem('accessToken');

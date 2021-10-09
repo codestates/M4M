@@ -24,6 +24,7 @@ const SideNavWrapper = styled.div`
   }
   .menu {
     margin: 8px 12px;
+    /* margin: 8px; */
     color: gray;
   }
   .main-deactive {

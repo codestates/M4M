@@ -7,8 +7,9 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
+import { faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
 import { media } from '../../components/utils/_media-queries';
-import { Colors } from '../../components/utils/_var';
+import { Colors, GlobalStyle } from '../../components/utils/_var';
 import TypeWriterEffect from 'typewriter-effect';
 
 axios.defaults.withCredentials = true;
@@ -23,11 +24,19 @@ const LoadingWrpper = styled.div`
   padding: .5rem;
 `;
 const SongListWrapper = styled.div`
+  * {
+    box-sizing: border-box;
+  }
   .no-result {
     color: ${Colors.black};
     font-family: 'Arial';
     font-size: .9rem;
     padding-top: 2rem;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    margin: auto 20rem auto 0;
+    ${media.tablet`margin: auto; padding-top: 2.5rem;`}
   }
   .arrow-image {
     height: .9rem;
@@ -35,32 +44,30 @@ const SongListWrapper = styled.div`
     margin-left: .5rem;
     padding-bottom: .2rem;
   }
-  button {
-    margin: 10px;
-  }
-  .songlist {
-    margin-left: 0;
-    /* background-color: pink; */
-    ${media.tabletMini`margin-left: .75rem;`}
-  }
-  .sort {
-    display: flex;
-    justify-content: center;
-  }
-  .box {
-    margin: .5rem;
-  }
   .type {
-    margin: 2.5rem auto .6rem;
-    /* padding-right: 1rem; */
+    margin: 1.2rem auto .5rem;
     ${media.tabletMini`padding-right: 0;`}
+    ${media.tablet`margin: 2rem auto .5rem;`}
     text-align: right;
     color: ${Colors.darkGray};
     font-family: 'Arial';
     font-size: 1.1rem;
-    /* background-color: yellow; */
+    width: 95%;
+    ${media.tabletMini`width: 98%;`}
   }
-
+  .songlist {
+    /* margin: 0 auto;
+    max-width: 60rem;
+    width: 98%;
+    ${media.tabletMini`padding-right: 0rem; width: 100%;`}
+    ${media.tablet`min-width: 41rem; padding-right: 2rem;`}
+    ${media.laptop`min-width: 52rem;`} */
+    margin: 0 auto;
+    width: 98%;
+    max-width: 60rem;
+    ${media.tabletMini`padding-right: 0rem; width: 100%;`}
+    ${media.tablet`padding-right: 2rem;`}   
+  }
   .scrollable::-webkit-scrollbar {
     height: 10px;
   }
@@ -75,27 +82,30 @@ const SongListWrapper = styled.div`
     cursor: all-scroll;
   }
   .field-container {
-    display: flex;
-    margin: 0 auto 0em;
+    /* display: flex; */
+    flex-shrink: 0;
+    flex-grow: 1;
+    margin: 0 auto;
     justify-content: center;
     align-items: center;
     margin-bottom: -5px;
-    /* background-color: yellow; */
+    width: 100%;
+    /* background-color: lavender; */
   }
   .field-container > div {
     margin: 0 0 .3rem;
   }
   .field {
     display: grid;
-    grid-template-columns: 11% 30% 30% 12% 12%;
-    grid-column-gap: 8px;
+    grid-template-columns: 13% 22% 22% 17% 17%;
+    ${media.tabletMini`grid-template-columns: 11% 30% 30% 12% 12%;`}
+    grid-gap: 8px;
     margin: .75rem 1rem 0;
-    padding: .15rem .15rem;
-    min-width: 320px;
     width: 95%;
-    ${media.tabletMini`min-width: 100%; max-width: 750px;`}
-    ${media.tablet`min-width: 44rem; max-width: 48rem;`}
+    ${media.tabletMini`width: 98%;`}
+    ${media.tablet`min-width: 36rem;`}
     ${media.laptop`width: 50rem;`}
+    padding: .15rem .15rem;
     border: solid 1px ${Colors.lightGray};
     border-left: none;
     border-right: none;
@@ -106,8 +116,12 @@ const SongListWrapper = styled.div`
     color: ${Colors.gray};
   }
   .grid-item {
+    width: 100%;
     font-size: .8rem;
     align-self: center;
+  }
+  .grid-item:not(:first-of-type){
+    padding-left: .2rem;
   }
   .grid-item:hover {
     cursor: pointer;
@@ -117,7 +131,6 @@ const SongListWrapper = styled.div`
     margin-left: .5rem;
   }
   .song-container > div {
-    /* margin: .5rem 0; */
     margin: 0;
   }
   .song-container {
@@ -127,20 +140,16 @@ const SongListWrapper = styled.div`
   }
   .song-info-container {
     display: grid;
-    grid-template-columns: 11% 30% 30% 12% 12%;
-    grid-column-gap: 8px;
+    grid-template-columns: 13% 22% 22% 17% 17%;
+    ${media.tabletMini`grid-template-columns: 11% 30% 30% 12% 12%;`}
+    grid-gap: 8px;
     margin: 0 auto;
     padding: .4rem .15rem;
-    min-width: 320px;
     width: 95%;
-    /* ${media.tabletMini`width: 470px; max-width: 750px;`} */
-    ${media.tabletMini`width: 100%; max-width: 750px;`}
-    ${media.tablet`min-width: 44rem; max-width: 48rem;`}
+    ${media.tabletMini`width: 98%;`}
+    ${media.tablet`min-width: 36rem;`}
     ${media.laptop`width: 50rem;`}
-
     border-bottom: solid 1px ${Colors.lightGray};
-  }
-  .song-info-container:hover {
     cursor: pointer;
   }
   .song-info-container > div:nth-child(-n+5) {
@@ -162,6 +171,10 @@ const SongListWrapper = styled.div`
     font-size: .8rem;
     text-align: left;
     color: ${Colors.black};
+    /* background-color: pink; */
+  }
+  .info:not(:first-of-type){
+    padding-left: .2rem;
   }
   .title {
     margin-left: .5rem;
@@ -174,6 +187,7 @@ const SongListWrapper = styled.div`
     margin-left: .4rem;
     grid-row: 2;
     grid-column: 2 / end;
+    width: 100%;
   }
 `;
 
@@ -188,6 +202,34 @@ const HashTag = styled.div`
   color: ${props => props.textColor};
   font-family: 'Arial';
   font-size: .7rem;
+`;
+
+const YearContainer = styled.div`
+  margin: 1.2rem auto .5rem;
+  ${media.tabletMini`padding-right: 0;`}
+  ${media.tablet`margin: 2rem auto .5rem;`}
+  text-align: right;
+  color: ${Colors.darkGray};
+  font-family: 'Arial';
+  font-size: 1.1rem;
+  width: 95%;
+  ${media.tabletMini`width: 98%;`}
+`
+const YearType = styled.div`
+  display: inline;
+  margin-left: .3rem;
+`;
+const MessageContainer = styled.div`
+  display: inline;
+  color: white;  
+  &:hover, &:active, &:focus {
+    color: ${props => props.show};
+  }
+  .message {
+    display: inline;
+    font-size: .8rem;
+    margin-right: .2rem;
+  }
 `;
 
 function SongList () {
@@ -409,13 +451,26 @@ function SongList () {
 
   return (
     <SongListWrapper>
+      <GlobalStyle />
       <div className='songlist'>
         {typeState === 'No Result' || result.length === 0
-          ? <div className='box no-result'>검색 결과가 존재하지 않습니다.</div>
+          ? <div className='no-result'>검색 결과가 존재하지 않습니다.</div>
           : <>
             {Object.keys(plainList).includes(typeState)
               ? <div className='type'>{plainList[typeState]}</div>
-              : <div className='type'>{typeState}</div>}
+              : ( 1992 <= Number(typeState) && Number(typeState) <= 2009 
+                  ? 
+                    <YearContainer>
+                      <MessageContainer
+                        show={Colors.mediumGray}
+                      >
+                        <div className='message'>해당 연도 인기곡 Top 30을 선보입니다.</div>
+                        <FontAwesomeIcon icon={faQuestionCircle} size='xs' color={Colors.mediumGray} />
+                      </MessageContainer>
+                      <YearType>{typeState}</YearType>
+                    </YearContainer>
+                  : <div className='type'>{typeState}</div>
+                )}
             <div className='field-container'>
               <div className='field'>
                 <div className='grid-item field-album' />
