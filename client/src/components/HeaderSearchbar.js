@@ -109,7 +109,7 @@ const HeaderSearchbar = ({ isRecommend, handleMessage, handleNotice }) => {
   const handleSearchTypeChange = (e) => setSearchType(e.target.value);
   const handleClick = (e) => {
     // getSearchResult(searchType, e.target.value);
-    console.log(e);
+    // console.log(e);
   };
   const handleKeyboard = (e) => {
     if (e.key === 'Enter') {

@@ -265,7 +265,7 @@ const GetLikedSong = ({ modal, handleMessage, handleNotice }) => {
     }
   };
 
-  console.log('checked song id: ' + CheckList);
+  // console.log('checked song id: ' + CheckList);
 
   // Song Detail 페이지로 연결
   const handleSongClicked = (song) => {
@@ -290,7 +290,7 @@ const GetLikedSong = ({ modal, handleMessage, handleNotice }) => {
           }
         })
         .then((res) => {
-          console.log(res.data.message);
+          // console.log(res.data.message);
         })
         .then(() => {
           window.location.reload();

@@ -299,7 +299,7 @@ function Signup ({ handleModal, handleNotice, handleMessage }) {
   };
 
   const verifyCode = (e) => {
-    console.log(code === Number(e.target.value));
+    // console.log(code === Number(e.target.value));
     if (code === Number(e.target.value)) {
       setCheckCode(true);
     } else {

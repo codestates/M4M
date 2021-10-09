@@ -255,7 +255,7 @@ function SongList () {
     like: 'none'
   });
   const plainList = { All: '모든 노래', Like: '좋아요' };
-  console.log('🎶', result, '\n🚦', subSort, '\n📌', typeState, '\n🧲', searchState, '\nℹ️', information);
+  // console.log('🎶', result, '\n🚦', subSort, '\n📌', typeState, '\n🧲', searchState, '\nℹ️', information);
 
   useEffect(() => {
     setIsSorted(searchState);
@@ -342,7 +342,7 @@ function SongList () {
           like: 'none'
         });
         setResult(isSorted.slice().sort((a, b) => a.title.localeCompare(b.title)));
-        console.log('🔴 handleSubSort: title(for)');
+        // console.log('🔴 handleSubSort: title(for)');
       } else if (subSort.title === 'for') {
         setSubSort({
           title: 'back',
@@ -351,7 +351,7 @@ function SongList () {
           like: 'none'
         });
         setResult(isSorted.slice().sort((a, b) => b.title.localeCompare(a.title)));
-        console.log('🔴 handleSubSort: title(back)');
+        // console.log('🔴 handleSubSort: title(back)');
       } else {
         setSubSort({
           title: 'none',
@@ -370,7 +370,7 @@ function SongList () {
           like: 'none'
         });
         setResult(isSorted.slice().sort((a, b) => a.artist.localeCompare(b.artist)));
-        console.log('🟠 handleSubSort: artist(for)');
+        // console.log('🟠 handleSubSort: artist(for)');
       } else if (subSort.artist === 'for') {
         setSubSort({
           title: 'none',
@@ -379,7 +379,7 @@ function SongList () {
           like: 'none'
         });
         setResult(isSorted.slice().sort((a, b) => b.artist.localeCompare(a.artist)));
-        console.log('🟠 handleSubSort: artist(back)');
+        // console.log('🟠 handleSubSort: artist(back)');
       } else {
         setSubSort({
           title: 'none',
@@ -398,7 +398,7 @@ function SongList () {
           like: 'none'
         });
         setResult(isSorted.slice().sort((a, b) => a.date.replace('.', '') - b.date.replace('.', '')));
-        console.log('🟡 handleSubSort: date(for)');
+        // console.log('🟡 handleSubSort: date(for)');
       } else if (subSort.date === 'for') {
         setSubSort({
           title: 'none',
@@ -407,7 +407,7 @@ function SongList () {
           like: 'none'
         });
         setResult(isSorted.slice().sort((a, b) => b.date.replace('.', '') - a.date.replace('.', '')));
-        console.log('🟡 handleSubSort: date(back)');
+        // console.log('🟡 handleSubSort: date(back)');
       } else {
         setSubSort({
           title: 'none',
@@ -426,7 +426,7 @@ function SongList () {
           like: 'for'
         });
         setResult(isSorted.slice().sort((a, b) => b.hashtagLike[0][1] - a.hashtagLike[0][1]));
-        console.log('🟡 handleSubSort: like(for)');
+        // console.log('🟡 handleSubSort: like(for)');
       } else if (subSort.like === 'for') {
         setSubSort({
           title: 'none',
@@ -435,7 +435,7 @@ function SongList () {
           like: 'back'
         });
         setResult(isSorted.slice().sort((a, b) => a.hashtagLike[0][1] - b.hashtagLike[0][1]));
-        console.log('🟡 handleSubSort: like(back)');
+        // console.log('🟡 handleSubSort: like(back)');
       } else {
         setSubSort({
           title: 'none',

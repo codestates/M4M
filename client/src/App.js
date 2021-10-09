@@ -92,9 +92,6 @@ function App () {
     setOpenNotice(boolean);
   };
 
-  const information = JSON.parse(localStorage.getItem('userinfo'));
-  console.log('⭐️⭐️⭐️⭐️⭐️', information);
-
   return (
     <BrowserRouter>
       <AppWrapper>
