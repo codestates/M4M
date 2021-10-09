@@ -4,26 +4,27 @@ import { useHistory } from 'react-router-dom';
 import { changeType } from '../redux/action';
 import { useDispatch, useSelector } from 'react-redux';
 import { Colors } from '../components/utils/_var';
-import { faBars } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { media } from '../components/utils/_media-queries';
 
 const SideNavWrapper = styled.div`
   .contents-container {
     min-width: 52px;
     min-height: 100%;
-    background-color: beige;
   }
   .menu-container {
-    background-color: lightgray;
+    margin-top: .8rem;
+    background-color: ${Colors.lightGray};
     min-width: 12rem;
-    ${media.tablet`display: none`};
+    ${media.tablet`display: none;`};
     &:hover {
       background-color: #caa6fe;
     }
   }
   .menu {
     margin: 8px 12px;
+    /* margin: 8px; */
     color: gray;
   }
   .main-deactive {
@@ -36,7 +37,7 @@ const SideNavWrapper = styled.div`
     min-height: 100%;
     padding-top: 2rem;
     padding-bottom: 2rem;
-    ${media.tablet`display: flex`}; */
+    ${media.tablet`display: flex;`} */
     &.active {
       display: flex;
     }
@@ -75,9 +76,7 @@ const Item = styled.div`
   &:hover, &:focus {
     animation: rainbow 2000ms infinite;
   } 
-  /* .space, .arrow {
-    animation: horizontal 1000ms ease-in-out infinite;
-  } */
+
   .arrow {
     display: inline-flex;
     border: 6px solid transparent;
@@ -107,7 +106,7 @@ function SideNav () {
   const dispatch = useDispatch();
   const [navState, setNavState] = useState('active');
   const [isOpen, setIsOpen] = useState(null);
-  const plainList = ['All', 'Like'];
+  const plainList = { All: '모든 노래', Like: '좋아요' };
   const accordionList = ['장르', '해시태그', '연도'];
   const accordionObj = {
     장르: ['발라드', '댄스', '랩/힙합', 'R&B/Soul', '인디음악', '록/메탈', '트로트', '포크/블루스'],
@@ -121,7 +120,7 @@ function SideNav () {
   const handleSelectChange = (e) => {
     dispatch(changeType(e.target.getAttribute('value')));
     resNavState();
-  }
+  };
   const handleIsOpen = (e) => {
     const curValue = e.target.getAttribute('value');
     if (isOpen === curValue) {
@@ -141,11 +140,11 @@ function SideNav () {
   const handleNavState = () => {
     if (navState === 'active') setNavState('deactive');
     if (navState === 'deactive') setNavState('active');
-  }
+  };
 
   const resNavState = () => {
     if (window.innerWidth < 768) setNavState('deactive');
-  }
+  };
 
   const maintainNavState = () => {
     if (768 <= window.innerWidth ) setNavState('active');
@@ -153,7 +152,7 @@ function SideNav () {
   };
 
   useEffect(() => window.addEventListener('resize', maintainNavState));
-  
+
   useEffect(() => {
     if (window.innerWidth < 768) setNavState('deactive');
   }, []);
@@ -161,13 +160,13 @@ function SideNav () {
   return (
     <SideNavWrapper>
       <div className='contents-container'>
-        <div className='menu-container' onClick={handleNavState} >
-          <FontAwesomeIcon className='menu' icon={faBars} size='2x'/>
+        <div className='menu-container' onClick={handleNavState}>
+          <FontAwesomeIcon className='menu' icon={faBars} size='2x' />
         </div>
         <div className={`sidenav ${navState}`}>
           {/* history 값이 mainpage일 때, 다른 값 보여주기 */}
           <div className={history.location.pathname === '/mainpage' ? 'main-active' : 'main-deactive'}>
-            {plainList
+            {Object.keys(plainList)
               .map((list, idx) => {
                 return (
                   <Item
@@ -176,7 +175,7 @@ function SideNav () {
                     onClick={handleSelectChange}
                     underline={navType === list ? 'underline' : 'none'}
                   >
-                    <span className='space' />{list}
+                    <span className='space' />{plainList[list]}
                   </Item>
                 );
               })}

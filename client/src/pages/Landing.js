@@ -1,10 +1,15 @@
 import styled from 'styled-components';
 import intro_combine from '../images/Landing/intro_combine.png';
-import feature_example from '../images/Landing/feature_example.png';
+// import feature_example from '../images/Landing/feature_example.png';
+import feature from '../images/Landing/Responsive.png';
 import example_gif from '../images/Landing/example_2_gif.webp';
+import recommend_gif from '../images/Landing/Landing1.gif';
+import song_detail_gif from '../images/Landing/Landing2.gif';
+import hashtag_like_gif from '../images/Landing/Landing3.gif';
 import lead_gif from '../images/Landing/lead_gif.gif';
 import Separator from '../components/Separator';
 import { media } from '../components/utils/_media-queries';
+import { Colors } from '../components/utils/_var';
 import { changeHeader } from '../redux/action';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
@@ -54,28 +59,30 @@ const LandingWrapper = styled.div`
     position: relative;
   }
   .btn {
-    background-color: #fffefa;
+    /* background-color: #fffefa; */
     font-size: 1.25rem;
     font-weight: bolder;
-    color: #e5dcf2;
+    /* color: #e5dcf2; */
+    color: ${Colors.black};
     padding: 12px 16px;
     width: 100%;
     margin: 8px 0px;
     ${media.laptop`margin: 8px 16px;`}
     cursor: pointer;
-    box-shadow: 4px 4px 0px gray;
-    border: 1px solid gray;
+    box-shadow: 4px 4px 0px ${Colors.mediumGray};
+    border: 1px solid ${Colors.black};
     &:hover {
       transition-duration: 300ms;
       background-color: #caa6fe;
       color: #fffefa;
+      border-color: ${Colors.mediumGray};
     }
     &:active {
       position: relative;
       transition-duration: 300ms;
       left: 3px;
       top: 3px;
-      box-shadow: 1px 1px 0px gray;
+      box-shadow: 1px 1px 0px ${Colors.mediumGray};
     }
   }
   .intro-1, .intro-2,
@@ -154,7 +161,7 @@ const LandingWrapper = styled.div`
     box-shadow: 4px 4px 8px gray;
   }
   .lead-gif {
-    ${media.laptop`width: 500px`};
+    ${media.laptop`width: 500px;`}
   }
   .intro-text,
   .detail-text,
@@ -194,6 +201,9 @@ const LandingWrapper = styled.div`
   .detail-sub-text,
   .lead-sub-text {
     font-size: 1.5rem;
+    font-family: DOSGothic;
+    line-height: 2rem;
+    color: ${Colors.black};
   }
 `;
 
@@ -208,15 +218,15 @@ function Landing () {
   };
 
   const handleFeatureImgState = () => {
-    if (1401 <= window.innerWidth) {
+    if (window.innerWidth >= 1401) {
       if (window.scrollY > 2200) setFeatureImgState('feature-active');
       if (window.scrollY < 1200) setFeatureImgState('feature-deactive');
     }
-    if (1024 <= window.innerWidth && window.innerWidth < 1401) {
+    if (window.innerWidth >= 1024 && window.innerWidth < 1401) {
       if (window.scrollY > 2500) setFeatureImgState('feature-active');
       if (window.scrollY < 2100) setFeatureImgState('feature-deactive');
     }
-    if (768 <= window.innerWidth && window.innerWidth < 1024) {
+    if (window.innerWidth >= 768 && window.innerWidth < 1024) {
       if (window.scrollY > 4200) setFeatureImgState('feature-active');
       if (window.scrollY < 3800) setFeatureImgState('feature-deactive');
     }
@@ -246,7 +256,7 @@ function Landing () {
               <div className='box intro-sub-text'>
                 그 시절 우리가 듣던<br />
                 음악들이 기억나나요?<br />
-                지친 우리를 위로하는<br /> 
+                지친 우리를 위로하는<br />
                 음악들을 추천받고,<br />
                 잠시나마 그 시절로<br />
                 여행을 떠나볼까요? &#94;&#45;&#94;
@@ -254,7 +264,7 @@ function Landing () {
             </div>
             <div className='box content-main-empty' />
             <div className='box intro-image-container'>
-              <img className='intro-image' src={intro_combine} alt='into_combine'/>
+              <img className='intro-image' src={intro_combine} alt='into_combine' />
             </div>
           </div>
           <div className='box sub-empty' />
@@ -267,7 +277,8 @@ function Landing () {
         <div className='section detail'>
           <div className='box detail-1'>
             <div className='box detail-gif-container'>
-            <img className='detail-gif' src={example_gif} alt='example_gif'/>
+              <img className='detail-gif' src={recommend_gif} alt='example_gif' />
+              {/* <img className='detail-gif' src={example_gif} alt='example_gif' /> */}
             </div>
             <div className='box content-main-empty' />
             <div className='box detail-text'>
@@ -303,13 +314,15 @@ function Landing () {
             </div>
             <div className='box content-main-empty' />
             <div className='box detail-gif-container'>
-              <img className='detail-gif' src={example_gif} alt='example_gif'/>
+              {/* <img className='detail-gif' src={example_gif} alt='example_gif' /> */}
+              <img className='detail-gif' src={song_detail_gif} alt='example_gif' />
             </div>
           </div>
           <div className='box sub-empty' />
           <div className='box detail-3'>
             <div className='box detail-gif-container'>
-              <img className='detail-gif' src={example_gif} alt='example_gif'/>
+              {/* <img className='detail-gif' src={example_gif} alt='example_gif' /> */}
+              <img className='detail-gif' src={hashtag_like_gif} alt='example_gif' />
             </div>
             <div className='box content-main-empty' />
             <div className='box detail-text'>
@@ -333,7 +346,7 @@ function Landing () {
           <div className='box feature-1'>
             <div className='box feature-text'>
               <div className='box feature-main-text'>
-                모바일과<br /> 
+                모바일과<br />
                 태블릿으로<br />
                 추억을 추천받고<br />
                 공유하세요!
@@ -347,7 +360,8 @@ function Landing () {
             </div>
             <div className='box content-main-empty' />
             <div className='box feature-image-container'>
-              <img className={`test faeture-image ${featureImgState}`} src={feature_example} alt='feature_example'/>
+              {/* <img className={`test faeture-image ${featureImgState}`} src={feature_example} alt='feature_example'/> */}
+              <img className={`test faeture-image ${featureImgState}`} src={feature} alt='feature_example' />
             </div>
           </div>
         </div>
@@ -355,7 +369,7 @@ function Landing () {
         <div className='section lead'>
           <div className='box lead-1'>
             <div className='box lead-img'>
-              <img className='lead-gif' src={lead_gif} alt='lead_gif'/>
+              <img className='lead-gif' src={lead_gif} alt='lead_gif' />
             </div>
             <div className='box content-main-empty' />
             <div className='box lead-text'>

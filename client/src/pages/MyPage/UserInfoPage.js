@@ -3,11 +3,12 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import SideNav from '../../components/SideNav';
+import { media } from '../../components/utils/_media-queries';
 import { Colors } from '../../components/utils/_var';
 import { changeHeader, userEdit } from '../../redux/action';
 import { useSelector, useDispatch } from 'react-redux';
 import Typewriter from 'typewriter-effect';
-import { media } from '../../components/utils/_media-queries';
+
 axios.defaults.withCredentials = true;
 require('dotenv').config();
 
@@ -21,19 +22,33 @@ const Wrapper = styled.div`
     ${media.laptop`min-height: calc(100vh - 62.39px - 61px)`};
   }
   .container {
-    width: 30rem;
-    margin: 1rem 7rem;
-    /* background-color: yellow; */
-  }
-  .mypage-container {
-    width: 17rem;
-    margin: 1rem 0;
+    /* width: 20.5rem; */
+    display: flex;
+    margin: 2rem auto;
+    width: 95%;
+    /* ${media.tabletMini`margin: 1rem auto; width: 28rem;`} */
+    ${media.tabletMini`max-width: 750px;`}
+    ${media.tablet`margin: 1rem 7rem; width: 30rem;`} 
+    /* margin: 2rem auto;
+    ${media.tabletMini`width: margin: 1rem 5rem;`}
+    ${media.tablet`width: margin: 1rem 7rem;`} */
+    background-color: yellow;
   }
   .greeting {
     font-family: 'Arial';
-    margin: 1rem auto 1rem;
-    text-align: left;
+    margin: 1rem auto;
+    padding-left: .5rem;
+    text-align: center;
+    ${media.tabletMini`margin: 1rem 5rem; text-align: left; padding-left: 0;`}
+    ${media.tablet`margin: 1rem 5rem; text-align: left;`}
+    ${media.tablet`margin: 1rem 5rem; text-align: left;`}
     font-size: 1.3rem;
+  }
+  .mypage-container {
+    width: 17rem;
+    margin: 1rem auto;
+    ${media.tabletMini`margin: 1rem 5rem;`}
+    /* background-color: pink; */
   }
   .id-number {
     position: absolute;
@@ -45,11 +60,15 @@ const Wrapper = styled.div`
   }
   input {
     width: 17rem;
-    height: 1.8rem;
+    height: 2rem;
     margin: .2rem auto;
     padding: .5rem;
-    border-color: ${Colors.lightGray};
-    border-width: 0.2px;
+    padding-left: 1rem;
+    /* border-color: ${Colors.lightGray}; */
+    /* border-width: 0.2px; */
+    background-color: #f2f2f2;
+    border: none;
+    border-radius: 15px;
     font-family: 'Arial';
   }
   input::-webkit-input-placeholder {
@@ -63,12 +82,12 @@ const Wrapper = styled.div`
     color: ${Colors.gray};
   }
   button {
-    /* width: 8rem; */
-    margin: 1.5rem .2rem;
-    padding: .4rem 1.5rem;
-    /* border: 1px solid ${Colors.black}; */
-    border: 1px solid ${Colors.pastelPurple};
+    margin: 1.5rem .8rem;
+    padding: .5rem 1.2rem;
+    border: 2px solid ${Colors.pastelPurple};
     background-color: ${Colors.pastelPurple};
+    color: white;
+    transition: 0.5s ease-in-out;
   }
   button:hover {
     cursor: pointer;
@@ -77,22 +96,23 @@ const Wrapper = styled.div`
     color: white;
   }
   button:last-of-type {
-    border: 1px solid ${Colors.black};
+    border: 2px solid ${Colors.black};
     background-color: ${Colors.black};
     color: white;
   }
   button:last-of-type:hover {
     background-color: white;
     color: ${Colors.black};
-    border: 1px solid ${Colors.black};
+    border: 2px solid ${Colors.black};
   }
 `;
 
 const MyPageField = styled.div`
   margin: .7rem auto .15rem;
+  padding-left: .2rem;
   text-align: left;
-  color: ${Colors.black};
-  font-size: .95rem;
+  color: ${Colors.darkGray};
+  font-size: .9rem;
   font-family: 'Arial';
   
   &:first-of-type {
@@ -103,6 +123,7 @@ const MyPageField = styled.div`
 const AlertMessage = styled.div`
   color: red;
   font-family: 'Arial';
+  padding-left: .9rem;
 
   &:not(:last-of-type){
     text-align: left;
@@ -264,12 +285,7 @@ const Mypage = ({ modal, handleMessage, handleNotice }) => {
       setCheckRetypePassword(false);
     }
     // console.log(checkPassword, checkRetypePassword,checkNickname, checkBirthYear)
-    if (
-      kakao &&
-      !birthYear &&
-      !myInfo.birthYear &&
-      myInfo.nickname === ''
-    ) {
+    if (kakao && !birthYear && !myInfo.birthYear && myInfo.nickname === '') {
       setErrorMsg('변경할 정보를 입력해주세요.');
     } else if (kakao && birthYear && myInfo.nickname === '') {
       setErrorMsg('변경할 정보를 입력해주세요.');
@@ -311,7 +327,7 @@ const Mypage = ({ modal, handleMessage, handleNotice }) => {
               dispatch(userEdit(myInfo, token));
               localStorage.setItem('userinfo', JSON.stringify(myInfo));
             }
-            window.location.replace('/myinfo');
+            // window.location.replace('/myinfo');
           })
           .catch((err) => {
             console.log(err.response);
@@ -327,26 +343,28 @@ const Mypage = ({ modal, handleMessage, handleNotice }) => {
       // alert('토큰이 만료되었습니다');
       modal();
     } else {
-      axios
-        .delete(process.env.REACT_APP_API_URL + '/withdrawal', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          }
-        })
-        .then((res) => {
-          if (res.status === 200) {
-            // alert('회원탈퇴가 완료되었습니다.');
-            handleNotice(true);
-            handleMessage('회원탈퇴가 완료되었습니다.');
-            // afterWithdrawal();
+      handleNotice(true);
+      handleMessage('정말 탈퇴 하시겠습니까?');
+      // axios
+      //   .delete(process.env.REACT_APP_API_URL + '/withdrawal', {
+      //     headers: {
+      //       Authorization: `Bearer ${token}`,
+      //       'Content-Type': 'application/json'
+      //     }
+      //   })
+      //   .then((res) => {
+      //     if (res.status === 200) {
+      //       // alert('회원탈퇴가 완료되었습니다.');
+      //       handleNotice(true);
+      //       handleMessage('회원탈퇴가 완료되었습니다.');
+      //       // afterWithdrawal();
 
-            history.push({
-              pathname: '/mainpage'
-            });
-          }
-          localStorage.clear();
-        });
+      //       history.push({
+      //         pathname: '/mainpage'
+      //       });
+      //     }
+      //     localStorage.clear();
+      //   });
     }
   };
 
@@ -373,17 +391,10 @@ const Mypage = ({ modal, handleMessage, handleNotice }) => {
               placeholder={nickname.split('#')[0]}
               onChange={inputCheck('nickname')}
             />
-            <span className='id-number'>
-              #{nickname.split('#')[1]}
-            </span>
-            <AlertMessage>
-              {checkNickname === 'ok' ? null : checkNickname}
-            </AlertMessage>
+            <span className='id-number'>#{nickname.split('#')[1]}</span>
+            <AlertMessage>{checkNickname === 'ok' ? null : checkNickname}</AlertMessage>
             <MyPageField>이메일</MyPageField>
-            <input
-              disabled
-              value={email}
-            />
+            <input disabled value={email} />
             <MyPageField>비밀번호</MyPageField>
             <input
               disabled={kakao ? 'disabled' : null}
@@ -406,30 +417,24 @@ const Mypage = ({ modal, handleMessage, handleNotice }) => {
             </AlertMessage>
             <MyPageField>출생년도</MyPageField>
             {kakao && !birthYear
-              ? <>
-                <input
-                  onChange={inputCheck('birthYear')}
-                />
-                <AlertMessage>
-                  {checkBirthYear === 'no' ? '올바른 범위내의 출생년도를 입력해주세요' : null}
-                  {checkBirthYear === 'nan' ? '숫자만 입력해주세요' : null}
-                </AlertMessage>
-              </>
-              : <input
-                disabled
-                value={birthYear}
-              />}
-            <button onClick={handleEditUserRequest}>
-              정보수정
-            </button>
-            <button onClick={handleWithdrawalRequest}>
-              회원탈퇴
-            </button>
+              ? (
+                <>
+                  <input onChange={inputCheck('birthYear')} />
+                  <AlertMessage>
+                    {checkBirthYear === 'no' ? '올바른 범위내의 출생년도를 입력해주세요' : null}
+                    {checkBirthYear === 'nan' ? '숫자만 입력해주세요' : null}
+                  </AlertMessage>
+                </>
+                )
+              : (
+                <input disabled value={birthYear} />
+                )}
+            <button onClick={handleEditUserRequest}>정보수정</button>
+            <button onClick={handleWithdrawalRequest}>회원탈퇴</button>
             <AlertMessage>{errorMsg}</AlertMessage>
           </div>
         </div>
       </div>
-
     </Wrapper>
   );
 };

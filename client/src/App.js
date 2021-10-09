@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { GlobalStyle } from './components/utils/_var';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import Header from './components/Header';
 import Noti from './components/Notification';
 import Landing from './pages/Landing';
@@ -26,6 +27,16 @@ const AppWrapper = styled.div`
     font-family: 'NeoDunggeunmo';
     text-align: center;
   }
+  .fixed-container {
+    position: fixed;
+    top: 0;
+    z-index: 10;
+    height: 3.9rem;
+    background-color: white;
+  }
+  .space {
+    margin-bottom: 3rem;
+  }
 `;
 
 function App() {
@@ -36,6 +47,23 @@ function App() {
   const [openNotice, setOpenNotice] = useState(false);
   const [mediaState, setMediaState] = useState('deactive');
   const [barState, setBarState] = useState('bar-active');
+  const isLogin = useSelector((state) => state.userReducer).token;
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScrolled = () => {
+      if (!scrolled && window.scrollY > 30) {
+        setScrolled(true);
+      } else if (scrolled && window.scrollY <= 30) {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScrolled);
+    return () => {
+      window.removeEventListener('scroll', handleScrolled);
+    };
+  }, [scrolled]);
 
   const handleLoginModalOpen = () => {
     setOpenLogin(true);
@@ -65,8 +93,6 @@ function App() {
   const handleNotice = (boolean) => {
     setOpenNotice(boolean);
   };
-
-  const information = JSON.parse(localStorage.getItem('userinfo'));
 
   const maintainMediaState = () => {
     if (768 <= window.innerWidth) setMediaState('deactive');
@@ -105,17 +131,20 @@ function App() {
         <GlobalStyle />
         <div className='App'>
           <MediaSearchbar mediaState={mediaState} handleMediaState={handleMediaState} handleBarState={handleBarState} />
-          <Header
-            login={handleLoginModalOpen}
-            signup={handleSignupModalOpen}
-            modal={handleModalOpen}
-            handleMessage={handleMessage}
-            handleNotice={handleNotice}
-            handleMediaState={handleMediaState}
-            barState={barState}
-            handleBarState={handleBarState}
-            resBarState={resBarState}
-          />
+          <div className='fixed-container'>
+            <Header
+              login={handleLoginModalOpen}
+              signup={handleSignupModalOpen}
+              modal={handleModalOpen}
+              handleMessage={handleMessage}
+              handleNotice={handleNotice}
+              handleMediaState={handleMediaState}
+              barState={barState}
+              handleBarState={handleBarState}
+              resBarState={resBarState}
+            />
+          </div>
+          <div className='space' />
           {openModal ? <Modal handleModal={handleModalClose} login={handleLoginModalOpen} /> : null}
           <Noti />
           <Switch>
@@ -123,34 +152,25 @@ function App() {
             <Route path='/mainpage' component={Main} />
             <Route path='/recommendpage' render={() => <Recommendation />} />
             <Route path='/mylike'>
-              {information
-                ? (
-                  <GetLikedSong
+              {isLogin
+                ? <GetLikedSong
                     modal={handleModalOpen}
                     handleMessage={handleMessage}
                     handleNotice={handleNotice}
                   />
-                )
-                : (
-                  <Redirect to='/mainpage' />
-                )}
+                : <Redirect to='/' />}
             </Route>
             <Route path='/myinfo'>
-              {information
-                ? (
-                  <Mypage
+              {isLogin
+                ? <Mypage
                     modal={handleModalOpen}
                     handleMessage={handleMessage}
                     handleNotice={handleNotice}
                   />
-                )
-                : (
-                  <Redirect to='/mainpage' />
-                )}
+                : <Redirect to='/' />}
             </Route>
             <Route
-              path='/song:id'
-              render={() => (
+              path='/song:id' render={() => (
                 <SongDetail
                   modal={handleModalOpen}
                   handleMessage={handleMessage}
@@ -159,7 +179,6 @@ function App() {
               )}
             />
             <Redirect to='/' />
-
           </Switch>
           {openNotice
             ? (

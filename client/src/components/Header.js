@@ -6,69 +6,73 @@ import { userLogout } from '../redux/action';
 import axios from 'axios';
 import { media } from './utils/_media-queries';
 import { Colors } from '../components/utils/_var';
-
+import Logo from '../images/logo.png';
 axios.defaults.headers.withCredentials = true;
 
 const HeaderWrapper = styled.div`
   .header {
+    display: grid;
     height: 3.9rem;
     width: 100vw;
-    display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid rgba(150, 150, 150, 0.2);
+    grid-template-columns: 10% 12% 42% 25%;
+    /* ${media.tabletMini`grid-template-columns: 10% 12% 42% 25%;`} */
+    ${media.tablet`grid-template-columns: 10% 10% 45% 18%;`}
+    grid-template-areas:
+      'logo recommend search pages'
   }
   .header-container-1 {
-    max-width: 6rem;
-    background-color: burlywood;
-    margin-left: .8rem;
-    ${media.tabletMini`background-color: lime; margin-left: 1rem;`}
+    grid-area: logo;
+    /* border: 1px solid gray; */
+    width: 100%;
+    /* ${media.tabletMini`background-color: lime;`}
     ${media.tablet`background-color: cyan;`}
-    ${media.laptop`background-color: green;`}
+    ${media.laptop`background-color: green;`} */
   }
   .header-container-2 {
-    /* width: 20vw; */
-    max-width: 12rem;
-    background-color: salmon;
+    grid-area: recommend;
+    width: 100%;
   }
   .header-container-3 {
-    /* width: 45vw; */
-    max-width: 22rem;
+    width: 100%;
+    grid-area: search;
   }
   .header-container-4 {
-    /* width: 20vw; */
-    max-width: 15rem;
+    grid-area: pages;
+    width: 100%;    
   }
   a {
     text-decoration: none;
   }
   .logo {
-    /* background-color: beige; */
     font-size: 1.2rem;
+  }
+  .logo-image {
+    padding-left: .7rem;
+    padding-top: .2rem;
+    width: 5rem;
   }
   .btn {
     background-color: transparent;
     border: none;
     cursor: pointer;
-    /* background-color: red; */
   }
   .recommend-page {
     color: ${Colors.darkGray};
-    font-size: .6rem;
-    ${media.tabletMini`font-size: .9rem`}
-    ${media.tablet`font-size: .9rem`}
-    ${media.laptop`font-size: .9rem`}
-    /* background-color: red; */
+    font-size: .8rem;
+    ${media.tablet`font-size: .9rem;`}
+    ${media.laptop`font-size: .9rem;`}
   }
   .login,
   .logout,
   .signup,
   .mypage {
-    margin: 0 .5rem;
-    font-size: .5rem;
-    ${media.tabletMini`font-size: .8rem;`}
-    ${media.tablet`font-size: .8rem;`}
-    ${media.laptop`font-size: .8rem;`}
+    font-size: .6rem;
+    padding-left: .2rem; 
+    ${media.tabletMini`font-size: .8rem; margin: 0 .5rem; padding: 0; `}
+    margin-right: 0;
     color: ${Colors.gray};
   }
   button:hover {
@@ -119,7 +123,8 @@ function Header({ login, signup, modal, handleMessage, handleNotice, handleMedia
         <div className='header-container-1'>
           <Link to='/mainpage'>
             <div className='logo'>
-              M4M
+              {/* M4M */}
+              <img src={Logo} className='logo-image' alt='logo-image' />
             </div>
           </Link>
         </div>
@@ -137,6 +142,8 @@ function Header({ login, signup, modal, handleMessage, handleNotice, handleMedia
             barState={barState}
             handleBarState={handleBarState}
             resBarState={resBarState}
+            handleMessage={handleMessage}
+            handleNotice={handleNotice}
           />
         </div>
         <div className='header-container-4'>

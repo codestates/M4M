@@ -4,7 +4,12 @@ import axios from 'axios';
 import { useHistory } from 'react-router';
 import { notify } from '../redux/action';
 import { useSelector, useDispatch } from 'react-redux';
-import m4mlogo from '../images/m4mlogo4.png';
+import { media } from '../components/utils/_media-queries';
+import { Colors } from '../components/utils/_var';
+// import m4mlogo from '../images/m4mlogo4.png';
+import m4mlogo from '../images/logo.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 require('dotenv').config();
 
 export const SignupBackdrop = styled.div`
@@ -21,14 +26,27 @@ export const SignupBackdrop = styled.div`
 `;
 export const SignupView = styled.div`
   box-sizing: border-box;
-  width: 45vh;
-  height: 65vh;
+  width: 20rem;
+  height: 25rem;
+  ${media.tabletMini`width: 22rem; height: 27rem;`}
   background-color: rgb(255, 255, 255);
   position: relative;
   text-align: center;
-  // font-size: 20px;
-  padding-top: 10px;
+  padding-top: .7rem;
   box-shadow: 10px 10px grey;
+
+  .logo {
+    width: 6rem;
+    margin: .5rem auto;
+  }
+`;
+
+export const CloseIcon = styled.div`
+  display: flex;
+  justify-content: right;
+  padding-right: 1rem;
+  font-size: 1.1rem;
+  cursor: pointer;
 `;
 
 export const SignupInputContainer = styled.div`
@@ -43,25 +61,28 @@ export const SignupInputContainer = styled.div`
 export const SignupInput = styled.input`
   background-color: #f2f2f2;
   border: none;
-  border-radius: 10px;
+  border-radius: 15px;
   width: 70%;
   height: 11%;
-  padding: 10px;
-  font-weight: bold;
+  padding: .7rem;
+  color: ${Colors.darkGray};
   :focus {
     outline: none;
+  }
+  &::-webkit-input-placeholder {
+    color: ${Colors.gray};
+    font-size: .75rem;
   }
 `;
 
 export const SignupButton = styled.button`
-  margin: 0rem 0.4rem 0.1rem 0.4rem;
+  margin: 0rem .4rem .1rem .4rem;
   cursor: pointer;
   font-family: 'Arial';
-  font-size: 16px;
-  font-weight: bold;
+  font-size: .9rem;
   background-color: #caa6fe;
   width: 11.5rem;
-  height: 2.5rem;
+  height: 2.2rem;
   border-radius: 7px;
   border: none;
   color: white;
@@ -70,20 +91,7 @@ export const SignupButton = styled.button`
   }
 `;
 
-export const CloseButton = styled.button`
-  background-color: white;
-  border: none;
-  margin-top: 10px;
-  cursor: pointer;
-  font-weight: bold;
-  letter-spacing: 1px;
-  color: grey;
-  :hover {
-    color: black;
-  }
-`;
-
-function blinkEffect() {
+function blinkEffect () {
   return keyframes`
   50% {
     opacity:0;
@@ -93,37 +101,33 @@ function blinkEffect() {
 
 export const Alertbox = styled.div`
   color: red;
+  margin-top: .5rem;
   font-family: 'Arial';
-  font-size: 14px;
-  font-weight: bold;
-  margin-top: 5px;
-  animation: ${blinkEffect} 1s step-end infinite;
+  font-size: .85rem;
+  /* animation: ${blinkEffect} 1s step-end infinite; */
 `;
 
 export const CheckInfo = styled.div`
   color: red;
   font-size: 11px;
-  // margin-top: 2px;
   font-family: 'Arial';
-  font-weight: bold;
-  opacity: 0.7;
+  opacity: .7;
 `;
 
 export const ButtonContainer = styled.div`
-  margin: 10px 0px 0px 0px;
+  margin: .8rem 0 0;
 `;
 
 export const Select = styled.select`
   width: 70%;
   height: 11%;
-  padding: 7px;
+  padding-left: .4rem;
   text-align: left;
-  font-size: 13.5px;
-  font-weight: bold;
+  font-size: 12.5px;
   background-color: #f2f2f2;
   border: none;
-  border-radius: 10px;
-  opacity: 0.5;
+  border-radius: 15px;
+  opacity: .5;
   cursor: pointer;
   :focus {
     outline: none;
@@ -131,19 +135,21 @@ export const Select = styled.select`
 `;
 
 export const VerifyButton = styled.button`
-  margin: 0rem 0.4rem 0.1rem 0.4rem;
+  margin: 0rem .4rem .1rem .4rem;
   cursor: pointer;
   font-family: 'Arial';
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 14px;
   background-color: #caa6fe;
-  width: 11.5rem;
-  height: 2.5rem;
-  border-radius: 7px;
+  background-color: transparent;
   border: none;
   color: white;
+  font-size: .75rem;
+  padding: 0;
+  text-decoration: underline;
+  color: ${Colors.gray};
   :hover {
-    background-color: #9c57ff;
+    color: ${Colors.purple};
+    border-color: ${Colors.purple};
   }
 `;
 
@@ -249,7 +255,6 @@ function Signup ({ handleModal, handleNotice, handleMessage }) {
           }
         })
         .catch((error) => {
-          console.log(error.response);
           if (error.response.data.message === 'conflict: email') {
             setErrorMsg('이미 가입된 이메일입니다');
           }
@@ -281,6 +286,12 @@ function Signup ({ handleModal, handleNotice, handleMessage }) {
         .then((res) => {
           setCode(res.data);
           setErrorMsg('메일이 오지 않았다면 스팸메일함을 확인해주세요');
+        })
+        .catch((error) => {
+          // console.log(error.response);
+          if (error.response.data.message === 'conflict: email') {
+            setErrorMsg('이미 가입된 이메일입니다');
+          }
         });
     } else {
       setErrorMsg('올바른 이메일을 입력해주세요');
@@ -288,6 +299,7 @@ function Signup ({ handleModal, handleNotice, handleMessage }) {
   };
 
   const verifyCode = (e) => {
+    console.log(code === Number(e.target.value));
     if (code === Number(e.target.value)) {
       setCheckCode(true);
     } else {
@@ -298,28 +310,32 @@ function Signup ({ handleModal, handleNotice, handleMessage }) {
   return (
     <SignupBackdrop>
       <SignupView>
-        <img src={m4mlogo} style={{ width: '200px' }} />
+        <CloseIcon>
+          <FontAwesomeIcon icon={faTimes} color={Colors.gray} onClick={handleModal} />
+        </CloseIcon>
+        <img className='logo' src={m4mlogo} alt='logo' />
         <SignupInputContainer>
-          <SignupInput onChange={inputCheck('nickname')} placeholder="닉네임" />
+          <SignupInput onChange={inputCheck('nickname')} placeholder='닉네임' />
           <CheckInfo>{checkNickname === 'ok' ? null : checkNickname}</CheckInfo>
-          <SignupInput onChange={inputCheck('email')} placeholder="이메일" />
+          <SignupInput onChange={inputCheck('email')} placeholder='이메일' />
           {/* <ButtonContainer> */}
-          <CheckInfo>{checkEmail ? `  ` : '올바른 이메일 주소를 입력해주세요'}</CheckInfo>
+          <CheckInfo>{checkEmail ? '  ' : '올바른 이메일 주소를 입력해주세요'}</CheckInfo>
           <VerifyButton onClick={emailRequest}>이메일 인증</VerifyButton>
           {/* </ButtonContainer> */}
-          <SignupInput onChange={verifyCode} placeholder="이메일 인증 코드" />
+          <SignupInput onChange={verifyCode} placeholder='이메일 인증 코드' />
           <CheckInfo>{checkCode ? null : '코드가 일치하지 않습니다'}</CheckInfo>
-          <SignupInput type="password" onChange={inputCheck('password')} placeholder="비밀번호" />
+          <SignupInput type='password' onChange={inputCheck('password')} placeholder='비밀번호' />
           <CheckInfo>{checkPassword ? null : '올바른 비밀번호를 입력해주세요'}</CheckInfo>
-          <SignupInput type="password" onChange={handleCheckPassword} placeholder="비밀번호 확인" />
+          <SignupInput type='password' onChange={handleCheckPassword} placeholder='비밀번호 확인' />
           <CheckInfo>{checkRetypePassword ? null : '비밀번호가 일치하지 않습니다'}</CheckInfo>
           <Select onChange={handleInputValue('birthYear')}>
             <option
-              value=""
+              value=''
               selected
               disabled
               hidden
-              style={{ fontWeight: 'bold', borderRadius: '10px' }}>
+              style={{ fontWeight: 'bold', borderRadius: '10px' }}
+            >
               출생년도
             </option>
             {yearList.map((el, idx) => {
@@ -334,7 +350,6 @@ function Signup ({ handleModal, handleNotice, handleMessage }) {
         <ButtonContainer>
           <SignupButton onClick={handleSignupRequest}>회원가입</SignupButton>
         </ButtonContainer>
-        <CloseButton onClick={handleModal}>창닫기</CloseButton>
         <Alertbox>{errorMsg}</Alertbox>
       </SignupView>
     </SignupBackdrop>

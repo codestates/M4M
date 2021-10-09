@@ -13,17 +13,17 @@ const HeaderSearchbarWrapper = styled.div`
   .searchbar {
     display: flex;
     justify-content: center;
-    background-color: red;
+    /* background-color: red; */
     margin-left: -1rem;
   }
   .searchbar-container {
-    width: 12rem;
+    /* width: 12rem; */
     height: 1.5rem;
     padding-top: .2rem;
-    /* ${media.tabletMini`width: 12rem; height: 1.5rem;`} */
-    background-color: yellow;
+    ${media.tabletMini`width: 12rem; height: 1.5rem;`}
+    /* background-color: yellow; */
     ${media.tablet`width: 20rem; height: 1.9rem;`}
-    ${media.laptop`width: 22rem; height: 1.9rem; background-color: salmon;`}
+    ${media.laptop`width: 22rem; height: 1.9rem;`}
     border: 1px solid ${Colors.mediumGray};
     border-radius: 15px;
   }
@@ -31,9 +31,7 @@ const HeaderSearchbarWrapper = styled.div`
     width: 1rem;
     margin-left: 0;
     padding-bottom: 0;
-    /* ${media.tabletMini`width: 1.3rem; margin-left: -1.2rem; padding-bottom: .25rem;`} */
-    ${media.tablet`width: 1.3rem; margin-left: -3rem; padding-bottom: .25rem;`}
-    ${media.laptop`width: 1.3rem; margin-left: -1.2rem; padding-bottom: .25rem;`}
+    ${media.tablet`width: 1.3rem; margin-left: -5.5rem; padding-bottom: .25rem;`}
     vertical-align: middle;
     align-items: left;
   }
@@ -42,18 +40,27 @@ const HeaderSearchbarWrapper = styled.div`
     margin-left: .2rem;
     width: 10rem;
     font-size: .7rem;
-    /* ${media.tabletMini`width: 15rem; font-size: .85rem;`} */
     ${media.tablet`width: 12rem; font-size: .85rem;`}
-    ${media.laptop`width: 14rem; font-size: .85rem;`}
+    ${media.laptop`width: 14rem;`}
     color: ${Colors.black};
   }
   .searchbar-dropbox {
-    font-size: .85rem;
-    margin-right: .8rem;
-    color: ${Colors.darkGray};
+    font-size: .75rem;
+    margin-right: .3rem;
+    
+    /* color: white; */
+    ${media.tabletMini`font-size: .75rem; margin-right: .3rem; color: ${Colors.darkGray};`}
+    ${media.tablet`font-size: .8rem; margin-right: .8rem; `}
+    
     border: none;
     cursor: pointer;
   }
+
+  select {
+    -webkit-appearance: menulist-button;
+    color: red;
+  }
+
   .searchbar-dropbox:focus, input:focus {
     outline: none;
   }
@@ -82,7 +89,7 @@ const HeaderSearchbarWrapper = styled.div`
   }
 `;
 
-function HeaderSearchbar({ isRecommend, handleMediaState, barState, handleBarState, resBarState }) {
+function HeaderSearchbar({ isRecommend, handleMediaState, barState, handleBarState, resBarState, handleMessage, handleNotice }) {
   const songsBulkState = useSelector(state => state.songsBulkReducer).songsBulk;
   const notiState = useSelector(state => state.notiReducer).notifications;
   const dispatch = useDispatch();
@@ -101,7 +108,9 @@ function HeaderSearchbar({ isRecommend, handleMediaState, barState, handleBarSta
       }
     } else {
       if (notiState.message === '') {
-        dispatch(notify('검색창이 비었습니다. 추억을 입력해주세요! ᕕ( ᐛ )ᕗ'));
+        // dispatch(notify('검색창이 비었습니다. 추억을 입력해주세요! ᕕ( ᐛ )ᕗ'));
+        handleNotice(true);
+        handleMessage('검색창이 비었습니다. 추억을 입력해주세요! ᕕ( ᐛ )ᕗ');
       }
     }
     resBarState();

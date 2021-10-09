@@ -26,7 +26,7 @@ const Wrapper = styled.div`
     margin: 20px auto 10px auto;
     background-color: white;
     border: solid 1px ${Colors.black};
-    box-shadow: 4px 5px ${Colors.gray};
+    box-shadow: 4px 5px ${Colors.mediumGray};
     font-family: 'DOSGothic';
     text-align: center;
     color: ${Colors.black};
