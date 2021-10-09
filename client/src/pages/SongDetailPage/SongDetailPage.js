@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import Comments from './Comments';
 import Hashtags from './HashtagLikes';
 import CustomizedInfo from './CustomizedInfo';
+import CustomizedInfoTop from './CustomizedInfoTop';
 import { Colors, GlobalStyle } from '../../components/utils/_var';
 import { media } from '../../components/utils/_media-queries';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -24,22 +25,21 @@ const Wrapper = styled.div`
   .loading-container {
     margin: 0 1rem;
   }
-  .space {
-    height: 0rem;
-    ${media.tablet`height: 1rem;`}
-  }
   .container {
+    min-height: calc(100vh - 41px - 56px);
     min-width: 320px;
     max-width: 479px;
     margin-top: -1rem;
     margin-left: .5rem;
     padding: 0 .2rem;
-    ${media.tabletMini`min-width: 470px; max-width: 750px; padding-left: 1rem; margin: 0 auto;`}
-    ${media.tablet`width: 41.7rem; max-width: 1024px; padding-left: 1rem; margin: 0 auto;`}
-    ${media.laptop`width: 41.7rem; padding-left: 1rem; margin: 0 auto;`}
+    ${media.tabletMini`min-width: 470px; max-width: 750px; padding-left: .5rem; padding-right: .5rem; margin: 0 auto;`}
+    ${media.tablet`width: 43rem; max-width: 1024px; margin: 0 auto;`}
+    ${media.laptop`width: 43rem; margin: 0 auto;`}
   }
   .space {
     height: 1rem;
+    ${media.tabletMini`height: .2rem;`}
+    ${media.tablet`height: .5rem;`}
     margin-bottom: 1rem;
   }
   .top-container {
@@ -52,8 +52,9 @@ const Wrapper = styled.div`
     width: 100%;
     align-self: center;
     margin-bottom: -.28rem;
-    padding: 0;
-    border-right: solid 1px ${Colors.borderColor};
+    margin-top: .5rem;
+    ${media.tabletMini`padding-top: .5rem; margin-top: 0;`}
+    padding-top: 0;
   }
   .title,
   .artist {
@@ -65,8 +66,9 @@ const Wrapper = styled.div`
     margin: .3rem .15rem;
     font-family: 'Arial';
     font-size: .9rem;
-    ${media.tabletMini`font-size: 1rem;`}
+    ${media.tabletMini`font-size: 1rem; padding-top: .2rem;`}
     ${media.tablet`font-size: 1.1rem;`}
+    ${media.laptop`font-size: 1.1rem; padding-top: .1rem;`}
   }
   .artist {
     margin-bottom: .5rem;
@@ -106,8 +108,9 @@ const Wrapper = styled.div`
     color: ${Colors.darkGray};
   }
   .bottom-container {
-    display: grid;
-    grid-template-columns: 65% 34%;
+    display: inline;
+    ${media.tabletMini`display: grid; grid-template-columns: 0 53% 45%;`}
+    ${media.tablet`display: grid; grid-template-columns: 0 55% 42%;`}
     grid-column-gap: 8px;
     margin: 1rem auto 0;
     padding: .4rem .15rem;
@@ -223,8 +226,7 @@ const SongDetail = ({ modal, handleMessage, handleNotice }) => {
       <GlobalStyle />
       <div className='space' />
       {isLoading
-        ?
-        <div className='main'>
+        ? <div className='main'>
           <div className='loading-container'>
             <Typewriter
               options={{
@@ -235,7 +237,7 @@ const SongDetail = ({ modal, handleMessage, handleNotice }) => {
             />
           </div>
         </div>
-        :<div className='container'>
+        : <div className='container'>
           <div className='top-container'>
             <a href={songInfo.album_art} target='_blank' rel='noreferrer'>
               <img src={songInfo.album_art} alt={songInfo.id} className='album_art' />
@@ -264,6 +266,11 @@ const SongDetail = ({ modal, handleMessage, handleNotice }) => {
             </div>
           </div>
           <div className='bottom-container'>
+            <CustomizedInfoTop
+              songInfo={songInfo}
+              handleMessage={handleMessage}
+              handleNotice={handleNotice}
+            />
             <div className='lyrics-container'>
               <div className='field'>가사</div>
               {songInfo.lyrics &&
@@ -281,16 +288,11 @@ const SongDetail = ({ modal, handleMessage, handleNotice }) => {
             <button className='lyrics-button' onClick={handleLyricsClicked}>
               {buttonContent} <FontAwesomeIcon icon={icon} size='1x' color='#b2b2b2' />
             </button>
-            {/* <CustomizedInfo
+            <CustomizedInfo
               songInfo={songInfo}
               handleMessage={handleMessage}
               handleNotice={handleNotice}
-            /> */}
-            {/* <CustomizedInfo
-              songInfo={songInfo}
-              handleMessage={handleMessage}
-              handleNotice={handleNotice}
-            /> */}
+            />
           </div>
           <Comments
             comments={comments}

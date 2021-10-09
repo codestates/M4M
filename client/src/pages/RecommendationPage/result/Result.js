@@ -151,12 +151,12 @@ const Result = ({ resultType, songList }) => {
         <h2 className='typeName'>{songType.name}</h2>
         {/* <Title><span>타입 설명</span></Title> */}
         <div className='container'>
-        {songType.explanation.split('\n').map((line, idx) => 
-          <div className='explanation' key={idx}>
-            {line}
-          </div>
-        )}
-        <div className='explanation spacing'>아래에서 당신만을 위한 추천 노래를 확인해주세요~</div>
+          {songType.explanation.split('\n').map((line, idx) =>
+            <div className='explanation' key={idx}>
+              {line}
+            </div>
+          )}
+          <div className='explanation spacing'>아래에서 당신만을 위한 추천 노래를 확인해주세요~</div>
         </div>
         <Title><span>추천 노래</span></Title>
         <ul className='songs'>

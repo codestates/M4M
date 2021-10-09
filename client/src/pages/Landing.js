@@ -173,7 +173,7 @@ function Landing () {
                 <br />
                 그 시절 우리가 듣던<br />
                 음악들이 기억나나요?<br />
-                지친 우리를 위로하는<br /> 
+                지친 우리를 위로하는<br />
                 음악들을 추천받고,<br />
                 잠시나마 그 시절로<br />
                 여행을 떠나볼까요? &#94;&#45;&#94;
@@ -181,7 +181,7 @@ function Landing () {
             </div>
             <div className='box sub-empty' />
             <div className='box intro-image-container'>
-              <img className='intro-image' src={intro_combine} alt='into_combine'/>
+              <img className='intro-image' src={intro_combine} alt='into_combine' />
             </div>
           </div>
           <div className='box content-empty' />
@@ -194,7 +194,7 @@ function Landing () {
         <div className='section detail'>
           <div className='box detail-1'>
             <div className='box detail-img'>
-            <img className='detail-gif' src={example_gif} alt='example_gif'/>
+              <img className='detail-gif' src={example_gif} alt='example_gif' />
             </div>
             <div className='box sub-empty' />
             <div className='box detail-text'>
@@ -232,13 +232,13 @@ function Landing () {
             </div>
             <div className='box sub-empty' />
             <div className='box detail-img'>
-              <img className='detail-gif' src={example_gif} alt='example_gif'/>
+              <img className='detail-gif' src={example_gif} alt='example_gif' />
             </div>
           </div>
           <div className='box content-empty' />
           <div className='box detail-3'>
             <div className='box detail-img'>
-              <img className='detail-gif' src={example_gif} alt='example_gif'/>
+              <img className='detail-gif' src={example_gif} alt='example_gif' />
             </div>
             <div className='box sub-empty' />
             <div className='box detail-text'>
@@ -263,7 +263,7 @@ function Landing () {
           <div className='box feature-1'>
             <div className='box feature-text'>
               <div className='box feature-main-text'>
-                모바일과<br /> 
+                모바일과<br />
                 태블릿으로<br />
                 추억을 추천받고<br />
                 공유하세요!
@@ -278,7 +278,7 @@ function Landing () {
             </div>
             <div className='box sub-empty' />
             <div className='box feature-image-container'>
-              <img className='test faeture-image' src={feature_example} alt='feature_example'/>
+              <img className='test faeture-image' src={feature_example} alt='feature_example' />
             </div>
           </div>
         </div>
@@ -286,7 +286,7 @@ function Landing () {
         <div className='section lead'>
           <div className='box lead-1'>
             <div className='box lead-img'>
-              <img className='lead-gif' src={lead_gif} alt='lead_gif'/>
+              <img className='lead-gif' src={lead_gif} alt='lead_gif' />
             </div>
             <div className='box sub-empty' />
             <div className='box lead-text'>

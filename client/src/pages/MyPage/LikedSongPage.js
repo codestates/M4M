@@ -338,14 +338,14 @@ const GetLikedSong = ({ modal, handleMessage, handleNotice }) => {
                             return (
                               <div key={song + idx}>
                                 {tag[0] === '좋아요'
-                                    ? null
-                                    : <HashTag
-                                        borderColor={song.userHashtagLikes && song.userHashtagLikes.includes(Hashtag.indexOf(tag[0]) + 1) ? 'none' : Colors.mediumGray}
-                                        backgroundColor={song.userHashtagLikes.includes(Hashtag.indexOf(tag[0]) + 1) ? Colors.darkGray : 'white'}
-                                        textColor={song.userHashtagLikes.includes(Hashtag.indexOf(tag[0]) + 1) ? 'white' : Colors.darkGray}
-                                      >
-                                      {tag[0]} {tag[1]}
-                                      </HashTag>}
+                                  ? null
+                                  : <HashTag
+                                      borderColor={song.userHashtagLikes && song.userHashtagLikes.includes(Hashtag.indexOf(tag[0]) + 1) ? 'none' : Colors.mediumGray}
+                                      backgroundColor={song.userHashtagLikes.includes(Hashtag.indexOf(tag[0]) + 1) ? Colors.darkGray : 'white'}
+                                      textColor={song.userHashtagLikes.includes(Hashtag.indexOf(tag[0]) + 1) ? 'white' : Colors.darkGray}
+                                    >
+                                    {tag[0]} {tag[1]}
+                                  </HashTag>}
                               </div>
                             );
                           })}

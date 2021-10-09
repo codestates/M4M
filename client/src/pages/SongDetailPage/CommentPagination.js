@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import { media } from '../../components/utils/_media-queries'
-import { Colors, Size, GlobalStyle } from '../../components/utils/_var';
+import { media } from '../../components/utils/_media-queries';
+import { Colors, GlobalStyle } from '../../components/utils/_var';
 import { useSelector } from 'react-redux';
 axios.defaults.withCredentials = true;
 require('dotenv').config();
@@ -14,8 +14,6 @@ const Wrapper = styled.div`
     ${media.tabletMini`min-width: 470px; max-width: 750px;`}
     ${media.tablet`width: 41.7rem; max-width: 1024px;`}
     ${media.laptop`width: 41.7rem;`}
-    /* margin: auto; */
-    /* border: solid 1px; */
     justify-items: center;
   }
   .comment-item {
@@ -186,22 +184,24 @@ const CommentPagination = ({ songId, totalComments, modal, handleMessage, handle
       <GlobalStyle />
       <div className='comments-container-pagination'>
         {currentComments.map((comment, idx) => {
-          return token && comment[0] === nickname ? (
-            <div className='comment-item' key={idx}>
-              <div className='nickname'>{comment[0]}</div>
-              <div className='date'>{comment[2]}</div>
-              <div className='content'>{comment[1]}</div>
-              <button className='deleteButton' onClick={() => handleDeleteClicked(comment[1])}>
-                삭제
-              </button>
-            </div>
-          ) : (
-            <div className='comment-item' key={idx}>
-              <div className='nickname'>{comment[0]}</div>
-              <div className='date'>{comment[2]}</div>
-              <div className='content'>{comment[1]}</div>
-            </div>
-          );
+          return token && comment[0] === nickname
+            ? (
+              <div className='comment-item' key={idx}>
+                <div className='nickname'>{comment[0]}</div>
+                <div className='date'>{comment[2]}</div>
+                <div className='content'>{comment[1]}</div>
+                <button className='deleteButton' onClick={() => handleDeleteClicked(comment[1])}>
+                  삭제
+                </button>
+              </div>
+              )
+            : (
+              <div className='comment-item' key={idx}>
+                <div className='nickname'>{comment[0]}</div>
+                <div className='date'>{comment[2]}</div>
+                <div className='content'>{comment[1]}</div>
+              </div>
+              );
         })}
         <ul className='page-numbers'>
           {pageNumbers.map((number, idx) => {

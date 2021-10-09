@@ -9,8 +9,19 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
 import { media } from '../../components/utils/_media-queries';
 import { Colors } from '../../components/utils/_var';
+import TypeWriterEffect from 'typewriter-effect';
+
 axios.defaults.withCredentials = true;
 
+const LoadingWrpper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: ${Colors.darkGray};
+  font-size: 1.75rem;
+  font-family: 'Arial';
+  padding: .5rem;
+`;
 const SongListWrapper = styled.div`
   .no-result {
     color: ${Colors.black};
@@ -28,7 +39,9 @@ const SongListWrapper = styled.div`
     margin: 10px;
   }
   .songlist {
-    margin-left: 1rem;
+    margin-left: 0;
+    /* background-color: pink; */
+    ${media.tabletMini`margin-left: .75rem;`}
   }
   .sort {
     display: flex;
@@ -39,30 +52,13 @@ const SongListWrapper = styled.div`
   }
   .type {
     margin: 2.5rem auto .6rem;
+    /* padding-right: 1rem; */
+    ${media.tabletMini`padding-right: 0;`}
     text-align: right;
     color: ${Colors.darkGray};
     font-family: 'Arial';
     font-size: 1.1rem;
-  }
-  .loadingWrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .loading {
-    width: 200px;
-    animation: typing 1500ms steps(10), blink 500ms step-end infinite alternate;
-    overflow: hidden;
-    border-right: 4px solid;
-    font-size: 36px;
-  }
-
-  @keyframes typing {
-    from { width: 0 }
-  }
-      
-  @keyframes blink {
-    50% { border-color: transparent }
+    /* background-color: yellow; */
   }
 
   .scrollable::-webkit-scrollbar {
@@ -95,9 +91,10 @@ const SongListWrapper = styled.div`
     grid-column-gap: 8px;
     margin: .75rem 1rem 0;
     padding: .15rem .15rem;
-    width: 25rem;
-    ${media.tabletMini`width: 50rem;`}
-    ${media.tablet`width: 50rem;`}
+    min-width: 320px;
+    width: 95%;
+    ${media.tabletMini`min-width: 100%; max-width: 750px;`}
+    ${media.tablet`min-width: 44rem; max-width: 48rem;`}
     ${media.laptop`width: 50rem;`}
     border: solid 1px ${Colors.lightGray};
     border-left: none;
@@ -134,7 +131,13 @@ const SongListWrapper = styled.div`
     grid-column-gap: 8px;
     margin: 0 auto;
     padding: .4rem .15rem;
-    width: 50rem;
+    min-width: 320px;
+    width: 95%;
+    /* ${media.tabletMini`width: 470px; max-width: 750px;`} */
+    ${media.tabletMini`width: 100%; max-width: 750px;`}
+    ${media.tablet`min-width: 44rem; max-width: 48rem;`}
+    ${media.laptop`width: 50rem;`}
+
     border-bottom: solid 1px ${Colors.lightGray};
   }
   .song-info-container:hover {
@@ -472,9 +475,18 @@ function SongList () {
                 return null;
               })}
               {isLoading &&
-                <div className='loadingWrapper'>
-                  <div className='loading'>Loading...</div>
-                </div>}
+                <LoadingWrpper>
+                  <TypeWriterEffect
+                    onInit={(typewriter) => {
+                      typewriter
+                        .typeString('로딩 중입니다...')
+                        .pauseFor(1000)
+                        .start();
+                    }}
+                  />
+                  {/* <div className='loading'>Loading...</div> */}
+                </LoadingWrpper>
+              }
             </div>
           </>}
       </div>

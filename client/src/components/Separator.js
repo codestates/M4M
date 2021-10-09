@@ -38,7 +38,7 @@ function Separator () {
   return (
     <SeparatorWrapper>
       <div className='separator'>
-        <img className='separator-image' src={separator_img} alt='separator_img'/>
+        <img className='separator-image' src={separator_img} alt='separator_img' />
       </div>
     </SeparatorWrapper>
   );

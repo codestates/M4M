@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import SideNav from '../../components/SideNav';
+import { media } from '../../components/utils/_media-queries';
 import { Colors } from '../../components/utils/_var';
 import { changeHeader, userEdit } from '../../redux/action';
 import { useSelector, useDispatch } from 'react-redux';
@@ -16,19 +17,30 @@ const Wrapper = styled.div`
     min-height: calc(100vh - 41px - 56px);
   }
   .container {
-    width: 30rem;
-    margin: 1rem 7rem;
+    width: 25rem;
+    margin: 2rem auto;
+    ${media.tabletMini`margin: 1rem auto; width: 28rem;`}
+    ${media.tablet`margin: 1rem 7rem; width: 30rem;`} 
+    /* margin: 2rem auto;
+    ${media.tabletMini`width: margin: 1rem 5rem;`}
+    ${media.tablet`width: margin: 1rem 7rem;`} */
     /* background-color: yellow; */
-  }
-  .mypage-container {
-    width: 17rem;
-    margin: 1rem 0;
   }
   .greeting {
     font-family: 'Arial';
-    margin: 1rem auto 1rem;
-    text-align: left;
+    margin: 1rem auto;
+    padding-left: .5rem;
+    text-align: center;
+    ${media.tabletMini`margin: 1rem 5rem; text-align: left; padding-left: 0;`}
+    ${media.tablet`margin: 1rem 5rem; text-align: left;`}
+    ${media.tablet`margin: 1rem 5rem; text-align: left;`}
     font-size: 1.3rem;
+  }
+  .mypage-container {
+    width: 17rem;
+    margin: 1rem auto;
+    ${media.tabletMini`margin: 1rem 5rem;`}
+    /* background-color: pink; */
   }
   .id-number {
     position: absolute;
@@ -58,12 +70,11 @@ const Wrapper = styled.div`
     color: ${Colors.gray};
   }
   button {
-    /* width: 8rem; */
-    margin: 1.5rem .2rem;
-    padding: .4rem 1.5rem;
-    /* border: 1px solid ${Colors.black}; */
-    border: 1px solid ${Colors.pastelPurple};
+    margin: 1.5rem .8rem;
+    padding: .5rem 1.2rem;
+    border: 2px solid ${Colors.pastelPurple};
     background-color: ${Colors.pastelPurple};
+    transition: 0.5s ease-in-out;
   }
   button:hover {
     cursor: pointer;
@@ -72,14 +83,14 @@ const Wrapper = styled.div`
     color: white;
   }
   button:last-of-type {
-    border: 1px solid ${Colors.black};
+    border: 2px solid ${Colors.black};
     background-color: ${Colors.black};
     color: white;
   }
   button:last-of-type:hover {
     background-color: white;
     color: ${Colors.black};
-    border: 1px solid ${Colors.black};
+    border: 2px solid ${Colors.black};
   }
 `;
 
@@ -348,7 +359,7 @@ const Mypage = ({ modal, handleMessage, handleNotice }) => {
   return (
     <Wrapper>
       <div className='main'>
-        <SideNav />
+        {/* <SideNav /> */}
         <div className='container'>
           <div className='greeting'>
             {/* {nickname.split('#')[0]} 님, 반갑습니다! */}
@@ -356,6 +367,7 @@ const Mypage = ({ modal, handleMessage, handleNotice }) => {
               onInit={(typewriter) => {
                 typewriter
                   .typeString(`${nickname.split('#')[0]} 님, 반갑습니다!`)
+                  // .typeString(`여덟글자닉네임임 님, 반갑습니다!`)
                   .pauseFor(1000)
                   .start();
               }}

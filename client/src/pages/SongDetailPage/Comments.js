@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import styled from 'styled-components';
 import CommentPagination from './CommentPagination';
-import { media } from '../../components/utils/_media-queries'
+import { media } from '../../components/utils/_media-queries';
 import { Colors, GlobalStyle } from '../../components/utils/_var';
 axios.defaults.withCredentials = true;
 require('dotenv').config();
@@ -15,7 +15,6 @@ const Wrapper = styled.div`
     margin: .5rem auto;
     ${media.tabletMini`min-width: 470px; max-width: 750px;`}
     ${media.tablet`width: 41.7rem; max-width: 1024px;`}
-    ${media.laptop`width: 41.7rem;`}
     text-align: left;
     font-family: 'Arial';
     font-size: .9rem;
