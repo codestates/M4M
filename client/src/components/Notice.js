@@ -38,7 +38,6 @@ export const NoticeView = styled.div`
   padding: .8rem;
 `;
 
-
 export const Message = styled.div`
   margin-top: ${props => props.topMargin};
   font-family: 'Arial';
@@ -89,13 +88,13 @@ export const CloseIcon = styled.div`
 function Notice ({ message, login, handleNotice, handleMessage }) {
   useEffect(() => {
     const closeModal = (e) => {
-      if(e.keyCode === 27){
+      if (e.keyCode === 27) {
         handleNotice(false);
       }
-    }
-    window.addEventListener('keydown', closeModal)
-    return () => window.removeEventListener('keydown', closeModal)
-  }, [])
+    };
+    window.addEventListener('keydown', closeModal);
+    return () => window.removeEventListener('keydown', closeModal);
+  }, []);
 
   const token = useSelector((state) => state.userReducer).token;
 
@@ -133,59 +132,69 @@ function Notice ({ message, login, handleNotice, handleMessage }) {
           {message}
         </Message>
         <ButtonContainer>
-          {message === '로그인이 필요한 서비스입니다.' ? (
-            <div>
+          {message === '로그인이 필요한 서비스입니다.'
+            ? (
               <div>
-                <NoticeButton
-                  onClick={() => {
-                    handleNotice(false);
-                    login();
-                  }}
-                >
-                  로그인
-                </NoticeButton>
+                <div>
+                  <NoticeButton
+                    onClick={() => {
+                      handleNotice(false);
+                      login();
+                    }}
+                  >
+                    로그인
+                  </NoticeButton>
+                </div>
               </div>
-            </div>
-          ) : message === '로그인 성공!' ||
+              )
+            : message === '로그인 성공!' ||
             message === '로그아웃 성공!' ||
             message === '회원가입 성공!' ||
-            message === '회원탈퇴가 완료되었습니다' ? (
-              <NoticeButton
-                onClick={() => {
-                  window.location.replace('/mainpage');
-                }}
-              >
-                메인화면으로
-              </NoticeButton>
-              ) : message === '출생년도 등록이 필요한 서비스입니다.' ? (
-                <>
-                  <div>
-                    <NoticeButton
+            message === '회원탈퇴가 완료되었습니다'
+              ? (
+                <NoticeButton
+                  onClick={() => {
+                    window.location.replace('/mainpage');
+                  }}
+                >
+                  메인화면으로
+                </NoticeButton>
+                )
+              : message === '출생년도 등록이 필요한 서비스입니다.'
+                ? (
+                  <>
+                    <div>
+                      <NoticeButton
+                        onClick={() => {
+                          window.location.replace('/myinfo');
+                        }}
+                      >
+                        마이페이지로
+                      </NoticeButton>
+                    </div>
+                  </>
+                  )
+                : message === '회원정보가 수정되었습니다.'
+                  ? (
+                    <NoticeClose
                       onClick={() => {
                         window.location.replace('/myinfo');
                       }}
                     >
-                      마이페이지로
-                    </NoticeButton>
-                  </div>
-                </>
-              ) : message === '회원정보가 수정되었습니다.' ? (
-                <NoticeClose
-                  onClick={() => {
-                    window.location.replace('/myinfo');
-                  }}
-                >
-                  확인
-                </NoticeClose>
-              ) : message === '정말 탈퇴 하시겠습니까?' ? (
-                <div>
-                  <div>
-                    <NoticeButton onClick={withdrawalRequest}>탈퇴하기</NoticeButton>
-                  </div>
-                </div>
-              ) : (
-                null
-              )}
+                      확인
+                    </NoticeClose>
+                    )
+                  : message === '정말 탈퇴 하시겠습니까?'
+                    ? (
+                      <div>
+                        <div>
+                          <NoticeButton onClick={withdrawalRequest}>탈퇴하기</NoticeButton>
+                        </div>
+                      </div>
+                      )
+                    : (
+                        null
+                      )}
         </ButtonContainer>
       </NoticeView>
     </NoticeBackdrop>

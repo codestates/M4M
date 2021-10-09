@@ -136,6 +136,6 @@ const HeaderSearchbar = ({ isRecommend, handleMessage, handleNotice }) => {
       </div>
     </HeaderSearchbarWrapper>
   );
-}
+};
 
 export default HeaderSearchbar;

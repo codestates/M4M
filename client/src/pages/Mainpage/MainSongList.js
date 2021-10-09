@@ -6,8 +6,7 @@ import { useHistory } from 'react-router';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
-import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
-import { faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
+import { faHeart as farHeart, faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
 import { media } from '../../components/utils/_media-queries';
 import { Colors, GlobalStyle } from '../../components/utils/_var';
 import TypeWriterEffect from 'typewriter-effect';
@@ -214,7 +213,7 @@ const YearContainer = styled.div`
   font-size: 1.1rem;
   width: 95%;
   ${media.tabletMini`width: 98%;`}
-`
+`;
 const YearType = styled.div`
   display: inline;
   margin-left: .3rem;
@@ -458,16 +457,15 @@ function SongList () {
           : <>
             {Object.keys(plainList).includes(typeState)
               ? <div className='type'>{plainList[typeState]}</div>
-              : ( 1992 <= Number(typeState) && Number(typeState) <= 2009 
-                  ? 
-                    <YearContainer>
-                      <MessageContainer
-                        show={Colors.mediumGray}
-                      >
-                        <div className='message'>해당 연도 인기곡 Top 30을 선보입니다.</div>
-                        <FontAwesomeIcon icon={faQuestionCircle} size='xs' color={Colors.mediumGray} />
-                      </MessageContainer>
-                      <YearType>{typeState}</YearType>
+              : (Number(typeState) >= 1992 && Number(typeState) <= 2009
+                  ? <YearContainer>
+                    <MessageContainer
+                      show={Colors.mediumGray}
+                    >
+                      <div className='message'>해당 연도 인기곡 Top 30을 선보입니다.</div>
+                      <FontAwesomeIcon icon={faQuestionCircle} size='xs' color={Colors.mediumGray} />
+                    </MessageContainer>
+                    <YearType>{typeState}</YearType>
                     </YearContainer>
                   : <div className='type'>{typeState}</div>
                 )}
