@@ -62,7 +62,7 @@ const CustomizedInfo = ({ songInfo, handleMessage, handleNotice }) => {
   const topSongs = Chart[0][`${chartYear}년`];
 
   let age = '?';
-  
+
   if (token && birthYear && songInfo.year) {
     age = songInfo.year - birthYear + 1;
     if (age < 1) age = -1;

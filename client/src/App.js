@@ -51,7 +51,7 @@ function App () {
   const [scrolled, setScrolled] = useState(false);
 
   const maintainMediaState = () => {
-    if (768 <= window.innerWidth) setMediaState('deactive');
+    if (window.innerWidth >= 768) setMediaState('deactive');
   };
 
   useEffect(() => window.addEventListener('resize', maintainMediaState));
@@ -59,19 +59,19 @@ function App () {
   const handleMediaState = () => {
     if (mediaState === 'active') setMediaState('deactive');
     if (mediaState === 'deactive') setMediaState('active');
-  }
+  };
 
   const handleBarState = () => {
     if (barState === 'bar-active') setBarState('bar-deactive');
     if (barState === 'bar-deactive' && mediaState === 'deactive') setBarState('bar-active');
-  }
+  };
 
   const resBarState = () => {
     if (window.innerWidth < 768) setBarState('bar-deactive');
-  }
+  };
 
   const maintainBarState = () => {
-    if (768 <= window.innerWidth) setBarState('bar-active');
+    if (window.innerWidth >= 768) setBarState('bar-active');
     else setBarState('bar-deactive');
   };
 
@@ -154,7 +154,8 @@ function App () {
           <Switch>
             <Route exact path='/' component={Landing} />
             <Route path='/mainpage' component={Main} />
-            <Route path='/recommendpage'
+            <Route
+              path='/recommendpage'
               render={() =>
                 <Recommendation
                   handleMessage={handleMessage}

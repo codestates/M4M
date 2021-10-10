@@ -73,7 +73,7 @@ const HeaderSearchbarWrapper = styled.div`
   }
 `;
 
-function HeaderSearchbar({ isRecommend, handleMediaState, barState, handleBarState, resBarState, handleMessage, handleNotice }) {
+function HeaderSearchbar ({ isRecommend, handleMediaState, barState, handleBarState, resBarState, handleMessage, handleNotice }) {
   const songsBulkState = useSelector(state => state.songsBulkReducer).songsBulk;
   const notiState = useSelector(state => state.notiReducer).notifications;
   const dispatch = useDispatch();
@@ -106,9 +106,9 @@ function HeaderSearchbar({ isRecommend, handleMediaState, barState, handleBarSta
       getSearchResult(searchType, e.target.value);
     }
   };
-  
+
   const resetInput = () => {
-    if (768 > window.innerWidth) setInput('');
+    if (window.innerWidth < 768) setInput('');
   };
 
   useEffect(() => window.addEventListener('resize', resetInput));
@@ -140,10 +140,11 @@ function HeaderSearchbar({ isRecommend, handleMediaState, barState, handleBarSta
           className='search-icon-active'
           src='/image/Search_Icon.svg'
           alt='search-icon-active'
-          onClick={() => { handleMediaState(); handleBarState(); }} />
+          onClick={() => { handleMediaState(); handleBarState(); }}
+        />
       </div>
     </HeaderSearchbarWrapper>
   );
-};
+}
 
 export default HeaderSearchbar;

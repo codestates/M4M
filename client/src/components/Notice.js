@@ -133,10 +133,10 @@ function Notice ({ message, login, handleNotice, handleMessage }) {
             message === '로그아웃 성공!' ||
             message === '회원가입 성공!' ||
             message === '회원탈퇴가 완료되었습니다.'
-            ? '.4rem'
-            : message === '출생년도 등록이 필요한 서비스입니다.'
-              ? '.3rem'
-              : '1rem'
+              ? '.4rem'
+              : message === '출생년도 등록이 필요한 서비스입니다.'
+                ? '.3rem'
+                : '1rem'
           }
         >
           {message}
@@ -193,7 +193,7 @@ function Notice ({ message, login, handleNotice, handleMessage }) {
                   )
                 : message === '정말 탈퇴 하시겠습니까?'
                   ? (
-                      <NoticeButton onClick={withdrawalRequest}>탈퇴하기</NoticeButton>
+                    <NoticeButton onClick={withdrawalRequest}>탈퇴하기</NoticeButton>
                     )
                   : (
                       null

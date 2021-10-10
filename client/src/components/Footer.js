@@ -85,7 +85,8 @@ function Footer () {
           <div className='link-container'>
             <div className='link-label'>Developed by</div>
             {team.map((member, idx) =>
-              <a className='link'
+              <a
+                className='link'
                 key={idx}
                 href={member.repository}
                 target='_blank'

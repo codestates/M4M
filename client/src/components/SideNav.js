@@ -5,8 +5,7 @@ import { changeType } from '../redux/action';
 import { useDispatch, useSelector } from 'react-redux';
 import { Colors } from '../components/utils/_var';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { media } from '../components/utils/_media-queries';
 
 const SideNavWrapper = styled.div`
@@ -156,7 +155,7 @@ function SideNav () {
     if (window.innerWidth >= 768) {
       if (navState === 'active') setNavState('active');
     } else setNavState('deactive');
-    if (768 <= window.innerWidth ) setNavState('active');
+    if (window.innerWidth >= 768) setNavState('active');
     else setNavState('deactive');
   };
 
@@ -172,8 +171,7 @@ function SideNav () {
         <div className='menu-container' onClick={handleNavState}>
           {navState === 'deactive'
             ? <FontAwesomeIcon className='menu' icon={faBars} size='2x' />
-            : <FontAwesomeIcon className='menu' icon={faTimes} size='2x' />
-          }
+            : <FontAwesomeIcon className='menu' icon={faTimes} size='2x' />}
         </div>
         <div className={`sidenav ${navState}`}>
           {/* history 값이 mainpage일 때, 다른 값 보여주기 */}

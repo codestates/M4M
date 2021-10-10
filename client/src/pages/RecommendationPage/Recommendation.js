@@ -20,10 +20,10 @@ class Recommendation extends Component {
   }
 
   renderQuestion () {
-    const {handleMessage, handleNotice } = this.props;
-  
+    const { handleMessage, handleNotice } = this.props;
+
     return (
-      <Question 
+      <Question
         handleMessage={handleMessage}
         handleNotice={handleNotice}
       />

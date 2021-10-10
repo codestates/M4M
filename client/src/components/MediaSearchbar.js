@@ -88,7 +88,7 @@ const MediaSearchbarWrapper = styled.div`
   }
 `;
 
-function MediaSearchbar({ mediaState, handleMediaState, handleBarState }) {
+function MediaSearchbar ({ mediaState, handleMediaState, handleBarState }) {
   const songsBulkState = useSelector(state => state.songsBulkReducer).songsBulk;
   const notiState = useSelector(state => state.notiReducer).notifications;
   const dispatch = useDispatch();
@@ -121,7 +121,7 @@ function MediaSearchbar({ mediaState, handleMediaState, handleBarState }) {
   };
 
   const resetInput = () => {
-    if (768 > window.innerWidth) setInput('');
+    if (window.innerWidth < 768) setInput('');
   };
 
   useEffect(() => window.addEventListener('resize', resetInput));
@@ -149,7 +149,7 @@ function MediaSearchbar({ mediaState, handleMediaState, handleBarState }) {
             />
           </div>
         </div>
-        <div className='closeBtn' onClick={() => { handleMediaState(); handleBarState(); }} >
+        <div className='closeBtn' onClick={() => { handleMediaState(); handleBarState(); }}>
           <FontAwesomeIcon className='menu' icon={faTimes} size='1x' />
         </div>
       </div>
