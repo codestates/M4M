@@ -14,6 +14,7 @@ const Wrapper = styled.div`
   }
   .kakao-button {
     width: 9.5rem;
+    height: 3rem;
     ${media.tablet`width: 10rem;`}
     margin: .8rem auto 0;
     padding: .8rem 1rem;
@@ -73,7 +74,7 @@ const KakaoShareButton = ({ songType, songList }) => {
       }],
       buttons: [
         {
-          title: '나도 추천 받기',
+          title: '추천 받으러 가기',
           link: {
             webUrl: process.env.REACT_APP_URL + '/recommendpage',
             mobileWebUrl: process.env.REACT_APP_URL + '/recommendpage'

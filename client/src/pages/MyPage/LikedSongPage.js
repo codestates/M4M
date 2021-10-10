@@ -77,7 +77,7 @@ const Wrapper = styled.div`
     margin: 0 auto;
     justify-content: center;
     align-items: center;
-    margin-bottom: -22px;
+    margin-bottom: -1.3rem;
     width: 100%;
   }
   .field-container > div, input {

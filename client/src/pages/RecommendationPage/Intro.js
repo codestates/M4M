@@ -23,9 +23,10 @@ const Wrapper = styled.div`
     letter-spacing: .5px;
     color: white;
     font-size: 1.2rem;    
-    padding: .4rem .8rem;
+    padding: .4rem .6rem;
     margin: 7.5rem auto 1.5rem;
-    ${media.tabletMini`font-size: 1.3rem; margin: 5rem auto 1.5rem;`}
+    ${media.tabletMini`font-size: 1.3rem; margin: 7rem auto 1.5rem; padding: .4rem .8rem;`}
+    ${media.tablet`margin: 5.5rem auto 1.5rem;`}
   }
   .description {
     background: transparent;

@@ -37,7 +37,7 @@ const Wrapper = styled.div`
     ${media.laptop`margin: 1rem 5rem;`}
   }
   .mypage-container {
-    width: 17rem;
+    width: 17.5rem;
     margin: 1rem auto;
     /* background-color: lime; */
     ${media.tablet`margin: 1rem 3rem;`}
@@ -53,8 +53,7 @@ const Wrapper = styled.div`
     ${media.tabletMini`font-size: .85rem; padding: .5rem .2rem;`}
   }
   input {
-    width: 14rem;
-    ${media.tabletMini`width: 17rem; margin: .2rem auto;`}
+    width: 15.5rem;
     height: 2rem;
     padding: .5rem;
     padding-left: 1rem;
@@ -62,9 +61,13 @@ const Wrapper = styled.div`
     border: none;
     border-radius: 15px;
     font-family: 'Arial';
+    font-size: .85rem;
+    ${media.tabletMini`width: 17rem; margin: .2rem auto; font-size: .9rem;`}
   }
   input::-webkit-input-placeholder {
     color: ${Colors.gray};
+    font-size: .85rem;
+    ${media.tabletMini`font-size: .9rem;`}
   }
   input:focus {
     outline: none;
@@ -74,15 +77,17 @@ const Wrapper = styled.div`
     color: ${Colors.gray};
   }
   button {
+    cursor: pointer;
     margin: 1.5rem .8rem;
     padding: .5rem 1.2rem;
     border: 2px solid ${Colors.pastelPurple};
     background-color: ${Colors.pastelPurple};
+    font-size: .85rem;
+    ${media.tabletMini`font-size: .9rem;`}
     color: white;
     transition: 0.5s ease-in-out;
   }
   button:hover {
-    cursor: pointer;
     background-color: ${Colors.purple};
     border-color: ${Colors.purple};
     color: white;
@@ -106,7 +111,7 @@ const MyPageField = styled.div`
   color: ${Colors.darkGray};
   font-size: .9rem;
   font-family: 'Arial';
-  margin: .7rem 1.5rem .15rem;
+  margin: .7rem 1rem .15rem;
   ${media.tabletMini`margin: .7rem auto .15rem;`}
 
   &:first-of-type {
@@ -290,7 +295,6 @@ const Mypage = ({ modal, handleMessage, handleNotice }) => {
     ) {
       setErrorMsg('변경할 정보를 올바르게 입력해주세요.');
     } else {
-      // console.log('user info has sent to the server');
       if (parseInt(accessTokenTime, 10) + expiredTime - new Date().getTime() < 0) {
         modal();
       } else {
@@ -316,7 +320,6 @@ const Mypage = ({ modal, handleMessage, handleNotice }) => {
               dispatch(userEdit(myInfo, token));
               localStorage.setItem('userinfo', JSON.stringify(myInfo));
             }
-            // window.location.replace('/myinfo');
           })
           .catch((err) => {
             console.log(err.response);
