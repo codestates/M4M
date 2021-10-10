@@ -10,6 +10,9 @@ import Logo from '../images/logo.png';
 axios.defaults.headers.withCredentials = true;
 
 const HeaderWrapper = styled.div`
+  button:focus {
+    outline: none;
+  }
   .header {
     display: grid;
     height: 3.9rem;
@@ -83,15 +86,7 @@ const HeaderWrapper = styled.div`
   }
 `;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-function Header ({ login, signup, modal, handleMessage, handleNotice }) {
-=======
 function Header({ login, signup, modal, handleMessage, handleNotice, handleMediaState, barState, handleBarState, resBarState }) {
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
-=======
-function Header({ login, signup, modal, handleMessage, handleNotice, handleMediaState, barState, handleBarState, resBarState }) {
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
   const isLogin = useSelector((state) => state.userReducer).token;
   const headerState = useSelector((state) => state.headerReducer);
   const dispatch = useDispatch();
@@ -131,7 +126,6 @@ function Header({ login, signup, modal, handleMessage, handleNotice, handleMedia
         <div className='header-container-1'>
           <Link to='/mainpage'>
             <div className='logo'>
-              {/* M4M */}
               <img src={Logo} className='logo-image' alt='logo-image' />
             </div>
           </Link>
