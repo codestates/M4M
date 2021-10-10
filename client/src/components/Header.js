@@ -20,17 +20,17 @@ const HeaderWrapper = styled.div`
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid rgba(150, 150, 150, 0.2);
-    grid-template-columns: 10% 12% 42% 25%;
-    /* ${media.tabletMini`grid-template-columns: 10% 12% 42% 25%;`} */
+    grid-template-columns: 23% 20% 23% 30%;
+    ${media.tabletMini`grid-template-columns: 16% 16% 44% 24%;`}
     ${media.tablet`grid-template-columns: 10% 10% 45% 18%;`}
     grid-template-areas:
       'logo recommend search pages'
   }
   .header-container-1 {
     grid-area: logo;
-    /* border: 1px solid gray; */
     width: 100%;
-    /* ${media.tabletMini`background-color: lime;`}
+    /* background-color: lavender;
+    ${media.tabletMini`background-color: lime;`}
     ${media.tablet`background-color: cyan;`}
     ${media.laptop`background-color: green;`} */
   }
@@ -41,10 +41,18 @@ const HeaderWrapper = styled.div`
   .header-container-3 {
     width: 100%;
     grid-area: search;
+    text-align: right;
+    padding-top: .4rem;
+    ${media.tabletMini`padding-top: .2rem;`}
+    ${media.tablet`padding-top: 0;`}
+    /* background-color: khaki; */
+    /* ${media.tablet`background-color: cyan;`}
+    ${media.tablet`text-align: center;`} */
   }
   .header-container-4 {
     grid-area: pages;
-    width: 100%;    
+    width: 100%;
+    /* background-color: yellow; */
   }
   a {
     text-decoration: none;
@@ -64,7 +72,8 @@ const HeaderWrapper = styled.div`
   }
   .recommend-page {
     color: ${Colors.darkGray};
-    font-size: .8rem;
+    font-size: .7rem;
+    ${media.tabletMini`font-size: .8rem;`}
     ${media.tablet`font-size: .9rem;`}
     ${media.laptop`font-size: .9rem;`}
   }
@@ -73,8 +82,9 @@ const HeaderWrapper = styled.div`
   .signup,
   .mypage {
     font-size: .6rem;
-    padding-left: .2rem; 
-    ${media.tabletMini`font-size: .8rem; margin: 0 .5rem; padding: 0; `}
+    padding-left: .2rem;
+    ${media.tabletMini`font-size: .75rem; margin: 0 0 0 .5rem; padding: 0; `}
+    ${media.tablet`padding-left: .4rem;`}
     margin-right: 0;
     color: ${Colors.gray};
   }

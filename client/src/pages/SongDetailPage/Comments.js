@@ -13,6 +13,7 @@ const Wrapper = styled.div`
     min-width: 320px;
     max-width: 479px;
     margin: .5rem auto;
+    /* margin: 0 auto; */
     ${media.tabletMini`min-width: 470px; max-width: 750px;`}
     ${media.tablet`width: 41.7rem; max-width: 1024px;`}
     text-align: left;
@@ -24,6 +25,7 @@ const Wrapper = styled.div`
     margin: auto auto 1.2rem;
     min-width: 320px;
     max-width: 479px;
+    
     ${media.tabletMini`min-width: 470px; max-width: 750px;`}
     ${media.tablet`width: 41.7rem; max-width: 1024px;`}
     background-color: #ededed;

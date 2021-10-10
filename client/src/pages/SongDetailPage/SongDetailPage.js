@@ -26,15 +26,11 @@ const Wrapper = styled.div`
     margin: 0 1rem;
   }
   .container {
-    min-height: calc(100vh - 41px - 56px);
-    /* min-width: 320px;
-    max-width: 450px; */
     width: 95%;
-    margin-top: -1rem;
-    margin: 0 auto;
+    margin: -1rem auto 0;
     ${media.tabletMini`min-width: 460px; max-width: 750px; margin: 0 auto;`}
     ${media.tablet`width: 43rem; max-width: 1024px; margin: 0 auto;`}
-    ${media.laptop`width: 43rem; margin: 0 auto;`}
+    ${media.laptop`width: 43rem; margin: 1.3rem auto;`}
   }
   .space {
     height: 1rem;
@@ -227,16 +223,16 @@ const SongDetail = ({ modal, handleMessage, handleNotice }) => {
       <div className='space' />
       {isLoading
         ? <div className='main'>
-          <div className='loading-container'>
-            <Typewriter
-              options={{
-                strings: ['로딩 중입니다...'],
-                autoStart: true,
-                loop: true
-              }}
-            />
+            <div className='loading-container'>
+              <Typewriter
+                options={{
+                  strings: ['로딩 중입니다...'],
+                  autoStart: true,
+                  loop: true
+                }}
+              />
+            </div>
           </div>
-        </div>
         : <div className='container'>
           <div className='top-container'>
             <a href={songInfo.album_art} target='_blank' rel='noreferrer'>

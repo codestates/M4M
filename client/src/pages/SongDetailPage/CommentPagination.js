@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import { media } from '../../components/utils/_media-queries';
 import { Colors, GlobalStyle } from '../../components/utils/_var';
 import { useSelector } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 axios.defaults.withCredentials = true;
 require('dotenv').config();
 
@@ -11,9 +13,11 @@ const Wrapper = styled.div`
   .comments-container-pagination {
     min-width: 320px;
     max-width: 479px;
+    margin: .5rem auto;
+    /* margin: 0 auto; */
+    padding-right: 0;
     ${media.tabletMini`min-width: 470px; max-width: 750px;`}
     ${media.tablet`width: 41.7rem; max-width: 1024px;`}
-    ${media.laptop`width: 41.7rem;`}
     justify-items: center;
   }
   .comment-item {
@@ -24,9 +28,8 @@ const Wrapper = styled.div`
     max-width: 479px;
     ${media.tabletMini`min-width: 470px; max-width: 750px;`}
     ${media.tablet`width: 41.7rem; max-width: 1024px;`}
-    ${media.laptop`width: 41.7rem;`}
     border-bottom: 1px solid ${Colors.lightGray};
-    grid-template-columns: 20% 71.5%;
+    grid-template-columns: 21% 71.5%;
     grid-template-areas:
       'nickname comment comment'
       '. date button'
@@ -68,13 +71,22 @@ const Wrapper = styled.div`
     -ms-transform: translate(-27%, -25%);
     transform: translate(-27%, -25%);
     ${media.tabletMini`-ms-transform: translate(0%, -25%); transform: translate(0%, -25%);`}
-    width: 3rem;
+    /* width: 3rem; */
     text-align: right;
     font-family: 'Arial';
     font-size: .75rem;
     color: ${Colors.gray};
     background: transparent;
+    /* background-color: lavender; */
     border: none;
+  }
+  .deleteContent {
+    display: none;
+    ${media.tabletMini`display: block;`}
+  }
+  .deleteIcon {
+    display: block;
+    ${media.tabletMini`display: none;`}
   }
   .page-numbers {
     grid-area: page-num;
@@ -191,7 +203,10 @@ const CommentPagination = ({ songId, totalComments, modal, handleMessage, handle
                 <div className='date'>{comment[2]}</div>
                 <div className='content'>{comment[1]}</div>
                 <button className='deleteButton' onClick={() => handleDeleteClicked(comment[1])}>
-                  삭제
+                  <div className='deleteContent'>삭제</div>
+                  <div className='deleteIcon'>
+                    <FontAwesomeIcon icon={faTrash} size='1x' color={Colors.mediumGray} onClick={() => handleDeleteClicked(comment[1])}/>
+                  </div>
                 </button>
               </div>
               )

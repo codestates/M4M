@@ -13,11 +13,11 @@ const MainWrapper = styled.div`
   .main {
     display: inline-block;
     /* background-color: #f7efe5; */
-    min-height: calc(100vh - 62.39px - 129px);
-    ${media.tablet`display: flex`};
-    ${media.tabletMini`min-height: calc(100vh - 62.39px - 116px)`};
-    ${media.tablet`min-height: calc(100vh - 62.39px - 71px)`};
-    ${media.laptop`min-height: calc(100vh - 62.39px - 61px)`};
+    ${media.tablet`display: flex;`}
+    min-height: calc(100vh - 62.39px - 92px);
+    ${media.tabletMini`min-height: calc(100vh - 62.39px - 92px);`}
+    ${media.tablet`min-height: calc(100vh - 62.39px - 52px);`}
+    ${media.laptop`min-height: calc(100vh - 62.39px - 45px);`}
   }
   .loading-container {
     padding-top: 2rem;
@@ -25,9 +25,8 @@ const MainWrapper = styled.div`
     width: 100%;
     justify-content: center;
     text-align: center;
-    margin: auto 20rem auto 0;
     ${media.tabletMini`margin: 0 30rem auto 0;`}
-    ${media.tablet`padding-top: 2.5rem;`}
+    ${media.tablet`text-align: left; padding-top: 2.5rem;`}
   }
 `;
 
@@ -58,8 +57,8 @@ function Main () {
         <SideNav />
         {isLoading
           ? <div className='loading-container'>
-            로딩 중입니다...
-          </div>
+              로딩 중입니다...
+            </div>
           : <SongList />}
       </div>
     </MainWrapper>

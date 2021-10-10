@@ -1,9 +1,12 @@
 import styled from 'styled-components';
 import { getRegExp } from 'korean-regexp';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { notify, changeType, getResult } from '../redux/action';
 import { Colors } from './utils/_var';
+import { media } from './utils/_media-queries';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 const MediaSearchbarWrapper = styled.div`
   .media-searchbar {
@@ -44,7 +47,6 @@ const MediaSearchbarWrapper = styled.div`
   }
   .searchbar-text {
     border: none;
-    margin-left: .2rem;
     margin-right: .2rem;
     margin-bottom: .23rem;
     padding-top: .1rem;
@@ -55,24 +57,26 @@ const MediaSearchbarWrapper = styled.div`
     border-radius: 15px;
     color: ${Colors.black};
     &::placeholder {
-      padding-bottom: 0.3rem;
       font-size: 0.75rem;
     }
   }
+  .searchbar-dropbox:focus, select:focus, input:focus {
+    outline: none;
+  }
   .searchbar-dropbox {
-    font-size: .85rem;
+    font-size: .75rem;
+    ${media.tabletMini`font-size: .8rem;`}
     margin-right: .8rem;
     color: ${Colors.darkGray};
     border: none;
     cursor: pointer;
   }
   .closeBtn {
-    margin: 0 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: ${Colors.gray};
-    margin: 0 .5rem;
+    color: ${Colors.mediumGray};
+    margin: 0 .8rem 0 0;
     font-size: 1.5rem;
     transition-duration: 500ms;
     cursor: pointer;
@@ -83,7 +87,6 @@ const MediaSearchbarWrapper = styled.div`
 `;
 
 function MediaSearchbar({ mediaState, handleMediaState, handleBarState }) {
-
   const songsBulkState = useSelector(state => state.songsBulkReducer).songsBulk;
   const notiState = useSelector(state => state.notiReducer).notifications;
   const dispatch = useDispatch();
@@ -115,6 +118,16 @@ function MediaSearchbar({ mediaState, handleMediaState, handleBarState }) {
     }
   };
 
+  const resetInput = () => {
+    if (768 > window.innerWidth) setInput('');
+  };
+
+  useEffect(() => window.addEventListener('resize', resetInput));
+
+  const [input, setInput] = useState('');
+
+  const onChange = (e) => setInput(e);
+
   return (
     <MediaSearchbarWrapper>
       <div className={`media-searchbar ${mediaState}`}>
@@ -129,10 +142,15 @@ function MediaSearchbar({ mediaState, handleMediaState, handleBarState }) {
               type='text'
               placeholder='제목 또는 아티스트명을 입력해주세요.'
               onKeyPress={handleKeyboard}
+              onChange={(e) => onChange(e.target.value)}
+              value={input || ''}
             />
           </div>
         </div>
-        <div className='closeBtn' onClick={() => { handleMediaState(); handleBarState(); }} >&#88;</div>
+        <div className='closeBtn' onClick={() => { handleMediaState(); handleBarState(); }} >
+          {/* &#88; */}
+          <FontAwesomeIcon className='menu' icon={faTimes} size='1x' />
+        </div>
       </div>
     </MediaSearchbarWrapper>
   );

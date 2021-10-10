@@ -20,18 +20,18 @@ const SideNavWrapper = styled.div`
     background-color: ${Colors.lightGray};
     min-width: 12rem;
     ${media.tablet`display: none;`};
+    cursor: pointer;
+    &:hover .menu {
+      background-color: #caa6fe;
+      color: white;
+    }
     &:hover {
-      /* background-color: #caa6fe; */
+      background-color: #caa6fe;
     }
   }
   .menu {
     margin: 8px 12px;
-    /* margin: 8px; */
     color: ${Colors.mediumGray};
-    cursor: pointer;
-    &:hover {
-      color: ${Colors.pastelPurple};
-    }
   }
   .main-deactive {
     display: none;

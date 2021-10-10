@@ -14,6 +14,7 @@ const HeaderSearchbarWrapper = styled.div`
     display: flex;
     justify-content: center;
     margin-left: -1rem;
+    margin-top: -.2rem;
   }
   .searchbar-container {
     height: 1.5rem;
@@ -27,6 +28,7 @@ const HeaderSearchbarWrapper = styled.div`
   .search-icon {
     width: 1.3rem;
     vertical-align: middle;
+    margin-top: -.1rem;
     margin-right: .2rem;
   }
   .searchbar-text {

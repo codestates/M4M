@@ -14,11 +14,11 @@ require('dotenv').config();
 const Wrapper = styled.div`
   .main {
     display: inline-block;
-    min-height: calc(100vh - 62.39px - 129px);
     ${media.tablet`display: flex;`}
-    ${media.tabletMini`min-height: calc(100vh - 62.39px - 116px);`}
-    ${media.tablet`min-height: calc(100vh - 62.39px - 71px);`}
-    ${media.laptop`min-height: calc(100vh - 62.39px - 61px);`}
+    min-height: calc(100vh - 62.39px - 92px);
+    ${media.tabletMini`min-height: calc(100vh - 62.39px - 92px);`}
+    ${media.tablet`min-height: calc(100vh - 62.39px - 52px);`}
+    ${media.laptop`min-height: calc(100vh - 62.39px - 45px);`}
   }
   .container {
     width: 100%;
@@ -29,31 +29,31 @@ const Wrapper = styled.div`
   }
   .greeting {
     font-family: 'Arial';
-    margin: 1rem auto;
-    /* padding-left: 2.4rem; */
     text-align: center;
     font-size: 1.1rem;
-    ${media.tabletMini`margin: 1rem 5rem;`}
-    ${media.tablet`text-align: left; font-size: 1.3rem;`}
+    color: ${Colors.black};
+    display: none;
+    ${media.tablet`display: block; text-align: left; font-size: 1.3rem; margin: 1rem 3.1rem;`}
+    ${media.laptop`margin: 1rem 5rem;`}
   }
   .mypage-container {
     width: 17rem;
     margin: 1rem auto;
-    ${media.tabletMini`margin: 1rem 5rem;`}
-    /* background-color: pink; */
+    /* background-color: lime; */
+    ${media.tablet`margin: 1rem 3rem;`}
+    ${media.laptop`margin: 1rem 5rem;`}
   }
   .id-number {
     position: absolute;
     padding: .4rem .1rem;
     margin: .2rem;
-    color: ${Colors.gray};
+    color: ${Colors.mediumGray};
     font-family: 'Arial';
     font-size: .8rem;
-    ${media.tabletMini`font-size: .9rem; padding: .4rem .2rem;`}
+    ${media.tabletMini`font-size: .85rem; padding: .5rem .2rem;`}
   }
   input {
     width: 14rem;
-    /* margin-left: -2.2rem; */
     ${media.tabletMini`width: 17rem; margin: .2rem auto;`}
     height: 2rem;
     padding: .5rem;
@@ -342,14 +342,14 @@ const Mypage = ({ modal, handleMessage, handleNotice }) => {
         <SideNav />
         <div className='container'>
           <div className='greeting'>
-            {/* <Typewriter
+            <Typewriter
               onInit={(typewriter) => {
                 typewriter
                   .typeString(`${nickname.split('#')[0]} 님, 반갑습니다!`)
                   .pauseFor(1000)
                   .start();
               }}
-            /> */}
+            />
             {/* <Typewriter
               onInit={(typewriter) => {
                 typewriter

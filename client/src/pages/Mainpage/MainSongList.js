@@ -19,7 +19,8 @@ const LoadingWrpper = styled.div`
   align-items: center;
   justify-content: center;
   color: ${Colors.darkGray};
-  font-size: 1.75rem;
+  font-size: 1.25rem;
+  ${media.tablet`font-size: 1.65rem;`}
   font-family: 'Arial';
   padding: .5rem;
 `;
@@ -45,7 +46,7 @@ const SongListWrapper = styled.div`
     padding-bottom: .2rem;
   }
   .type {
-    margin: 1.2rem auto .5rem;
+    margin: 1.75rem auto .5rem;
     ${media.tabletMini`padding-right: 0;`}
     ${media.tablet`margin: 2rem auto .5rem;`}
     text-align: right;
@@ -120,6 +121,7 @@ const SongListWrapper = styled.div`
   }
   .grid-item:not(:first-of-type){
     padding-left: .2rem;
+    cursor: pointer;
   }
   .field-album {
     /* visibility: hidden; */
@@ -128,6 +130,9 @@ const SongListWrapper = styled.div`
     padding: auto;
     margin-left: .4rem;
     width: 100%;
+  }
+  .field-artist {
+    margin-left: .4rem;
   }
   .song-container > div, input {
     margin: 0;
@@ -233,7 +238,6 @@ const MessageContainer = styled.div`
 `;
 
 function SongList () {
-  const information = JSON.parse(localStorage.getItem('userinfo'));
   const dispatch = useDispatch();
   const history = useHistory();
   const searchState = useSelector(state => state.searchReducer).searchResult;
@@ -479,7 +483,7 @@ function SongList () {
                   <img className='arrow-image' src={`/image/arrow${subSort.title}.png`} />
                 </div>
                 <div className='grid-item field-artist' onClick={handleSubSort}>
-                  &nbsp;&nbsp;아티스트
+                  아티스트
                   <img className='arrow-image' src={`/image/arrow${subSort.artist}.png`} />
                 </div>
                 <div className='grid-item field-date' onClick={handleSubSort}>
