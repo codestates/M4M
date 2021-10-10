@@ -62,16 +62,9 @@ const CustomizedInfo = ({ songInfo, handleMessage, handleNotice }) => {
   let age = '?';
   const chartYear = songInfo.date ? songInfo.date.split('.')[0] : null;
   const topSongs = Chart[0][`${chartYear}년`];
-  // console.log(topSongs);
 
   if (token && birthYear && songInfo.year) {
-    // VALID CODE NOT FOR TESTING
     age = songInfo.year - birthYear + 1;
-    // console.log(birthYear);
-
-    // JUST FOR TEST PURPOSES
-    // const fakeBY = 2000;
-    // age = songInfo.year - fakeBY + 1;
 
     if (age < 1) {
       age = -1;

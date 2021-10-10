@@ -14,7 +14,6 @@ const Wrapper = styled.div`
     min-width: 320px;
     max-width: 479px;
     margin: .5rem auto;
-    /* margin: 0 auto; */
     padding-right: 0;
     ${media.tabletMini`min-width: 470px; max-width: 750px;`}
     ${media.tablet`width: 41.7rem; max-width: 1024px;`}
@@ -71,13 +70,11 @@ const Wrapper = styled.div`
     -ms-transform: translate(-27%, -25%);
     transform: translate(-27%, -25%);
     ${media.tabletMini`-ms-transform: translate(0%, -25%); transform: translate(0%, -25%);`}
-    /* width: 3rem; */
     text-align: right;
     font-family: 'Arial';
     font-size: .75rem;
     color: ${Colors.gray};
     background: transparent;
-    /* background-color: lavender; */
     border: none;
   }
   .deleteContent {
@@ -164,7 +161,6 @@ const CommentPagination = ({ songId, totalComments, modal, handleMessage, handle
     } else {
       // console.log('nickname: ', nickname, 'content: ', commentContent);
       if (parseInt(accessTokenTime, 10) + expiredTime - new Date().getTime() < 0) {
-        // alert('토큰이 만료되었습니다');
         modal();
       } else {
         axios
@@ -180,7 +176,6 @@ const CommentPagination = ({ songId, totalComments, modal, handleMessage, handle
           })
           .then((res) => {
             if (res.status === 200) {
-              // alert('댓글이 삭제되었습니다.');
               window.location.replace(`/song:id=${songId}`);
             }
           })
@@ -205,7 +200,7 @@ const CommentPagination = ({ songId, totalComments, modal, handleMessage, handle
                 <button className='deleteButton' onClick={() => handleDeleteClicked(comment[1])}>
                   <div className='deleteContent'>삭제</div>
                   <div className='deleteIcon'>
-                    <FontAwesomeIcon icon={faTrash} size='1x' color={Colors.mediumGray} onClick={() => handleDeleteClicked(comment[1])}/>
+                    <FontAwesomeIcon icon={faTrash} size='1x' color={Colors.mediumGray} onClick={() => handleDeleteClicked(comment[1])} />
                   </div>
                 </button>
               </div>

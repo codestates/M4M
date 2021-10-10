@@ -292,7 +292,6 @@ const Mypage = ({ modal, handleMessage, handleNotice }) => {
     } else {
       // console.log('user info has sent to the server');
       if (parseInt(accessTokenTime, 10) + expiredTime - new Date().getTime() < 0) {
-        // alert('토큰이 만료되었습니다');
         modal();
       } else {
         axios
@@ -304,7 +303,6 @@ const Mypage = ({ modal, handleMessage, handleNotice }) => {
           })
           .then((res) => {
             if (res.status === 200) {
-              // alert('회원정보가 수정되었습니다.');
               handleNotice(true);
               handleMessage('회원정보가 수정되었습니다.');
               if (myInfo.nickname === '') {

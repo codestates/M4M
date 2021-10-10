@@ -311,10 +311,8 @@ function Signup ({ handleModal, handleNotice, handleMessage }) {
           <SignupInput onChange={inputCheck('nickname')} placeholder='닉네임' />
           <CheckInfo>{checkNickname === 'ok' ? null : checkNickname}</CheckInfo>
           <SignupInput onChange={inputCheck('email')} placeholder='이메일' />
-          {/* <ButtonContainer> */}
           <CheckInfo>{checkEmail ? '  ' : '올바른 이메일 주소를 입력해주세요'}</CheckInfo>
           <VerifyButton onClick={emailRequest}>이메일 인증</VerifyButton>
-          {/* </ButtonContainer> */}
           <SignupInput onChange={verifyCode} placeholder='이메일 인증 코드' />
           <CheckInfo>{checkCode ? null : '코드가 일치하지 않습니다'}</CheckInfo>
           <SignupInput type='password' onChange={inputCheck('password')} placeholder='비밀번호' />

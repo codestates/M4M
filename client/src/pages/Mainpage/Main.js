@@ -12,7 +12,6 @@ axios.defaults.headers.withCredentials = true;
 const MainWrapper = styled.div`
   .main {
     display: inline-block;
-    /* background-color: #f7efe5; */
     ${media.tablet`display: flex;`}
     min-height: calc(100vh - 62.39px - 92px);
     ${media.tabletMini`min-height: calc(100vh - 62.39px - 92px);`}

@@ -31,9 +31,10 @@ const Wrapper = styled.div`
   .songlist {
     margin: 0 auto;
     width: 98%;
-    max-width: 60rem;
+    max-width: 58rem;
     ${media.tabletMini`padding-right: 0rem; width: 97%;`}
-    ${media.tablet`padding-right: 2rem;`}   
+    ${media.tablet`padding-right: 2rem; margin: 0 0; max-width: 38rem;`}  
+    ${media.tablet`max-width: 50rem;`}  
   }
   .scrollable::-webkit-scrollbar {
     height: 10px;
@@ -56,7 +57,7 @@ const Wrapper = styled.div`
     ${media.tabletMini`padding-top: 2rem; margin: -1rem 0 .2rem;`}
     ${media.tablet`margin: 0 1rem .2rem;`}
     justify-content: right;
-    max-width: 60rem;
+    max-width: 58rem;
     text-align: right;
   }
   button {
@@ -87,7 +88,7 @@ const Wrapper = styled.div`
     width: 92%;
     grid-template-columns: 15% 25% 23% 14% 12%;
     ${media.tabletMini`grid-template-columns: 11% 32% 30% 12% 8%; width: 100%;`}
-    /* grid-gap: 8px; */
+    ${media.tablet`grid-template-columns: 15% 32% 30% 12% 8%; width: 100%;`}
     margin: .75rem auto 0;
     padding: .15rem .15rem;
     border: solid 1px ${Colors.lightGray};
@@ -132,7 +133,7 @@ const Wrapper = styled.div`
     width: 92%;
     grid-template-columns: 15% 25% 23% 14% 12%;
     ${media.tabletMini`grid-template-columns: 11% 32% 30% 12% 8%; width: 100%;`}
-    /* grid-gap: 8px; */
+    ${media.tablet`grid-template-columns: 15% 32% 30% 12% 8%; width: 100%;`}
     margin: 0 auto;
     padding: .4rem .15rem;
     border-bottom: solid 1px ${Colors.lightGray};

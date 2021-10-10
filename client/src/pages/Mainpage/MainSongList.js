@@ -6,8 +6,7 @@ import { useHistory } from 'react-router';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
-import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
-import { faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
+import { faHeart as farHeart, faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
 import { media } from '../../components/utils/_media-queries';
 import { Colors, GlobalStyle } from '../../components/utils/_var';
 import TypeWriterEffect from 'typewriter-effect';
@@ -97,8 +96,7 @@ const SongListWrapper = styled.div`
     display: grid;
     width: 92%;
     grid-template-columns: 15% 25% 23% 16% 16%;
-    ${media.tabletMini`grid-template-columns: 11% 32% 30% 12% 8%; width: 100%;`}
-    /* grid-gap: 8px; */
+    ${media.tabletMini`grid-template-columns: 11% 32% 30% 12% 12%; width: 100%;`}
     margin: .75rem auto 0;
     padding: .15rem .15rem;
     border: solid 1px ${Colors.lightGray};
@@ -107,7 +105,6 @@ const SongListWrapper = styled.div`
     ${media.tabletMini`width: 98%;`}
     ${media.tablet`width: 36rem;`}
     ${media.laptop`width: 50rem;`}
-    /* background-color: salmon; */
   }
 
   .field .grid-item {
@@ -122,9 +119,6 @@ const SongListWrapper = styled.div`
   .grid-item:not(:first-of-type){
     padding-left: .2rem;
     cursor: pointer;
-  }
-  .field-album {
-    /* visibility: hidden; */
   }
   .field-title {
     padding: auto;
@@ -146,8 +140,7 @@ const SongListWrapper = styled.div`
     display: grid;
     width: 92%;
     grid-template-columns: 15% 25% 23% 16% 16%;
-    ${media.tabletMini`grid-template-columns: 11% 32% 30% 12% 8%; width: 100%;`}
-    /* grid-gap: 8px; */
+    ${media.tabletMini`grid-template-columns: 11% 32% 30% 12% 12%; width: 100%;`}
     margin: 0 auto;
     padding: .4rem .15rem;
     border-bottom: solid 1px ${Colors.lightGray};
@@ -155,7 +148,6 @@ const SongListWrapper = styled.div`
     ${media.tabletMini`width: 98%;`}
     ${media.tablet`width: 36rem;`}
     ${media.laptop`width: 50rem;`}
-    /* background-color: lavender; */
   }
   .song-info-container > div:nth-child(-n+5) {
     margin-top: .3rem;
@@ -182,7 +174,6 @@ const SongListWrapper = styled.div`
   }
   .title {
     margin-left: .5rem;
-    /* background-color: pink; */
   }
   .date, .like {
     color: ${Colors.gray};
@@ -219,7 +210,7 @@ const YearContainer = styled.div`
   font-size: 1.1rem;
   width: 95%;
   ${media.tabletMini`width: 98%;`}
-`
+`;
 const YearType = styled.div`
   display: inline;
   margin-left: .3rem;
@@ -462,16 +453,15 @@ function SongList () {
           : <>
             {Object.keys(plainList).includes(typeState)
               ? <div className='type'>{plainList[typeState]}</div>
-              : ( 1992 <= Number(typeState) && Number(typeState) <= 2009 
-                  ? 
-                    <YearContainer>
-                      <MessageContainer
-                        show={Colors.mediumGray}
-                      >
-                        <div className='message'>해당 연도 인기곡 Top 30을 선보입니다.</div>
-                        <FontAwesomeIcon icon={faQuestionCircle} size='xs' color={Colors.mediumGray} />
-                      </MessageContainer>
-                      <YearType>{typeState}</YearType>
+              : (Number(typeState) >= 1992 && Number(typeState) <= 2009
+                  ? <YearContainer>
+                    <MessageContainer
+                      show={Colors.mediumGray}
+                    >
+                      <div className='message'>해당 연도 인기곡 Top 30을 선보입니다.</div>
+                      <FontAwesomeIcon icon={faQuestionCircle} size='xs' color={Colors.mediumGray} />
+                    </MessageContainer>
+                    <YearType>{typeState}</YearType>
                     </YearContainer>
                   : <div className='type'>{typeState}</div>
                 )}
@@ -546,7 +536,6 @@ function SongList () {
                         .start();
                     }}
                   />
-                  {/* <div className='loading'>Loading...</div> */}
                 </LoadingWrpper>}
             </div>
           </>}

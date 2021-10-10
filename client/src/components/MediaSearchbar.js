@@ -70,6 +70,7 @@ const MediaSearchbarWrapper = styled.div`
     color: ${Colors.darkGray};
     border: none;
     cursor: pointer;
+    background-color: transparent;
   }
   .closeBtn {
     display: flex;

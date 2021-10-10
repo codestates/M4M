@@ -84,7 +84,6 @@ export const LoginInput = styled.input`
   }
 `;
 
-
 export const Alertbox = styled.div`
   color: red;
   font-family: 'Arial';
@@ -109,21 +108,19 @@ export const LoginButton = styled.button`
   }
 `;
 
-export const ButtonContainer = styled.div`
-`;
-
 export const KakaoButton = styled.div`
   width: 12.2rem;
   height: 2.5rem;
   margin: .6rem auto;
-  padding: .7rem .2rem .7rem 0;
+  padding: .55rem .2rem .6rem 0;
+  ${media.tabletMini`padding: .7rem .2rem .7rem 0;`}
   background-color: #fee500;
   border-radius: 7px;
   border: none;
+  cursor: pointer;
 
   &:hover {
-    cursor: pointer;
-    background-color: #ffd500;
+    background-color: #edc707;
   }
 
   img {
@@ -283,9 +280,7 @@ function Login ({ handleModal, signup, handleMessage, handleNotice }) {
             placeholder='비밀번호'
           />
         </LoginInputContainer>
-        <ButtonContainer>
-          <LoginButton onClick={handleLoginRequest}>로그인</LoginButton>
-        </ButtonContainer>
+        <LoginButton onClick={handleLoginRequest}>로그인</LoginButton>
         <KakaoButton onClick={kakaoLogin}>
           <img src={kakaoLogo} alt='kakao-logo' width='20px' />
           <KakaoContent>카카오 로그인</KakaoContent>

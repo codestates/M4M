@@ -223,15 +223,15 @@ const SongDetail = ({ modal, handleMessage, handleNotice }) => {
       <div className='space' />
       {isLoading
         ? <div className='main'>
-            <div className='loading-container'>
-              <Typewriter
-                options={{
-                  strings: ['로딩 중입니다...'],
-                  autoStart: true,
-                  loop: true
-                }}
-              />
-            </div>
+          <div className='loading-container'>
+            <Typewriter
+              options={{
+                strings: ['로딩 중입니다...'],
+                autoStart: true,
+                loop: true
+              }}
+            />
+          </div>
           </div>
         : <div className='container'>
           <div className='top-container'>

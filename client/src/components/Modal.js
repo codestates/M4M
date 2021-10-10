@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { ButtonContainer } from '../pages/Login';
 import { NoticeButton } from './Notice';
 import { media } from '../components/utils/_media-queries';
 import { Colors } from '../components/utils/_var';
@@ -71,13 +70,10 @@ function Modal ({ handleModal, login }) {
   return (
     <ModalBackdrop>
       <ModalView>
-        {/* <img src={m4mlogo} style={{ width: '90px' }} /> */}
         <div className='content'>
           [토큰 만료] 다시 로그인 하시겠습니까?
         </div>
-        <ButtonContainer>
           <NoticeButton onClick={goLogin}>로그인</NoticeButton>
-        </ButtonContainer>
         <LogOutButton onClick={logout}>로그아웃</LogOutButton>
       </ModalView>
     </ModalBackdrop>
