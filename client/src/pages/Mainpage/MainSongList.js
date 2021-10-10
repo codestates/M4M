@@ -7,14 +7,9 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
-<<<<<<< HEAD
-import { media } from '../../components/utils/_media-queries';
-import { Colors } from '../../components/utils/_var';
-=======
 import { faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
 import { media } from '../../components/utils/_media-queries';
 import { Colors, GlobalStyle } from '../../components/utils/_var';
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
 import TypeWriterEffect from 'typewriter-effect';
 
 axios.defaults.withCredentials = true;
@@ -29,25 +24,19 @@ const LoadingWrpper = styled.div`
   padding: .5rem;
 `;
 const SongListWrapper = styled.div`
-<<<<<<< HEAD
-=======
   * {
     box-sizing: border-box;
   }
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
   .no-result {
     color: ${Colors.black};
     font-family: 'Arial';
     font-size: .9rem;
     padding-top: 2rem;
-<<<<<<< HEAD
-=======
     width: 100%;
     justify-content: center;
     text-align: center;
     margin: auto 20rem auto 0;
     ${media.tablet`margin: auto; padding-top: 2.5rem;`}
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
   }
   .arrow-image {
     height: .9rem;
@@ -55,39 +44,14 @@ const SongListWrapper = styled.div`
     margin-left: .5rem;
     padding-bottom: .2rem;
   }
-<<<<<<< HEAD
-  button {
-    margin: 10px;
-  }
-  .songlist {
-    margin-left: 0;
-    /* background-color: pink; */
-    ${media.tabletMini`margin-left: .75rem;`}
-  }
-  .sort {
-    display: flex;
-    justify-content: center;
-  }
-  .box {
-    margin: .5rem;
-  }
-  .type {
-    margin: 2.5rem auto .6rem;
-    /* padding-right: 1rem; */
-    ${media.tabletMini`padding-right: 0;`}
-=======
   .type {
     margin: 1.2rem auto .5rem;
     ${media.tabletMini`padding-right: 0;`}
     ${media.tablet`margin: 2rem auto .5rem;`}
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
     text-align: right;
     color: ${Colors.darkGray};
     font-family: 'Arial';
     font-size: 1.1rem;
-<<<<<<< HEAD
-    /* background-color: yellow; */
-=======
     width: 95%;
     ${media.tabletMini`width: 98%;`}
   }
@@ -103,7 +67,6 @@ const SongListWrapper = styled.div`
     max-width: 60rem;
     ${media.tabletMini`padding-right: 0rem; width: 100%;`}
     ${media.tablet`padding-right: 2rem;`}   
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
   }
   .scrollable::-webkit-scrollbar {
     height: 10px;
@@ -120,15 +83,6 @@ const SongListWrapper = styled.div`
   }
   .field-container {
     display: flex;
-<<<<<<< HEAD
-    margin: 0 auto 0em;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: -5px;
-    /* background-color: yellow; */
-  }
-  .field-container > div {
-=======
     margin: 0 auto;
     justify-content: center;
     align-items: center;
@@ -136,25 +90,10 @@ const SongListWrapper = styled.div`
     width: 100%;
   }
   .field-container > div, input {
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
     margin: 0 0 .3rem;
   }
   .field {
     display: grid;
-<<<<<<< HEAD
-    grid-template-columns: 11% 30% 30% 12% 12%;
-    grid-column-gap: 8px;
-    margin: .75rem 1rem 0;
-    padding: .15rem .15rem;
-    min-width: 320px;
-    width: 95%;
-    ${media.tabletMini`min-width: 100%; max-width: 750px;`}
-    ${media.tablet`min-width: 44rem; max-width: 48rem;`}
-    ${media.laptop`width: 50rem;`}
-    border: solid 1px ${Colors.lightGray};
-    border-left: none;
-    border-right: none;
-=======
     width: 92%;
     grid-template-columns: 15% 25% 23% 16% 16%;
     ${media.tabletMini`grid-template-columns: 11% 32% 30% 12% 8%; width: 100%;`}
@@ -168,7 +107,6 @@ const SongListWrapper = styled.div`
     ${media.tablet`width: 36rem;`}
     ${media.laptop`width: 50rem;`}
     /* background-color: salmon; */
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
   }
 
   .field .grid-item {
@@ -179,31 +117,19 @@ const SongListWrapper = styled.div`
   .grid-item {
     font-size: .8rem;
     align-self: center;
-<<<<<<< HEAD
-=======
   }
   .grid-item:not(:first-of-type){
     padding-left: .2rem;
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
   }
-  .grid-item:hover {
-    cursor: pointer;
+  .field-album {
+    /* visibility: hidden; */
   }
-  .field-title {
-    padding: auto;
-    margin-left: .5rem;
-  }
-<<<<<<< HEAD
-  .song-container > div {
-    /* margin: .5rem 0; */
-=======
   .field-title {
     padding: auto;
     margin-left: .4rem;
     width: 100%;
   }
   .song-container > div, input {
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
     margin: 0;
   }
   .song-container {
@@ -213,22 +139,6 @@ const SongListWrapper = styled.div`
   }
   .song-info-container {
     display: grid;
-<<<<<<< HEAD
-    grid-template-columns: 11% 30% 30% 12% 12%;
-    grid-column-gap: 8px;
-    margin: 0 auto;
-    padding: .4rem .15rem;
-    min-width: 320px;
-    width: 95%;
-    /* ${media.tabletMini`width: 470px; max-width: 750px;`} */
-    ${media.tabletMini`width: 100%; max-width: 750px;`}
-    ${media.tablet`min-width: 44rem; max-width: 48rem;`}
-    ${media.laptop`width: 50rem;`}
-
-    border-bottom: solid 1px ${Colors.lightGray};
-  }
-  .song-info-container:hover {
-=======
     width: 92%;
     grid-template-columns: 15% 25% 23% 16% 16%;
     ${media.tabletMini`grid-template-columns: 11% 32% 30% 12% 8%; width: 100%;`}
@@ -236,7 +146,6 @@ const SongListWrapper = styled.div`
     margin: 0 auto;
     padding: .4rem .15rem;
     border-bottom: solid 1px ${Colors.lightGray};
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
     cursor: pointer;
     ${media.tabletMini`width: 98%;`}
     ${media.tablet`width: 36rem;`}
@@ -263,17 +172,12 @@ const SongListWrapper = styled.div`
     text-align: left;
     color: ${Colors.black};
   }
-<<<<<<< HEAD
-  .title {
-    margin-left: .5rem;
-=======
   .info:not(:first-of-type){
     padding-left: .2rem;
   }
   .title {
     margin-left: .5rem;
     /* background-color: pink; */
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
   }
   .date, .like {
     color: ${Colors.gray};
@@ -283,10 +187,7 @@ const SongListWrapper = styled.div`
     margin-left: .4rem;
     grid-row: 2;
     grid-column: 2 / end;
-<<<<<<< HEAD
-=======
     width: 100%;
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
   }
 `;
 
@@ -354,7 +255,7 @@ function SongList () {
     like: 'none'
   });
   const plainList = { All: '모든 노래', Like: '좋아요' };
-  console.log('🎶', result, '\n🚦', subSort, '\n📌', typeState, '\n🧲', searchState, '\nℹ️', information);
+  // console.log('🎶', result, '\n🚦', subSort, '\n📌', typeState, '\n🧲', searchState, '\nℹ️', information);
 
   useEffect(() => {
     setIsSorted(searchState);
@@ -441,7 +342,7 @@ function SongList () {
           like: 'none'
         });
         setResult(isSorted.slice().sort((a, b) => a.title.localeCompare(b.title)));
-        console.log('🔴 handleSubSort: title(for)');
+        // console.log('🔴 handleSubSort: title(for)');
       } else if (subSort.title === 'for') {
         setSubSort({
           title: 'back',
@@ -450,7 +351,7 @@ function SongList () {
           like: 'none'
         });
         setResult(isSorted.slice().sort((a, b) => b.title.localeCompare(a.title)));
-        console.log('🔴 handleSubSort: title(back)');
+        // console.log('🔴 handleSubSort: title(back)');
       } else {
         setSubSort({
           title: 'none',
@@ -469,7 +370,7 @@ function SongList () {
           like: 'none'
         });
         setResult(isSorted.slice().sort((a, b) => a.artist.localeCompare(b.artist)));
-        console.log('🟠 handleSubSort: artist(for)');
+        // console.log('🟠 handleSubSort: artist(for)');
       } else if (subSort.artist === 'for') {
         setSubSort({
           title: 'none',
@@ -478,7 +379,7 @@ function SongList () {
           like: 'none'
         });
         setResult(isSorted.slice().sort((a, b) => b.artist.localeCompare(a.artist)));
-        console.log('🟠 handleSubSort: artist(back)');
+        // console.log('🟠 handleSubSort: artist(back)');
       } else {
         setSubSort({
           title: 'none',
@@ -497,7 +398,7 @@ function SongList () {
           like: 'none'
         });
         setResult(isSorted.slice().sort((a, b) => a.date.replace('.', '') - b.date.replace('.', '')));
-        console.log('🟡 handleSubSort: date(for)');
+        // console.log('🟡 handleSubSort: date(for)');
       } else if (subSort.date === 'for') {
         setSubSort({
           title: 'none',
@@ -506,7 +407,7 @@ function SongList () {
           like: 'none'
         });
         setResult(isSorted.slice().sort((a, b) => b.date.replace('.', '') - a.date.replace('.', '')));
-        console.log('🟡 handleSubSort: date(back)');
+        // console.log('🟡 handleSubSort: date(back)');
       } else {
         setSubSort({
           title: 'none',
@@ -524,13 +425,8 @@ function SongList () {
           date: 'none',
           like: 'for'
         });
-<<<<<<< HEAD
-        setResult(isSorted.slice().sort((a, b) => a.hashtagLike[0][1] - b.hashtagLike[0][1]));
-        console.log('🟡 handleSubSort: date(for)');
-=======
         setResult(isSorted.slice().sort((a, b) => b.hashtagLike[0][1] - a.hashtagLike[0][1]));
-        console.log('🟡 handleSubSort: like(for)');
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
+        // console.log('🟡 handleSubSort: like(for)');
       } else if (subSort.like === 'for') {
         setSubSort({
           title: 'none',
@@ -538,13 +434,8 @@ function SongList () {
           date: 'none',
           like: 'back'
         });
-<<<<<<< HEAD
-        setResult(isSorted.slice().sort((a, b) => b.hashtagLike[0][1] - a.hashtagLike[0][1]));
-        console.log('🟡 handleSubSort: date(back)');
-=======
         setResult(isSorted.slice().sort((a, b) => a.hashtagLike[0][1] - b.hashtagLike[0][1]));
-        console.log('🟡 handleSubSort: like(back)');
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
+        // console.log('🟡 handleSubSort: like(back)');
       } else {
         setSubSort({
           title: 'none',
@@ -563,11 +454,6 @@ function SongList () {
       <GlobalStyle />
       <div className='songlist'>
         {typeState === 'No Result' || result.length === 0
-<<<<<<< HEAD
-          ? <div className='box no-result'>검색 결과가 존재하지 않습니다.</div>
-          : <>
-            <div className='type'>{typeState}</div>
-=======
           ? <div className='no-result'>검색 결과가 존재하지 않습니다.</div>
           : <>
             {Object.keys(plainList).includes(typeState)
@@ -585,7 +471,6 @@ function SongList () {
                     </YearContainer>
                   : <div className='type'>{typeState}</div>
                 )}
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
             <div className='field-container'>
               <div className='field'>
                 <div className='grid-item field-album' />
@@ -594,11 +479,7 @@ function SongList () {
                   <img className='arrow-image' src={`/image/arrow${subSort.title}.png`} />
                 </div>
                 <div className='grid-item field-artist' onClick={handleSubSort}>
-<<<<<<< HEAD
-                  아티스트
-=======
                   &nbsp;&nbsp;아티스트
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
                   <img className='arrow-image' src={`/image/arrow${subSort.artist}.png`} />
                 </div>
                 <div className='grid-item field-date' onClick={handleSubSort}>
@@ -619,11 +500,7 @@ function SongList () {
                       <div className='song-info-container' onClick={() => handleSongDetail(song)}>
                         <img className='info album_art' src={song.album_art} alt={song.title} loading='lazy' />
                         <div className='info title scrollable'>{song.title}</div>
-<<<<<<< HEAD
-                        <div className='info artist scrollable'>{song.artist}</div>
-=======
                         <div className='info artist scrollable'>&nbsp;&nbsp;{song.artist}</div>
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
                         <div className='info date'>{song.date}</div>
                         <div className='info like'>
                           {song.userHashtagLikes && song.userHashtagLikes.includes(1)
@@ -666,12 +543,7 @@ function SongList () {
                     }}
                   />
                   {/* <div className='loading'>Loading...</div> */}
-<<<<<<< HEAD
-                </LoadingWrpper>
-              }
-=======
                 </LoadingWrpper>}
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
             </div>
           </>}
       </div>

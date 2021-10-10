@@ -4,13 +4,10 @@ import { useHistory } from 'react-router-dom';
 import { changeType } from '../redux/action';
 import { useDispatch, useSelector } from 'react-redux';
 import { Colors } from '../components/utils/_var';
-<<<<<<< HEAD
-=======
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { media } from '../components/utils/_media-queries';
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
 
 const SideNavWrapper = styled.div`
   .contents-container {
@@ -19,7 +16,8 @@ const SideNavWrapper = styled.div`
   }
   .menu-container {
     margin: .8rem auto -1rem;
-    /* background-color: ${Colors.lightGray}; */
+    width: 100vw;
+    background-color: ${Colors.lightGray};
     min-width: 12rem;
     ${media.tablet`display: none;`};
     &:hover {
@@ -29,7 +27,11 @@ const SideNavWrapper = styled.div`
   .menu {
     margin: 8px 12px;
     /* margin: 8px; */
-    color: gray;
+    color: ${Colors.mediumGray};
+    cursor: pointer;
+    &:hover {
+      color: ${Colors.pastelPurple};
+    }
   }
   .main-deactive {
     display: none;
@@ -40,8 +42,6 @@ const SideNavWrapper = styled.div`
     max-width: 13rem;
     min-height: 100%;
     padding-top: 2rem;
-<<<<<<< HEAD
-=======
     padding-bottom: 2rem;
     ${media.tablet`display: flex;`} */
     &.active {
@@ -50,7 +50,6 @@ const SideNavWrapper = styled.div`
     &.deactive {
       display: none;
     }
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
   }
   @keyframes rainbow {     
     0% { color: #ff2a2a; }
@@ -83,13 +82,7 @@ const Item = styled.div`
   &:hover, &:focus {
     animation: rainbow 2000ms infinite;
   } 
-<<<<<<< HEAD
-  /* .space, .arrow {
-    animation: horizontal 1000ms ease-in-out infinite;
-  } */
-=======
 
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
   .arrow {
     display: inline-flex;
     border: 6px solid transparent;
@@ -119,11 +112,7 @@ function SideNav () {
   const dispatch = useDispatch();
   const [navState, setNavState] = useState('active');
   const [isOpen, setIsOpen] = useState(null);
-<<<<<<< HEAD
-  const plainList = {All: '모든 노래', Like: '좋아요'};
-=======
   const plainList = { All: '모든 노래', Like: '좋아요' };
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
   const accordionList = ['장르', '해시태그', '연도'];
   const accordionObj = {
     장르: ['발라드', '댄스', '랩/힙합', 'R&B/Soul', '인디음악', '록/메탈', '트로트', '포크/블루스'],
@@ -179,54 +168,12 @@ function SideNav () {
 
   return (
     <SideNavWrapper>
-<<<<<<< HEAD
-      <div className='sidenav'>
-        {/* history 값이 mainpage일 때, 다른 값 보여주기 */}
-        <div className={history.location.pathname === '/mainpage' ? 'main-active' : 'main-deactive'}>
-          {Object.keys(plainList)
-            .map((list, idx) => {
-              return (
-                <Item
-                  key={idx + 1}
-                  value={list}
-                  onClick={handleSelectChange}
-                  underline={navType === list ? 'underline' : 'none'}
-                >
-                  <span className='space' />{plainList[list]}
-                </Item>
-              );
-            })}
-          {accordionList
-            .map((list, idx) => {
-              return (
-                <div key={idx + 1}>
-                  <Item value={list} onClick={handleIsOpen}>
-                    <span className='arrow' />{list}
-                  </Item>
-                  {isOpen === list
-                    ? accordionObj[list]
-                      .map((el, idx) =>
-                        <SubItem
-                          key={idx + 1}
-                          value={el}
-                          onClick={handleSelectChange}
-                          underline={navType === el ? 'underline' : 'none'}
-                        >
-                          {el}
-                        </SubItem>
-                      )
-                    : null}
-                </div>
-              );
-            })}
-=======
       <div className='contents-container'>
         <div className='menu-container' onClick={handleNavState}>
           {navState === 'deactive'
             ? <FontAwesomeIcon className='menu' icon={faBars} size='2x' />
             : <FontAwesomeIcon className='menu' icon={faTimes} size='2x' />
           }
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
         </div>
         <div className={`sidenav ${navState}`}>
           {/* history 값이 mainpage일 때, 다른 값 보여주기 */}

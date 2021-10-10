@@ -26,20 +26,12 @@ module.exports = async (req, res) => {
         res.cookie('refreshToken', refreshToken, cookieOptions);
         res.status(200).json({ accessToken, refreshToken, message: 'ok' });
       } else {
-<<<<<<< HEAD
-        let allMembers = await user.findAll({
-=======
         const allMembers = await user.findAll({
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
           order: [['createdAt', 'DESC']]
         });
 
         const userNickname = `${nickname}#${allMembers[0].dataValues.id + 1}`;
-<<<<<<< HEAD
-        
-=======
 
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
         const payload = {
           id: allMembers[0].dataValues.id + 1,
           email: email,
@@ -48,15 +40,6 @@ module.exports = async (req, res) => {
           password: null,
           birthYear: null,
           kakao: true
-<<<<<<< HEAD
-        }
-
-        await user.create(payload);
-        
-        const accessToken = generateAccessToken(payload);
-        const refreshToken = generateRefreshToken(payload);
-        
-=======
         };
 
         await user.create(payload);
@@ -64,7 +47,6 @@ module.exports = async (req, res) => {
         const accessToken = generateAccessToken(payload);
         const refreshToken = generateRefreshToken(payload);
 
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
         res.cookie('accessToken', accessToken, cookieOptions);
         res.cookie('refreshToken', refreshToken, cookieOptions);
         res.status(201).json({ accessToken, refreshToken, message: 'ok' });

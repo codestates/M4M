@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+import { media } from '../components/utils/_media-queries';
+>>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
 =======
 import { media } from '../components/utils/_media-queries';
 >>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
@@ -9,6 +13,7 @@ import { Colors } from '../components/utils/_var';
 
 const FooterWrapper = styled.div`
   .footer {
+<<<<<<< HEAD
 <<<<<<< HEAD
     padding: .8rem 0 .5rem 0;
     background-color: ${Colors.darkGray};
@@ -51,16 +56,44 @@ const FooterWrapper = styled.div`
     }
 >>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
   }
+=======
+    padding: 12px 0px;
+    background-color: ${Colors.darkGray};
+    width: 100vw;
+    font-family: 'Arial';
+    ${media.tablet`padding: 4px 12px;`}
+  }
+  .sub-container {
+    display: inline;
+    ${media.laptop`display: flex;`}
+  }
+  .link-label, .link, .copyright {
+    color: ${Colors.lightGray};
+    min-width: 86px;
+    padding: 4px 12px;
+  }
+  .link {
+    cursor: pointer;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+      color: #caa6fe;
+    }
+  }
+>>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
   .link-label {
     min-width: 128px;
   } 
   .copyright {
+<<<<<<< HEAD
 <<<<<<< HEAD
     position: absolute;
     right: 0;
     padding: 0 1rem .5rem; 
     text-decoration: none;
 =======
+=======
+>>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
     min-width: 352px;
   }
   .link-container {
@@ -75,6 +108,9 @@ const FooterWrapper = styled.div`
   }
   .container-empty {
     width: 100%;
+<<<<<<< HEAD
+>>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
+=======
 >>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
   }
 `;
@@ -112,6 +148,7 @@ function Footer () {
         </div>
         <div className='sub-container'>
 <<<<<<< HEAD
+<<<<<<< HEAD
           <div className='link'>Developed by</div>
           {team.map((member, idx) =>
             <a className='link' key={idx} href={member.repository} target='_blank' rel='noopener noreferrer'>
@@ -121,6 +158,8 @@ function Footer () {
           )}
           <span className='copyright'>Copyright &copy; {new Date().getFullYear()} MGs All Rights Reserved.</span>
 =======
+=======
+>>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
           <div className='link-container'>
             <div className='link-label'>Developed by</div>
             {team.map((member, idx) =>

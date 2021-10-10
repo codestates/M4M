@@ -11,11 +11,7 @@ const Colors = {
   textColor: '#1c180d',
   beige: '#f7efe5',
   pastelPurple: '#caa6fe',
-<<<<<<< HEAD
-  purple: '#a020f0'
-=======
   purple: '#9c57ff'
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
 };
 
 const Size = {

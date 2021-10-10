@@ -17,16 +17,12 @@ const Wrapper = styled.div`
     box-sizing: border-box;
   }
   .main {
-<<<<<<< HEAD
-    display: flex;
-    min-height: calc(100vh - 41px - 56px);
-=======
     display: inline-block;
     ${media.tablet`display: flex;`}
     min-height: calc(100vh - 62.39px - 129px);
-    ${media.tabletMini`min-height: calc(100vh - 62.39px - 116px)`};
-    ${media.tablet`min-height: calc(100vh - 62.39px - 71px)`};
-    ${media.laptop`min-height: calc(100vh - 62.39px - 61px)`};
+    ${media.tabletMini`min-height: calc(100vh - 62.39px - 116px);`}
+    ${media.tablet`min-height: calc(100vh - 62.39px - 71px);`}
+    ${media.laptop`min-height: calc(100vh - 62.39px - 61px);`}
   }
   .loading-container {
     padding-top: 2rem;
@@ -38,14 +34,6 @@ const Wrapper = styled.div`
     max-width: 60rem;
     ${media.tabletMini`padding-right: 0rem; width: 100%;`}
     ${media.tablet`padding-right: 2rem;`}   
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
-  }
-  .loading-container {
-    padding-top: 2rem;
-    font-family: 'Arial';
-  }
-  .songlist {
-    margin-left: 0;
   }
   .scrollable::-webkit-scrollbar {
     height: 10px;
@@ -62,12 +50,6 @@ const Wrapper = styled.div`
   }
   .button-container {
     display: flex;
-<<<<<<< HEAD
-    width: 46.5rem;
-    margin: .6rem 1rem .4rem;
-    padding-top: 1.2rem;
-    justify-content: right;
-=======
     padding-top: .7rem;
     margin: 0 1rem .2rem;
     ${media.tabletMini`padding-top: 2rem; margin: -1rem 0 2rem;`}
@@ -77,7 +59,6 @@ const Wrapper = styled.div`
     max-width: 60rem;
     text-align: right;
     /* background-color: lime; */
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
   }
   button {
     margin-left: auto;
@@ -86,17 +67,9 @@ const Wrapper = styled.div`
     color: ${Colors.darkGray};
     background: none;
     border: none;
-<<<<<<< HEAD
-    /* text-decoration: underline; */
   }
   button:hover {
     cursor: pointer;
-    /* color: #caa6fe; */
-=======
-  }
-  button:hover {
-    cursor: pointer;
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
     color: ${Colors.purple};
   }
   .field-container {
@@ -105,35 +78,23 @@ const Wrapper = styled.div`
     justify-content: center;
     align-items: center;
     margin-bottom: -22px;
-<<<<<<< HEAD
-=======
     width: 100%;
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
   }
   .field-container > div, input {
     margin: 0 0 .3rem;
   }
   .field {
     display: grid;
-<<<<<<< HEAD
-    width: 45rem;
-    grid-template-columns: 11% 32% 30% 12% 8%;
-    grid-column-gap: 8px;
-=======
     width: 92%;
     grid-template-columns: 15% 25% 23% 14% 12%;
     ${media.tabletMini`grid-template-columns: 11% 32% 30% 12% 8%; width: 100%;`}
-    grid-gap: 8px;
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
+    /* grid-gap: 8px; */
     margin: .75rem auto 0;
     padding: .15rem .15rem;
     border: solid 1px ${Colors.lightGray};
     border-left: none;
     border-right: none;
-<<<<<<< HEAD
-=======
     /* background-color: salmon; */
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
   }
   .select-all,
   .select-one {
@@ -147,24 +108,17 @@ const Wrapper = styled.div`
   .grid-item {
     font-size: .8rem;
     align-self: center;
-<<<<<<< HEAD
-=======
   }
   .grid-item:not(:first-of-type){
     padding-left: .2rem;
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
   }
   .field-album {
     /* visibility: hidden; */
   }
   .field-title {
     padding: auto;
-<<<<<<< HEAD
-    margin-left: .6rem;
-=======
     margin-left: .4rem;
     width: 100%;
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
   }
   .song-container > div, input {
     margin: 0;
@@ -176,24 +130,13 @@ const Wrapper = styled.div`
   }
   .song-info-container {
     display: grid;
-<<<<<<< HEAD
-    grid-template-columns: 11% 32% 30% 12% 8%;
-    grid-column-gap: 8px;
-    margin: 0rem auto;
-    padding: .4rem .15rem;
-    width: 45rem;
-    border-bottom: solid 1px ${Colors.lightGray};
-  }
-  .song-info-container:hover {
-=======
     width: 92%;
     grid-template-columns: 15% 25% 23% 14% 12%;
     ${media.tabletMini`grid-template-columns: 11% 32% 30% 12% 8%; width: 100%;`}
-    grid-gap: 8px;
+    /* grid-gap: 8px; */
     margin: 0 auto;
     padding: .4rem .15rem;
     border-bottom: solid 1px ${Colors.lightGray};
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
     cursor: pointer;
     /* background-color: lavender; */
   }
@@ -217,17 +160,12 @@ const Wrapper = styled.div`
     text-align: left;
     color: ${Colors.black};
   }
-<<<<<<< HEAD
-  .title {
-    margin-left: .5rem;
-=======
   .info:not(:first-of-type){
     padding-left: .2rem;
   }
   .title {
     margin-left: .5rem;
     /* background-color: pink; */
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
   }
   .date, .like {
     color: ${Colors.gray};
@@ -259,16 +197,6 @@ const HashTag = styled.div`
   font-size: .7rem;
 `;
 
-<<<<<<< HEAD
-// =====================================================================
-//                                TO DO
-// =====================================================================
-//
-// 1. CSS 개선
-//
-
-=======
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
 const GetLikedSong = ({ modal, handleMessage, handleNotice }) => {
   const token = localStorage.getItem('accessToken');
   const accessTokenTime = localStorage.getItem('accessTokenTime');

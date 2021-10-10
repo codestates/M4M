@@ -17,10 +17,7 @@ import MoveTop from './components/MoveTop';
 import SongDetail from './pages/SongDetailPage/SongDetailPage';
 import Modal from './components/Modal';
 import Notice from './components/Notice';
-<<<<<<< HEAD
-=======
 import MediaSearchbar from './components/MediaSearchbar';
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
 
 const AppWrapper = styled.div`
   * {
@@ -99,23 +96,6 @@ function App () {
     };
   }, [scrolled]);
 
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScrolled = () => {
-      if (!scrolled && window.scrollY > 30) {
-        setScrolled(true);
-      } else if (scrolled && window.scrollY <= 30) {
-        setScrolled(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScrolled);
-    return () => {
-      window.removeEventListener('scroll', handleScrolled);
-    };
-  }, [scrolled]);
-
   const handleLoginModalOpen = () => {
     setOpenLogin(true);
   };
@@ -144,12 +124,6 @@ function App () {
   const handleNotice = (boolean) => {
     setOpenNotice(boolean);
   };
-<<<<<<< HEAD
-
-  const information = JSON.parse(localStorage.getItem('userinfo'));
-  console.log('⭐️⭐️⭐️⭐️⭐️', information);
-=======
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
 
   return (
     <BrowserRouter>
@@ -157,23 +131,21 @@ function App () {
         <GlobalStyle />
         <div className='App'>
           <div className='fixed-container'>
-<<<<<<< HEAD
-=======
-            <MediaSearchbar mediaState={mediaState} handleMediaState={handleMediaState} handleBarState={handleBarState} />
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
+            <MediaSearchbar
+              mediaState={mediaState}
+              handleMediaState={handleMediaState}
+              handleBarState={handleBarState}
+            />
             <Header
               login={handleLoginModalOpen}
               signup={handleSignupModalOpen}
               modal={handleModalOpen}
               handleMessage={handleMessage}
               handleNotice={handleNotice}
-<<<<<<< HEAD
-=======
               handleMediaState={handleMediaState}
               barState={barState}
               handleBarState={handleBarState}
               resBarState={resBarState}
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
             />
           </div>
           <div className='space' />

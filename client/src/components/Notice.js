@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 import { LoginButton, ButtonContainer, CloseButton } from '../pages/Login';
 import m4mlogo from '../images/m4mlogo4.png';
-<<<<<<< HEAD
-=======
 import axios from 'axios';
 import { changeHeader, userEdit } from '../redux/action';
 import { useSelector, useDispatch } from 'react-redux';
@@ -12,7 +10,6 @@ import { media } from '../components/utils/_media-queries';
 import { Colors } from '../components/utils/_var';
 import { useEffect } from 'react';
 require('dotenv').config();
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
 
 export const NoticeBackdrop = styled.div`
   position: fixed;
@@ -26,30 +23,6 @@ export const NoticeBackdrop = styled.div`
   place-items: center;
   height: 100vh;
 `;
-<<<<<<< HEAD
-export const NoticeView = styled.div`
-  box-sizing: border-box;
-  width: 35vh;
-  height: 18vh;
-  background-color: rgb(255, 255, 255);
-  position: relative;
-  text-align: center;
-  //   font-size: 20px;
-  padding-top: 10px;
-  box-shadow: 10px 10px grey;
-`;
-
-export const NoticeButton = styled.button`
-  margin-top: 0.4rem;
-  background-color: #caa6fe;
-  border: none;
-  border-radius: 10px;
-  width: 7rem;
-  height: 1.7rem;
-  font-size: 15px;
-  font-family: 'Arial';
-  font-weight: bold;
-=======
 
 export const NoticeView = styled.div`
   box-sizing: border-box;
@@ -81,7 +54,6 @@ export const NoticeButton = styled.button`
   font-size: .85rem;
   ${media.tabletMini`font-size: 1rem; width: 7rem;`}
   font-family: 'Arial';
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
   color: white;
   cursor: pointer;
   :hover {
@@ -90,31 +62,6 @@ export const NoticeButton = styled.button`
 `;
 
 export const NoticeClose = styled.button`
-<<<<<<< HEAD
-  background-color: white;
-  border: none;
-  margin-top: 0.4rem;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: bold;
-  letter-spacing: 1px;
-  color: grey;
-  :hover {
-    color: black;
-  }
-`;
-
-function Notice ({ message, login, handleNotice }) {
-  return (
-    <NoticeBackdrop>
-      <NoticeView>
-        <img src={m4mlogo} style={{ width: '90px' }} />
-        <div
-          style={{ marginTop: '5px', fontFamily: 'Arial', fontWeight: 'bold', fontSize: '18px' }}
-        >
-          {message}
-        </div>
-=======
   margin-top: 1rem;
   background-color: #caa6fe;
   border: none;
@@ -184,7 +131,6 @@ function Notice ({ message, login, handleNotice, handleMessage }) {
         <Message topMargin={message === '정말 탈퇴 하시겠습니까?' ? '.5rem' : '1rem'}>
           {message}
         </Message>
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
         <ButtonContainer>
           {message === '로그인이 필요한 서비스입니다.'
             ? (
@@ -199,28 +145,12 @@ function Notice ({ message, login, handleNotice, handleMessage }) {
                     로그인
                   </NoticeButton>
                 </div>
-<<<<<<< HEAD
-                <div>
-                  <NoticeClose
-                    onClick={() => {
-                      handleNotice(false);
-                    }}
-                  >
-                    창닫기
-                  </NoticeClose>
-                </div>
-=======
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
               </div>
               )
             : message === '로그인 성공!' ||
             message === '로그아웃 성공!' ||
             message === '회원가입 성공!' ||
-<<<<<<< HEAD
-            message === '회원탈퇴가 완료되었습니다.'
-=======
             message === '회원탈퇴가 완료되었습니다'
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
               ? (
                 <NoticeButton
                   onClick={() => {
@@ -233,33 +163,6 @@ function Notice ({ message, login, handleNotice, handleMessage }) {
               : message === '출생년도 등록이 필요한 서비스입니다.'
                 ? (
                   <>
-<<<<<<< HEAD
-                    <NoticeButton
-                      onClick={() => {
-                        window.location.replace('/myinfo');
-                      }}
-                    >
-                      마이페이지로
-                    </NoticeButton>
-                    <NoticeClose
-                      onClick={() => {
-                        handleNotice(false);
-                      }}
-                    >
-                      창닫기
-                    </NoticeClose>
-                  </>
-                  )
-                : (
-                  <NoticeClose
-                    onClick={() => {
-                      handleNotice(false);
-                    }}
-                  >
-                    창닫기
-                  </NoticeClose>
-                  )}
-=======
                     <div>
                       <NoticeButton
                         onClick={() => {
@@ -292,7 +195,6 @@ function Notice ({ message, login, handleNotice, handleMessage }) {
                     : (
                         null
                       )}
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
         </ButtonContainer>
       </NoticeView>
     </NoticeBackdrop>

@@ -1,21 +1,18 @@
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import { useState } from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router';
-// import kakaoImage from '../images/kakao_login_medium_narrow.png';
-import kakaoLogo from '../images/kakao_logo.png';
-// import m4mlogo from '../images/m4mlogo4.png';
 import m4mlogo from '../images/logo.png';
+import kakaoLogo from '../images/kakao_logo.png';
 import { useDispatch } from 'react-redux';
-import { notify, userLogin } from '../redux/action';
+import { userLogin } from '../redux/action';
 import { media } from '../components/utils/_media-queries';
 import { Colors } from '../components/utils/_var';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-
-require('dotenv').config();
-const { Kakao } = window;
 axios.defaults.withCredentials = true;
+require('dotenv').config();
+
+const { Kakao } = window;
 
 export const LoginBackdrop = styled.div`
   position: fixed;
@@ -62,21 +59,6 @@ export const CloseIcon = styled.div`
   cursor: pointer;
 `;
 
-<<<<<<< HEAD
-export const LoginHeading = styled.h2`
-  font-family: 'NeoDunggeunmo';
-`;
-
-export const LoginInputValue = styled.div`
-  //   font-weight: bold;
-  margin: 10px 0px 5px 0px;
-  font-family: 'NeoDunggeunmo';
-`;
-
-export const LoginInput = styled.input`
-  //   font-family: 'NeoDunggeunmo';
-`;
-=======
 export const LoginInputContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -102,14 +84,6 @@ export const LoginInput = styled.input`
   }
 `;
 
-function blinkEffect () {
-  return keyframes`
-  50% {
-    opacity:0;
-  }
-  `;
-}
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
 
 export const Alertbox = styled.div`
   color: red;
@@ -121,10 +95,6 @@ export const Alertbox = styled.div`
 export const LoginButton = styled.button`
   margin: .2rem .4rem 0;
   cursor: pointer;
-<<<<<<< HEAD
-  font-family: 'NeoDunggeunmo';
-  font-size: 16px;
-=======
   font-family: 'Arial';
   font-size: .9rem;
   ${media.tablet`font-size: .9rem;`}
@@ -137,12 +107,9 @@ export const LoginButton = styled.button`
   :hover {
     background-color: #9c57ff;
   }
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
 `;
 
 export const ButtonContainer = styled.div`
-  // margin: 10px;
-  // border: 1px solid black;
 `;
 
 export const KakaoButton = styled.div`
@@ -175,8 +142,6 @@ export const KakaoContent = styled.div`
   color: #000000 85%;
 `;
 
-<<<<<<< HEAD
-=======
 export const SignupSpan = styled.span`
   font-size: .85rem;
   color: #9c57ff;
@@ -188,14 +153,12 @@ export const SignupSpan = styled.span`
   }
 `;
 
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
 function Login ({ handleModal, signup, handleMessage, handleNotice }) {
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: ''
   });
   const [errorMsg, setErrorMsg] = useState(' ');
-  const history = useHistory();
   const dispatch = useDispatch();
 
   const handleInputValue = (key) => (e) => {
@@ -308,7 +271,6 @@ function Login ({ handleModal, signup, handleMessage, handleNotice }) {
         <CloseIcon>
           <FontAwesomeIcon icon={faTimes} color={Colors.gray} onClick={handleModal} />
         </CloseIcon>
-        {/* <img src={m4mlogo} style={{ width: '200px' }} /> */}
         <img className='logo' src={m4mlogo} />
         <LoginInputContainer>
           <LoginInput onChange={handleInputValue('email')} placeholder='이메일' />

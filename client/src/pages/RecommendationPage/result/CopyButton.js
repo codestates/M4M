@@ -10,11 +10,7 @@ const Button = styled.div`
   color: ${Colors.black};
   background-color: ${Colors.pastelPurple};
   color: white;
-<<<<<<< HEAD
-  background-color: ${Colors.purple};
-=======
   /* background-color: ${Colors.purple}; */
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
   border-radius: 7px;
   border: none;
   font-family: 'Arial';

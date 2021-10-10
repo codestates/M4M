@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { getRegExp } from 'korean-regexp';
-import { useState } from 'react';
-import { notify, changeType, getResult } from '../redux/action';
+import { useState, useEffect } from 'react';
+import { changeType, getResult } from '../redux/action';
 import { useSelector, useDispatch } from 'react-redux';
 import { media } from './utils/_media-queries';
 import { Colors } from './utils/_var';
@@ -13,63 +13,45 @@ const HeaderSearchbarWrapper = styled.div`
   .searchbar {
     display: flex;
     justify-content: center;
-    /* background-color: red; */
     margin-left: -1rem;
   }
   .searchbar-container {
-    /* width: 12rem; */
     height: 1.5rem;
-    padding-top: .2rem;
+    padding-top: .3rem;
     ${media.tabletMini`width: 12rem; height: 1.5rem;`}
-    /* background-color: yellow; */
     ${media.tablet`width: 20rem; height: 1.9rem;`}
-    ${media.laptop`width: 22rem; height: 1.9rem;`}
+    ${media.laptop`width: 22rem;`}
     border: 1px solid ${Colors.mediumGray};
     border-radius: 15px;
   }
   .search-icon {
-    width: 1rem;
-    margin-left: 0;
-    padding-bottom: 0;
-    ${media.tablet`width: 1.3rem; margin-left: -5.5rem; padding-bottom: .25rem;`}
+    width: 1.3rem;
     vertical-align: middle;
-    align-items: left;
+    margin-right: .2rem;
   }
   .searchbar-text {
     border: none;
-    margin-left: .2rem;
     width: 10rem;
     font-size: .7rem;
-    ${media.tablet`width: 12rem; font-size: .85rem;`}
-    ${media.laptop`width: 14rem;`}
+    ${media.tablet`width: 88%; font-size: .85rem;`}
     color: ${Colors.black};
+    background-color: transparent;
   }
   .searchbar-dropbox {
     font-size: .75rem;
     margin-right: .3rem;
-    
-    /* color: white; */
     ${media.tabletMini`font-size: .75rem; margin-right: .3rem; color: ${Colors.darkGray};`}
     ${media.tablet`font-size: .8rem; margin-right: .8rem; `}
-    
     border: none;
     cursor: pointer;
   }
-
-  select {
-    -webkit-appearance: menulist-button;
-    color: red;
-  }
-
-  .searchbar-dropbox:focus, input:focus {
+  .searchbar-dropbox:focus, select:focus, input:focus {
     outline: none;
   }
   input::-webkit-input-placeholder {
     color: ${Colors.mediumGray};
     font-size: .7rem;
-    /* ${media.tabletMini`font-size: 82rem;`} */
     ${media.tablet`font-size: .8rem;`}
-    ${media.laptop`font-size: .8rem;`}
   }
   .display-none {
     display: none;
@@ -108,7 +90,6 @@ function HeaderSearchbar({ isRecommend, handleMediaState, barState, handleBarSta
       }
     } else {
       if (notiState.message === '') {
-        // dispatch(notify('검색창이 비었습니다. 추억을 입력해주세요! ᕕ( ᐛ )ᕗ'));
         handleNotice(true);
         handleMessage('검색창이 비었습니다. 추억을 입력해주세요! ᕕ( ᐛ )ᕗ');
       }
@@ -117,11 +98,22 @@ function HeaderSearchbar({ isRecommend, handleMediaState, barState, handleBarSta
   };
 
   const handleSearchTypeChange = (e) => setSearchType(e.target.value);
+
   const handleKeyboard = (e) => {
     if (e.key === 'Enter') {
       getSearchResult(searchType, e.target.value);
     }
   };
+  
+  const resetInput = () => {
+    if (768 > window.innerWidth) setInput('');
+  };
+
+  useEffect(() => window.addEventListener('resize', resetInput));
+
+  const [input, setInput] = useState('');
+
+  const onChange = (e) => setInput(e);
 
   return (
     <HeaderSearchbarWrapper>
@@ -136,6 +128,8 @@ function HeaderSearchbar({ isRecommend, handleMediaState, barState, handleBarSta
             type='text'
             placeholder='제목 또는 아티스트명을 입력해주세요.'
             onKeyPress={handleKeyboard}
+            onChange={(e) => onChange(e.target.value)}
+            value={input || ''}
           />
         </div>
       </div>

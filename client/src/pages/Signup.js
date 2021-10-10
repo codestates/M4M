@@ -1,12 +1,8 @@
 import styled, { keyframes } from 'styled-components';
 import { useState } from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router';
-import { notify } from '../redux/action';
-import { useSelector, useDispatch } from 'react-redux';
 import { media } from '../components/utils/_media-queries';
 import { Colors } from '../components/utils/_var';
-// import m4mlogo from '../images/m4mlogo4.png';
 import m4mlogo from '../images/logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -26,14 +22,9 @@ export const SignupBackdrop = styled.div`
 `;
 export const SignupView = styled.div`
   box-sizing: border-box;
-<<<<<<< HEAD
-  width: 45vh;
-  height: 65vh;
-=======
   width: 20rem;
   height: 25rem;
   ${media.tabletMini`width: 22rem; height: 27rem;`}
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
   background-color: rgb(255, 255, 255);
   position: relative;
   text-align: center;
@@ -60,22 +51,6 @@ export const SignupInputContainer = styled.div`
   justify-content: space-around;
   align-items: center;
   // border: 1px solid black;
-<<<<<<< HEAD
-  text-align: center;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;
-
-export const SignupInputValue = styled.div`
-  // font-weight: bold;
-  margin: 10px 0px 5px 0px;
-  // border: 1px solid black;
-  width: 184px;
-  position: relative;
-  text-align: left;
-=======
   height: 60%;
 `;
 
@@ -94,16 +69,11 @@ export const SignupInput = styled.input`
     color: ${Colors.gray};
     font-size: .75rem;
   }
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
 `;
 
 export const SignupButton = styled.button`
   margin: 0rem .4rem .1rem .4rem;
   cursor: pointer;
-<<<<<<< HEAD
-  font-family: 'NeoDunggeunmo';
-  font-size: 15px;
-=======
   font-family: 'Arial';
   font-size: .9rem;
   background-color: #caa6fe;
@@ -115,7 +85,6 @@ export const SignupButton = styled.button`
   :hover {
     background-color: #9c57ff;
   }
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
 `;
 
 function blinkEffect () {
@@ -146,13 +115,6 @@ export const ButtonContainer = styled.div`
 `;
 
 export const Select = styled.select`
-<<<<<<< HEAD
-  width: 185px;
-  text-align: center;
-  font-size: 15px;
-`;
-
-=======
   width: 70%;
   height: 11%;
   padding-left: .4rem;
@@ -187,7 +149,6 @@ export const VerifyButton = styled.button`
   }
 `;
 
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
 function Signup ({ handleModal, handleNotice, handleMessage }) {
   const [userInfo, setUserInfo] = useState({
     nickname: '',
@@ -204,9 +165,6 @@ function Signup ({ handleModal, handleNotice, handleMessage }) {
   const [errorMsg, setErrorMsg] = useState('');
   const [code, setCode] = useState('');
   const [checkCode, setCheckCode] = useState(true);
-  const notiState = useSelector((state) => state.notiReducer).notifications;
-  const dispatch = useDispatch();
-  const history = useHistory();
 
   const handleInputValue = (key) => (e) => {
     setUserInfo({ ...userInfo, [key]: e.target.value });
@@ -290,10 +248,6 @@ function Signup ({ handleModal, handleNotice, handleMessage }) {
           }
         })
         .catch((error) => {
-<<<<<<< HEAD
-          console.log(error.response);
-=======
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
           if (error.response.data.message === 'conflict: email') {
             setErrorMsg('이미 가입된 이메일입니다');
           }
@@ -315,11 +269,7 @@ function Signup ({ handleModal, handleNotice, handleMessage }) {
   };
 
   const emailRequest = () => {
-<<<<<<< HEAD
-    if (userInfo.email !== '') {
-=======
     if (userInfo.email !== '' && checkEmail === true) {
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
       axios
         .post(
           process.env.REACT_APP_API_URL + '/auth',
@@ -328,11 +278,6 @@ function Signup ({ handleModal, handleNotice, handleMessage }) {
         )
         .then((res) => {
           setCode(res.data);
-<<<<<<< HEAD
-        });
-    } else {
-      setErrorMsg('이메일 입력');
-=======
           setErrorMsg('메일이 오지 않았다면 스팸메일함을 확인해주세요');
         })
         .catch((error) => {
@@ -343,15 +288,11 @@ function Signup ({ handleModal, handleNotice, handleMessage }) {
         });
     } else {
       setErrorMsg('올바른 이메일을 입력해주세요');
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
     }
   };
 
   const verifyCode = (e) => {
-<<<<<<< HEAD
-=======
     // console.log(code === Number(e.target.value));
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
     if (code === Number(e.target.value)) {
       setCheckCode(true);
     } else {
@@ -367,34 +308,6 @@ function Signup ({ handleModal, handleNotice, handleMessage }) {
         </CloseIcon>
         <img className='logo' src={m4mlogo} alt='logo' />
         <SignupInputContainer>
-<<<<<<< HEAD
-          <SignupInputValue>닉네임</SignupInputValue>
-          <SignupInput
-            onChange={inputCheck('nickname')}
-            placeholder='공백 / 특수문자 제외 2-15자'
-          />
-          <CheckInfo>{checkNickname === 'ok' ? null : checkNickname}</CheckInfo>
-          <SignupInputValue>이메일</SignupInputValue>
-          <span>
-            <SignupInput onChange={inputCheck('email')} placeholder='입력 후 인증을 눌러주세요' />
-            <button
-              onClick={emailRequest}
-              style={{ fontFamily: 'NeoDunggeunmo', fontSize: '15px' }}
-            >
-              이메일 인증
-            </button>
-          </span>
-          <CheckInfo>{checkEmail ? null : '올바른 이메일 주소를 입력해주세요'}</CheckInfo>
-          <SignupInputValue>인증 코드</SignupInputValue>
-          <SignupInput onChange={verifyCode} placeholder='메일로 받은 코드를 입력해주세요' />
-          <CheckInfo>{checkCode ? null : '코드가 일치하지 않습니다'}</CheckInfo>
-          <SignupInputValue>비밀번호</SignupInputValue>
-          <SignupInput
-            type='password'
-            onChange={inputCheck('password')}
-            placeholder='영문 / 숫자 조합 8~10자'
-          />
-=======
           <SignupInput onChange={inputCheck('nickname')} placeholder='닉네임' />
           <CheckInfo>{checkNickname === 'ok' ? null : checkNickname}</CheckInfo>
           <SignupInput onChange={inputCheck('email')} placeholder='이메일' />
@@ -405,7 +318,6 @@ function Signup ({ handleModal, handleNotice, handleMessage }) {
           <SignupInput onChange={verifyCode} placeholder='이메일 인증 코드' />
           <CheckInfo>{checkCode ? null : '코드가 일치하지 않습니다'}</CheckInfo>
           <SignupInput type='password' onChange={inputCheck('password')} placeholder='비밀번호' />
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
           <CheckInfo>{checkPassword ? null : '올바른 비밀번호를 입력해주세요'}</CheckInfo>
           <SignupInput type='password' onChange={handleCheckPassword} placeholder='비밀번호 확인' />
           <CheckInfo>{checkRetypePassword ? null : '비밀번호가 일치하지 않습니다'}</CheckInfo>

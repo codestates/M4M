@@ -84,7 +84,11 @@ const HeaderWrapper = styled.div`
 `;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 function Header ({ login, signup, modal, handleMessage, handleNotice }) {
+=======
+function Header({ login, signup, modal, handleMessage, handleNotice, handleMediaState, barState, handleBarState, resBarState }) {
+>>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
 =======
 function Header({ login, signup, modal, handleMessage, handleNotice, handleMediaState, barState, handleBarState, resBarState }) {
 >>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822

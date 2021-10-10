@@ -71,23 +71,12 @@ function Modal ({ handleModal, login }) {
   return (
     <ModalBackdrop>
       <ModalView>
-<<<<<<< HEAD
-        <div style={{ marginTop: '25px', fontSize: '17px' }}>
-          토큰이 만료되었습니다
-          <br />
-          다시 로그인 하시겠습니까?
-        </div>
-        <ButtonContainer>
-          <Button onClick={goLogin}>로그인</Button>
-          <Button onClick={logout}>로그아웃</Button>
-=======
         {/* <img src={m4mlogo} style={{ width: '90px' }} /> */}
         <div className='content'>
           [토큰 만료] 다시 로그인 하시겠습니까?
         </div>
         <ButtonContainer>
           <NoticeButton onClick={goLogin}>로그인</NoticeButton>
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
         </ButtonContainer>
         <LogOutButton onClick={logout}>로그아웃</LogOutButton>
       </ModalView>
