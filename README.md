@@ -1,9 +1,18 @@
-# M4M (Music for Millennials) Service Intro
+# M4M (Music for Millennials)
+<br>
+<img width="250" alt="logo" src="https://user-images.githubusercontent.com/29108753/136206315-137f518a-20c5-45a6-8468-bc72c2f92ae5.png">
 
-밀레니얼 세대를 위한 세대공감 음악 추천 및 검색 서비스 M4M<br>
-밀레니얼 세대들이 추억여행을 떠날 수 있는 1992년 부터 2009년까지 노래들을 준비했습니다!<br>
-간단한 질문들을 통해 여러분의 평소 성향에 어울릴만한 노래를 추천해드립니다!<br>
-추천받은 노래들을 친구/동료들과 공유해보면서 추억여행을 떠나보세요!
+### **밀레니얼 세대를 위한 세대공감 음악 추천 및 검색 서비스 M4M.**  
+밀레니얼 세대의 감성을 촉촉히 해줄 1992년부터 2009년까지의 노래들을 준비했습니다!  
+미리 선정된 7개의 해시태그로 공감을 나누고 그 시절 향수를 불러오는 노래에 마구마구 좋아요를 눌러주세요.  
+좋아요를 눌러 관심 노래에 등록하면 언제든지 다시 볼 수도 있습니다!
+
+### **그 시절 어떤 노래가 있었는지, 또 어떤 노래를 들어야 할 지 잘 모르시겠다구요?**
+간단한 질문지를 통해 여러분의 평소 성향에 어울릴만한 노래를 추천해드립니다.  
+추천받은 노래를 친구/동료들과 공유해보면서 추억여행을 떠나보세요!
+<br><br>
+
+⇒ **<i>[M4M과 함께 추억여행 떠나기](https://music4millennials.live/)</i>**
 
 # Team MGs
 
@@ -34,7 +43,7 @@
 ![](https://img.shields.io/badge/BACK-OAUTH_2.0-000000?style=for-the-badge&logo=oauth-2.0)  
 
 ## DISTRIBUTION
-![](https://img.shields.io/badge/BACK-AMAZON_AWS-232F3E?style=for-the-badge&logo=amazon-aws)  
+![](https://img.shields.io/badge/DIST-AMAZON_AWS-232F3E?style=for-the-badge&logo=amazon-aws)  
 
 ## Detailed chart
 | Fields                              | Stacks                     |
@@ -56,10 +65,29 @@
 
 **Server-Side**
 
-<img width="750" alt="system-architecture" src="https://user-images.githubusercontent.com/29108753/135020930-681e1801-a7fa-48b7-87e0-82d2733a474b.png">
+<img width="750" alt="system-architecture" src="https://user-images.githubusercontent.com/29108753/136301752-3715769e-5c7f-4e04-a123-c3c5fb4dc126.png">
 
 # UI Design
 - [Full UI Design Link](https://github.com/codestates/M4M/wiki/UI-Design)
+
+# Highlighted Features
+- [기능 소개 Detail Link](https://github.com/codestates/M4M/wiki/UI-Design)
+
+**Login**
+
+<img src = "https://user-images.githubusercontent.com/29108753/136241112-320a8e43-9563-4aef-b234-e40f723f2eee.gif" width="650px">
+
+**Music Search**
+
+<img src = "https://user-images.githubusercontent.com/29108753/136244044-abb7ecd1-958d-4e75-b279-2c7f408ae132.gif" width="650px">
+
+**Music Filtering**
+
+<img src = "https://user-images.githubusercontent.com/29108753/136294353-71a7660f-1716-4879-8745-3fb541e6e517.gif" width="650px">
+
+**Music Recommendation**
+
+<img src = "https://user-images.githubusercontent.com/29108753/136246300-d58e748f-546b-4e43-87cc-f24af0dbab2f.gif" width="650px">
 
 # Need More Information?
 - [Check out M4M wiki page!](https://github.com/codestates/M4M/wiki)

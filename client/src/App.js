@@ -17,6 +17,10 @@ import MoveTop from './components/MoveTop';
 import SongDetail from './pages/SongDetailPage/SongDetailPage';
 import Modal from './components/Modal';
 import Notice from './components/Notice';
+<<<<<<< HEAD
+=======
+import MediaSearchbar from './components/MediaSearchbar';
+>>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
 
 const AppWrapper = styled.div`
   * {
@@ -45,6 +49,55 @@ function App () {
   const [message, setMessage] = useState('');
   const [openNotice, setOpenNotice] = useState(false);
   const isLogin = useSelector((state) => state.userReducer).token;
+  const [mediaState, setMediaState] = useState('deactive');
+  const [barState, setBarState] = useState('bar-active');
+  const [scrolled, setScrolled] = useState(false);
+
+  const maintainMediaState = () => {
+    if (768 <= window.innerWidth) setMediaState('deactive');
+  };
+
+  useEffect(() => window.addEventListener('resize', maintainMediaState));
+
+  const handleMediaState = () => {
+    if (mediaState === 'active') setMediaState('deactive');
+    if (mediaState === 'deactive') setMediaState('active');
+  }
+
+  const handleBarState = () => {
+    if (barState === 'bar-active') setBarState('bar-deactive');
+    if (barState === 'bar-deactive' && mediaState === 'deactive') setBarState('bar-active');
+  }
+
+  const resBarState = () => {
+    if (window.innerWidth < 768) setBarState('bar-deactive');
+  }
+
+  const maintainBarState = () => {
+    if (768 <= window.innerWidth) setBarState('bar-active');
+    else setBarState('bar-deactive');
+  };
+
+  useEffect(() => window.addEventListener('resize', maintainBarState));
+
+  useEffect(() => {
+    if (window.innerWidth < 768) setBarState('bar-deactive');
+  }, []);
+
+  useEffect(() => {
+    const handleScrolled = () => {
+      if (!scrolled && window.scrollY > 30) {
+        setScrolled(true);
+      } else if (scrolled && window.scrollY <= 30) {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScrolled);
+    return () => {
+      window.removeEventListener('scroll', handleScrolled);
+    };
+  }, [scrolled]);
 
   const [scrolled, setScrolled] = useState(false);
 
@@ -91,9 +144,12 @@ function App () {
   const handleNotice = (boolean) => {
     setOpenNotice(boolean);
   };
+<<<<<<< HEAD
 
   const information = JSON.parse(localStorage.getItem('userinfo'));
   console.log('⭐️⭐️⭐️⭐️⭐️', information);
+=======
+>>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
 
   return (
     <BrowserRouter>
@@ -101,12 +157,23 @@ function App () {
         <GlobalStyle />
         <div className='App'>
           <div className='fixed-container'>
+<<<<<<< HEAD
+=======
+            <MediaSearchbar mediaState={mediaState} handleMediaState={handleMediaState} handleBarState={handleBarState} />
+>>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
             <Header
               login={handleLoginModalOpen}
               signup={handleSignupModalOpen}
               modal={handleModalOpen}
               handleMessage={handleMessage}
               handleNotice={handleNotice}
+<<<<<<< HEAD
+=======
+              handleMediaState={handleMediaState}
+              barState={barState}
+              handleBarState={handleBarState}
+              resBarState={resBarState}
+>>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
             />
           </div>
           <div className='space' />

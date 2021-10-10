@@ -1,9 +1,15 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router';
 import { notify } from '../redux/action';
 import { useSelector, useDispatch } from 'react-redux';
+import { media } from '../components/utils/_media-queries';
+import { Colors } from '../components/utils/_var';
+// import m4mlogo from '../images/m4mlogo4.png';
+import m4mlogo from '../images/logo.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 require('dotenv').config();
 
 export const SignupBackdrop = styled.div`
@@ -16,24 +22,45 @@ export const SignupBackdrop = styled.div`
   background-color: rgba(0, 0, 0, 0.7);
   display: grid;
   place-items: center;
-  height: 100vh;
+  height: 100%x;
 `;
 export const SignupView = styled.div`
   box-sizing: border-box;
+<<<<<<< HEAD
   width: 45vh;
   height: 65vh;
+=======
+  width: 20rem;
+  height: 25rem;
+  ${media.tabletMini`width: 22rem; height: 27rem;`}
+>>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
   background-color: rgb(255, 255, 255);
   position: relative;
   text-align: center;
-  // font-size: 20px;
-  padding-top: 10px;
+  padding-top: .7rem;
   box-shadow: 10px 10px grey;
+
+  .logo {
+    width: 6rem;
+    margin: .5rem auto;
+  }
 `;
 
-export const SignupHeading = styled.h2``;
+export const CloseIcon = styled.div`
+  display: flex;
+  justify-content: right;
+  padding-right: 1rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+`;
 
 export const SignupInputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
   // border: 1px solid black;
+<<<<<<< HEAD
   text-align: center;
   align-items: center;
   display: flex;
@@ -48,40 +75,119 @@ export const SignupInputValue = styled.div`
   width: 184px;
   position: relative;
   text-align: left;
+=======
+  height: 60%;
 `;
 
-export const SignupInput = styled.input``;
+export const SignupInput = styled.input`
+  background-color: #f2f2f2;
+  border: none;
+  border-radius: 15px;
+  width: 70%;
+  height: 11%;
+  padding: .7rem;
+  color: ${Colors.darkGray};
+  :focus {
+    outline: none;
+  }
+  &::-webkit-input-placeholder {
+    color: ${Colors.gray};
+    font-size: .75rem;
+  }
+>>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
+`;
 
-export const Button = styled.button`
-  margin: 0.4rem 0.4rem 0.1rem 0.4rem;
+export const SignupButton = styled.button`
+  margin: 0rem .4rem .1rem .4rem;
   cursor: pointer;
+<<<<<<< HEAD
   font-family: 'NeoDunggeunmo';
   font-size: 15px;
+=======
+  font-family: 'Arial';
+  font-size: .9rem;
+  background-color: #caa6fe;
+  width: 11.5rem;
+  height: 2.2rem;
+  border-radius: 7px;
+  border: none;
+  color: white;
+  :hover {
+    background-color: #9c57ff;
+  }
+>>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
 `;
+
+function blinkEffect () {
+  return keyframes`
+  50% {
+    opacity:0;
+  }
+  `;
+}
 
 export const Alertbox = styled.div`
   color: red;
-  font-family: 'NeoDunggeunmo';
-  font-size: 15px;
-  margin-top: 5px;
+  margin-top: .5rem;
+  font-family: 'Arial';
+  font-size: .85rem;
+  /* animation: ${blinkEffect} 1s step-end infinite; */
 `;
 
 export const CheckInfo = styled.div`
   color: red;
   font-size: 11px;
-  opacity: 0.8;
+  font-family: 'Arial';
+  opacity: .7;
 `;
 
 export const ButtonContainer = styled.div`
-  margin: 10px;
+  margin: .8rem 0 0;
 `;
 
 export const Select = styled.select`
+<<<<<<< HEAD
   width: 185px;
   text-align: center;
   font-size: 15px;
 `;
 
+=======
+  width: 70%;
+  height: 11%;
+  padding-left: .4rem;
+  text-align: left;
+  font-size: 12.5px;
+  background-color: #f2f2f2;
+  border: none;
+  border-radius: 15px;
+  opacity: .5;
+  cursor: pointer;
+  :focus {
+    outline: none;
+  }
+`;
+
+export const VerifyButton = styled.button`
+  margin: 0rem .4rem .1rem .4rem;
+  cursor: pointer;
+  font-family: 'Arial';
+  font-size: 14px;
+  background-color: #caa6fe;
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: .75rem;
+  padding: 0;
+  text-decoration: underline;
+  color: ${Colors.gray};
+  :hover {
+    color: ${Colors.purple};
+    border-color: ${Colors.purple};
+  }
+`;
+
+>>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
 function Signup ({ handleModal, handleNotice, handleMessage }) {
   const [userInfo, setUserInfo] = useState({
     nickname: '',
@@ -115,8 +221,8 @@ function Signup ({ handleModal, handleNotice, handleMessage }) {
       setCheckNickname('올바른 한글 형식을 따라주세요');
     } else if (regExpSpec.test(e.target.value)) {
       setCheckNickname('특수문자를 포함하면 안됩니다.');
-    } else if (e.target.value.length < 2 || e.target.value.length > 15) {
-      setCheckNickname('닉네임은 2-15자입니다');
+    } else if (e.target.value.length < 2 || e.target.value.length > 8) {
+      setCheckNickname('닉네임은 2-8자입니다');
     } else {
       setCheckNickname('ok');
     }
@@ -184,7 +290,10 @@ function Signup ({ handleModal, handleNotice, handleMessage }) {
           }
         })
         .catch((error) => {
+<<<<<<< HEAD
           console.log(error.response);
+=======
+>>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
           if (error.response.data.message === 'conflict: email') {
             setErrorMsg('이미 가입된 이메일입니다');
           }
@@ -206,7 +315,11 @@ function Signup ({ handleModal, handleNotice, handleMessage }) {
   };
 
   const emailRequest = () => {
+<<<<<<< HEAD
     if (userInfo.email !== '') {
+=======
+    if (userInfo.email !== '' && checkEmail === true) {
+>>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
       axios
         .post(
           process.env.REACT_APP_API_URL + '/auth',
@@ -215,13 +328,30 @@ function Signup ({ handleModal, handleNotice, handleMessage }) {
         )
         .then((res) => {
           setCode(res.data);
+<<<<<<< HEAD
         });
     } else {
       setErrorMsg('이메일 입력');
+=======
+          setErrorMsg('메일이 오지 않았다면 스팸메일함을 확인해주세요');
+        })
+        .catch((error) => {
+          // console.log(error.response);
+          if (error.response.data.message === 'conflict: email') {
+            setErrorMsg('이미 가입된 이메일입니다');
+          }
+        });
+    } else {
+      setErrorMsg('올바른 이메일을 입력해주세요');
+>>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
     }
   };
 
   const verifyCode = (e) => {
+<<<<<<< HEAD
+=======
+    // console.log(code === Number(e.target.value));
+>>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
     if (code === Number(e.target.value)) {
       setCheckCode(true);
     } else {
@@ -232,8 +362,12 @@ function Signup ({ handleModal, handleNotice, handleMessage }) {
   return (
     <SignupBackdrop>
       <SignupView>
-        <SignupHeading>회원가입</SignupHeading>
+        <CloseIcon>
+          <FontAwesomeIcon icon={faTimes} color={Colors.gray} onClick={handleModal} />
+        </CloseIcon>
+        <img className='logo' src={m4mlogo} alt='logo' />
         <SignupInputContainer>
+<<<<<<< HEAD
           <SignupInputValue>닉네임</SignupInputValue>
           <SignupInput
             onChange={inputCheck('nickname')}
@@ -260,23 +394,42 @@ function Signup ({ handleModal, handleNotice, handleMessage }) {
             onChange={inputCheck('password')}
             placeholder='영문 / 숫자 조합 8~10자'
           />
+=======
+          <SignupInput onChange={inputCheck('nickname')} placeholder='닉네임' />
+          <CheckInfo>{checkNickname === 'ok' ? null : checkNickname}</CheckInfo>
+          <SignupInput onChange={inputCheck('email')} placeholder='이메일' />
+          {/* <ButtonContainer> */}
+          <CheckInfo>{checkEmail ? '  ' : '올바른 이메일 주소를 입력해주세요'}</CheckInfo>
+          <VerifyButton onClick={emailRequest}>이메일 인증</VerifyButton>
+          {/* </ButtonContainer> */}
+          <SignupInput onChange={verifyCode} placeholder='이메일 인증 코드' />
+          <CheckInfo>{checkCode ? null : '코드가 일치하지 않습니다'}</CheckInfo>
+          <SignupInput type='password' onChange={inputCheck('password')} placeholder='비밀번호' />
+>>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
           <CheckInfo>{checkPassword ? null : '올바른 비밀번호를 입력해주세요'}</CheckInfo>
-          <SignupInputValue>비밀번호확인</SignupInputValue>
-          <SignupInput type='password' onChange={handleCheckPassword} />
+          <SignupInput type='password' onChange={handleCheckPassword} placeholder='비밀번호 확인' />
           <CheckInfo>{checkRetypePassword ? null : '비밀번호가 일치하지 않습니다'}</CheckInfo>
-          <SignupInputValue>Birth Year</SignupInputValue>
           <Select onChange={handleInputValue('birthYear')}>
-            <option value='' selected disabled hidden>
-              선택
+            <option
+              value=''
+              selected
+              disabled
+              hidden
+              style={{ fontWeight: 'bold', borderRadius: '10px' }}
+            >
+              출생년도
             </option>
             {yearList.map((el, idx) => {
-              return <option key={idx}>{el}</option>;
+              return (
+                <option key={idx} style={{ fontWeight: 'bold', borderRadius: '10px' }}>
+                  {el}
+                </option>
+              );
             })}
           </Select>
         </SignupInputContainer>
         <ButtonContainer>
-          <Button onClick={handleSignupRequest}>회원가입</Button>
-          <Button onClick={handleModal}>창닫기</Button>
+          <SignupButton onClick={handleSignupRequest}>회원가입</SignupButton>
         </ButtonContainer>
         <Alertbox>{errorMsg}</Alertbox>
       </SignupView>

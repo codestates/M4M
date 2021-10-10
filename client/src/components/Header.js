@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
 import HeaderSearchbar from './HeaderSearchbar';
-import { notify, userLogout } from '../redux/action';
+import { userLogout } from '../redux/action';
 import axios from 'axios';
 import { media } from './utils/_media-queries';
 import { Colors } from '../components/utils/_var';
@@ -84,11 +83,14 @@ const HeaderWrapper = styled.div`
   }
 `;
 
+<<<<<<< HEAD
 function Header ({ login, signup, modal, handleMessage, handleNotice }) {
+=======
+function Header({ login, signup, modal, handleMessage, handleNotice, handleMediaState, barState, handleBarState, resBarState }) {
+>>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
   const isLogin = useSelector((state) => state.userReducer).token;
   const headerState = useSelector((state) => state.headerReducer);
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const handleLogoutRequest = () => {
     const token = localStorage.getItem('accessToken');
@@ -138,7 +140,15 @@ function Header ({ login, signup, modal, handleMessage, handleNotice }) {
           </Link>
         </div>
         <div className='header-container-3'>
-          <HeaderSearchbar isRecommend={headerState.searchBar} />
+          <HeaderSearchbar
+            isRecommend={headerState.searchBar}
+            handleMediaState={handleMediaState}
+            barState={barState}
+            handleBarState={handleBarState}
+            resBarState={resBarState}
+            handleMessage={handleMessage}
+            handleNotice={handleNotice}
+          />
         </div>
         <div className='header-container-4'>
           {!isLogin

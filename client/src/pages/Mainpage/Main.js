@@ -4,15 +4,39 @@ import SongList from './MainSongList';
 import { changeType, getSongsBulk } from '../../redux/action';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
+<<<<<<< HEAD
+=======
+import { media } from '../../components/utils/_media-queries';
+>>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
 import axios from 'axios';
 
 axios.defaults.headers.withCredentials = true;
 
 const MainWrapper = styled.div`
   .main {
+<<<<<<< HEAD
     display: flex;
     /* background-color: #f7efe5; */
     min-height: calc(100vh - 41px - 56px);
+=======
+    display: inline-block;
+    /* background-color: #f7efe5; */
+    min-height: calc(100vh - 62.39px - 129px);
+    ${media.tablet`display: flex`};
+    ${media.tabletMini`min-height: calc(100vh - 62.39px - 116px)`};
+    ${media.tablet`min-height: calc(100vh - 62.39px - 71px)`};
+    ${media.laptop`min-height: calc(100vh - 62.39px - 61px)`};
+  }
+  .loading-container {
+    padding-top: 2rem;
+    font-family: 'Arial';
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    margin: auto 20rem auto 0;
+    ${media.tabletMini`margin: 0 30rem auto 0;`}
+    ${media.tablet`padding-top: 2.5rem;`}
+>>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
   }
   .loading-container {
     padding-top: 2rem;
