@@ -68,18 +68,26 @@
 <img width="750" alt="system-architecture" src="https://user-images.githubusercontent.com/29108753/136301752-3715769e-5c7f-4e04-a123-c3c5fb4dc126.png">
 
 # UI Design
-- [Full UI Design Link](https://github.com/codestates/M4M/wiki/UI-Design)
+[Full UI Design Link](https://github.com/codestates/M4M/wiki/UI-Design)
+
+**Mobile vs. Web**
+
+<img width="275" alt="landingmobile" src="https://user-images.githubusercontent.com/29108753/136659596-422f3df2-d5e0-4718-83d3-6b83fbcd393a.png">
+
+<br>
+
+<img width="608" alt="landingweb" src="https://user-images.githubusercontent.com/29108753/136661296-388f5fa7-9309-462e-b718-7765015a8510.png">
 
 # Highlighted Features
-- [기능 소개 Detail Link](https://github.com/codestates/M4M/wiki/UI-Design)
+[기능 소개 Detail Link](https://github.com/codestates/M4M/wiki/UI-Design)
 
-**Login**
+**Sign Up**
 
-<img src = "https://user-images.githubusercontent.com/29108753/136241112-320a8e43-9563-4aef-b234-e40f723f2eee.gif" width="650px">
+<img src = "https://user-images.githubusercontent.com/29108753/136321201-8dbe176e-291c-4071-87eb-8a35c86ad4a6.gif" width="650px">
 
-**Music Search**
+**Kakao Login**
 
-<img src = "https://user-images.githubusercontent.com/29108753/136244044-abb7ecd1-958d-4e75-b279-2c7f408ae132.gif" width="650px">
+<img src = "https://user-images.githubusercontent.com/29108753/136247778-bda25f9d-0442-4de0-b911-4e3ea3fae90f.gif" width="650px">
 
 **Music Filtering**
 
@@ -90,4 +98,4 @@
 <img src = "https://user-images.githubusercontent.com/29108753/136246300-d58e748f-546b-4e43-87cc-f24af0dbab2f.gif" width="650px">
 
 # Need More Information?
-- [Check out M4M wiki page!](https://github.com/codestates/M4M/wiki)
+[Check out M4M wiki page!](https://github.com/codestates/M4M/wiki)
