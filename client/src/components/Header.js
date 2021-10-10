@@ -136,7 +136,7 @@ function Header({ login, signup, modal, handleMessage, handleNotice, handleMedia
         <div className='header-container-1'>
           <Link to='/mainpage'>
             <div className='logo'>
-              <img src={Logo} className='logo-image' alt='logo-image' />
+              <img src={Logo} className='logo-image' alt='m4m-logo' />
             </div>
           </Link>
         </div>

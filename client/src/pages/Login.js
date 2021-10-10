@@ -268,7 +268,7 @@ function Login ({ handleModal, signup, handleMessage, handleNotice }) {
         <CloseIcon>
           <FontAwesomeIcon icon={faTimes} color={Colors.gray} onClick={handleModal} />
         </CloseIcon>
-        <img className='logo' src={m4mlogo} />
+        <img className='logo' src={m4mlogo} alt='logo' />
         <LoginInputContainer>
           <LoginInput onChange={handleInputValue('email')} placeholder='이메일' />
           <LoginInput

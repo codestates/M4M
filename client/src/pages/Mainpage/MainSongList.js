@@ -470,19 +470,19 @@ function SongList () {
                 <div className='grid-item field-album' />
                 <div className='grid-item field-title' onClick={handleSubSort}>
                   제목
-                  <img className='arrow-image' src={`/image/arrow${subSort.title}.png`} />
+                  <img className='arrow-image' alt='arrow1' src={`/image/arrow${subSort.title}.png`} />
                 </div>
                 <div className='grid-item field-artist' onClick={handleSubSort}>
                   아티스트
-                  <img className='arrow-image' src={`/image/arrow${subSort.artist}.png`} />
+                  <img className='arrow-image' alt='arrow2' src={`/image/arrow${subSort.artist}.png`} />
                 </div>
                 <div className='grid-item field-date' onClick={handleSubSort}>
                   발매일
-                  <img className='arrow-image' src={`/image/arrow${subSort.date}.png`} />
+                  <img className='arrow-image' alt='arrow3' src={`/image/arrow${subSort.date}.png`} />
                 </div>
                 <div className='grid-item field-like' onClick={handleSubSort}>
                   좋아요
-                  <img className='arrow-image' src={`/image/arrow${subSort.like}.png`} />
+                  <img className='arrow-image' alt='arrow4' src={`/image/arrow${subSort.like}.png`} />
                 </div>
               </div>
             </div>
