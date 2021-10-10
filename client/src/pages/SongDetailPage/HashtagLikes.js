@@ -126,12 +126,8 @@ const Hashtags = ({ songInfo, modal, handleMessage, handleNotice }) => {
       if (parseInt(accessTokenTime, 10) + expiredTime - new Date().getTime() < 0) {
         modal();
       } else if (isLoading === true) {
-<<<<<<< HEAD
-        alert('이전 요청이 처리될 때까지 잠시만 기다려주세요.');
-=======
         handleNotice(true);
         handleMessage('이전 요청이 처리될 때까지 잠시만 기다려주세요.');
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
       } else if (isLoading === false && hashtagLikes[hashtagLikeName] === true) {
         setIsLoading(true);
         axios
@@ -165,12 +161,8 @@ const Hashtags = ({ songInfo, modal, handleMessage, handleNotice }) => {
         if (parseInt(accessTokenTime, 10) + expiredTime - new Date().getTime() < 0) {
           modal();
         } else if (isLoading === true) {
-<<<<<<< HEAD
-          alert('이전 요청이 처리될 때까지 잠시만 기다려주세요.');
-=======
           handleNotice(true);
           handleMessage('이전 요청이 처리될 때까지 잠시만 기다려주세요.');
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
         } else if (isLoading === false && hashtagLikes[hashtagLikeName] === false) {
           setIsLoading(true);
           axios
