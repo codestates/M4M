@@ -3,16 +3,8 @@ import { getRegExp } from 'korean-regexp';
 import { useState } from 'react';
 import { notify, changeType, getResult } from '../redux/action';
 import { useSelector, useDispatch } from 'react-redux';
-<<<<<<< HEAD
-import axios from 'axios';
 import { media } from './utils/_media-queries';
 import { Colors } from './utils/_var';
-
-axios.defaults.headers.withCredentials = true;
-=======
-import { media } from './utils/_media-queries';
-import { Colors } from './utils/_var';
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
 
 const HeaderSearchbarWrapper = styled.div`
   .searchbar-none {
@@ -103,10 +95,6 @@ function HeaderSearchbar({ isRecommend, handleMediaState, barState, handleBarSta
   const dispatch = useDispatch();
   const searchTypeList = ['제목', '아티스트'];
   const searchTypeName = ['title', 'artist'];
-<<<<<<< HEAD
-  const keyword = document.getElementsByClassName('searchbar-text');
-=======
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
   const [searchType, setSearchType] = useState(searchTypeName[0]);
 
   const getSearchResult = (reqSearchType, reqKeyword) => {
@@ -129,14 +117,6 @@ function HeaderSearchbar({ isRecommend, handleMediaState, barState, handleBarSta
   };
 
   const handleSearchTypeChange = (e) => setSearchType(e.target.value);
-<<<<<<< HEAD
-  const handleClick = (e) => {
-    // getSearchResult(searchType, e.target.value);
-    console.log(e);
-  };
-=======
-
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
   const handleKeyboard = (e) => {
     if (e.key === 'Enter') {
       getSearchResult(searchType, e.target.value);
@@ -158,9 +138,6 @@ function HeaderSearchbar({ isRecommend, handleMediaState, barState, handleBarSta
             onKeyPress={handleKeyboard}
           />
         </div>
-<<<<<<< HEAD
-        {/* <button className='bnt searchbar-button' onClick={handleClick}>검색</button> */}
-=======
       </div>
       <div className={isRecommend && barState === 'bar-deactive' ? 'icon-active' : 'icon-deactive'}>
         <img
@@ -168,7 +145,6 @@ function HeaderSearchbar({ isRecommend, handleMediaState, barState, handleBarSta
           src='/image/Search_Icon.svg'
           alt='search-icon-active'
           onClick={() => { handleMediaState(); handleBarState(); }} />
->>>>>>> bb06a10f6bee3357cd0cb32847d6c56056e39822
       </div>
     </HeaderSearchbarWrapper>
   );
