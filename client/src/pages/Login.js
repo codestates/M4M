@@ -97,14 +97,14 @@ export const LoginButton = styled.button`
   font-family: 'Arial';
   font-size: .9rem;
   ${media.tablet`font-size: .9rem;`}
-  background-color: #caa6fe;
+  background-color: ${Colors.pastelPurple};
   width: 12.2rem;
   height: 2.5rem;
   border-radius: 7px;
   border: none;
   color: white;
   :hover {
-    background-color: #9c57ff;
+    background-color: ${Colors.purple};
   }
 `;
 
@@ -141,7 +141,7 @@ export const KakaoContent = styled.div`
 
 export const SignupSpan = styled.span`
   font-size: .85rem;
-  color: #9c57ff;
+  color: ${Colors.purple};
   cursor: pointer;
   font-family: 'Arial';
   /* font-weight: bold; */

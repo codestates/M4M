@@ -47,7 +47,9 @@ function Main () {
         dispatch(getSongsBulk(res.data.data));
         setIsLoading(false);
       })
-      .catch(console.log);
+      .catch((err) => {
+        console.log(err.response);
+      });
   }, [dispatch]);
 
   return (

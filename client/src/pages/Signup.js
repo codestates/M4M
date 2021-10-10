@@ -22,7 +22,7 @@ export const SignupBackdrop = styled.div`
 `;
 export const SignupView = styled.div`
   box-sizing: border-box;
-  width: 20rem;
+  width: 20;
   height: 25rem;
   ${media.tabletMini`width: 22rem; height: 27rem;`}
   background-color: rgb(255, 255, 255);
@@ -50,7 +50,6 @@ export const SignupInputContainer = styled.div`
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  // border: 1px solid black;
   height: 60%;
 `;
 
@@ -72,18 +71,18 @@ export const SignupInput = styled.input`
 `;
 
 export const SignupButton = styled.button`
-  margin: 0rem .4rem .1rem .4rem;
+  margin: 0 .4rem .1rem .4rem;
   cursor: pointer;
   font-family: 'Arial';
   font-size: .9rem;
-  background-color: #caa6fe;
+  background-color: ${Colors.pastelPurple};
   width: 11.5rem;
   height: 2.2rem;
   border-radius: 7px;
   border: none;
   color: white;
   :hover {
-    background-color: #9c57ff;
+    background-color: ${Colors.purple};
   }
 `;
 
@@ -100,7 +99,6 @@ export const Alertbox = styled.div`
   margin-top: .5rem;
   font-family: 'Arial';
   font-size: .85rem;
-  /* animation: ${blinkEffect} 1s step-end infinite; */
 `;
 
 export const CheckInfo = styled.div`
@@ -131,11 +129,11 @@ export const Select = styled.select`
 `;
 
 export const VerifyButton = styled.button`
-  margin: 0rem .4rem .1rem .4rem;
+  margin: 0 .4rem .1rem .4rem;
   cursor: pointer;
   font-family: 'Arial';
   font-size: 14px;
-  background-color: #caa6fe;
+  background-color: ${Colors.pastelPurple};
   background-color: transparent;
   border: none;
   color: white;
@@ -281,10 +279,9 @@ function Signup ({ handleModal, handleNotice, handleMessage }) {
           setErrorMsg('메일이 오지 않았다면 스팸메일함을 확인해주세요');
         })
         .catch((error) => {
-          // console.log(error.response);
           if (error.response.data.message === 'conflict: email') {
             setErrorMsg('이미 가입된 이메일입니다');
-          }
+          } else console.log(error.response);
         });
     } else {
       setErrorMsg('올바른 이메일을 입력해주세요');

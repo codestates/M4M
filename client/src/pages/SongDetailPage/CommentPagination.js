@@ -88,7 +88,6 @@ const Wrapper = styled.div`
   .page-numbers {
     grid-area: page-num;
   }
-
   ul {
     display: flex;
     justify-content: center;

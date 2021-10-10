@@ -4,9 +4,7 @@ import { Colors } from '../../components/utils/_var';
 
 const StartBtn = styled.div`
   display: block;
-  /* border-radius: 5px; */
   cursor: pointer;
-  /* background: ${Colors.pastelPurple}; */
   border: 1px solid ${Colors.black};
   margin: 1.5rem auto;
   width: 7.5rem;
@@ -27,7 +25,6 @@ const StartBtn = styled.div`
   }
   &:hover {
     background-color: ${Colors.black};
-    /* background: ${Colors.purple}; */
     span {
       color: white;
     }

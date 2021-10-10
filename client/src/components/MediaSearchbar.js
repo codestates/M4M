@@ -15,8 +15,9 @@ const MediaSearchbarWrapper = styled.div`
     justify-content: center;
     align-items: center;
     width: 100vw;
-    height: 62.38px;
+    height: 52px;
     background-color: white;
+    padding-top: .1rem;
     /* opacity: 0.8; */
   }
   .deactive {
@@ -149,7 +150,6 @@ function MediaSearchbar({ mediaState, handleMediaState, handleBarState }) {
           </div>
         </div>
         <div className='closeBtn' onClick={() => { handleMediaState(); handleBarState(); }} >
-          {/* &#88; */}
           <FontAwesomeIcon className='menu' icon={faTimes} size='1x' />
         </div>
       </div>

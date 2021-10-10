@@ -6,11 +6,9 @@ const Button = styled.div`
   width: 9rem;
   margin: .6rem auto 1.7rem;
   padding: .8rem 1rem;
-  /* background-color: #553830; */
   color: ${Colors.black};
   background-color: ${Colors.pastelPurple};
   color: white;
-  /* background-color: ${Colors.purple}; */
   border-radius: 7px;
   border: none;
   font-family: 'Arial';

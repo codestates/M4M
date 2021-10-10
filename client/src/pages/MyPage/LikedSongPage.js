@@ -55,7 +55,7 @@ const Wrapper = styled.div`
     margin: -1rem 0 .2rem;
     width: 100%;
     ${media.tabletMini`padding-top: 2rem; margin: -1rem 0 .2rem;`}
-    ${media.tablet`margin: 0 1rem .2rem;`}
+    ${media.tablet`margin: 0 0 .2rem;`}
     justify-content: right;
     max-width: 58rem;
     text-align: right;
@@ -86,9 +86,9 @@ const Wrapper = styled.div`
   .field {
     display: grid;
     width: 92%;
-    grid-template-columns: 15% 25% 23% 14% 12%;
-    ${media.tabletMini`grid-template-columns: 11% 32% 30% 12% 8%; width: 100%;`}
-    ${media.tablet`grid-template-columns: 15% 32% 30% 12% 8%; width: 100%;`}
+    grid-template-columns: 15% 27% 26% 15% 12%;
+    ${media.tabletMini`grid-template-columns: 11% 32% 30% 13% 8%; width: 100%;`}
+    ${media.tablet`grid-template-columns: 12% 32% 32% 12% auto; width: 100%;`}
     margin: .75rem auto 0;
     padding: .15rem .15rem;
     border: solid 1px ${Colors.lightGray};
@@ -119,6 +119,7 @@ const Wrapper = styled.div`
     padding: auto;
     margin-left: .4rem;
     width: 100%;
+    ${media.tabletMini`margin-left: .6rem;`}
   }
   .song-container > div, input {
     margin: 0;
@@ -131,9 +132,9 @@ const Wrapper = styled.div`
   .song-info-container {
     display: grid;
     width: 92%;
-    grid-template-columns: 15% 25% 23% 14% 12%;
-    ${media.tabletMini`grid-template-columns: 11% 32% 30% 12% 8%; width: 100%;`}
-    ${media.tablet`grid-template-columns: 15% 32% 30% 12% 8%; width: 100%;`}
+    grid-template-columns: 15% 27% 26% 15% 12%;
+    ${media.tabletMini`grid-template-columns: 11% 32% 30% 13% 8%; width: 100%;`}
+    ${media.tablet`grid-template-columns: 12% 32% 32% 12% auto; width: 100%;`}
     margin: 0 auto;
     padding: .4rem .15rem;
     border-bottom: solid 1px ${Colors.lightGray};
@@ -165,7 +166,7 @@ const Wrapper = styled.div`
   }
   .title {
     margin-left: .5rem;
-    /* background-color: pink; */
+    ${media.tabletMini`padding-left: .3rem;`}
   }
   .date, .like {
     color: ${Colors.gray};
@@ -175,6 +176,7 @@ const Wrapper = styled.div`
     margin-left: .4rem;
     grid-row: 2;
     grid-column: 2 / end;
+    ${media.tablet`padding-left: .3rem;`}
   }
   .message {
     margin-top: 1.2rem;
@@ -216,7 +218,6 @@ const GetLikedSong = ({ modal, handleMessage, handleNotice }) => {
       setIsLoading(true);
       try {
         if (parseInt(accessTokenTime, 10) + expiredTime - new Date().getTime() < 0) {
-          // alert('토큰이 만료되었습니다');
           modal();
           setIsLoading(false);
         } else {
@@ -279,7 +280,6 @@ const GetLikedSong = ({ modal, handleMessage, handleNotice }) => {
 
   const handleSongDelete = () => {
     if (parseInt(accessTokenTime, 10) + expiredTime - new Date().getTime() < 0) {
-      // alert('토큰이 만료되었습니다');
       modal();
     } else if (CheckList.length > 0) {
       axios
@@ -292,15 +292,11 @@ const GetLikedSong = ({ modal, handleMessage, handleNotice }) => {
             songId: CheckList
           }
         })
-        .then((res) => {
-          // console.log(res.data.message);
-        })
         .then(() => {
           window.location.reload();
         })
         .catch(console.log);
     } else {
-      // alert('곡을 선택해주세요!');
       handleNotice(true);
       handleMessage('곡을 선택해주세요!');
     }

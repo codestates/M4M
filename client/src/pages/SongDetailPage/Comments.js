@@ -13,7 +13,6 @@ const Wrapper = styled.div`
     min-width: 320px;
     max-width: 479px;
     margin: .5rem auto;
-    /* margin: 0 auto; */
     ${media.tabletMini`min-width: 470px; max-width: 750px;`}
     ${media.tablet`width: 41.7rem; max-width: 1024px;`}
     text-align: left;
@@ -25,7 +24,6 @@ const Wrapper = styled.div`
     margin: auto auto 1.2rem;
     min-width: 320px;
     max-width: 479px;
-    
     ${media.tabletMini`min-width: 470px; max-width: 750px;`}
     ${media.tablet`width: 41.7rem; max-width: 1024px;`}
     background-color: #ededed;
@@ -33,6 +31,7 @@ const Wrapper = styled.div`
   }
   .comments-input-container {
     display: grid;
+    justify-content: center;
     grid-template-columns: 85% 10%;
     grid-column-gap: 8px;
     margin: .5rem auto;
@@ -41,7 +40,6 @@ const Wrapper = styled.div`
     ${media.tabletMini`min-width: 470px; max-width: 750px; margin: 1rem auto;`}
     ${media.tablet`width: 41.7rem; max-width: 1024px;`}
     ${media.laptop`width: 41.7rem;`}
-    justify-content: center;
   }
   .postButton {
     height: 3.5rem;
@@ -66,7 +64,7 @@ const Wrapper = styled.div`
     background: -moz-linear-gradient(top, #ededed, #fff);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#ffffff');
   }
-  button:hover {
+  button {
     cursor: pointer;
   }
   textarea {

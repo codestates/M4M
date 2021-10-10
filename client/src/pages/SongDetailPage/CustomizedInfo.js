@@ -58,17 +58,14 @@ const AgeContainer = styled.div`
 const CustomizedInfo = ({ songInfo, handleMessage, handleNotice }) => {
   const token = useSelector((state) => state.userReducer).token;
   const { birthYear, kakao } = useSelector((state) => state.userReducer).userInfo;
-
-  let age = '?';
   const chartYear = songInfo.date ? songInfo.date.split('.')[0] : null;
   const topSongs = Chart[0][`${chartYear}년`];
 
+  let age = '?';
+  
   if (token && birthYear && songInfo.year) {
     age = songInfo.year - birthYear + 1;
-
-    if (age < 1) {
-      age = -1;
-    }
+    if (age < 1) age = -1;
   }
 
   const handleYearClicked = () => {
