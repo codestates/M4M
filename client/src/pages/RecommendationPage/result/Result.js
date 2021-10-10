@@ -109,7 +109,7 @@ const Title = styled.div`
   }
 `;
 
-const Result = ({ resultType, songList }) => {
+const Result = ({ resultType, songList, handleNotice, handleMessage }) => {
   let songType;
   // console.log(resultType);
   if (resultType === 'AFL') {
@@ -149,7 +149,6 @@ const Result = ({ resultType, songList }) => {
       <div className='main-container'>
         <Title><span>당신의 타입</span></Title>
         <h2 className='typeName'>{songType.name}</h2>
-        {/* <Title><span>타입 설명</span></Title> */}
         <div className='container'>
           {songType.explanation.split('\n').map((line, idx) =>
             <div className='explanation' key={idx}>
@@ -171,7 +170,12 @@ const Result = ({ resultType, songList }) => {
             })}
         </ul>
         <KakaoShareButton songType={songType} songList={songList} />
-        <CopyButton songType={songType} songList={songList} />
+        <CopyButton
+          songType={songType}
+          songList={songList}
+          handleMessage={handleMessage}
+          handleNotice={handleNotice}
+        />
       </div>
     </Wrapper>
   );

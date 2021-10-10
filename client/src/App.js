@@ -154,7 +154,13 @@ function App () {
           <Switch>
             <Route exact path='/' component={Landing} />
             <Route path='/mainpage' component={Main} />
-            <Route path='/recommendpage' render={() => <Recommendation />} />
+            <Route path='/recommendpage'
+              render={() =>
+                <Recommendation
+                  handleMessage={handleMessage}
+                  handleNotice={handleNotice}
+                />}
+            />
             <Route path='/mylike'>
               {isLogin
                 ? <GetLikedSong

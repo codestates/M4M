@@ -24,7 +24,7 @@ const Button = styled.div`
   }    
 `;
 
-const CopyButton = ({ songType, songList }) => {
+const CopyButton = ({ songType, songList, handleNotice, handleMessage }) => {
   let copySongType = '나의 타입: ' + songType.name;
   let copySongList = [...songList];
 
@@ -36,14 +36,13 @@ const CopyButton = ({ songType, songList }) => {
 
   copySongType += '\n\n' + '추천 노래:\n' + copySongList;
 
-  // console.log(copySongType);
-  // console.log(copySongList);
-
   const copyResult = text => {
     navigator.clipboard.writeText(text).then(() => {
-      alert('추천 결과가 클립보드에 복사되었습니다.');
+      handleNotice(true);
+      handleMessage('추천 결과가 클립보드에 복사되었습니다.');
     }, () => {
-      alert('복사하기가 지원되지 않는 브라우저입니다.');
+      handleNotice(true);
+      handleMessage('복사하기가 지원되지 않는 브라우저입니다.');
     });
   };
 

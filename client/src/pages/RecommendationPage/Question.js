@@ -118,7 +118,6 @@ class Question extends Component {
           let songList = [];
 
           if (res.status === 200) {
-            // console.log('FROM SERVER: ' + res.data.data);
             songList = res.data.data;
           }
 
@@ -172,6 +171,8 @@ class Question extends Component {
       <Result
         resultType={this.state.resultType}
         songList={this.state.songList}
+        handleMessage={this.props.handleMessage}
+        handleNotice={this.props.handleNotice}
       />
     );
   }
