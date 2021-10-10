@@ -15,19 +15,20 @@ const MediaSearchbarWrapper = styled.div`
     justify-content: center;
     align-items: center;
     width: 100vw;
-    height: 52px;
+    height: 50px;
+    ${media.tabletMini`height: 52px;`}
     background-color: white;
     padding-top: .1rem;
-    /* opacity: 0.8; */
   }
   .deactive {
     display: none;
   }
   .searchbar {
     margin: 0 1rem;
-    width:100%;
+    width: 100%;
     display: flex;
     justify-content: center;
+    background-color: transparent;
   }
   .searchbar-container {
     display: flex;
@@ -35,7 +36,8 @@ const MediaSearchbarWrapper = styled.div`
     align-items: center;
     width: 100%;
     height: 2rem;
-    padding-top: .2rem;
+    padding-top: .1rem;
+    background-color: transparent;
     border: 1px solid ${Colors.mediumGray};
     border-radius: 15px;
   }
@@ -45,6 +47,7 @@ const MediaSearchbarWrapper = styled.div`
     margin-bottom: .23rem;
     vertical-align: middle;
     align-items: left;
+    padding-top: .12rem;
   }
   .searchbar-text {
     border: none;

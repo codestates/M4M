@@ -56,12 +56,6 @@ const SongListWrapper = styled.div`
     ${media.tabletMini`width: 98%;`}
   }
   .songlist {
-    /* margin: 0 auto;
-    max-width: 60rem;
-    width: 98%;
-    ${media.tabletMini`padding-right: 0rem; width: 100%;`}
-    ${media.tablet`min-width: 41rem; padding-right: 2rem;`}
-    ${media.laptop`min-width: 52rem;`} */
     margin: 0 auto;
     width: 98%;
     max-width: 60rem;
@@ -97,6 +91,7 @@ const SongListWrapper = styled.div`
     width: 92%;
     grid-template-columns: 15% 25% 23% 16% 16%;
     ${media.tabletMini`grid-template-columns: 11% 32% 30% 12% 12%; width: 100%;`}
+    ${media.tablet`grid-template-columns: 11% 32% 32% 12% 12%;`}
     margin: .75rem auto 0;
     padding: .15rem .15rem;
     border: solid 1px ${Colors.lightGray};
@@ -124,6 +119,7 @@ const SongListWrapper = styled.div`
     padding: auto;
     margin-left: .4rem;
     width: 100%;
+    ${media.tablet`margin-left: .6rem;`}
   }
   .field-artist {
     margin-left: .4rem;
@@ -141,6 +137,7 @@ const SongListWrapper = styled.div`
     width: 92%;
     grid-template-columns: 15% 25% 23% 16% 16%;
     ${media.tabletMini`grid-template-columns: 11% 32% 30% 12% 12%; width: 100%;`}
+    ${media.tablet`grid-template-columns: 11% 32% 32% 12% 12%;`}
     margin: 0 auto;
     padding: .4rem .15rem;
     border-bottom: solid 1px ${Colors.lightGray};
@@ -174,6 +171,7 @@ const SongListWrapper = styled.div`
   }
   .title {
     margin-left: .5rem;
+    ${media.tablet`margin-left: .65rem;`}
   }
   .date, .like {
     color: ${Colors.gray};

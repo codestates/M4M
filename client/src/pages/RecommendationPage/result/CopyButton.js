@@ -3,7 +3,7 @@ import { media } from '../../../components/utils/_media-queries';
 import { Colors } from '../../../components/utils/_var';
 
 const Button = styled.div`
-  width: 9rem;
+  width: 9.5rem;
   margin: .6rem auto 1.7rem;
   padding: .8rem 1rem;
   color: ${Colors.black};
@@ -13,7 +13,7 @@ const Button = styled.div`
   border: none;
   font-family: 'Arial';
   font-size: .75rem;
-  ${media.tablet`font-size: .8em; width: 9.5rem;`}
+  ${media.tablet`font-size: .8em; width: 10rem;`}
 
   &:hover {
     cursor: pointer;

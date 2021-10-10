@@ -20,8 +20,8 @@ const HeaderWrapper = styled.div`
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid rgba(150, 150, 150, 0.2);
-    grid-template-columns: 23% 20% 23% 30%;
-    ${media.tabletMini`grid-template-columns: 16% 16% 44% 24%;`}
+    grid-template-columns: 23% 15% 32% 32%;
+    ${media.tabletMini`grid-template-columns: 16% 18% 40% 26%;`}
     ${media.tablet`grid-template-columns: 10% 10% 45% 18%;`}
     grid-template-areas:
       'logo recommend search pages'
@@ -37,6 +37,8 @@ const HeaderWrapper = styled.div`
   .header-container-2 {
     grid-area: recommend;
     width: 100%;
+    text-align: left;
+    ${media.tabletMini`text-align: center;`}
   }
   .header-container-3 {
     width: 100%;
@@ -52,7 +54,10 @@ const HeaderWrapper = styled.div`
   .header-container-4 {
     grid-area: pages;
     width: 100%;
+    padding-right: 1.5rem;
+    ${media.tablet`padding-right: 1.1rem;`}
     /* background-color: yellow; */
+    text-align: right;
   }
   a {
     text-decoration: none;
@@ -73,7 +78,7 @@ const HeaderWrapper = styled.div`
   .recommend-page {
     color: ${Colors.darkGray};
     font-size: .7rem;
-    ${media.tabletMini`font-size: .8rem;`}
+    ${media.tabletMini`font-size: .85rem;`}
     ${media.tablet`font-size: .9rem;`}
     ${media.laptop`font-size: .9rem;`}
   }
@@ -81,9 +86,9 @@ const HeaderWrapper = styled.div`
   .logout,
   .signup,
   .mypage {
-    font-size: .6rem;
+    font-size: .65rem;
     padding-left: .2rem;
-    ${media.tabletMini`font-size: .75rem; margin: 0 0 0 .5rem; padding: 0; `}
+    ${media.tabletMini`font-size: .8rem; margin: 0 0 0 .5rem; padding: 0; `}
     ${media.tablet`padding-left: .4rem;`}
     margin-right: 0;
     color: ${Colors.gray};

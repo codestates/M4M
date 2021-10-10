@@ -13,13 +13,16 @@ const Wrapper = styled.div`
     cursor: pointer;
   }
   .kakao-button {
-    width: 9rem;
-    ${media.tablet`width: 9.5rem;`}
+    width: 9.5rem;
+    ${media.tablet`width: 10rem;`}
     margin: .8rem auto 0;
     padding: .8rem 1rem;
     background-color: #FEE500;
     border-radius: 7px;
     border: none;
+    &:hover {
+    background-color: #edc707;
+  }
   }
   .kakao-content {
     display: inline-block;

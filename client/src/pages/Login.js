@@ -144,7 +144,6 @@ export const SignupSpan = styled.span`
   color: ${Colors.purple};
   cursor: pointer;
   font-family: 'Arial';
-  /* font-weight: bold; */
   :hover {
     color: #7b3cd6;
   }
