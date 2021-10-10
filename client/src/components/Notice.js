@@ -1,9 +1,7 @@
 import styled from 'styled-components';
-import { LoginButton, ButtonContainer, CloseButton } from '../pages/Login';
-import m4mlogo from '../images/m4mlogo4.png';
+import { ButtonContainer } from '../pages/Login';
 import axios from 'axios';
-import { changeHeader, userEdit } from '../redux/action';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { media } from '../components/utils/_media-queries';
