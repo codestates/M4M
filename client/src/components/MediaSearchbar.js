@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { getRegExp } from 'korean-regexp';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { notify, changeType, getResult } from '../redux/action';
 import { Colors } from './utils/_var';
 import { media } from './utils/_media-queries';
@@ -19,6 +20,7 @@ const MediaSearchbarWrapper = styled.div`
     ${media.tabletMini`height: 52px;`}
     background-color: white;
     padding-top: .1rem;
+    /* opacity: 0.8; */
   }
   .deactive {
     display: none;
@@ -38,6 +40,7 @@ const MediaSearchbarWrapper = styled.div`
     height: 2rem;
     padding-top: .1rem;
     background-color: transparent;
+    /* background-color: white; */
     border: 1px solid ${Colors.mediumGray};
     border-radius: 15px;
   }
@@ -98,6 +101,8 @@ function MediaSearchbar ({ mediaState, handleMediaState, handleBarState }) {
   const searchTypeList = ['제목', '아티스트'];
   const searchTypeName = ['title', 'artist'];
   const [searchType, setSearchType] = useState(searchTypeName[0]);
+  const location = useLocation();
+  useEffect(() => {}, [location]);
 
   const getSearchResult = (reqSearchType, reqKeyword) => {
     if (reqKeyword.length !== 0) {
@@ -130,32 +135,34 @@ function MediaSearchbar ({ mediaState, handleMediaState, handleBarState }) {
   useEffect(() => window.addEventListener('resize', resetInput));
 
   const [input, setInput] = useState('');
-
   const onChange = (e) => setInput(e);
 
   return (
     <MediaSearchbarWrapper>
-      <div className={`media-searchbar ${mediaState}`}>
-        <div className='searchbar'>
-          <select className='searchbar-dropbox' onChange={handleSearchTypeChange}>
-            {searchTypeList.map((searchType, idx) => <option value={searchTypeName[idx]} key={idx + 1}>{searchType}</option>)}
-          </select>
-          <div className='searchbar-container'>
-            <img className='search-icon' src='/image/Search_Icon.svg' alt='search-icon' />
-            <input
-              className='searchbar-text'
-              type='text'
-              placeholder='제목 또는 아티스트명을 입력해주세요.'
-              onKeyPress={handleKeyboard}
-              onChange={(e) => onChange(e.target.value)}
-              value={input || ''}
-            />
+      {!location.pathname.includes('mainpage')
+        ? null
+        : <div className={`media-searchbar ${mediaState}`}>
+            <div className='searchbar'>
+              <select className='searchbar-dropbox' onChange={handleSearchTypeChange}>
+                {searchTypeList.map((searchType, idx) => <option value={searchTypeName[idx]} key={idx + 1}>{searchType}</option>)}
+              </select>
+              <div className='searchbar-container'>
+                <img className='search-icon' src='/image/Search_Icon.svg' alt='search-icon' />
+                <input
+                  className='searchbar-text'
+                  type='text'
+                  placeholder='제목 또는 아티스트명을 입력해주세요.'
+                  onKeyPress={handleKeyboard}
+                  onChange={(e) => onChange(e.target.value)}
+                  value={input || ''}
+                />
+              </div>
+            </div>
+            <div className='closeBtn' onClick={() => { handleMediaState(); handleBarState(); }}>
+              <FontAwesomeIcon className='menu' icon={faTimes} size='1x' />
+            </div>
           </div>
-        </div>
-        <div className='closeBtn' onClick={() => { handleMediaState(); handleBarState(); }}>
-          <FontAwesomeIcon className='menu' icon={faTimes} size='1x' />
-        </div>
-      </div>
+      }
     </MediaSearchbarWrapper>
   );
 }
