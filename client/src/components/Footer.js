@@ -25,12 +25,12 @@ const FooterWrapper = styled.div`
     cursor: pointer;
     text-decoration: none;
     &:hover {
-      text-decoration: underline;
-      color: #caa6fe;
+      color: ${Colors.pastelPurple}
     }
   }
   .link-label {
     min-width: 128px;
+    ${media.laptop`text-align: left;`}
   } 
   .copyright {
     min-width: 352px;
@@ -85,7 +85,12 @@ function Footer () {
           <div className='link-container'>
             <div className='link-label'>Developed by</div>
             {team.map((member, idx) =>
-              <a className='link' key={idx} href={member.repository} target='_blank' rel='noopener noreferrer'>
+              <a className='link'
+                key={idx}
+                href={member.repository}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
                 <FontAwesomeIcon icon={faGithub} size='1x' color={Colors.lightGray} />
                 {' '}{member.name}
               </a>

@@ -16,19 +16,16 @@ const Wrapper = styled.div`
   }
   .intro {
     width: fit-content;
-    padding: .4rem .8rem;
     background: ${Colors.black};
-    margin: 6rem auto 1.5rem;
     border-radius: 20px;
     font-family: 'DOSMyungjo';
     text-align: center;
     letter-spacing: .5px;
     color: white;
     font-size: 1.2rem;    
+    padding: .4rem .8rem;
+    margin: 7.5rem auto 1.5rem;
     ${media.tabletMini`font-size: 1.3rem; margin: 5rem auto 1.5rem;`}
-    /* ${media.tabletMini`color: blue;`}
-    ${media.tablet`color: red;`}
-    ${media.laptop`color: green;`} */
   }
   .description {
     background: transparent;
@@ -47,8 +44,8 @@ const Wrapper = styled.div`
 
 const Intro = ({ _onStartClick }) => {
   const dispatch = useDispatch();
-  // useEffect(() => dispatch(changeHeader([true, false])), [dispatch]);
   useEffect(() => dispatch(changeHeader([false, false])), [dispatch]);
+
   return (
     <Wrapper>
       <GlobalStyle />

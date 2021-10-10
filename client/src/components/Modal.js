@@ -29,7 +29,7 @@ export const ModalView = styled.div`
   box-shadow: 10px 10px grey;
 
   .content {
-    margin: .4rem auto .2rem;
+    margin: .6rem auto 0;
     padding: auto .3rem;
     font-size: .85rem;
     ${media.tabletMini`font-size: .9rem;`}
@@ -46,7 +46,8 @@ export const LogOutButton = styled.button`
   width: 6.5rem;
   height: 1.7rem;
   font-size: .85rem;
-  ${media.tabletMini`font-size: 1rem; width: 7rem;`}
+  padding-top: .1rem;
+  ${media.tabletMini`font-size: .9rem; width: 7rem;`}
   font-family: 'Arial';
   color: white;
   cursor: pointer;
@@ -73,8 +74,10 @@ function Modal ({ handleModal, login }) {
         <div className='content'>
           [토큰 만료] 다시 로그인 하시겠습니까?
         </div>
-          <NoticeButton onClick={goLogin}>로그인</NoticeButton>
-        <LogOutButton onClick={logout}>로그아웃</LogOutButton>
+        <NoticeButton onClick={goLogin}>로그인</NoticeButton>
+        <div>
+          <LogOutButton onClick={logout}>로그아웃</LogOutButton>
+        </div>
       </ModalView>
     </ModalBackdrop>
   );

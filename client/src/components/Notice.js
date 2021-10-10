@@ -49,7 +49,7 @@ export const NoticeButton = styled.button`
   width: 6.5rem;
   height: 1.7rem;
   font-size: .85rem;
-  ${media.tabletMini`font-size: 1rem; width: 7rem;`}
+  ${media.tabletMini`font-size: .9rem; width: 7rem;`}
   font-family: 'Arial';
   color: white;
   cursor: pointer;
@@ -133,9 +133,9 @@ function Notice ({ message, login, handleNotice, handleMessage }) {
             message === '로그아웃 성공!' ||
             message === '회원가입 성공!' ||
             message === '회원탈퇴가 완료되었습니다.'
-            ? '.7rem'
+            ? '.4rem'
             : message === '출생년도 등록이 필요한 서비스입니다.'
-              ? '.45rem'
+              ? '.3rem'
               : '1rem'
           }
         >
