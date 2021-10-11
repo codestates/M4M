@@ -96,7 +96,7 @@ const CustomizedInfo = ({ songInfo, handleMessage, handleNotice }) => {
         {chartYear &&
           topSongs.map((song, idx) => {
             return (
-              <ChartBox>
+              <ChartBox key={idx+1}>
                 <div className='content chart-title'>{idx + 1}. {song.title}</div>
                 <div className='content chart-artist'>{song.artist}</div>
               </ChartBox>

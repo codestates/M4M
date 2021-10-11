@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import { useState } from 'react';
 import axios from 'axios';
 import { media } from '../components/utils/_media-queries';
@@ -85,14 +85,6 @@ export const SignupButton = styled.button`
     background-color: ${Colors.purple};
   }
 `;
-
-function blinkEffect () {
-  return keyframes`
-  50% {
-    opacity:0;
-  }
-  `;
-}
 
 export const Alertbox = styled.div`
   color: red;
