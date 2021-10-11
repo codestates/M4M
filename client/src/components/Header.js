@@ -99,7 +99,7 @@ const HeaderWrapper = styled.div`
   }
 `;
 
-function Header ({ login, signup, modal, handleMessage, handleNotice, handleMediaState, barState, handleBarState, resBarState }) {
+function Header ({ login, signup, modal, handleMessage, handleNotice, handleMediaState, handleSongMediaState, handleSongBarState, barState, handleBarState, resBarState }) {
   const isLogin = useSelector((state) => state.userReducer).token;
   const headerState = useSelector((state) => state.headerReducer);
   const dispatch = useDispatch();
@@ -137,7 +137,7 @@ function Header ({ login, signup, modal, handleMessage, handleNotice, handleMedi
     <HeaderWrapper>
       <div className='header'>
         <div className='header-container-1'>
-          <Link to='/mainpage'>
+          <Link to='/mainpage' onClick={() => { handleSongMediaState(); handleSongBarState(); }}>
             <div className='logo'>
               <img src={Logo} className='logo-image' alt='m4m-logo' />
             </div>

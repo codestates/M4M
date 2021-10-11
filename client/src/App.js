@@ -66,6 +66,14 @@ function App () {
     if (barState === 'bar-deactive' && mediaState === 'deactive') setBarState('bar-active');
   };
 
+  const handleSongMediaState = () => {
+    setMediaState('deactive');
+  }
+  
+  const handleSongBarState = () => {
+    setBarState('bar-deactive');
+  }
+
   const resBarState = () => {
     if (window.innerWidth < 768) setBarState('bar-deactive');
   };
@@ -143,6 +151,8 @@ function App () {
               handleMessage={handleMessage}
               handleNotice={handleNotice}
               handleMediaState={handleMediaState}
+              handleSongMediaState={handleSongMediaState}
+              handleSongBarState={handleSongBarState}
               barState={barState}
               handleBarState={handleBarState}
               resBarState={resBarState}
