@@ -69,9 +69,9 @@ function App () {
   const handleSongMediaState = () => {
     setMediaState('deactive');
   }
-  
+
   const handleSongBarState = () => {
-    setBarState('bar-deactive');
+    if (window.innerWidth < 768) setBarState('bar-deactive');
   }
 
   const resBarState = () => {
