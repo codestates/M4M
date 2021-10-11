@@ -106,12 +106,13 @@ function MediaSearchbar ({ mediaState, handleMediaState, handleBarState }) {
 
   const getSearchResult = (reqSearchType, reqKeyword) => {
     if (reqKeyword.length !== 0) {
+      const original = reqKeyword;
       const result = songsBulkState.filter((song) => {
         reqKeyword = reqKeyword.replace(/\s/gi, '');
         return getRegExp(reqKeyword).test(song[reqSearchType].replace(/\s/gi, ''));
       });
       if (result.length !== 0) {
-        dispatch(changeType(`검색 결과: ${searchTypeList[searchTypeName.indexOf(reqSearchType)]} - ${reqKeyword}`));
+        dispatch(changeType(`검색 결과: ${searchTypeList[searchTypeName.indexOf(reqSearchType)]} - ${original}`));
         dispatch(getResult(result));
       } else {
         dispatch(changeType('No Result'));
