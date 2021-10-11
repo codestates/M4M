@@ -1,81 +1,151 @@
-import axios from 'axios';
-import { useState } from 'react';
 import styled from 'styled-components';
+import { getRegExp } from 'korean-regexp';
+import { useState, useEffect } from 'react';
+import { changeType, getResult } from '../redux/action';
+import { useSelector, useDispatch } from 'react-redux';
+import { media } from './utils/_media-queries';
+import { Colors } from './utils/_var';
 
 const HeaderSearchbarWrapper = styled.div`
-  .btn {
-    cursor: pointer;
-    font-size: 18px;
-  }
   .searchbar-none {
     display: none;
   }
   .searchbar {
     display: flex;
     justify-content: center;
+    margin-left: -1rem;
+    margin-top: -.2rem;
   }
-  .searchbar-dropbox {
-    font-size: 18px;
+  .searchbar-container {
+    height: 1.5rem;
+    padding-top: .3rem;
+    ${media.tabletMini`width: 12rem; height: 1.5rem;`}
+    ${media.tablet`width: 20rem; height: 1.9rem;`}
+    ${media.laptop`width: 22rem;`}
+    border: 1px solid ${Colors.mediumGray};
+    border-radius: 15px;
+  }
+  .search-icon {
+    width: 1.3rem;
+    vertical-align: middle;
+    margin-top: -.1rem;
+    margin-right: .2rem;
   }
   .searchbar-text {
-    width: 30vw;
-    font-size: 14px;
+    border: none;
+    width: 10rem;
+    font-size: .7rem;
+    ${media.tablet`width: 90%; font-size: .85rem;`}
+    color: ${Colors.black};
+    background-color: transparent;
+  }
+  .searchbar-dropbox {
+    font-size: .75rem;
+    margin-right: .3rem;
+    ${media.tabletMini`font-size: .75rem; margin-right: .3rem; color: ${Colors.darkGray};`}
+    ${media.tablet`font-size: .8rem; margin-right: .8rem; `}
+    border: none;
+    cursor: pointer;
+  }
+  .searchbar-dropbox:focus, select:focus, input:focus {
+    outline: none;
+  }
+  input::-webkit-input-placeholder {
+    color: ${Colors.mediumGray};
+    font-size: .7rem;
+    ${media.tablet`font-size: .8rem;`}
+  }
+  .display-none {
+    display: none;
+  }
+  .bar-deactive {
+    display: none;
+  }
+  .icon-deactive {
+    display: none;
+  }
+  .icon-active {
+    right: 0;
+    cursor: pointer;
+  }
+  .search-icon-active {
+    width: 1.5rem;
   }
 `;
 
-function HeaderSearchbar () {
-  // ! useState는 Redux를 사용하기 전 테스트 용으로 사용
-  const [type, setType] = useState('title');
-  const [keyword, setKeyword] = useState('');
-  console.log('🟡', type, '🟢', keyword);
+function HeaderSearchbar ({ isRecommend, handleMediaState, barState, handleBarState, resBarState, handleMessage, handleNotice }) {
+  const songsBulkState = useSelector(state => state.songsBulkReducer).songsBulk;
+  const notiState = useSelector(state => state.notiReducer).notifications;
+  const dispatch = useDispatch();
+  const searchTypeList = ['제목', '아티스트'];
+  const searchTypeName = ['title', 'artist'];
+  const [searchType, setSearchType] = useState(searchTypeName[0]);
 
-  const getSearchResult = (reqType, reqKeyword) => {
+  const getSearchResult = (reqSearchType, reqKeyword) => {
     if (reqKeyword.length !== 0) {
-      axios
-        .get(
-          process.env.REACT_APP_API_URL + `/${reqType}?query=${reqKeyword}`,
-          { headers: { 'Content-Type': 'application/json' } }
-        )
-        .then((searchResult) => {
-          const songIdList = searchResult.data.data;
-          console.log(songIdList);
-          // ! Redux SideNav isSelected null로 변경 => MainSongList에 '검색 결과가 없습니다.' landing
-        })
-        .catch((err) => {
-          // ! Redux SideNav isSelected null로 변경 => MainSongList에 '검색 결과가 없습니다.' landing
-          console.log(err);
-        });
+      const original = reqKeyword;
+      const result = songsBulkState.filter((song) => {
+        reqKeyword = reqKeyword.replace(/\s/gi, '');
+        return getRegExp(reqKeyword).test(song[reqSearchType].replace(/\s/gi, ''));
+      });
+      if (result.length !== 0) {
+        dispatch(changeType(`검색 결과: ${searchTypeList[searchTypeName.indexOf(reqSearchType)]} - ${original}`));
+        dispatch(getResult(result));
+      } else {
+        dispatch(changeType('No Result'));
+      }
     } else {
-      // ! Redux Action을 사용하여 Noti State 변경
+      if (notiState.message === '') {
+        handleNotice(true);
+        handleMessage('검색창이 비었습니다. 추억을 입력해주세요! ᕕ( ᐛ )ᕗ');
+      }
     }
+    resBarState();
   };
 
-  const handleTypeChange = (e) => setType(e.target.value);
-  const handleKeywordChange = (e) => setKeyword(e.target.value);
-  const handleClick = () => {
-    getSearchResult(type, keyword);
-  };
+  const handleSearchTypeChange = (e) => setSearchType(e.target.value);
+
   const handleKeyboard = (e) => {
     if (e.key === 'Enter') {
-      getSearchResult(type, keyword);
+      getSearchResult(searchType, e.target.value);
     }
   };
+
+  const resetInput = () => {
+    if (window.innerWidth < 768) setInput('');
+  };
+
+  useEffect(() => window.addEventListener('resize', resetInput));
+
+  const [input, setInput] = useState('');
+
+  const onChange = (e) => setInput(e);
 
   return (
     <HeaderSearchbarWrapper>
-      <div className='searchbar'>
-        <select className='searchbar-dropbox' onChange={handleTypeChange}>
-          <option value='title'>title</option>
-          <option value='artist'>artist</option>
+      <div className={isRecommend ? `searchbar ${barState}` : 'display-none'}>
+        <select className='searchbar-dropbox' onChange={handleSearchTypeChange}>
+          {searchTypeList.map((searchType, idx) => <option value={searchTypeName[idx]} key={idx + 1}>{searchType}</option>)}
         </select>
-        <input
-          className='searchbar-text'
-          type='text'
-          placeholder='Enter title or artist name'
-          onChange={handleKeywordChange}
-          onKeyPress={handleKeyboard}
+        <div className='searchbar-container'>
+          <img className='search-icon' src='/image/Search_Icon.svg' alt='search-icon' />
+          <input
+            className='searchbar-text'
+            type='text'
+            placeholder='제목 또는 아티스트명을 입력해주세요.'
+            onKeyPress={handleKeyboard}
+            onChange={(e) => onChange(e.target.value)}
+            value={input || ''}
+          />
+        </div>
+      </div>
+      <div className={isRecommend && barState === 'bar-deactive' ? 'icon-active' : 'icon-deactive'}>
+        <img
+          className='search-icon-active'
+          src='/image/Search_Icon.svg'
+          alt='search-icon-active'
+          onClick={() => { handleMediaState(); handleBarState(); }}
         />
-        <button className='btn searchbar-button' onClick={handleClick}>search</button>
       </div>
     </HeaderSearchbarWrapper>
   );

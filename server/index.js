@@ -4,6 +4,7 @@ const https = require('https');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const express = require('express');
+const nodemailer = require('nodemailer');
 const app = express();
 
 const controllers = require('./controllers');
@@ -30,8 +31,12 @@ app.post('/login', controllers.login);
 app.post('/logout', controllers.logout);
 app.get('/song', controllers.song);
 app.post('/comment', controllers.comment);
-app.patch('/edit-comment', controllers.editComment);
-app.delete('/delete-comment', controllers.deleteComment);
+app.patch('/comment', controllers.editComment);
+app.delete('/comment', controllers.deleteComment);
+app.post('/hashtag', controllers.hitHashtag);
+app.delete('/hashtag', controllers.deleteHashtag);
+// app.post('/like', controllers.hitLike);
+// app.delete('/like', controllers.deleteLike);
 app.get('/title', findAllTitle);
 app.get('/artist', findAllArtist);
 app.get('/user-info', controllers.userInfo);
@@ -41,6 +46,7 @@ app.get('/my-like', controllers.myLike);
 app.delete('/my-like', controllers.deleteMyLike);
 app.post('/recommendation', controllers.recommendation);
 app.get('/mainpage', controllers.mainpage);
+app.post('/auth', controllers.auth);
 
 const HTTPS_PORT = process.env.HTTPS_PORT || 80;
 
@@ -52,13 +58,9 @@ if (fs.existsSync('./key.pem') && fs.existsSync('./cert.pem')) {
   const credentials = { key: privateKey, cert: certificate };
 
   server = https.createServer(credentials, app);
-  server.listen(HTTPS_PORT, () =>
-    console.log(`https server running on port ${HTTPS_PORT}`)
-  );
+  server.listen(HTTPS_PORT, () => console.log(`https server running on port ${HTTPS_PORT}`));
 } else {
-  server = app.listen(HTTPS_PORT, () =>
-    console.log(`http server running on port ${HTTPS_PORT}`)
-  );
+  server = app.listen(HTTPS_PORT, () => console.log(`http server running on port ${HTTPS_PORT}`));
 }
 
 module.exports = server;

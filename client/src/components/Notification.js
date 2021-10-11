@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 const NotiWrapper = styled.div`
   .noti {
@@ -10,12 +10,12 @@ const NotiWrapper = styled.div`
     top: calc(41px + 10px);
     right: 10px;
     font-size: 18px;
-    /* word-break: normal; */
     word-break: break-all;
     box-shadow: 4px 4px 0px gray;
-    animation: blink 3000ms forwards;
+    animation: noti_blink 3000ms forwards;
+    z-index: 99;
   }
-  @keyframes blink {     
+  @keyframes noti_blink {     
     0% { opacity: 0; }
     4% { opacity: 0.8; }
     8% { opacity: 0.6; }
@@ -25,27 +25,14 @@ const NotiWrapper = styled.div`
     96% { opacity: 0.8; }
     100% { opacity: 0; }
   }
-  .test {
-    position: absolute;
-  }
 `;
 
-// ! Redux Handling 필요
-
 function Noti () {
-  const [notiInfo, setNotiInfo] = useState('');
-  const handleNotiInfo = () => {
-    if (notiInfo === '') {
-      setNotiInfo('Notification NotificationNotification NotificationNotificationNotification');
-      setTimeout(() => setNotiInfo(''), 3000);
-    } else {
-      console.log('❌ notification is on');
-    }
-  };
+  const notiState = useSelector(state => state.notiReducer).notifications;
+
   return (
     <NotiWrapper>
-      {notiInfo !== '' ? <div className='noti'>{notiInfo}</div> : null}
-      <button className='test' onClick={handleNotiInfo}>test</button>
+      {notiState.message !== '' ? <div className='noti'>{notiState.message}</div> : null}
     </NotiWrapper>
   );
 }

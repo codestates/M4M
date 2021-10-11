@@ -1,58 +1,33 @@
-// const { isAuthorized } = require('../tokenFunctions');
+const { isAuthorized } = require('../tokenFunctions');
 const { user } = require('../../models');
 
 module.exports = async (req, res) => {
-  // test: without accessToken
   try {
-    const userInfo = await user.findOne({
-      where: {
-        id: req.body.id
-      }
-    });
+    const accessTokenData = isAuthorized(req);
 
-    res
-      .status(200)
-      .json({
+    if (!accessTokenData) {
+      return res.status(401).send({ message: 'You\'re not logged in.' });
+    } else {
+      const userInfo = await user.findOne({
+        where: {
+          id: accessTokenData.id
+        }
+      });
+      // console.log(userInfo.nickname);
+      res.status(200).json({
         data: {
           nickname: userInfo.nickname,
           email: userInfo.email,
-          birthYear: userInfo.birthYear
+          birthYear: userInfo.birthYear,
+          kakao: userInfo.kakao
         },
         message: 'ok'
       });
-    // with accessToken
-    // const accessTokenData = isAuthorized(req);
-
-    // if (!accessTokenData) {
-    //   return res
-    //     .status(404)
-    //     .send({
-    //       data: null,
-    //       message: 'Not an existing user'
-    //     });
-    // } else {
-    //   delete accessTokenData.password;
-
-    //   const userInfo = await user.findOne({
-    //     where: {
-    //       id: accessTokenData.id
-    //     }
-    //   });
-
-    //   res
-    //     .status(200)
-    //     .json({
-    //       data: {
-    //         nickname: userInfo.nickname,
-    //         email: userInfo.email,
-    //         birthYear: userInfo.birthYear
-    //       },
-    //       message: 'ok'
-    //     });
-    // }
-  } catch {
+    }
+  } catch (err) {
+    console.log(err);
     res.status(400).json({
-      message: 'Invalid access token'
+      message: 'error'
     });
   }
 };

@@ -18,6 +18,7 @@ module.exports = {
     //   return null;
     // }
     const authorization = req.headers.authorization;
+    // console.log(authorization);
 
     if (!authorization) {
       return null;

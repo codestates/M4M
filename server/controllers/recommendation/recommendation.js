@@ -4,8 +4,6 @@ const Op = Sequelize.Op;
 
 module.exports = async (req, res) => {
   try {
-    // console.log(req.body);
-
     const resultType = req.body.resultType;
     let recommendType = '';
     if (resultType === 'AFL') {
@@ -46,7 +44,7 @@ module.exports = async (req, res) => {
       }
     });
 
-    console.log(songList.length);
+    // console.log(songList.length);
 
     if (songList.length === 0) {
       res.status(422).json({
@@ -64,12 +62,16 @@ module.exports = async (req, res) => {
         }
       }
 
-      console.log(randomIndexArray);
+      // console.log(randomIndexArray);
 
       const selectedSong = [];
 
       for (const el of randomIndexArray) {
-        selectedSong.push(`${songList[el].id},${songList[el].title} by ${songList[el].artist}`);
+        selectedSong.push(
+          `${songList[el].id},${songList[el].title} by ${
+            songList[el].artist
+          }(${songList[el].date.slice(0, 4)})`
+        );
       }
 
       res.status(200).json({
