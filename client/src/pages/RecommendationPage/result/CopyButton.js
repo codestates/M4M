@@ -6,7 +6,7 @@ const Button = styled.div`
   width: 9.5rem;
   height: 3rem;
   margin: .6rem auto 1.7rem;
-  padding: .8rem 1rem 0;
+  padding: .95rem 1rem;
   vertical-align: middle;
   color: ${Colors.black};
   background-color: ${Colors.pastelPurple};
@@ -48,7 +48,7 @@ const CopyButton = ({ songType, songList, handleNotice, handleMessage }) => {
 
   return (
     <Button onClick={() => copyResult(copySongType)}>
-      📋 추천 결과 복사하기
+      추천 결과 복사하기
     </Button>
   );
 };
