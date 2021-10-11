@@ -108,7 +108,6 @@ function Notice ({ message, login, handleNotice, handleMessage }) {
         if (res.status === 200) {
           handleNotice(true);
           handleMessage('회원탈퇴가 완료되었습니다.');
-          window.location.replace('/mainpage');
           localStorage.clear();
         }
       });

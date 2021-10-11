@@ -203,7 +203,12 @@ function App () {
           </Switch>
           {openNotice
             ? (
-              <Notice message={message} login={handleLoginModalOpen} handleNotice={handleNotice} />
+              <Notice
+                message={message}
+                login={handleLoginModalOpen}
+                handleNotice={handleNotice}
+                handleMessage={handleMessage}
+              />
               )
             : null}
           <MoveTop />
