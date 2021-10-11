@@ -145,27 +145,26 @@ function MediaSearchbar ({ mediaState, handleMediaState, handleBarState }) {
       {!location.pathname.includes('mainpage')
         ? null
         : <div className={`media-searchbar ${mediaState}`}>
-            <div className='searchbar'>
-              <select className='searchbar-dropbox' onChange={handleSearchTypeChange}>
-                {searchTypeList.map((searchType, idx) => <option value={searchTypeName[idx]} key={idx + 1}>{searchType}</option>)}
-              </select>
-              <div className='searchbar-container'>
-                <img className='search-icon' src='/image/Search_Icon.svg' alt='search-icon' />
-                <input
-                  className='searchbar-text'
-                  type='text'
-                  placeholder='제목 또는 아티스트명을 입력해주세요.'
-                  onKeyPress={handleKeyboard}
-                  onChange={(e) => onChange(e.target.value)}
-                  value={input || ''}
-                />
-              </div>
-            </div>
-            <div className='closeBtn' onClick={() => { handleMediaState(); handleBarState(); }}>
-              <FontAwesomeIcon className='menu' icon={faTimes} size='1x' />
+          <div className='searchbar'>
+            <select className='searchbar-dropbox' onChange={handleSearchTypeChange}>
+              {searchTypeList.map((searchType, idx) => <option value={searchTypeName[idx]} key={idx + 1}>{searchType}</option>)}
+            </select>
+            <div className='searchbar-container'>
+              <img className='search-icon' src='/image/Search_Icon.svg' alt='search-icon' />
+              <input
+                className='searchbar-text'
+                type='text'
+                placeholder='제목 또는 아티스트명을 입력해주세요.'
+                onKeyPress={handleKeyboard}
+                onChange={(e) => onChange(e.target.value)}
+                value={input || ''}
+              />
             </div>
           </div>
-      }
+          <div className='closeBtn' onClick={() => { handleMediaState(); handleBarState(); }}>
+            <FontAwesomeIcon className='menu' icon={faTimes} size='1x' />
+          </div>
+          </div>}
     </MediaSearchbarWrapper>
   );
 }

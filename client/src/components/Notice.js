@@ -193,8 +193,7 @@ function Notice ({ message, login, handleNotice, handleMessage }) {
                   )
                 : message === '정말 탈퇴 하시겠습니까?'
                   ? <NoticeButton onClick={withdrawalRequest}>탈퇴하기</NoticeButton>
-                  : null
-          }
+                  : null}
       </NoticeView>
     </NoticeBackdrop>
   );
