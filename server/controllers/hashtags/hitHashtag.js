@@ -32,9 +32,7 @@ module.exports = async (req, res) => {
       });
 
       if (name !== '좋아요' && exsHashtag.length >= 3) {
-        return res
-          .status(400)
-          .json({ message: 'You cannot choose over 3 hashtags' });
+        return res.status(400).json({ message: 'You cannot choose over 3 hashtags' });
       }
 
       // 해시태그를 중복해서 선택하였을 경우
@@ -58,7 +56,8 @@ module.exports = async (req, res) => {
 
       return res.status(200).json({ message: 'ok' });
     }
-  } catch {
+  } catch (err) {
+    console.log(err);
     res.status(400).json({ message: 'error' });
   }
 };

@@ -4,7 +4,7 @@ import { changeHeader } from '../../redux/action';
 import { useDispatch } from 'react-redux';
 import { media } from '../../components/utils/_media-queries';
 import { Colors, GlobalStyle } from '../../components/utils/_var';
-import { StartBtn } from '../../components/utils/Buttons';
+import { StartBtn } from './Buttons';
 
 const Wrapper = styled.div`
   ul {
@@ -14,43 +14,47 @@ const Wrapper = styled.div`
   li {
     list-style-type: none;
   }
-  span {
-    font-family: 'NeoDunggeunmo';
+  .intro {
+    width: 20rem;
+    background: ${Colors.black};
+    border-radius: 20px;
+    font-family: 'DOSMyungjo';
+    text-align: center;
+    letter-spacing: .5px;
+    color: white;
+    font-size: 1.2rem;    
+    padding: .4rem .8rem;
+    margin: 7.5rem auto 1.5rem;
+    ${media.tabletMini`font-size: 1.3rem; margin: 7rem auto 1.5rem; padding: .4rem .8rem; width: 21.5rem;`}
+    ${media.tablet`margin: 5.5rem auto 1.5rem; width: 22rem`}
   }
-  .list-group {
-    .list-item {
-      background: transparent;
-      padding: 6.5em 1.25em 1em;
-      margin: auto;
-      font-family: '국립박물관문화재단클래식M';
-      text-align: center;
-      letter-spacing: .5px;
-      line-height: 1.5em;
-      border: 0;
-      color: ${Colors.black};
-      font-size: 1.2em;      
-      ${media.tabletMini`font-size: 1.3em;`}
-      ${media.tablet`font-size: 1.4em;`}
-      ${media.laptop`font-size: 1.5em;`}
-      ${media.tabletMini`color: blue;`}
-      ${media.tablet`color: red;`}
-      ${media.laptop`color: green;`}
-    }
+  .description {
+    background: transparent;
+    padding: 1rem 2.7rem 2rem;
+    margin: auto;
+    font-family: 'DOSGothic';
+    text-align: center;
+    letter-spacing: .5px;
+    word-break: keep-all;
+    color: ${Colors.black};
+    line-height: 1.6rem;
+    font-size: .9rem;
+    ${media.tabletMini`font-size: 1rem; line-height: 1.75rem;`}
   }
 `;
 
 const Intro = ({ _onStartClick }) => {
   const dispatch = useDispatch();
-  useEffect(() => dispatch(changeHeader([true, false])), [dispatch]);
+  useEffect(() => dispatch(changeHeader([false, false])), [dispatch]);
+
   return (
     <Wrapper>
       <GlobalStyle />
       <div className='app-frame'>
-        <ul className='list-group'>
-          <li className='list-item'>밀레니얼 세대를 위한<br />노래 추천</li>
-        </ul>
+        <div className='intro'>오직 당신만을 위한 노래 추천!</div>
+        <div className='description'>더욱 더 정확한 추천을 받고싶다면, 타임머신을 타고 어린 시절로 돌아갔다고 가정한 후, 다음 질문들에 대답해주세요! :)</div>
         <StartBtn onClick={_onStartClick}>
-          <span>테스트 시작!</span>
+          <span>타임머신 타기!</span>
         </StartBtn>
       </div>
     </Wrapper>

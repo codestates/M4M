@@ -11,29 +11,30 @@ const Wrapper = styled.div`
     ${media.tabletMini`margin: 1rem 1.5rem;`}
   }
   .questionCountLeft {
+    /* margin-left: 1rem; */
     border-bottom: solid .17rem ${Colors.black};
-    font-family: '국립박물관문화재단클래식M';
+    /* font-family: '국립박물관문화재단클래식M'; */
+    word-spacing: -.2rem;
+    font-family: 'NeoDunggeunmo';
     font-size: 1.3rem;
     ${media.tabletMini`font-size: 1.5rem;`}
     ${media.tablet`font-size: 1.75rem;`}
     color: ${Colors.black};
-    ${media.tabletMini`color: blue;`}
+    /* ${media.tabletMini`color: blue;`}
     ${media.tablet`color: red;`}
-    ${media.laptop`color: green;`}
+    ${media.laptop`color: green;`} */
   }
   .questionCountRight {
     height: 80%;
-    padding: .5rem .75rem;
-    background-color: #e5e4e2;
+    padding: .3rem .5rem;
     border: solid 1px ${Colors.black};
     border-radius: 5px;
     margin-left: auto;
     font-family: 'NeoDunggeunmo';
     font-size: .8rem;
     color: ${Colors.black};
-    background-color: ${Colors.beige};
     font-size: .75rem;
-    ${media.tabletMini`font-size: .9rem;`}
+    ${media.tabletMini`font-size: .8rem;`}
   }
 `;
 

@@ -9,77 +9,67 @@ import { Colors, GlobalStyle } from '../../../components/utils/_var';
 require('dotenv').config();
 
 const Wrapper = styled.div`
-  .app-frame::-webkit-scrollbar {
-    width: 12px;
+  .main-container {
+    margin: 0 auto 2rem;
+    overflow-y: scroll;
+    min-height: calc(100vh - 41px - 56px);
+    max-width: 525px;
+    min-width: 259px;   
   }
-  /* Track */
-  .app-frame::-webkit-scrollbar-track {
-    background: #e8ded3;
-    border-top: .5px solid;
-    border-bottom: .5px solid;
-    border-left: .5px solid;
-    border-right: solid 1px;
-  }
-  /* Handle */
-  .app-frame::-webkit-scrollbar-thumb {
-    background: url('/image/scroll.svg');
-    background-repeat: no-repeat;
-    background-color: ${Colors.beige};
-    background-position: center;
-    border: 1px solid;
-  }
-  /* Handle on hover */
-  /* .app-frame::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  } */
-
   a {
     font-family: 'NeoDunggeunmo';
-    font-size: .9em;
-    ${media.tabletMini`font-size: .95em;`};
+    font-size: .9rem;
+    ${media.tabletMini`font-size: .95rem;`};
   }
   .typeName {
-    font-family: '국립박물관문화재단클래식M';
-    /* font-family: 'NeoDunggeunmo'; */
+    font-family: 'NeoDunggeunmo';
     text-align: center;
     color: ${Colors.black};
-    font-size: 1.3em;
-    ${media.tabletMini`font-size: 1.35em;`}
-    ${media.tablet`font-size: 1.4em;`}
-    margin-top: 1em;
-    margin-bottom: 2.1em;
-    ${media.tabletMini`color: blue;`}
+    line-height: 1.25rem;
+    font-size: 1.2rem;
+    margin: 1.5rem 1.5rem 2.1rem;
+    ${media.tabletMini`font-size: 1.35rem;`}
+    ${media.tablet`font-size: 1.4rem;`}
+    /* ${media.tabletMini`color: blue;`}
     ${media.tablet`color: red;`}
-    ${media.laptop`color: green;`}
+    ${media.laptop`color: green;`} */
   }
   .explanation {
     text-align: center;
     color: ${Colors.black};
     font-family: 'DOSGothic';
-    font-size: .9em;
-    line-height: 1.4em;
-    ${media.tabletMini`font-size: .95em; line-height: 1.5em;`}
+    line-height: 1.35rem;
+    font-size: .8rem;
+    word-break: keep-all;
+    margin-bottom: .5rem;
+    ${media.tabletMini`font-size: .9rem; line-height: 1.5rem; margin-bottom: .75rem;`}
+  }
+  .spacing {
+    margin-top: 1.5rem;
+    ${media.tabletMini`margin-top: 1.75rem;`}
   }
   .container {
-    width: 80%;
-    background-color: #fff;
+    width: 85%;
     border: solid 1px ${Colors.black};
-    box-shadow: 4px 5px ${Colors.gray};
-    margin: 2em auto 2em;
-    padding: .3em .2em .8em .2em;
-    ${media.tabletMini`margin: 2.4em auto 3.5em; padding: .8em .2em 1.1em .2em;`}
+    box-shadow: 4px 5px ${Colors.mediumGray};
+    margin: 2rem auto 2rem;
+    padding: 1rem 1.5rem 1.2rem;
+    ${media.tabletMini`margin: 2.4rem auto 3.5rem; padding: 1.5rem 2.2rem 1.75rem ;`}
   }
   .songs {
     width: 90%;
     height: auto;
-    margin: 2em auto auto;
-    padding-bottom: 1em;
-    line-height: 1.7em;
+    margin: 2rem auto auto;
+    padding-bottom: 1rem;
+    line-height: 1.7rem;
     color: ${Colors.black};
     font-family: 'DOSGothic';
     text-align: left;
-    font-size: .85em;
-    ${media.tabletMini`font-size: .9em;`}
+    font-size: .85rem;
+    ${media.tabletMini`font-size: .9rem;`}
+  }
+  .songs > li {
+    margin-bottom: .6rem;
   }
   li > span {
     text-decoration: underline;
@@ -103,24 +93,23 @@ const Wrapper = styled.div`
 `;
 
 const Title = styled.div`
-  margin-top: 2.5em;
+  margin-top: 2.5rem;
   font-family: 'DOSMyungjo';
   text-transform: lowercase;
-  font-weight: 400;
   text-align: center;
   color: white;
-  font-size: .8em;
-  ${media.tabletMini`font-size: 1em;`}
+  font-size: .8rem;
+  ${media.tabletMini`font-size: 1rem;`}
   line-height: 1.5rem;
 
   & span {
     background-color: ${Colors.black};
-    padding: .4em .75em;
+    padding: .4rem .75rem;
     border-radius: 20px;
   }
 `;
 
-const Result = ({ resultType, songList }) => {
+const Result = ({ resultType, songList, handleNotice, handleMessage }) => {
   let songType;
   // console.log(resultType);
   if (resultType === 'AFL') {
@@ -157,18 +146,21 @@ const Result = ({ resultType, songList }) => {
   return (
     <Wrapper>
       <GlobalStyle />
-      <div className='app-frame'>
-        <Title><span>당신의 노래 취향</span></Title>
+      <div className='main-container'>
+        <Title><span>당신의 타입</span></Title>
         <h2 className='typeName'>{songType.name}</h2>
-        <Title><span>타입 설명</span></Title>
         <div className='container'>
-          <p className='explanation'>{songType.explanation}</p>
-          <br /><br /><br /><br /><br /><br /><br /><br />
+          {songType.explanation.split('\n').map((line, idx) =>
+            <div className='explanation' key={idx}>
+              {line}
+            </div>
+          )}
+          <div className='explanation spacing'>아래에서 당신만을 위한 추천 노래를 확인해주세요~</div>
         </div>
         <Title><span>추천 노래</span></Title>
         <ul className='songs'>
           {songList[0] === '당신의 취향에 맞는 노래를 찾지 못했습니다.'
-            ? <li key='1'>{songList[0]} <a href='/recommendpage'>다시 추천 받기</a></li>
+            ? <li key='no-result'>{songList[0]} <a href='/recommendpage'>다시 추천 받기</a></li>
             : songList.map((info, idx) => {
               const songId = info.split(',')[0];
               const songInfo = info.split(',')[1];
@@ -178,7 +170,12 @@ const Result = ({ resultType, songList }) => {
             })}
         </ul>
         <KakaoShareButton songType={songType} songList={songList} />
-        <CopyButton songType={songType} songList={songList} />
+        <CopyButton
+          songType={songType}
+          songList={songList}
+          handleMessage={handleMessage}
+          handleNotice={handleNotice}
+        />
       </div>
     </Wrapper>
   );

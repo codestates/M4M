@@ -7,18 +7,23 @@ require('dotenv').config();
 const Wrapper = styled.div`
   img {
     vertical-align: middle;
+    width: 1.15rem;
   }
   button:hover {
     cursor: pointer;
   }
   .kakao-button {
-    width: 9rem;
-    ${media.tablet`width: 9.5rem;`}
+    width: 9.5rem;
+    height: 3rem;
+    ${media.tablet`width: 10rem;`}
     margin: .8rem auto 0;
     padding: .8rem 1rem;
     background-color: #FEE500;
     border-radius: 7px;
     border: none;
+    &:hover {
+    background-color: #edc707;
+  }
   }
   .kakao-content {
     display: inline-block;
@@ -69,7 +74,7 @@ const KakaoShareButton = ({ songType, songList }) => {
       }],
       buttons: [
         {
-          title: '나도 추천 받기',
+          title: '추천 받으러 가기',
           link: {
             webUrl: process.env.REACT_APP_URL + '/recommendpage',
             mobileWebUrl: process.env.REACT_APP_URL + '/recommendpage'
@@ -82,7 +87,7 @@ const KakaoShareButton = ({ songType, songList }) => {
   return (
     <Wrapper>
       <button className='kakao-button' onClick={kakaoShare}>
-        <img src={kakaoLogo} alt='kakao-logo' width='20px' />
+        <img src={kakaoLogo} alt='kakao-logo' />
         <div className='kakao-content'>카카오톡 공유하기</div>
       </button>
     </Wrapper>

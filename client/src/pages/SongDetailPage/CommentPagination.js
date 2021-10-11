@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import { Colors, Size, GlobalStyle } from '../../components/utils/_var';
+import { media } from '../../components/utils/_media-queries';
+import { Colors, GlobalStyle } from '../../components/utils/_var';
 import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -10,74 +11,83 @@ require('dotenv').config();
 
 const Wrapper = styled.div`
   .comments-container-pagination {
-    width: ${Size.container};
-    margin: auto;
-    /* border: solid 1px; */
+    min-width: 320px;
+    max-width: 479px;
+    margin: .5rem auto;
+    padding-right: 0;
+    ${media.tabletMini`min-width: 470px; max-width: 750px;`}
+    ${media.tablet`width: 41.7rem; max-width: 1024px;`}
     justify-items: center;
   }
   .comment-item {
     display: grid;
-    margin: 0.6rem auto;
+    margin: .6rem auto;
     padding: 0rem;
-    width: ${Size.container};
+    min-width: 320px;
+    max-width: 479px;
+    ${media.tabletMini`min-width: 470px; max-width: 750px;`}
+    ${media.tablet`width: 41.7rem; max-width: 1024px;`}
     border-bottom: 1px solid ${Colors.lightGray};
-    grid-template-columns: 20% 71.5%;
+    grid-template-columns: 21% 71.5%;
     grid-template-areas:
       'nickname comment comment'
       '. date button'
       'page-num page-num page-num';
   }
   .comment-item:last-of-type {
-    border-bottom: 1px solid ${Colors.gray};
+    border-bottom: 1px solid ${Colors.mediumGray};
   }
   .nickname {
     grid-area: nickname;
-    padding-right: 0.5rem;
+    padding-right: .5rem;
     text-align: left;
-    font-size: 0.8rem;
+    font-size: .8rem;
     font-family: 'Arial';
-    /* font-family: 'Iropke Batang', serif; */
     color: ${Colors.gray};
   }
   .date {
     grid-area: date;
     text-align: left;
-    font-size: 1.1rem;
-    margin-bottom: 0.62rem;
+    font-size: .8rem;
+    margin-bottom: .62rem;
     font-family: 'Arial';
-    font-family: 'Pixolde';
     color: ${Colors.gray};
   }
   .content {
     grid-area: comment;
     margin-bottom: 1rem;
-    padding: 0 0 0.5rem;
+    padding: 0 0 .5rem;
     text-align: left;
     color: ${Colors.darkGray};
     font-family: 'Arial';
-    font-size: 0.85rem;
+    font-size: .85rem;
   }
   .deleteButton {
     grid-area: button;
     grid-column: 3;
     position: inherit;
     bottom: 0px;
-    -ms-transform: translate(0%, -35%);
-    transform: translate(0%, -35%);
-    width: 3rem;
+    -ms-transform: translate(-27%, -25%);
+    transform: translate(-27%, -25%);
+    ${media.tabletMini`-ms-transform: translate(0%, -25%); transform: translate(0%, -25%);`}
     text-align: right;
     font-family: 'Arial';
-    font-size: 0.75rem;
+    font-size: .75rem;
     color: ${Colors.gray};
-    // trash icon size
-    /* font-size: .9rem; */
     background: transparent;
     border: none;
+  }
+  .deleteContent {
+    display: none;
+    ${media.tabletMini`display: block;`}
+  }
+  .deleteIcon {
+    display: block;
+    ${media.tabletMini`display: none;`}
   }
   .page-numbers {
     grid-area: page-num;
   }
-
   ul {
     display: flex;
     justify-content: center;
@@ -89,20 +99,20 @@ const Wrapper = styled.div`
     align-items: center;
     width: 1.7rem;
     height: 1.7rem;
-    margin-left: 0.8rem;
-    padding: 0.8rem;
+    margin-left: .8rem;
+    padding: .8rem;
     border-radius: 50%;
     color: ${Colors.darkGray};
-    font-size: 0.9rem;
+    font-size: .9rem;
     font-family: 'Arial';
-    font-size: 0.8rem;
+    font-size: .8rem;
   }
   li:hover {
     cursor: pointer;
   }
 `;
 
-const CommentPagination = ({ songId, totalComments, modal }) => {
+const CommentPagination = ({ songId, totalComments, modal, handleMessage, handleNotice }) => {
   const token = useSelector((state) => state.userReducer).token;
   const accessTokenTime = localStorage.getItem('accessTokenTime');
   const expiredTime = Number(process.env.REACT_APP_TOKEN_TIME);
@@ -145,11 +155,11 @@ const CommentPagination = ({ songId, totalComments, modal }) => {
 
   const handleDeleteClicked = (commentContent) => {
     if (!token) {
-      alert('로그인이 필요한 서비스입니다.');
+      handleNotice(true);
+      handleMessage('로그인이 필요한 서비스입니다.');
     } else {
       // console.log('nickname: ', nickname, 'content: ', commentContent);
       if (parseInt(accessTokenTime, 10) + expiredTime - new Date().getTime() < 0) {
-        // alert('토큰이 만료되었습니다');
         modal();
       } else {
         axios
@@ -165,7 +175,6 @@ const CommentPagination = ({ songId, totalComments, modal }) => {
           })
           .then((res) => {
             if (res.status === 200) {
-              alert('댓글이 삭제되었습니다.');
               window.location.replace(`/song:id=${songId}`);
             }
           })
@@ -181,23 +190,27 @@ const CommentPagination = ({ songId, totalComments, modal }) => {
       <GlobalStyle />
       <div className='comments-container-pagination'>
         {currentComments.map((comment, idx) => {
-          return token && comment[0] === nickname ? (
-            <div className='comment-item' key={idx}>
-              <div className='nickname'>{comment[0]}</div>
-              <div className='date'>{comment[2]}</div>
-              <div className='content'>{comment[1]}</div>
-              <button className='deleteButton' onClick={() => handleDeleteClicked(comment[1])}>
-                {/* <FontAwesomeIcon icon={faTrash} size='1x' color={Colors.mediumGray} /> */}
-                삭제
-              </button>
-            </div>
-          ) : (
-            <div className='comment-item' key={idx}>
-              <div className='nickname'>{comment[0]}</div>
-              <div className='date'>{comment[2]}</div>
-              <div className='content'>{comment[1]}</div>
-            </div>
-          );
+          return token && comment[0] === nickname
+            ? (
+              <div className='comment-item' key={idx}>
+                <div className='nickname'>{comment[0]}</div>
+                <div className='date'>{comment[2]}</div>
+                <div className='content'>{comment[1]}</div>
+                <button className='deleteButton' onClick={() => handleDeleteClicked(comment[1])}>
+                  <div className='deleteContent'>삭제</div>
+                  <div className='deleteIcon'>
+                    <FontAwesomeIcon icon={faTrash} size='1x' color={Colors.mediumGray} onClick={() => handleDeleteClicked(comment[1])} />
+                  </div>
+                </button>
+              </div>
+              )
+            : (
+              <div className='comment-item' key={idx}>
+                <div className='nickname'>{comment[0]}</div>
+                <div className='date'>{comment[2]}</div>
+                <div className='content'>{comment[1]}</div>
+              </div>
+              );
         })}
         <ul className='page-numbers'>
           {pageNumbers.map((number, idx) => {
