@@ -35,7 +35,7 @@ const HeaderSearchbarWrapper = styled.div`
     border: none;
     width: 10rem;
     font-size: .7rem;
-    ${media.tablet`width: 88%; font-size: .85rem;`}
+    ${media.tablet`width: 90%; font-size: .85rem;`}
     color: ${Colors.black};
     background-color: transparent;
   }

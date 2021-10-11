@@ -20,44 +20,42 @@ const HeaderWrapper = styled.div`
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid rgba(150, 150, 150, 0.2);
-    grid-template-columns: 23% 15% 32% 32%;
-    ${media.tabletMini`grid-template-columns: 16% 18% 40% 26%;`}
-    ${media.tablet`grid-template-columns: 10% 10% 45% 18%;`}
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    ${media.tablet`grid-template-columns: 10% 10% 45% auto;`}
     grid-template-areas:
       'logo recommend search pages'
   }
   .header-container-1 {
     grid-area: logo;
-    width: 100%;
-    /* background-color: lavender;
-    ${media.tabletMini`background-color: lime;`}
-    ${media.tablet`background-color: cyan;`}
-    ${media.laptop`background-color: green;`} */
+    width: 7rem;
+    padding-left: 0;
+    ${media.tablet`width: 8rem;`}
   }
   .header-container-2 {
     grid-area: recommend;
-    width: 100%;
+    width: 4.5rem;
+    justify-self: flex-start;
+    /* ${media.tabletMini`background-color: lavender;`} */
     text-align: left;
-    ${media.tabletMini`text-align: center;`}
+    ${media.tabletMini`text-align: center; width: 5rem;  margin-left: -2rem;`}
+    ${media.tablet`width: 100%; margin-left: 0;`}
   }
   .header-container-3 {
-    width: 100%;
     grid-area: search;
     text-align: right;
     padding-top: .4rem;
+    width: 2rem;
+    justify-self: end;
     ${media.tabletMini`padding-top: .2rem;`}
-    ${media.tablet`padding-top: 0;`}
-    /* background-color: khaki; */
-    /* ${media.tablet`background-color: cyan;`}
-    ${media.tablet`text-align: center;`} */
+    ${media.tablet`width: 100%; text-align: center; padding-top: 0;`}
   }
   .header-container-4 {
     grid-area: pages;
-    width: 100%;
-    padding-right: 1.5rem;
-    ${media.tablet`padding-right: 1.1rem;`}
-    /* background-color: yellow; */
-    text-align: right;
+    justify-self: end;
+    width: 8.5rem;
+    padding-right: .6rem;
+    ${media.tabletMini`padding-right: 1.2rem; width: 10.75rem;`}
+    ${media.tablet`padding-right: 1.1rem; width: 11rem; padding-right: 2.2rem;`}
   }
   a {
     text-decoration: none;
@@ -77,7 +75,7 @@ const HeaderWrapper = styled.div`
   }
   .recommend-page {
     color: ${Colors.darkGray};
-    font-size: .7rem;
+    font-size: .8rem;
     ${media.tabletMini`font-size: .85rem;`}
     ${media.tablet`font-size: .9rem;`}
     ${media.laptop`font-size: .9rem;`}
