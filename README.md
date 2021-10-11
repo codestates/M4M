@@ -42,8 +42,8 @@
 ![](https://img.shields.io/badge/BACK-JWT-000000?style=for-the-badge&logo=json-web-tokens)  
 ![](https://img.shields.io/badge/BACK-OAUTH_2.0-000000?style=for-the-badge&logo=oauth-2.0)  
 
-## DISTRIBUTION
-![](https://img.shields.io/badge/DIST-AMAZON_AWS-232F3E?style=for-the-badge&logo=amazon-aws)  
+## DEPLOYMENT
+![](https://img.shields.io/badge/DEPLOY-AMAZON_AWS-232F3E?style=for-the-badge&logo=amazon-aws)  
 
 ## Detailed chart
 | Fields                              | Stacks                     |
@@ -54,8 +54,8 @@
 | **Data**   | MySQL, Sequelize |
 | **Auth**   | Oauth 2.0, JSON Web Token (JWT) |
 | **Email**   | Nodemailer |
-| **Distribution**   | AWS, EC2, S3, RDS, Route53 |
-| **Planning / Design**   | dbdiagram, GitBook, Figma, Photoshop, Illustrator |
+| **Deployment**   | AWS, EC2, S3, RDS, CodePipeline, CloudFront, Route53 |
+| **Planning / Design**   | dbdiagram.io, GitBook, Figma, Photoshop, Illustrator |
 | **Communication**   | Zoom, Discord |
 
 # Architecture
@@ -72,7 +72,7 @@
 
 **Mobile vs. Web**
 
-<img width="275" alt="landingmobile" src="https://user-images.githubusercontent.com/29108753/136659596-422f3df2-d5e0-4718-83d3-6b83fbcd393a.png">
+<img width="275" alt="landingmobile" src="https://user-images.githubusercontent.com/29108753/136686126-c25488f0-4b77-4ed0-b435-ce0a4b73a525.png">
 
 <br>
 
@@ -87,7 +87,7 @@
 
 **Kakao Login**
 
-<img src = "https://user-images.githubusercontent.com/29108753/136247778-bda25f9d-0442-4de0-b911-4e3ea3fae90f.gif" width="650px">
+<img src = "https://user-images.githubusercontent.com/29108753/136777954-33947be6-114c-4792-9978-6c4b910c8855.gif" width="650px">
 
 **Music Filtering**
 
@@ -95,7 +95,7 @@
 
 **Music Recommendation**
 
-<img src = "https://user-images.githubusercontent.com/29108753/136246300-d58e748f-546b-4e43-87cc-f24af0dbab2f.gif" width="650px">
+<img src = "https://user-images.githubusercontent.com/29108753/136777322-554a48cf-ec1a-4629-b804-4d0ebf4a24fc.gif" width="650px">
 
 # Need More Information?
 [Check out M4M wiki page!](https://github.com/codestates/M4M/wiki)
