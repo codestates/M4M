@@ -224,9 +224,17 @@ function Landing () {
       if (window.scrollY > 4200) setFeatureImgState('feature-active');
       if (window.scrollY < 3800) setFeatureImgState('feature-deactive');
     }
-    if (window.innerWidth < 768) {
+    if (window.innerWidth >= 480 && window.innerWidth < 768) {
       if (window.scrollY > 3700) setFeatureImgState('feature-active');
       if (window.scrollY < 3300) setFeatureImgState('feature-deactive');
+    }
+    if (window.innerWidth >= 400 && window.innerWidth < 480) {
+      if (window.scrollY > 3300) setFeatureImgState('feature-active');
+      if (window.scrollY < 2900) setFeatureImgState('feature-deactive');
+    }
+    if (window.innerWidth < 400) {
+      if (window.scrollY > 3000) setFeatureImgState('feature-active');
+      if (window.scrollY < 2600) setFeatureImgState('feature-deactive');
     }
   };
 
