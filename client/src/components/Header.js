@@ -82,6 +82,7 @@ const HeaderWrapper = styled.div`
   .recommend-page {
     color: ${Colors.darkGray};
     font-size: .8rem;
+    font-family: 'Noto Sans KR', sans-serif;
     ${media.tabletMini`font-size: .85rem;`}
     ${media.tablet`font-size: .9rem;`}
     ${media.laptop`font-size: .9rem;`}
@@ -91,6 +92,7 @@ const HeaderWrapper = styled.div`
   .signup,
   .mypage {
     font-size: .65rem;
+    font-family: 'Noto Sans KR', sans-serif;
     padding-left: .2rem;
     ${media.tabletMini`font-size: .8rem; margin: 0 0 0 .5rem; padding-left: .1rem;`}
     ${media.tablet`padding-left: .2rem;`}

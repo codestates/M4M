@@ -26,7 +26,7 @@ const AppWrapper = styled.div`
     -moz-box-sizing: border-box;
   }
   .App {
-    font-family: 'NeoDunggeunmo';
+    font-family: 'Noto Sans KR', sans-serif;
     text-align: center;
   }
   .fixed-container {

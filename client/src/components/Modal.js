@@ -34,7 +34,7 @@ export const ModalView = styled.div`
     font-size: .85rem;
     ${media.tabletMini`font-size: .9rem;`}
     ${media.tablet`font-size: 1rem;`}
-    font-family: Arial;
+    /* font-family: Arial; */
   }
 `;
 
@@ -48,7 +48,7 @@ export const LogOutButton = styled.button`
   font-size: .85rem;
   padding-top: .1rem;
   ${media.tabletMini`font-size: .9rem; width: 7rem;`}
-  font-family: 'Arial';
+  /* font-family: 'Arial'; */
   color: white;
   cursor: pointer;
   :hover {

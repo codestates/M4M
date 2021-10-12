@@ -97,7 +97,6 @@ const Wrapper = styled.div`
     border: solid 1px ${Colors.lightGray};
     border-left: none;
     border-right: none;
-    /* background-color: salmon; */
   }
   .select-all,
   .select-one {

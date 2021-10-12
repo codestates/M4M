@@ -20,7 +20,7 @@ const MainWrapper = styled.div`
   }
   .loading-container {
     padding-top: 2rem;
-    font-family: 'Arial';
+    /* font-family: 'Arial'; */
     width: 100%;
     justify-content: center;
     text-align: center;

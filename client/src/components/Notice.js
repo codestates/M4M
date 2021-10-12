@@ -37,7 +37,7 @@ export const NoticeView = styled.div`
 
 export const Message = styled.div`
   margin-top: ${props => props.topMargin};
-  font-family: 'Arial';
+  /* font-family: 'Arial'; */
   font-size: 1rem;
 `;
 
@@ -50,7 +50,7 @@ export const NoticeButton = styled.button`
   height: 1.7rem;
   font-size: .85rem;
   ${media.tabletMini`font-size: .9rem; width: 7rem;`}
-  font-family: 'Arial';
+  /* font-family: 'Arial'; */
   color: white;
   cursor: pointer;
   :hover {
@@ -66,7 +66,7 @@ export const NoticeClose = styled.button`
   width: 7rem;
   height: 1.7rem;
   font-size: 1rem;
-  font-family: 'Arial';
+  /* font-family: 'Arial'; */
   color: white;
   cursor: pointer;
   :hover {

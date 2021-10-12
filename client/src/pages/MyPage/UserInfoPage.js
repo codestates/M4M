@@ -27,10 +27,11 @@ const Wrapper = styled.div`
     ${media.tabletMini`max-width: 750px; margin: auto;`}
     ${media.tablet`margin: 1rem 5rem; width: 30rem;`} 
     ${media.laptop`margin: 1rem 7rem;`}
-    ${media.large`margin: 1rem auto;`}
+    /* ${media.large`margin: 1rem auto;`} */
+    ${media.large`margin: 1rem auto; width: 100%; padding-left: 3rem;`}
   }
   .greeting {
-    font-family: 'Arial';
+    /* font-family: 'Arial'; */
     text-align: center;
     font-size: 1.1rem;
     color: ${Colors.black};
@@ -41,7 +42,6 @@ const Wrapper = styled.div`
   .mypage-container {
     width: 17.5rem;
     margin: 1rem auto;
-    /* background-color: lime; */
     ${media.tablet`margin: 1rem 3rem;`}
     ${media.laptop`margin: 1rem 5rem;`}
   }
@@ -50,7 +50,7 @@ const Wrapper = styled.div`
     padding: .4rem .1rem;
     margin: .2rem;
     color: ${Colors.mediumGray};
-    font-family: 'Arial';
+    /* font-family: 'Arial'; */
     font-size: .8rem;
     ${media.tabletMini`font-size: .85rem; padding: .5rem .2rem;`}
   }
@@ -62,7 +62,7 @@ const Wrapper = styled.div`
     background-color: #f2f2f2;
     border: none;
     border-radius: 15px;
-    font-family: 'Arial';
+    /* font-family: 'Arial'; */
     font-size: .85rem;
     ${media.tabletMini`width: 17rem; margin: .2rem auto; font-size: .9rem;`}
   }
@@ -112,7 +112,7 @@ const MyPageField = styled.div`
   text-align: left;
   color: ${Colors.darkGray};
   font-size: .9rem;
-  font-family: 'Arial';
+  /* font-family: 'Arial'; */
   margin: .7rem 1rem .15rem;
   ${media.tabletMini`margin: .7rem auto .15rem;`}
 
@@ -123,7 +123,7 @@ const MyPageField = styled.div`
 
 const AlertMessage = styled.div`
   color: red;
-  font-family: 'Arial';
+  /* font-family: 'Arial'; */
   padding-left: .9rem;
 
   &:not(:last-of-type){

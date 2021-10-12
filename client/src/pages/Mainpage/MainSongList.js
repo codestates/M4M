@@ -20,7 +20,7 @@ const LoadingWrpper = styled.div`
   color: ${Colors.darkGray};
   font-size: 1.25rem;
   ${media.tablet`font-size: 1.65rem;`}
-  font-family: 'Arial';
+  /* font-family: 'Arial'; */
   padding: .5rem;
 `;
 const SongListWrapper = styled.div`
@@ -29,7 +29,7 @@ const SongListWrapper = styled.div`
   }
   .no-result {
     color: ${Colors.black};
-    font-family: 'Arial';
+    /* font-family: 'Arial'; */
     font-size: .9rem;
     padding-top: 2rem;
     width: 100%;
@@ -50,13 +50,11 @@ const SongListWrapper = styled.div`
     ${media.tablet`margin: 2rem auto .5rem;`}
     text-align: right;
     color: ${Colors.darkGray};
-    font-family: 'Arial';
+    /* font-family: 'Arial'; */
     font-size: 1.1rem;
     width: 95%;
     ${media.tabletMini`width: 98%;`}
-    /* ${media.laptop`width: 95%;`} */
     ${media.large`width: 95%;`}
-    /* ${media.large`max-width: 85vw; width: 85vw;`} */
   }
   .songlist {
     margin: 0 auto;
@@ -111,7 +109,7 @@ const SongListWrapper = styled.div`
 
   .field .grid-item {
     text-align: left;
-    font-family: 'Arial';
+    /* font-family: 'Arial'; */
     color: ${Colors.gray};
   }
   .grid-item {
@@ -170,7 +168,7 @@ const SongListWrapper = styled.div`
   }
   .info {
     width: 100%;
-    font-family: 'Arial';
+    /* font-family: 'Arial'; */
     font-size: .8rem;
     text-align: left;
     color: ${Colors.black};
@@ -203,7 +201,7 @@ const HashTag = styled.div`
   border-radius: 10px;
   background-color: ${props => props.backgroundColor};
   color: ${props => props.textColor};
-  font-family: 'Arial';
+  /* font-family: 'Arial'; */
   font-size: .7rem;
 `;
 
@@ -213,7 +211,7 @@ const YearContainer = styled.div`
   ${media.tablet`margin: 2rem auto .5rem;`}
   text-align: right;
   color: ${Colors.darkGray};
-  font-family: 'Arial';
+  /* font-family: 'Arial'; */
   font-size: 1.1rem;
   width: 95%;
   ${media.tabletMini`width: 98%;`}

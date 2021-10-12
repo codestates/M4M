@@ -42,7 +42,7 @@ const Wrapper = styled.div`
     padding-right: .5rem;
     text-align: left;
     font-size: .8rem;
-    font-family: 'Arial';
+    /* font-family: 'Arial'; */
     color: ${Colors.gray};
   }
   .date {
@@ -50,7 +50,7 @@ const Wrapper = styled.div`
     text-align: left;
     font-size: .8rem;
     margin-bottom: .62rem;
-    font-family: 'Arial';
+    /* font-family: 'Arial'; */
     color: ${Colors.gray};
   }
   .content {
@@ -59,7 +59,7 @@ const Wrapper = styled.div`
     padding: 0 0 .5rem;
     text-align: left;
     color: ${Colors.darkGray};
-    font-family: 'Arial';
+    /* font-family: 'Arial'; */
     font-size: .85rem;
   }
   .deleteButton {
@@ -71,7 +71,7 @@ const Wrapper = styled.div`
     transform: translate(-27%, -25%);
     ${media.tabletMini`-ms-transform: translate(0%, -25%); transform: translate(0%, -25%);`}
     text-align: right;
-    font-family: 'Arial';
+    /* font-family: 'Arial'; */
     font-size: .75rem;
     color: ${Colors.gray};
     background: transparent;
@@ -104,7 +104,7 @@ const Wrapper = styled.div`
     border-radius: 50%;
     color: ${Colors.darkGray};
     font-size: .9rem;
-    font-family: 'Arial';
+    /* font-family: 'Arial'; */
     font-size: .8rem;
   }
   li:hover {

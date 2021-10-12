@@ -22,8 +22,10 @@ const HeaderSearchbarWrapper = styled.div`
     ${media.tabletMini`width: 12rem; height: 1.5rem;`}
     ${media.tablet`width: 20rem; height: 1.9rem;`}
     ${media.laptop`width: 22rem;`}
+    ${media.large`width: 33rem;`}
     border: 1px solid ${Colors.mediumGray};
     border-radius: 15px;
+    /* background-color: yellow; */
   }
   .search-icon {
     width: 1.3rem;
@@ -35,11 +37,14 @@ const HeaderSearchbarWrapper = styled.div`
     border: none;
     width: 10rem;
     font-size: .7rem;
+    font-family: 'Noto Sans KR', sans-serif;
     ${media.tablet`width: 90%; font-size: .85rem;`}
+    ${media.large`width: 92%; font-size: .85rem;`}
     color: ${Colors.black};
     background-color: transparent;
   }
   .searchbar-dropbox {
+    font-family: 'Noto Sans KR', sans-serif;
     font-size: .75rem;
     margin-right: .3rem;
     ${media.tabletMini`font-size: .75rem; margin-right: .3rem; color: ${Colors.darkGray};`}
