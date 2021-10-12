@@ -25,7 +25,9 @@ const Wrapper = styled.div`
     margin: auto 5rem auto 0;
     padding-top: 2rem;
     ${media.tabletMini`max-width: 750px; margin: auto;`}
-    ${media.tablet`margin: 1rem 3rem; width: 30rem;`} 
+    ${media.tablet`margin: 1rem 5rem; width: 30rem;`} 
+    ${media.laptop`margin: 1rem 7rem;`}
+    ${media.large`margin: 1rem auto;`}
   }
   .greeting {
     font-family: 'Arial';
@@ -39,7 +41,6 @@ const Wrapper = styled.div`
   .mypage-container {
     width: 17.5rem;
     margin: 1rem auto;
-    /* background-color: lime; */
     ${media.tablet`margin: 1rem 3rem;`}
     ${media.laptop`margin: 1rem 5rem;`}
   }

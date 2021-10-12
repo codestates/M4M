@@ -35,6 +35,8 @@ const Wrapper = styled.div`
     ${media.tabletMini`padding-right: 0rem; width: 97%;`}
     ${media.tablet`padding-right: 2rem; margin: 0 0; max-width: 38rem;`}  
     ${media.tablet`max-width: 50rem;`}  
+    ${media.laptop`max-width: 80vw; width: 80vw;`}
+    ${media.large`max-width: 85vw;`}
   }
   .scrollable::-webkit-scrollbar {
     height: 10px;
@@ -59,6 +61,7 @@ const Wrapper = styled.div`
     justify-content: right;
     max-width: 58rem;
     text-align: right;
+    ${media.laptop`max-width: 78vw; width: 78vw;`}
   }
   button {
     margin-left: auto;
@@ -94,7 +97,6 @@ const Wrapper = styled.div`
     border: solid 1px ${Colors.lightGray};
     border-left: none;
     border-right: none;
-    /* background-color: salmon; */
   }
   .select-all,
   .select-one {
@@ -139,7 +141,6 @@ const Wrapper = styled.div`
     padding: .4rem .15rem;
     border-bottom: solid 1px ${Colors.lightGray};
     cursor: pointer;
-    /* background-color: lavender; */
   }
   .song-info-container > div:nth-child(-n+5) {
     margin-top: .3rem;
