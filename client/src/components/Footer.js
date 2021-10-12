@@ -19,7 +19,9 @@ const FooterWrapper = styled.div`
   .link-label, .link, .copyright {
     color: ${Colors.lightGray};
     min-width: 88px;
-    padding: 4px 12px;
+    padding: 4px 15px;
+    ${media.tablet`padding: 4px 15px;`}
+    ${media.laptop`padding: 4px 12px;`}
   }
   .link {
     cursor: pointer;
