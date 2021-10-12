@@ -22,9 +22,10 @@ const HeaderWrapper = styled.div`
     border-bottom: 1px solid rgba(150, 150, 150, 0.2);
     grid-template-areas: 'logo recommend search pages';
     grid-template-columns: 20% 27% 23% 30%;
-    ${media.tabletMini`grid-template-columns: 18% 27% 27% 28%;`}
-    ${media.tablet`grid-template-areas: 'logo logo search pages'`}
+    ${media.tabletMini`grid-template-areas: 'logo logo search pages'`}
+    ${media.tabletMini`grid-template-columns: 15% 15% 40% 30%;`}
     ${media.tablet`grid-template-columns: 15% 15% 50% 20%;`}
+
     /* background-color: lavenderblush;
     ${media.tabletMini`background-color: lavender;`}
     ${media.tablet`background-color: orchid;`}
@@ -36,6 +37,7 @@ const HeaderWrapper = styled.div`
     text-align: left;
     width: 100%;
     padding-left: .5rem;
+    max-width: 8rem;
     ${media.tabletMini`padding-left: 1rem;`}
     ${media.tablet`width: 8rem; padding-left: 1.2rem;`}
     ${media.tablet`width: 7rem; padding-left: 1.2rem;`}
@@ -44,6 +46,9 @@ const HeaderWrapper = styled.div`
   .header-container-2 {
     grid-area: recommend;
     width: 100%;
+    max-width: 10rem;
+    margin-left: 0rem;
+    ${media.tabletMini`grid-area: logo; margin-left: 7.2rem; width: 6rem; margin-top: -.2rem;`}
     ${media.tablet`grid-area: logo; margin-left: 8rem; width: 6rem; margin-top: -.2rem;`}
     text-align: left;
     /* background-color: lavender; */
@@ -52,11 +57,11 @@ const HeaderWrapper = styled.div`
     grid-area: search;
     text-align: right;
     padding-top: .4rem;
-    width: 100%;
     justify-self: end;
     text-align: right;
+    ${media.tabletMini`width: 5rem`}
     ${media.tabletMini`padding-top: .2rem; margin-top: .1rem;`}
-    ${media.tablet`text-align: center; padding-top: .1rem;`}
+    ${media.tablet`text-align: center; padding-top: .1rem; width: 100%;`}
     /* background-color: yellow; */
   }
   .header-container-4 {
@@ -64,8 +69,9 @@ const HeaderWrapper = styled.div`
     justify-self: end;
     width: 100%;
     padding-right: 0;
-    ${media.tabletMini`padding-right: 0;`}
-    ${media.tablet`width: 11rem; padding-right: 1rem; margin-top: -.2rem;`}
+    margin-top: -.2rem;
+    /* ${media.tabletMini`width: margin-right: 1rem`} */
+    ${media.tablet`width: 11rem; padding-right: 1rem; width: 100%;`}
     /* background-color: lavenderblush; */
   }
   a {

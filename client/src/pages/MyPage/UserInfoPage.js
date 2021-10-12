@@ -27,7 +27,7 @@ const Wrapper = styled.div`
     ${media.tablet`margin: 1rem 5rem; width: 30rem;`} 
     ${media.laptop`margin: .8rem 7rem;`}
     ${media.large`margin: .8rem auto; width: 100%; padding-left: 3rem;`}
-    background-color: yellow;
+    /* background-color: yellow; */
   }
   .greeting {
     /* font-family: 'Arial'; */
