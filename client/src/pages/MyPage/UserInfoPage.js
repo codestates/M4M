@@ -15,10 +15,9 @@ const Wrapper = styled.div`
   .main {
     display: inline-block;
     ${media.tablet`display: flex;`}
-    min-height: calc(100vh - 62.39px - 92px);
-    ${media.tabletMini`min-height: calc(100vh - 62.39px - 92px);`}
-    ${media.tablet`min-height: calc(100vh - 62.39px - 52px);`}
-    ${media.laptop`min-height: calc(100vh - 62.39px - 45px);`}
+    min-height: calc(100vh - 62.39px - 100px);
+    ${media.tablet`min-height: calc(100vh - 62.39px - 62px);`}
+    ${media.laptop`min-height: calc(100vh - 62.39px - 55px);`}
   }
   .container {
     width: 100%;

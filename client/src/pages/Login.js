@@ -112,8 +112,10 @@ export const KakaoButton = styled.div`
   width: 12.2rem;
   height: 2.5rem;
   margin: .6rem auto;
-  padding: .55rem .2rem .6rem 0;
+  padding: .3rem .2rem .3rem 0;
   ${media.tabletMini`padding: .7rem .2rem .7rem 0;`}
+  ${media.tabletMini`padding: .37rem .2rem .37rem 0;`}
+
   background-color: #fee500;
   border-radius: 7px;
   border: none;

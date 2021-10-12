@@ -18,14 +18,13 @@ const HeaderSearchbarWrapper = styled.div`
   }
   .searchbar-container {
     height: 1.5rem;
-    padding-top: .3rem;
+    padding-top: 0rem;
     ${media.tabletMini`width: 12rem; height: 1.5rem;`}
     ${media.tablet`width: 20rem; height: 1.9rem;`}
     ${media.laptop`width: 22rem;`}
     ${media.large`width: 33rem;`}
     border: 1px solid ${Colors.mediumGray};
     border-radius: 15px;
-    /* background-color: yellow; */
   }
   .search-icon {
     width: 1.3rem;
