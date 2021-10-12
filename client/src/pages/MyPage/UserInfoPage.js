@@ -25,9 +25,9 @@ const Wrapper = styled.div`
     padding-top: 2rem;
     ${media.tabletMini`max-width: 750px; margin: auto;`}
     ${media.tablet`margin: 1rem 5rem; width: 30rem;`} 
-    ${media.laptop`margin: 1rem 7rem;`}
-    /* ${media.large`margin: 1rem auto;`} */
-    ${media.large`margin: 1rem auto; width: 100%; padding-left: 3rem;`}
+    ${media.laptop`margin: .8rem 7rem;`}
+    ${media.large`margin: .8rem auto; width: 100%; padding-left: 3rem;`}
+    background-color: yellow;
   }
   .greeting {
     /* font-family: 'Arial'; */

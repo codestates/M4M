@@ -19,8 +19,9 @@ const HeaderSearchbarWrapper = styled.div`
   .searchbar-container {
     height: 1.5rem;
     padding-top: 0rem;
+    display: none;
     ${media.tabletMini`width: 12rem; height: 1.5rem;`}
-    ${media.tablet`width: 20rem; height: 1.9rem;`}
+    ${media.tablet`display: block; width: 20rem; height: 1.9rem;`}
     ${media.laptop`width: 22rem;`}
     ${media.large`width: 33rem;`}
     border: 1px solid ${Colors.mediumGray};
@@ -37,7 +38,8 @@ const HeaderSearchbarWrapper = styled.div`
     width: 10rem;
     font-size: .7rem;
     font-family: 'Noto Sans KR', sans-serif;
-    ${media.tablet`width: 90%; font-size: .85rem;`}
+    padding-top: .2rem;
+    ${media.tablet`width: 88%; font-size: .85rem;`}
     ${media.large`width: 92%; font-size: .85rem;`}
     color: ${Colors.black};
     background-color: transparent;
