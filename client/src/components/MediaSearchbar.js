@@ -17,7 +17,7 @@ const MediaSearchbarWrapper = styled.div`
     align-items: center;
     width: 100vw;
     height: 50px;
-    ${media.tabletMini`height: 52px;`}
+    ${media.tabletMini`height: 54px;`}
     background-color: white;
     padding-top: .1rem;
     /* opacity: 0.8; */

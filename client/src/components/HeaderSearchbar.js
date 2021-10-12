@@ -18,10 +18,12 @@ const HeaderSearchbarWrapper = styled.div`
   }
   .searchbar-container {
     height: 1.5rem;
-    padding-top: .3rem;
+    padding-top: 0rem;
+    display: none;
     ${media.tabletMini`width: 12rem; height: 1.5rem;`}
-    ${media.tablet`width: 20rem; height: 1.9rem;`}
+    ${media.tablet`display: block; width: 20rem; height: 1.9rem;`}
     ${media.laptop`width: 22rem;`}
+    ${media.large`width: 33rem;`}
     border: 1px solid ${Colors.mediumGray};
     border-radius: 15px;
   }
@@ -35,11 +37,15 @@ const HeaderSearchbarWrapper = styled.div`
     border: none;
     width: 10rem;
     font-size: .7rem;
-    ${media.tablet`width: 90%; font-size: .85rem;`}
+    font-family: 'Noto Sans KR', sans-serif;
+    padding-top: .2rem;
+    ${media.tablet`width: 88%; font-size: .85rem;`}
+    ${media.large`width: 92%; font-size: .85rem;`}
     color: ${Colors.black};
     background-color: transparent;
   }
   .searchbar-dropbox {
+    font-family: 'Noto Sans KR', sans-serif;
     font-size: .75rem;
     margin-right: .3rem;
     ${media.tabletMini`font-size: .75rem; margin-right: .3rem; color: ${Colors.darkGray};`}
@@ -70,9 +76,6 @@ const HeaderSearchbarWrapper = styled.div`
   }
   .search-icon-active {
     width: 1.5rem;
-  }
-  .display-none {
-    display: none;
   }
 `;
 

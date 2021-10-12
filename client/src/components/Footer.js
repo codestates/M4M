@@ -9,7 +9,7 @@ const FooterWrapper = styled.div`
     padding: 12px 0px;
     background-color: ${Colors.darkGray};
     width: 100vw;
-    font-family: 'Arial';
+    /* font-family: 'Arial'; */
     ${media.tablet`padding: 4px 12px;`}
   }
   .sub-container {
@@ -18,7 +18,7 @@ const FooterWrapper = styled.div`
   }
   .link-label, .link, .copyright {
     color: ${Colors.lightGray};
-    min-width: 86px;
+    min-width: 88px;
     padding: 4px 12px;
   }
   .link {

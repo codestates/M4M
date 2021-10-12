@@ -73,7 +73,7 @@ export const SignupInput = styled.input`
 export const SignupButton = styled.button`
   margin: 0 .4rem .1rem .4rem;
   cursor: pointer;
-  font-family: 'Arial';
+  /* font-family: 'Arial'; */
   font-size: .9rem;
   background-color: ${Colors.pastelPurple};
   width: 11.5rem;
@@ -89,14 +89,14 @@ export const SignupButton = styled.button`
 export const Alertbox = styled.div`
   color: red;
   margin-top: .5rem;
-  font-family: 'Arial';
+  /* font-family: 'Arial'; */
   font-size: .85rem;
 `;
 
 export const CheckInfo = styled.div`
   color: red;
   font-size: 11px;
-  font-family: 'Arial';
+  /* font-family: 'Arial'; */
   opacity: .7;
 `;
 
@@ -123,7 +123,7 @@ export const Select = styled.select`
 export const VerifyButton = styled.button`
   margin: 0 .4rem .1rem .4rem;
   cursor: pointer;
-  font-family: 'Arial';
+  /* font-family: 'Arial'; */
   font-size: 14px;
   background-color: ${Colors.pastelPurple};
   background-color: transparent;

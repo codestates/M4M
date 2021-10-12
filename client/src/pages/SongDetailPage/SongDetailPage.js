@@ -20,7 +20,7 @@ const Wrapper = styled.div`
   .main {
     display: flex;
     min-height: calc(100vh - 41px - 56px);
-    font-family: 'Arial';
+    /* font-family: 'Arial'; */
   }
   .loading-container {
     margin: 0 1rem;
@@ -60,7 +60,7 @@ const Wrapper = styled.div`
   }
   .title {
     margin: .3rem .15rem;
-    font-family: 'Arial';
+    /* font-family: 'Arial'; */
     font-size: .9rem;
     ${media.tabletMini`font-size: 1rem; padding-top: .2rem;`}
     ${media.tablet`font-size: 1.1rem;`}
@@ -69,7 +69,7 @@ const Wrapper = styled.div`
   .artist {
     margin-bottom: .5rem;
     margin-left: .3rem;
-    font-family: 'Arial';
+    /* font-family: 'Arial'; */
     font-size: .82rem;
     ${media.tabletMini`font-size: .87rem;`}
     ${media.tablet`font-size: .9rem;`}
@@ -91,7 +91,7 @@ const Wrapper = styled.div`
   .field {
     width: 4.3rem;
     text-align: left;
-    font-family: 'Arial';
+    /* font-family: 'Arial'; */
   }
   .lyrics-container > .field {
     margin-bottom: .8rem;
@@ -100,7 +100,7 @@ const Wrapper = styled.div`
   }
   .others {
     text-align: left;
-    font-family: 'Arial';
+    /* font-family: 'Arial'; */
     color: ${Colors.darkGray};
   }
   .bottom-container {
@@ -113,7 +113,7 @@ const Wrapper = styled.div`
   }
   .lyrics {
     text-align: left;
-    font-family: 'Arial';
+    /* font-family: 'Arial'; */
     font-size: .82rem;
     ${media.tabletMini`font-size: .87rem;`}
     line-height: 1.45rem;
@@ -129,7 +129,7 @@ const Wrapper = styled.div`
     background-color: transparent;
     border: none;
     line-height: 1rem;
-    font-family: 'Arial';
+    /* font-family: 'Arial'; */
     font-size: .7rem;
     ${media.tabletMini`font-size: .75rem;`}
     color: ${Colors.gray};

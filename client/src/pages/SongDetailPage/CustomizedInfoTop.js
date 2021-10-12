@@ -20,7 +20,7 @@ const Wrapper = styled.div`
     margin: 1rem auto .5rem;
     color: ${Colors.gray};
     text-align: center;
-    font-family: 'Arial';
+    /* font-family: 'Arial'; */
     font-size: .8rem;
     width: fit-content;
     border-bottom: solid 1px ${Colors.borderColor};
@@ -30,7 +30,7 @@ const Wrapper = styled.div`
   }
   .content {
     text-align: center;
-    font-family: 'Arial';
+    /* font-family: 'Arial'; */
     color: ${Colors.darkGray};
   }
 `;

@@ -14,6 +14,7 @@ import { useHistory } from 'react-router';
 import { useEffect, useState } from 'react';
 
 const LandingWrapper = styled.div`
+  font-family: 'NeoDunggeunmo';
   .landing {
     min-height: calc(100vh - 41px - 56px);
     display: flex;

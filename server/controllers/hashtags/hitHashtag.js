@@ -9,7 +9,7 @@ module.exports = async (req, res) => {
 
     // 로그인 된 유저인지 확인
     if (!accessTokenData) {
-      return res.status(401).json({ message: 'You\'re not logged in' });
+      return res.status(401).json({ message: "You're not logged in" });
     } else {
       const songId = await song.findOne({
         where: {

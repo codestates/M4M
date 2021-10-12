@@ -16,7 +16,7 @@ const Wrapper = styled.div`
     ${media.tabletMini`min-width: 470px; max-width: 750px;`}
     ${media.tablet`width: 41.7rem; max-width: 1024px;`}
     text-align: left;
-    font-family: 'Arial';
+    /* font-family: 'Arial'; */
     font-size: .9rem;
     color: ${Colors.darkGray};
   }

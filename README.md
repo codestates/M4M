@@ -83,7 +83,7 @@
 
 **Sign Up**
 
-<img src = "https://user-images.githubusercontent.com/29108753/136321201-8dbe176e-291c-4071-87eb-8a35c86ad4a6.gif" width="650px">
+<img src = "https://user-images.githubusercontent.com/29108753/136779415-977b5b96-b575-4073-8f0c-d3d86e695738.gif" width="650px">
 
 **Kakao Login**
 

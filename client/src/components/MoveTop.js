@@ -3,6 +3,7 @@ import { media } from '../components/utils/_media-queries';
 import { useState, useEffect } from 'react';
 
 const MoveTopWrapper = styled.div`
+  font-family: 'NeoDunggeunmo';
   .init {
     display: none;
   }
