@@ -37,10 +37,9 @@ const GlobalStyle = createGlobalStyle`
     padding-top: 1.5rem;
     max-width: 515px;
     min-width: 259px;    
-    min-height: calc(100vh - 62.39px - 92px);
-    ${media.tabletMini`min-height: calc(100vh - 62.39px - 92px);`}
-    ${media.tablet`min-height: calc(100vh - 62.39px - 52px);`}
-    ${media.laptop`min-height: calc(100vh - 62.39px - 45px);`}
+    min-height: calc(100vh - 62.39px - 100px);
+    ${media.tablet`min-height: calc(100vh - 62.39px - 62px);`}
+    ${media.laptop`min-height: calc(100vh - 62.39px - 55px);`}
     margin: 0 auto;
   }
 `;

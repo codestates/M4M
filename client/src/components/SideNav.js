@@ -70,7 +70,7 @@ const SideNavWrapper = styled.div`
 const Item = styled.div`
   margin: 0px 12px 14px;
   padding: 8px 20px 0;
-  font-family: 'Arial';
+  /* font-family: 'Arial'; */
   color: ${Colors.darkGray};
   cursor: pointer;
   font-size: 1.05rem;
@@ -94,7 +94,7 @@ const SubItem = styled.div`
   left: 30px;
   margin: 0px 18px;
   padding: 8px 12px;
-  font-family: 'Arial';
+  /* font-family: 'Arial'; */
   font-size: .9rem;
   color: ${Colors.darkGray};
   cursor: pointer;

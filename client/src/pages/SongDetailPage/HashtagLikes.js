@@ -26,7 +26,7 @@ const HashTag = styled.div`
   border-radius: 10px;
   background-color: ${(props) => props.backgroundColor};
   color: ${(props) => props.textColor};
-  font-family: 'Arial';
+  /* font-family: 'Arial'; */
   font-size: .6rem;
   ${media.tabletMini`font-size: .7rem;`}
   ${media.tablet`font-size: .7rem;`}
@@ -44,7 +44,7 @@ const Like = styled.div`
   text-align: left;
   line-height: 1.5rem;
   color: ${Colors.darkGray};
-  font-family: 'Arial';
+  /* font-family: 'Arial'; */
   font-size: .8rem;
   ${media.tabletMini`font-size: .9rem;`}
   ${media.tablet`font-size: .9rem;`}

@@ -20,11 +20,13 @@ import Notice from './components/Notice';
 import MediaSearchbar from './components/MediaSearchbar';
 
 const AppWrapper = styled.div`
-  * {
+  *, *:before, *:after {
     box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
   }
   .App {
-    font-family: 'NeoDunggeunmo';
+    font-family: 'Noto Sans KR', sans-serif;
     text-align: center;
   }
   .fixed-container {

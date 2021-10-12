@@ -20,7 +20,7 @@ const LoadingWrpper = styled.div`
   color: ${Colors.darkGray};
   font-size: 1.25rem;
   ${media.tablet`font-size: 1.65rem;`}
-  font-family: 'Arial';
+  /* font-family: 'Arial'; */
   padding: .5rem;
 `;
 const SongListWrapper = styled.div`
@@ -29,7 +29,7 @@ const SongListWrapper = styled.div`
   }
   .no-result {
     color: ${Colors.black};
-    font-family: 'Arial';
+    /* font-family: 'Arial'; */
     font-size: .9rem;
     padding-top: 2rem;
     width: 100%;
@@ -50,10 +50,11 @@ const SongListWrapper = styled.div`
     ${media.tablet`margin: 2rem auto .5rem;`}
     text-align: right;
     color: ${Colors.darkGray};
-    font-family: 'Arial';
+    /* font-family: 'Arial'; */
     font-size: 1.1rem;
     width: 95%;
     ${media.tabletMini`width: 98%;`}
+    ${media.large`width: 95%;`}
   }
   .songlist {
     margin: 0 auto;
@@ -61,6 +62,10 @@ const SongListWrapper = styled.div`
     max-width: 60rem;
     ${media.tabletMini`padding-right: 0rem; width: 100%;`}
     ${media.tablet`padding-right: 2rem;`}   
+    ${media.tablet`width: 41rem;`}
+    ${media.tablet`max-width: 76vw; width: 76vw; padding-left: 0rem;`}
+    ${media.laptop`max-width: 80vw; width: 80vw;`}
+    ${media.large`max-width: 85vw; width: 85vw;`}
   }
   .scrollable::-webkit-scrollbar {
     height: 10px;
@@ -98,13 +103,13 @@ const SongListWrapper = styled.div`
     border-left: none;
     border-right: none;
     ${media.tabletMini`width: 98%;`}
-    ${media.tablet`width: 36rem;`}
-    ${media.laptop`width: 50rem;`}
+    ${media.tablet`width: 37rem;`}
+    ${media.tablet`max-width: 80vw; width: 80vw;`}
   }
 
   .field .grid-item {
     text-align: left;
-    font-family: 'Arial';
+    /* font-family: 'Arial'; */
     color: ${Colors.gray};
   }
   .grid-item {
@@ -129,8 +134,11 @@ const SongListWrapper = styled.div`
   }
   .song-container {
     display: flex;
+    margin: 0 auto;
     justify-content: center;
     align-items: center;
+    margin-bottom: -5px;
+    width: 100%;
   }
   .song-info-container {
     display: grid;
@@ -143,8 +151,7 @@ const SongListWrapper = styled.div`
     border-bottom: solid 1px ${Colors.lightGray};
     cursor: pointer;
     ${media.tabletMini`width: 98%;`}
-    ${media.tablet`width: 36rem;`}
-    ${media.laptop`width: 50rem;`}
+    ${media.tablet`max-width: 80vw; width: 80vw;`}
   }
   .song-info-container > div:nth-child(-n+5) {
     margin-top: .3rem;
@@ -161,7 +168,7 @@ const SongListWrapper = styled.div`
   }
   .info {
     width: 100%;
-    font-family: 'Arial';
+    /* font-family: 'Arial'; */
     font-size: .8rem;
     text-align: left;
     color: ${Colors.black};
@@ -194,7 +201,7 @@ const HashTag = styled.div`
   border-radius: 10px;
   background-color: ${props => props.backgroundColor};
   color: ${props => props.textColor};
-  font-family: 'Arial';
+  /* font-family: 'Arial'; */
   font-size: .7rem;
 `;
 
@@ -204,7 +211,7 @@ const YearContainer = styled.div`
   ${media.tablet`margin: 2rem auto .5rem;`}
   text-align: right;
   color: ${Colors.darkGray};
-  font-family: 'Arial';
+  /* font-family: 'Arial'; */
   font-size: 1.1rem;
   width: 95%;
   ${media.tabletMini`width: 98%;`}

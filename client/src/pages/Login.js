@@ -46,7 +46,7 @@ export const LoginView = styled.div`
   .signup {
     font-size: .85rem;
     margin: .9rem .4rem 0 0;
-    font-family: 'Arial';
+    /* font-family: 'Arial'; */
     color: ${Colors.gray};
   }
 `;
@@ -86,7 +86,7 @@ export const LoginInput = styled.input`
 
 export const Alertbox = styled.div`
   color: red;
-  font-family: 'Arial';
+  /* font-family: 'Arial'; */
   font-size: .9rem;
   margin-top: .8rem;
 `;
@@ -94,7 +94,7 @@ export const Alertbox = styled.div`
 export const LoginButton = styled.button`
   margin: .2rem .4rem 0;
   cursor: pointer;
-  font-family: 'Arial';
+  /* font-family: 'Arial'; */
   font-size: .9rem;
   ${media.tablet`font-size: .9rem;`}
   background-color: ${Colors.pastelPurple};
@@ -112,8 +112,10 @@ export const KakaoButton = styled.div`
   width: 12.2rem;
   height: 2.5rem;
   margin: .6rem auto;
-  padding: .55rem .2rem .6rem 0;
+  padding: .3rem .2rem .3rem 0;
   ${media.tabletMini`padding: .7rem .2rem .7rem 0;`}
+  ${media.tabletMini`padding: .37rem .2rem .37rem 0;`}
+
   background-color: #fee500;
   border-radius: 7px;
   border: none;
@@ -133,7 +135,7 @@ export const KakaoContent = styled.div`
   display: inline-block;
   vertical-align: middle;
   margin: auto 1.8rem auto 0;
-  font-family: 'Arial';
+  /* font-family: 'Arial'; */
   font-size: .9rem;
   ${media.tablet`font-size: .9rem;`}
   color: #000000 85%;
@@ -143,7 +145,7 @@ export const SignupSpan = styled.span`
   font-size: .85rem;
   color: ${Colors.purple};
   cursor: pointer;
-  font-family: 'Arial';
+  /* font-family: 'Arial'; */
   :hover {
     color: #7b3cd6;
   }
